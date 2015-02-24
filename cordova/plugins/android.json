@@ -1,0 +1,22 @@
+{
+    "prepare_queue": {
+        "installed": [
+            {
+                "plugin": "com.wikitude.phonegap.WikitudePlugin",
+                "vars": {},
+                "topLevel": true
+            },
+            {
+                "plugin": "org.apache.cordova.network-information",
+                "vars": {},
+                "topLevel": true
+            }
+        ],
+        "uninstalled": []
+    },
+    "config_munge": {
+        "files": {}
+    },
+    "installed_plugins": {},
+    "dependent_plugins": {}
+}
