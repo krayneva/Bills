@@ -1,8 +1,16 @@
 @media all and (orientation:landscape) {
  /* стили для пейзажа */
+ *:not(input):not(textarea){
+ -webkit-user-select:none;
+ -webkit-touch-callout:none;
+ }
 }
 @media all and (orientation:portrait) {
  /* стили для портрета */
+  *:not(input):not(textarea){
+ -webkit-user-select:none;
+ -webkit-touch-callout:none;
+ }
 }
 @media (max-width: 400px) { 
   body{ 
