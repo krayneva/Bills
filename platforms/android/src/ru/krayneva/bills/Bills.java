@@ -17,18 +17,38 @@
        under the License.
  */
 
-package ru.krayneva.bills;
+package ru.krayneva.bills; 
 
+import java.io.File;  
+import java.net.URI;
+
+import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
+import android.widget.Toast; 
+
+
 import org.apache.cordova.*;
 
-public class Bills extends CordovaActivity
+import com.appblade.framework.AppBlade;
+
+
+
+
+public class Bills extends CordovaActivity 
 {
     @Override
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);  
         // Set by <content src="index.html" /> in config.xml
-        loadUrl(launchUrl);     
+        loadUrl(launchUrl);  
+    }
+
+
+    @Override
+    protected void onStop() {
+    	super.onStop();
+
     }
 }   

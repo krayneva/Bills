@@ -4,7 +4,9 @@ int drawable angle_right_bottom 0x7f020002
 int drawable angle_right_top 0x7f020003
 int drawable border_bottom_right 0x7f020004
 int drawable icon 0x7f020005
-int drawable screen 0x7f020006
+int drawable logo 0x7f020006
+int drawable logo_scaled 0x7f020007
+int drawable screen 0x7f020008
 int string activity_name 0x7f040002
 int string app_name 0x7f040000
 int string launcher_name 0x7f040001

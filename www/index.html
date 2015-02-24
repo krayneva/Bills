@@ -179,15 +179,42 @@
         
         
         <div id="pageAuth" width = "100%" height = "100%" style="display: none;" >
-		<div role="main" class="ui-content" align="center" >
+		<!-- <div role="main" class="ui-content" align="center" >
 			<label for="login">Логин</label> <input type="text" name="login"
 				id="login"  /> <br> <label for="password">Пароль</label>
 			<input type="password" name="password" id="password" /> <br>
 			<button onclick="getUserToken( document.getElementById('login').value,  document.getElementById('password').value);">Войти</button>
-		</div>
-		<!-- /content -->
+		</div> -->
+ <div class="backgroundImg2"> </div>
+        <div class="login">
+            <div class="login_ico">
+                <img src="img/login.png"/>
+            </div>
+            <div class="login_welcome">
+                <span>Добро пожаловать в</span></br>
+                <img src="img/welcome.png"/>
+            </div>
+            <div class="login_menu">
+                <img src="img/ico_0.png"/>
+            </div>
+            <div class="login_information">
+                <label>Логин</label>
+                <input type="text" name="login" id="login" />
+                <label>Пароль</label>
+                <input type="password" name="password" id="password" />
+            </div>
+            <div class="login_social">
+                <span>Вход через соцсети</span></br>
+                <img src="img/facebook.png"/>
+                <img src="img/blogger.png"/>
+                <img src="img/twitter.png"/>
+            </div>
+            <div class="login_button">Регистрация</div>
+            <br>
+             <div class="login_button"  onclick="getUserToken( document.getElementById('login').value,  document.getElementById('password').value);">Войти</div>
+        </div>
 	</div>
-	<!-- ÍÓÌÂˆ ÒÚ‡ÌËˆ‡ ‡‚ÚÓËÁ‡ˆËˇ -->
+
 
 
 
@@ -233,7 +260,7 @@
 			id="capturebutton" onclick="captureCustomPhoto();" /> <img
 			src="img/cameraoverlay/send.png" width="50" height="50"
 			id="uploadbutton" onclick="uploadPhoto();" />
-            <button onclick="showMainPage()">Назад</button>
+			 <button onclick="showMainPage()">Назад</button>
 	</div>
 
 	<!-- ÍÓÌÂˆ ÒÚ‡ÌËˆ‡ ÒÔËÒÓÍ Ò˜ÂÚÓ‚ -->

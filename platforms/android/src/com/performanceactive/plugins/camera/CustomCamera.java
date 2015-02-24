@@ -36,7 +36,7 @@ public class CustomCamera extends CordovaPlugin {
 	    intent.putExtra(QUALITY, args.getInt(1)); 
 	    intent.putExtra(TARGET_WIDTH, args.getInt(2));  
 	    intent.putExtra(TARGET_HEIGHT, args.getInt(3));
-	    intent.putExtra(COLOR_MODE, args.getInt(4));
+	    intent.putExtra(COLOR_MODE, args.getInt(3));
 	    cordova.startActivityForResult(this, intent, 0);
         return true;
     }

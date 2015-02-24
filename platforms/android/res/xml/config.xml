@@ -1,6 +1,12 @@
 <?xml version='1.0' encoding='utf-8'?>
 <widget id="ru.krayneva.bills" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <preference name="loglevel" value="DEBUG" />
+    <feature name="CustomCamera">
+        <param name="android-package" value="com.performanceactive.plugins.camera.CustomCamera" />
+    </feature>
+    <feature name="Camera">
+        <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
+    </feature>
     <feature name="File">
         <param name="android-package" value="org.apache.cordova.file.FileUtils" />
         <param name="onload" value="true" />
@@ -8,14 +14,11 @@
     <feature name="FileTransfer">
         <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
     </feature>
-    <feature name="Camera">
-        <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
-    </feature>
-    <feature name="CustomCamera">
-        <param name="android-package" value="com.performanceactive.plugins.camera.CustomCamera" />
-    </feature>
     <feature name="NetworkStatus">
         <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager" />
+    </feature>
+    <feature name="AppBlade">
+        <param name="android-package" value="ru.krayneva.bills.AppBladePlugin" />
     </feature>
     <name>Bills</name>
     <description>
@@ -59,6 +62,7 @@
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="org.apache.cordova.vibration" />
     <gap:plugin name="com.performanceactive.plugins.camera" />
+    <gap:plugin name="com.appblade.cordova.plugin" />
     <icon src="icon.png" />
     <icon gap:platform="android" gap:qualifier="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />
     <icon gap:platform="android" gap:qualifier="mdpi" src="www/res/icon/android/icon-48-mdpi.png" />
@@ -85,4 +89,7 @@
     <gap:splash gap:platform="ios" height="768" src="www/res/screen/ios/screen-ipad-landscape.png" width="1024" />
     <gap:splash gap:platform="winphone" src="www/res/screen/windows-phone/screen-portrait.jpg" />
     <access origin="*" />
+    <plugins>
+        <plugin name="AppBlade" value="ru.krayneva.bills.AppBladePlugin" />
+    </plugins>
 </widget>

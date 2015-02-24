@@ -70,7 +70,19 @@ D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\org\apach
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\org\apache\cordova\filetransfer\FileUploadResult.class \
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\org\apache\cordova\networkinformation\NetworkManager$1.class \
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\org\apache\cordova\networkinformation\NetworkManager.class \
+D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\ru\krayneva\bills\AppBladePlugin$1.class \
+D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\ru\krayneva\bills\AppBladePlugin$10.class \
+D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\ru\krayneva\bills\AppBladePlugin$2.class \
+D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\ru\krayneva\bills\AppBladePlugin$3.class \
+D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\ru\krayneva\bills\AppBladePlugin$4.class \
+D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\ru\krayneva\bills\AppBladePlugin$5.class \
+D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\ru\krayneva\bills\AppBladePlugin$6.class \
+D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\ru\krayneva\bills\AppBladePlugin$7.class \
+D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\ru\krayneva\bills\AppBladePlugin$8.class \
+D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\ru\krayneva\bills\AppBladePlugin$9.class \
+D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\ru\krayneva\bills\AppBladePlugin.class \
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\ru\krayneva\bills\Bills.class \
+D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\ru\krayneva\bills\BillsApplication.class \
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\ru\krayneva\bills\BuildConfig.class \
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\ru\krayneva\bills\R$attr.class \
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\ru\krayneva\bills\R$drawable.class \
@@ -78,3 +90,5 @@ D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\ru\krayne
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\ru\krayneva\bills\R$xml.class \
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\ru\krayneva\bills\R.class \
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\dexedLibs\classes-fc30537a521b588b96bffb36fbef7318.jar \
+D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\dexedLibs\appblade-0.9.7-a7b6ca2713c33b89122523df4dec2560.jar \
+D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\dexedLibs\httpmime-4.1.2-09453966832714707fc2837f90a166b2.jar \

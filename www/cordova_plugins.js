@@ -195,6 +195,8 @@ module.exports = [
             "navigator.customCamera"
         ]
     }
+    
+   
 ];
 module.exports.metadata = 
 // TOP OF METADATA
@@ -202,7 +204,8 @@ module.exports.metadata =
     "org.apache.cordova.file": "1.3.1",
     "org.apache.cordova.file-transfer": "0.4.7",
     "org.apache.cordova.camera": "0.3.3",
-    "com.performanceactive.plugins.camera": "1.4"
-}
+    "com.performanceactive.plugins.camera": "1.4",
+      
+   }
 // BOTTOM OF METADATA
 });

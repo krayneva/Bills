@@ -3,15 +3,18 @@ package com.performanceactive.plugins.camera;
 
 import android.annotation.SuppressLint;
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
+import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
+import android.graphics.DrawFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Picture;
@@ -19,10 +22,15 @@ import android.graphics.Point;
 import android.hardware.Camera;
 import android.hardware.Camera.AutoFocusCallback;
 import android.hardware.Camera.PictureCallback;
+import android.hardware.Camera.Size;
+import android.location.Location;
+import android.location.LocationManager;
+import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.os.Environment;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -90,6 +98,7 @@ public class CustomCameraActivity extends Activity {
     private boolean flashEnabled = false;
     private Resources resources;
     
+    private CustomCameraPreview customCameraPreview;
     private static final int MARGIN_BIG = 100;
     private static final int MARGIN_MEDIUM = 50;
     private static final int MARGIN_SMALL = 50;
@@ -101,6 +110,7 @@ public class CustomCameraActivity extends Activity {
     
     private ArrayList<String> bitmaps= new ArrayList<String>();
     private Bitmap previousBitmap;
+    double latitude, longitude;  
     
     
     @Override
@@ -119,12 +129,15 @@ public class CustomCameraActivity extends Activity {
     private void configureCamera() { 
         Camera.Parameters cameraSettings = camera.getParameters();
     //    cameraSettings.setJpegQuality(100);
+
         cameraSettings.setJpegQuality( getIntent().getIntExtra(QUALITY, 80) );
         List<String> supportedFocusModes = cameraSettings.getSupportedFocusModes();
         if (supportedFocusModes.contains(FOCUS_MODE_CONTINUOUS_PICTURE)) {
             cameraSettings.setFocusMode(FOCUS_MODE_CONTINUOUS_PICTURE);
         } else if (supportedFocusModes.contains(FOCUS_MODE_AUTO)) {
             cameraSettings.setFocusMode(FOCUS_MODE_AUTO);
+            
+          
         }
         if (flashEnabled){
         	  cameraSettings.setFlashMode(android.hardware.Camera.Parameters.FLASH_MODE_ON);
@@ -132,13 +145,20 @@ public class CustomCameraActivity extends Activity {
         else{
         	  cameraSettings.setFlashMode(FLASH_MODE_OFF);
         }
-      
+        List <Size> sizes = cameraSettings.getSupportedPictureSizes();
+        Size maxSize = sizes.get(0);
+        for (Size s:sizes){
+        	if (maxSize.width<s.width)
+        		maxSize = s;
+        }
+        cameraSettings.setPictureSize(maxSize.width, maxSize.height);
         camera.setParameters(cameraSettings);
     }
 
     private void displayCameraPreview() {
         cameraPreviewView.removeAllViews();
-        cameraPreviewView.addView(new CustomCameraPreview(this, camera));
+        customCameraPreview = new CustomCameraPreview(this, camera);
+        cameraPreviewView.addView(customCameraPreview);
     }
 
     @Override
@@ -157,6 +177,8 @@ public class CustomCameraActivity extends Activity {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+       // String s = null;
+     //   s.concat("");
         resources = getResources();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -172,6 +194,25 @@ public class CustomCameraActivity extends Activity {
      //   createCaptureButton();
         createShadowLayer();
         setContentView(layout);
+        
+        LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
+        Location location = null;
+        boolean isGPSActive  = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
+      
+ 		if (!isGPSActive ) {
+ 			location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+ 			//Toast.makeText(this, ""+location.getLongitude(), Toast.LENGTH_LONG).show();
+ 			
+ 		}
+ 		else{
+ 			location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
+ 			Toast.makeText(this, ""+location.getLongitude(), Toast.LENGTH_LONG).show();
+         	
+ 		}
+ 		if (location!=null){
+	 		latitude = location.getLatitude();
+	 	 	longitude = location.getLongitude();
+ 		}
     }
 
     private void createCameraPreview() {
@@ -336,8 +377,10 @@ public class CustomCameraActivity extends Activity {
 			billText.setText("Фото чека");
 			recaptureButton.setVisibility(View.GONE);
 			sendButton.setVisibility(View.GONE);
+			previousImage.setVisibility(View.GONE);
 		}
 		else{
+			previousImage.setVisibility(View.VISIBLE);
 			billText.setText("Продолжение чека");
 			recaptureButton.setVisibility(View.VISIBLE);
 			sendButton.setVisibility(View.VISIBLE);
@@ -651,8 +694,7 @@ public class CustomCameraActivity extends Activity {
              // float scale= getResources().getDisplayMetrics().density;
                 Log.w("currentMarginTop",""+currentMarginTop);
                 Log.w("currentMarginBottom",""+currentMarginBottom);
-                Log.w("capturedImageHeight", ""+capturedImage.getHeight());
-                Log.w("capturedImageWidth", ""+capturedImage.getWidth());
+
                 Log.w("screenWidthInPixels()", ""+screenWidthInPixels());
                 Log.w("screenHeightInPixels()", ""+screenHeightInPixels());
                 Log.w("cameraImageWidth", ""+camera.getParameters().getPictureSize().width);
@@ -660,37 +702,80 @@ public class CustomCameraActivity extends Activity {
            
              
              
-             Log.w("scale", ""+scale);
+
                 jpegData = null;
                 capturedImage = correctCaptureImageOrientation(capturedImage);
-
-              
-              //  scaledMarginBottom = (int)(currentMarginBottom*scale);
-             //   scaledMarginTop = (int)(currentMarginTop*scale);
-                scaledMarginBottom = (int)(currentMarginBottom*scale);
-                scaledMarginTop = (int)(currentMarginTop*scale);
-                
-
-                // обрезаем битмапу
-                Bitmap croppedBitmap = Bitmap.createBitmap(capturedImage, scaledMarginTop , scaledMarginTop, capturedImage.getWidth()-2*scaledMarginTop, capturedImage.getHeight()-scaledMarginTop-scaledMarginBottom);
+                Log.w("capturedImageWidth", ""+capturedImage.getWidth());
+                Log.w("capturedImageHeight", ""+capturedImage.getHeight());
                
+                
+                float scaleHor = ((float)capturedImage.getWidth())/(float)screenWidthInPixels();
+                int impWidth = (int) (((float)(screenWidthInPixels()-(currentMarginTop*2)))*scaleHor);
+                int leftMarginCorrected = (capturedImage.getWidth()-impWidth)/2;
+ 
+                float scaleVer =  ((float)capturedImage.getHeight())/(float)screenHeightInPixels();
+
+                scaledMarginBottom = (int)(currentMarginBottom*scaleVer);
+                scaledMarginTop = (int)(currentMarginTop*scaleVer);
+
+                int impHeight = (int) ((screenHeightInPixels()-currentMarginBottom-currentMarginTop)*scaleVer);
+                int topMarginCorrected =  (int) ((capturedImage.getHeight()-impHeight)*((float)((float)scaledMarginTop/(float)(scaledMarginBottom+scaledMarginTop))));
+                
+                Log.w("left mergin corrected", ""+leftMarginCorrected);
+                Log.w("scale hor", ""+scaleHor);
+                Log.w("scale ver", ""+scaleVer);
+                Log.w("imp width", ""+impWidth);
+                Log.w("scaled margin top", ""+scaledMarginTop);
+                Log.w("scaled margin bottom", ""+scaledMarginBottom);
+                Log.w("imp height", ""+impHeight);
+                Log.w("top margin corrected", ""+topMarginCorrected);
+
+                
+                // обрезаем битмапу
+                Bitmap croppedBitmap = Bitmap.createBitmap(capturedImage, leftMarginCorrected , topMarginCorrected, impWidth,impHeight);
                 capturedImage.recycle();
                 System.gc();
                 // складываем ее в список
                 bitmaps.add(bitmaps.size()+filename); 
-                Log.w("DONE!!", "DONE");
-               
                 File file = new File(Environment.getExternalStorageDirectory(), bitmaps.get(bitmaps.size()-1));
                 FileOutputStream output = new FileOutputStream(file);
-                croppedBitmap.compress(CompressFormat.JPEG, quality, output );
+                
+                int targetWidth = getIntent().getIntExtra(TARGET_WIDTH, -1);
+                int targetHeight =-1;
+                if (targetWidth>0|targetHeight>0){
+
+	                // set missing width/height based on aspect ratio
+	               float aspectRatio = ((float)croppedBitmap.getHeight()) / croppedBitmap.getWidth();
+	                if (targetWidth > 0 && targetHeight <= 0) {
+	                    targetHeight = Math.round(targetWidth * aspectRatio);
+	                } else if (targetWidth <= 0 && targetHeight > 0) {
+	                    targetWidth = Math.round(targetHeight / aspectRatio);
+	                }
+
+	                
+	                Bitmap scaledBitmap = Bitmap.createScaledBitmap(croppedBitmap, targetWidth, targetHeight, true);
+	                
+	                croppedBitmap.recycle();
+	                croppedBitmap = null;
+              	  	scaledBitmap.compress(CompressFormat.JPEG, quality, output);
+
+              	  	scaledBitmap.recycle(); 
+              	  	scaledBitmap = null;
+                    System.gc(); 
+                }  
+                else{
+              	  	Canvas canvas = new Canvas();
+              	  	canvas.setDensity(200);
+              	  	int scaledHeight = croppedBitmap.getScaledHeight(canvas);
+                	  croppedBitmap.compress(CompressFormat.JPEG, quality, output );
+                	  croppedBitmap.recycle(); 
+                	  croppedBitmap = null;
+                      System.gc(); 
+
+                }
+              
                 output.close();
-          	    croppedBitmap.recycle(); 
-          	    croppedBitmap = null;
-                System.gc(); 
-              /*  Intent data = new Intent();
-                data.putExtra(IMAGE_URI, Uri.fromFile(capturedImageFile).toString());
-                setResult(RESULT_OK, data);
-                finish();*/
+              
             } catch (Exception e) {
             	e.printStackTrace();
                 finishWithError("Failed to save image");
@@ -727,7 +812,7 @@ public class CustomCameraActivity extends Activity {
 
     private Bitmap getScaledBitmap(byte[] jpegData) {
         int targetWidth = getIntent().getIntExtra(TARGET_WIDTH, -1);
-        int targetHeight = getIntent().getIntExtra(TARGET_HEIGHT, -1);
+        int targetHeight =-1;
        /* if (targetWidth <= 0 && targetHeight <= 0) {
             return BitmapFactory.decodeByteArray(jpegData, 0, jpegData.length);
         }
@@ -739,11 +824,10 @@ public class CustomCameraActivity extends Activity {
         BitmapFactory.Options options = new BitmapFactory.Options();
       //  options.inJustDecodeBounds = true;
       //  Bitmap b = BitmapFactory.decodeByteArray(jpegData, 0, jpegData.length, options);
-        
+
         // decode image as close to requested scale as possible
         options.inJustDecodeBounds = false;  
       //  options.inSampleSize = calculateInSampleSize(options, targetWidth, targetHeight);
-        
         Bitmap bitmap = BitmapFactory.decodeByteArray(jpegData, 0, jpegData.length, options);
         
         // set missing width/height based on aspect ratio
@@ -764,6 +848,7 @@ public class CustomCameraActivity extends Activity {
         System.gc();
         return bm;*/
         System.gc();
+
         return bitmap;
     }
 
@@ -836,7 +921,9 @@ public class CustomCameraActivity extends Activity {
          int quality = getIntent().getIntExtra(QUALITY, 80);
          File capturedImageFile = new File(Environment.getExternalStorageDirectory(), filename);
     	try {
-			capturedImage.compress(CompressFormat.JPEG, quality, new FileOutputStream(capturedImageFile));
+			//capturedImage.compress(CompressFormat.JPEG, quality, new FileOutputStream(capturedImageFile));
+			capturedImage.compress(CompressFormat.PNG, quality, new FileOutputStream(capturedImageFile));
+		
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			finishWithError("Failed to save image");
@@ -844,6 +931,24 @@ public class CustomCameraActivity extends Activity {
     	capturedImage.recycle();
     	bitmaps.clear();
     	System.gc();
+    	
+    	//add geo tag
+    	
+    	try {
+			ExifInterface exif = new ExifInterface(capturedImageFile.getAbsolutePath());
+			exif.setAttribute(ExifInterface.TAG_GPS_LATITUDE, ""+latitude);
+			
+			Log.w("Latitide", ""+latitude);
+			exif.setAttribute(ExifInterface.TAG_GPS_LONGITUDE, ""+longitude);
+			Log.w("Longitude", ""+longitude);
+			exif.saveAttributes();
+
+		} catch (IOException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		} 
+    	
+    	
         Intent data = new Intent();
         data.putExtra(IMAGE_URI, Uri.fromFile(capturedImageFile).toString());
         setResult(RESULT_OK, data);
@@ -869,26 +974,28 @@ public class CustomCameraActivity extends Activity {
         		e.printStackTrace();	
         	}
 
-        String colorModeSetting = getIntent().getExtras().getString(COLOR_MODE);
+          
+
+       // int colorModeSetting = getIntent().getExtras().getInt(COLOR_MODE, 565);
+        int colorModeSetting = getIntent().getExtras().getInt(TARGET_HEIGHT, 565);
         Bitmap.Config config =  Bitmap.Config.RGB_565;
-        if ((colorModeSetting==null)||(colorModeSetting.equals("RGB565"))){
-        	config = Bitmap.Config.RGB_565;	
-        }
 
-        if ((colorModeSetting==null)||(colorModeSetting.equals("ARGB4444"))){
-        	config = Bitmap.Config.ARGB_4444;	
-        }
-
-        if ((colorModeSetting==null)||(colorModeSetting.equals("ARGB8888"))){
-        	config =Bitmap.Config.ARGB_8888;	
-        }
-
-        if ((colorModeSetting==null)||(colorModeSetting.equals("ALPHA8"))){
-        	config =Bitmap.Config.ALPHA_8;		
-        }
         
-        resultBitmap = Bitmap.createBitmap(options.outWidth, bitmaps.size()*options.outHeight, config);
+     /*   if (colorModeSetting==4444){
+           	config = Bitmap.Config.ARGB_4444;	
+        }
+        else if (colorModeSetting==8888){
+        	config = Bitmap.Config.ARGB_8888;
+        }
+        else if (colorModeSetting==8){
+        	config = Bitmap.Config.ALPHA_8;
+        }
+	
+       */ 
+        
 
+       resultBitmap = Bitmap.createBitmap(options.outWidth, bitmaps.size()*options.outHeight, config);
+       // resultBitmap = Bitmap.createBitmap(metrics,options.outWidth, bitmaps.size()*options.outHeight, config);
        Canvas comboImage = new Canvas(resultBitmap);
        
         options = new BitmapFactory.Options();
@@ -899,7 +1006,9 @@ public class CustomCameraActivity extends Activity {
 				fileInputStream = new FileInputStream(Environment.getExternalStorageDirectory()+"/"+s);
 	        	b = BitmapFactory.decodeStream(fileInputStream, null,options);
 	        	fileInputStream.close();
+	        	Paint paint = new Paint();
 	            comboImage.drawBitmap(b, 0f, i*b.getHeight(), null); 
+	            
 	            b.recycle();
 	            System.gc();
 	        }
