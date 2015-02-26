@@ -16,15 +16,9 @@
                 <action android:name="android.intent.action.MAIN" />
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-            <intent-filter>
-                <action android:name="android.intent.action.VIEW" />
-                <category android:name="android.intent.category.DEFAULT" />
-                <data android:scheme="file" />
-                <data android:mimeType="*/*" />
-                <data android:pathPattern=".*\\.html" />
-            </intent-filter>
         </activity>
         <activity android:configChanges="orientation" android:name="com.performanceactive.plugins.camera.CustomCameraActivity" android:screenOrientation="portrait" />
+        <activity android:configChanges="orientation" android:name="com.appblade.framework.authenticate.RemoteAuthorizeActivity" android:screenOrientation="portrait" />
     </application>
     <uses-sdk android:minSdkVersion="7" android:targetSdkVersion="19" />
     <uses-feature android:name="android.hardware.camera" android:required="true" />

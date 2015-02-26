@@ -192,6 +192,10 @@ currentPage = "pageBillInfo";
 		//alert( getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT));
 		document.getElementById('login').value =  getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT);
 		document.getElementById('password').value= getSetting(SETTING_USER_PASSWORD, USER_PASSWORD_DEFAULT);
+		
+		$('#pageAuth').on('taphold', function(ev) {
+			plugins.appBlade.showFeedbackDialog("true");
+		});
 	}
 	
 	

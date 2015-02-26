@@ -7,9 +7,13 @@ import java.util.Locale;
 //import org.apache.cordova.api.CordovaPlugin;
 import org.apache.cordova.CordovaPlugin;
 import org.apache.cordova.CallbackContext;
+import org.apache.cordova.LOG;
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import android.os.Looper;
+import android.util.Log;
 
 import com.appblade.framework.AppBlade;
 import com.appblade.framework.customparams.CustomParamData;
@@ -27,7 +31,7 @@ public class AppBladePlugin extends CordovaPlugin {
 	public static final int SETUP_TokenIndex	= 1; 
 	public static final int SETUP_SecretIndex	= 2;
 	public static final int SETUP_IssuanceIndex	= 3;
-	
+
     //Authentication Checks 
 	public static final String CHECKAPPROVAL="checkAuthentication";
     //Update Checks
@@ -91,6 +95,9 @@ public class AppBladePlugin extends CordovaPlugin {
 	    else if (CLEARCUSTOMPARAMETERS.equals(action)) {
 	    	clearAllCustomParameters(callbackContext);
 	    }
+	  /*  else if (CATCHANDREPORTCRASHES.equals(action)) {
+	    	Log.w("CRASH REPO","NOTHING IS DONE ON register CATCH CRAsh");
+	    }*/
 	    else { 
 	    	// we have no idea what to do with the given action
 	        result = false;
@@ -115,6 +122,7 @@ public class AppBladePlugin extends CordovaPlugin {
 	private void checkAuthentication(final CallbackContext callbackContext){
 		cordova.getThreadPool().execute(new Runnable() {
             public void run() {
+            	Looper.prepare();
             	AppBlade.authorize(cordova.getActivity());
             	callbackContext.success();
             }
@@ -143,7 +151,7 @@ public class AppBladePlugin extends CordovaPlugin {
 			});
 		} 
 		else 
-		{
+		{ 
 			cordova.getActivity().runOnUiThread(new Runnable() {
 			       public void run() {
 	        AppBlade.doFeedback(cordova.getActivity());
@@ -201,5 +209,7 @@ public class AppBladePlugin extends CordovaPlugin {
 		    }
 		});
 	}
+
+	
 
 }
