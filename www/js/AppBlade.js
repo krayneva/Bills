@@ -59,22 +59,27 @@
 
     //Crash Reporting
     AppBlade.prototype.catchAndReportCrashes = function (_onSuccess, _onError) {
+    	 console.log("CRASH REPORT  inside of plugin");
         var successCallback = function (result) {
             if (typeof _onSuccess == 'function') {
                 _onSuccess.apply(null, [result]);
+                console.log("CRASH REPORT 1 "+result );
             }
         };
         var errorCallback = function (result) {
             if (typeof _onError == 'function') {
                 _onError.apply(null, [result]);
+                console.log("CRASH REPORT 2 "+result );
             }
         };
+        console.log("CRASH REPORT exec "+result );
         return cordova.exec(successCallback, errorCallback, this.serviceName, 'catchAndReportCrashes', []);
     };
 
  
     //Feedback Reporting
     AppBlade.prototype.allowFeedbackReporting = function (_onSuccess, _onError) {
+        console.log("ALLOW FEEDBACK PROTOTYPE FUNCTION" );
         var successCallback = function (result) {
             if (typeof _onSuccess == 'function') {
                 _onSuccess.apply(null, [result]);
