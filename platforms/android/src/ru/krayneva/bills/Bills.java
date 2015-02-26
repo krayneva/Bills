@@ -23,8 +23,12 @@ import java.io.File;
 import java.net.URI;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
+import android.view.MotionEvent;
+import android.view.View;
+import android.view.View.OnClickListener;
 import android.widget.Toast; 
 
 
@@ -34,18 +38,39 @@ import com.appblade.framework.AppBlade;
 
 
 
+ 
 
 public class Bills extends CordovaActivity 
 {
+	
+
     @Override
     public void onCreate(Bundle savedInstanceState) 
     {
         super.onCreate(savedInstanceState);  
         // Set by <content src="index.html" /> in config.xml
+        //AppBlade.register(context, token, secret, uuid, issuance);
+      //  AppBlade.register(this, "593a33fc-2d22-418c-967a-a2ff60e40da6","a676f0fc1be603eb9db15316490a605c", "28bfa152cbb25ce82f447784994addc7", "1419938400");
+      //  AppBlade.doFeedback(this);
+       // AppBlade.authorize(this);  
         loadUrl(launchUrl);  
     }
-
-
+@Override
+public boolean onTouchEvent(MotionEvent event) {
+	
+		Toast.makeText(this, "actiom up",Toast.LENGTH_LONG).show();
+	
+	
+	
+	return super.onTouchEvent(event);
+	
+}
+@Override
+protected void onResume() {
+	// TODO Auto-generated method stub
+	super.onResume();
+	//AppBlade.authorize(this);
+}
     @Override
     protected void onStop() {
     	super.onStop();
