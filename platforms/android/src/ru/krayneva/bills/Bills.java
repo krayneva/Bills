@@ -55,16 +55,7 @@ public class Bills extends CordovaActivity
        // AppBlade.authorize(this);  
         loadUrl(launchUrl);  
     }
-@Override
-public boolean onTouchEvent(MotionEvent event) {
-	
-		Toast.makeText(this, "actiom up",Toast.LENGTH_LONG).show();
-	
-	
-	
-	return super.onTouchEvent(event);
-	
-}
+
 @Override
 protected void onResume() {
 	// TODO Auto-generated method stub
