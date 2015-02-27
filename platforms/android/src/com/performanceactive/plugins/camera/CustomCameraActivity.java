@@ -19,6 +19,7 @@ import android.graphics.Matrix;
 import android.graphics.Paint;
 import android.graphics.Picture;
 import android.graphics.Point;
+import android.graphics.Rect;
 import android.hardware.Camera;
 import android.hardware.Camera.AutoFocusCallback;
 import android.hardware.Camera.PictureCallback;
@@ -680,7 +681,8 @@ public class CustomCameraActivity extends Activity {
 
     private class OutputCapturedImageTask extends AsyncTask<byte[], Void, Void> {
 
-        @Override
+        @SuppressLint("NewApi")
+		@Override
         protected Void doInBackground(byte[]... jpegData) {
             try {
                 String filename = getIntent().getStringExtra(FILENAME);
@@ -762,13 +764,15 @@ public class CustomCameraActivity extends Activity {
                     System.gc(); 
                 }  
                 else{
-              	  	Canvas canvas = new Canvas();
-              	  	canvas.setDensity(200);
-              	  	int scaledHeight = croppedBitmap.getScaledHeight(canvas);
+                	//croppedBitmap = Bitmap.createScaledBitmap(croppedBitmap, 100, 100,false);
+                	croppedBitmap.reconfigure(100, 100, croppedBitmap.getConfig());            
+                	//int scaledHeight = croppedBitmap.getScaledHeight(canvas);
+              	  //	canvas.drawBitmap(croppedBitmap,new Matrix(), null);
+              	 // 	canvas.save();
                 	  croppedBitmap.compress(CompressFormat.JPEG, quality, output );
                 	  croppedBitmap.recycle(); 
                 	  croppedBitmap = null;
-                      System.gc(); 
+                      System.gc();  
 
                 }
               
