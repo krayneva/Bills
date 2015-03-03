@@ -21,7 +21,7 @@ function refreshBills() {
                // newEntryRow.appendTo('#patientList ul');
                // newEntryRow.find('.label').text(row.pName);
                 $('#billList').append(
-		      	'<li onclick = "showBillInfo('+row.id+')">'
+		      	'<li onclick = "showCheck('+row.id+')">'
 		       +'<a href="#">'
 		        +'<img src="'+row.path+"?"+d.getTime()+'" width = "70">'
 		        +'<h4>'+row.name+" "+row.id+'</h4>'
@@ -53,9 +53,6 @@ function refreshBills() {
              $('#clearBillsButton').hide();
             }
         }, onError);
-         
-      
-         //$('#pageBills').trigger('create');
     });
   
 }
@@ -91,31 +88,9 @@ function refershBillSendStatus(rowID){
                    });
     }
 
-$('#pageBills').live('pageshow',function(event, ui){
-	
-	refreshBills();
-	hideTesterDiv();
-	currentPage = "pageBills";
-	});
 
 
 
-
-$('#pageBillInfo').live('pageshow',function(event, ui){
-	currentPage = "billInfo";
-	});
-	
-$('#pageAuth').live('pageshow',function(event, ui){
-	currentPage = "pageAuth";
-	});
-	
-$('#pageSettings').live('pageshow',function(event, ui){
-	currentPage = "pageSettings";
-	});
-
-$('#pageMain').live('pageshow',function(event, ui){
-	currentPage = "pageMain";
-	});
 	
 
 	function formatDate(jsD){
@@ -131,86 +106,45 @@ $('#pageMain').live('pageshow',function(event, ui){
 	 $('#testDiv').hide();
 	}
 	
-	function showBillInfo(billID){
-	    db.transaction(
-	    	 function(transaction) {
-	    	        transaction.executeSql('SELECT * FROM Bills where id='+billID+';', [], function(transaction, result) {
-	    	        	 var row = result.rows.item(0);
-	    	        	 $('#billName').html(row.name+" "+row.id);
-	    	        	 $('#billDate').html(formatDate(row.createdate));
-	    	        	 $('#billImage').attr('src',row.path);
-	    	        }, onError);
-
-	    	    });
-		
-		
-currentPage = "pageBillInfo";
-		
-		document.getElementById('pageSettings').style.display = 'none';
-		document.getElementById('pageBillInfo').style.display = 'block'; 
-		document.getElementById('pageBills').style.display = 'none';
-		document.getElementById('pageMain').style.display = 'none';
-		document.getElementById('pageAuth').style.display = 'none';  
+	function showCheck(billID){
+	    currentPage = "pageCheck";
+		$.mobile.pageContainer.pagecontainer( "change", "check.html",{transition:"none"});
 
 	}
 	
 	function showBillsList(){
 		currentPage = "pageBills";
-		refreshBills();
-		document.getElementById('pageBillInfo').style.display = 'none';
-		document.getElementById('pageAuth').style.display = 'none';  
-		document.getElementById('pageSettings').style.display = 'none';
-		document.getElementById('pageMain').style.display = 'none';
-		document.getElementById('pageBills').style.display = 'block';
-		// не работает!
-		//   $.mobile.changePage( "#pageBills" );
+		$.mobile.pageContainer.pagecontainer( "change", "bills.html",{transition:"none"});
+		//refreshBills();
 	}
 	
-	function showMainPage(){
-		currentPage = "pageMain";
-		document.getElementById('pageBillInfo').style.display = 'none';
-		document.getElementById('pageAuth').style.display = 'none';  
-		document.getElementById('pageSettings').style.display = 'none';
-		document.getElementById('pageBills').style.display = 'none';
-		document.getElementById('pageMain').style.display = 'block';
-		// не работает!
-		//   $.mobile.changePage( "#pageBills" );
-	}
 	
-	function saveSettingsAndShowBillsList(){
-		saveSettings();
-		showBillsList();
-	}
+
 	
 	function showAuthPage(){
 		currentPage = "pageAuth";
-		document.getElementById('pageBillInfo').style.display = 'none'; 
-		document.getElementById('pageBills').style.display = 'none';
-		document.getElementById('pageSettings').style.display = 'none';
-		document.getElementById('pageAuth').style.display = 'block'; 
-		document.getElementById('pageMain').style.display = 'none';
-		//alert( getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT));
+		$.mobile.pageContainer.pagecontainer( "change", "login.html", {transition:"none"});
 		document.getElementById('login').value =  getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT);
 		document.getElementById('password').value= getSetting(SETTING_USER_PASSWORD, USER_PASSWORD_DEFAULT);
-		
-		$('#pageAuth').on('taphold', function(ev) {
-			plugins.appBlade.showFeedbackDialog("true");
-		});
 	}
 	
 	
 	function showSettingsPage(){
 		currentPage = "pageSettings";
-		document.getElementById('pageBillInfo').style.display = 'none'; 
-		document.getElementById('pageBills').style.display = 'none';
-		document.getElementById('pageAuth').style.display = 'none'; 
-		document.getElementById('pageMain').style.display = 'none';
-		document.getElementById('pageSettings').style.display = 'block';
+		$.mobile.pageContainer.pagecontainer( "change", "settings.html",{transition:"none"});
 	}
 	
 	
 	
-	function showTesterPage(){
-		$.mobile.loadPage( "testerPage.html", { showLoadMsg: false } );
-	     //  showBillsList();
+
+	
+	
+	function showMainPage(){
+		currentPage = "pageMain";
+	//	$(":mobile-pagecontainer" ).pagecontainer( "load", ",main.html");
+		$.mobile.pageContainer.pagecontainer( "change", "main.html" ,{transition:"none"});
+	/*	$('#pageMain').on('taphold', function(ev) {
+			plugins.appBlade.showFeedbackDialog("true");
+		});
+      */ 
 	}

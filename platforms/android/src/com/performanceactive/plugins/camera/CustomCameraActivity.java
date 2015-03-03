@@ -37,6 +37,7 @@ import android.view.Display;
 import android.view.Gravity;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.View.OnLongClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
@@ -58,13 +59,15 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.appblade.framework.AppBlade;
+
 import ru.krayneva.bills.R;
 
 import static android.hardware.Camera.Parameters.FLASH_MODE_OFF;
 import static android.hardware.Camera.Parameters.FOCUS_MODE_AUTO;
 import static android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE;
 
-public class CustomCameraActivity extends Activity {
+public class CustomCameraActivity extends Activity implements OnLongClickListener{
  
     private static final String TAG = CustomCameraActivity.class.getSimpleName();
     private static final float ASPECT_RATIO = 126.0f / 86;
@@ -184,6 +187,7 @@ public class CustomCameraActivity extends Activity {
         layout = new RelativeLayout(this);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
         layout.setLayoutParams(layoutParams);
+        layout.setOnLongClickListener(this);
         createCameraPreview();
         createTopLeftBorder();
         createTopRightBorder();
@@ -765,7 +769,7 @@ public class CustomCameraActivity extends Activity {
                 }  
                 else{
                 	//croppedBitmap = Bitmap.createScaledBitmap(croppedBitmap, 100, 100,false);
-                	croppedBitmap.reconfigure(100, 100, croppedBitmap.getConfig());            
+           
                 	//int scaledHeight = croppedBitmap.getScaledHeight(canvas);
               	  //	canvas.drawBitmap(croppedBitmap,new Matrix(), null);
               	 // 	canvas.save();
@@ -923,9 +927,8 @@ public class CustomCameraActivity extends Activity {
          int quality = getIntent().getIntExtra(QUALITY, 80);
          File capturedImageFile = new File(Environment.getExternalStorageDirectory(), filename);
     	try {
-			//capturedImage.compress(CompressFormat.JPEG, quality, new FileOutputStream(capturedImageFile));
-			capturedImage.compress(CompressFormat.PNG, quality, new FileOutputStream(capturedImageFile));
-		
+			capturedImage.compress(CompressFormat.JPEG, quality, new FileOutputStream(capturedImageFile));
+					
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
 			finishWithError("Failed to save image");
@@ -1023,4 +1026,10 @@ public class CustomCameraActivity extends Activity {
 
         return resultBitmap; 
       }
+
+	@Override
+	public boolean onLongClick(View v) {
+		AppBlade.doFeedbackWithScreenshot(this, this);
+		return false;
+	}
 }
