@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>IDESourceControlProjectFavoriteDictionaryKey</key>
+	<false/>
+	<key>IDESourceControlProjectIdentifier</key>
+	<string>D4B8C988-8FF1-42D5-8D23-F05122531EC0</string>
+	<key>IDESourceControlProjectName</key>
+	<string>Bills</string>
+	<key>IDESourceControlProjectOriginsDictionary</key>
+	<dict>
+		<key>3622CB73-EEDA-4C62-AF8C-204A2401553B</key>
+		<string>https://bitbucket.org/pestilina/bills.git</string>
+	</dict>
+	<key>IDESourceControlProjectPath</key>
+	<string>platforms/ios/Bills.xcodeproj/project.xcworkspace</string>
+	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
+	<dict>
+		<key>3622CB73-EEDA-4C62-AF8C-204A2401553B</key>
+		<string>../../../..</string>
+	</dict>
+	<key>IDESourceControlProjectURL</key>
+	<string>https://bitbucket.org/pestilina/bills.git</string>
+	<key>IDESourceControlProjectVersion</key>
+	<integer>110</integer>
+	<key>IDESourceControlProjectWCCIdentifier</key>
+	<string>3622CB73-EEDA-4C62-AF8C-204A2401553B</string>
+	<key>IDESourceControlProjectWCConfigurations</key>
+	<array>
+		<dict>
+			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
+			<string>public.vcs.git</string>
+			<key>IDESourceControlWCCIdentifierKey</key>
+			<string>3622CB73-EEDA-4C62-AF8C-204A2401553B</string>
+			<key>IDESourceControlWCCName</key>
+			<string>bills</string>
+		</dict>
+	</array>
+</dict>
+</plist>
