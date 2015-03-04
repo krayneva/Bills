@@ -99,7 +99,7 @@
     <gap:splash gap:platform="winphone" src="www/res/screen/windows-phone/screen-portrait.jpg" />
     
     <access origin="*" />
-        <content src="login.html" /> 
+        <content src="index.html" /> 
     <plugins> 
         <plugin name="AppBlade" value="ru.krayneva.bills.AppBladePlugin"/>
     </plugins>

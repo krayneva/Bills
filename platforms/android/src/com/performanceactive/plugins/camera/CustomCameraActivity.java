@@ -134,7 +134,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         Camera.Parameters cameraSettings = camera.getParameters();
     //    cameraSettings.setJpegQuality(100);
 
-        cameraSettings.setJpegQuality( getIntent().getIntExtra(QUALITY, 80) );
+        cameraSettings.setJpegQuality( getIntent().getIntExtra(QUALITY, 100) );
         List<String> supportedFocusModes = cameraSettings.getSupportedFocusModes();
         if (supportedFocusModes.contains(FOCUS_MODE_CONTINUOUS_PICTURE)) {
             cameraSettings.setFocusMode(FOCUS_MODE_CONTINUOUS_PICTURE);
@@ -152,7 +152,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         List <Size> sizes = cameraSettings.getSupportedPictureSizes();
         Size maxSize = sizes.get(0);
         for (Size s:sizes){
-        	if (maxSize.width<s.width)
+        	if ((maxSize.width<s.width)||(maxSize.height<s.height))
         		maxSize = s;
         }
         cameraSettings.setPictureSize(maxSize.width, maxSize.height);
@@ -690,7 +690,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         protected Void doInBackground(byte[]... jpegData) {
             try {
                 String filename = getIntent().getStringExtra(FILENAME);
-                int quality = getIntent().getIntExtra(QUALITY, 80);
+                int quality = getIntent().getIntExtra(QUALITY, 100);
               //  File capturedImageFile = new File(Environment.getExternalStorageDirectory(), filename);
                 Bitmap capturedImage = getScaledBitmap(jpegData[0]);
            //     float scale=((float)camera.getParameters().getPictureSize().width)/ (float)capturedImage.getWidth();
@@ -761,7 +761,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 	                
 	                croppedBitmap.recycle();
 	                croppedBitmap = null;
-              	  	scaledBitmap.compress(CompressFormat.JPEG, quality, output);
+              	  	scaledBitmap.compress(CompressFormat.JPEG, 100, output);
 
               	  	scaledBitmap.recycle(); 
               	  	scaledBitmap = null;
@@ -773,7 +773,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
                 	//int scaledHeight = croppedBitmap.getScaledHeight(canvas);
               	  //	canvas.drawBitmap(croppedBitmap,new Matrix(), null);
               	 // 	canvas.save();
-                	  croppedBitmap.compress(CompressFormat.JPEG, quality, output );
+                	  croppedBitmap.compress(CompressFormat.JPEG, 100, output );
                 	  croppedBitmap.recycle(); 
                 	  croppedBitmap = null;
                       System.gc();  
@@ -924,10 +924,10 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     	Bitmap capturedImage = combineImages();
     	
     	 String filename = getIntent().getStringExtra(FILENAME).concat(""+System.currentTimeMillis()).concat(".jpg");
-         int quality = getIntent().getIntExtra(QUALITY, 80);
+         int quality = getIntent().getIntExtra(QUALITY, 100);
          File capturedImageFile = new File(Environment.getExternalStorageDirectory(), filename);
     	try {
-			capturedImage.compress(CompressFormat.JPEG, quality, new FileOutputStream(capturedImageFile));
+			capturedImage.compress(CompressFormat.JPEG,100, new FileOutputStream(capturedImageFile));
 					
 		} catch (FileNotFoundException e) {
 			e.printStackTrace();
