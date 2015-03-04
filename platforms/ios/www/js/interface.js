@@ -124,8 +124,6 @@ function refershBillSendStatus(rowID){
 	function showAuthPage(){
 		currentPage = "pageAuth";
 		$.mobile.pageContainer.pagecontainer( "change", "login.html", {transition:"none"});
-		document.getElementById('login').value =  getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT);
-		document.getElementById('password').value= getSetting(SETTING_USER_PASSWORD, USER_PASSWORD_DEFAULT);
 	}
 	
 	

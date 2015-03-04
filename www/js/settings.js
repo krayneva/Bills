@@ -8,7 +8,7 @@ var SETTING_USER_PASSWORD = "userPassword";
 var SETTING_USER_TOKEN = "userToken";
 
 // дефолтные значения
-var JPEG_QUALITY_DEFAULT = "80";
+var JPEG_QUALITY_DEFAULT = "100";
 var COLOR_MODE_DEFAULT = "565";
 var OUTPUT_WIDTH_DEFAULT = "0";
 var USER_LOGIN_DEFAULT = "";
