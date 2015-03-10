@@ -10,29 +10,29 @@
 	<string>Bills</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
-		<key>3622CB73-EEDA-4C62-AF8C-204A2401553B</key>
+		<key>438CEDCC7F9A242E896243DEEF5DCCFBD6AC8A4D</key>
 		<string>https://bitbucket.org/pestilina/bills.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>platforms/ios/Bills.xcodeproj/project.xcworkspace</string>
+	<string>platforms/ios/Bills.xcodeproj</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
-		<key>3622CB73-EEDA-4C62-AF8C-204A2401553B</key>
+		<key>438CEDCC7F9A242E896243DEEF5DCCFBD6AC8A4D</key>
 		<string>../../../..</string>
 	</dict>
 	<key>IDESourceControlProjectURL</key>
 	<string>https://bitbucket.org/pestilina/bills.git</string>
 	<key>IDESourceControlProjectVersion</key>
-	<integer>110</integer>
+	<integer>111</integer>
 	<key>IDESourceControlProjectWCCIdentifier</key>
-	<string>3622CB73-EEDA-4C62-AF8C-204A2401553B</string>
+	<string>438CEDCC7F9A242E896243DEEF5DCCFBD6AC8A4D</string>
 	<key>IDESourceControlProjectWCConfigurations</key>
 	<array>
 		<dict>
 			<key>IDESourceControlRepositoryExtensionIdentifierKey</key>
 			<string>public.vcs.git</string>
 			<key>IDESourceControlWCCIdentifierKey</key>
-			<string>3622CB73-EEDA-4C62-AF8C-204A2401553B</string>
+			<string>438CEDCC7F9A242E896243DEEF5DCCFBD6AC8A4D</string>
 			<key>IDESourceControlWCCName</key>
 			<string>bills</string>
 		</dict>
