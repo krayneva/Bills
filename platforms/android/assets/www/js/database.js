@@ -31,7 +31,7 @@
         		transaction.executeSql(
         		'INSERT INTO Bills (name, description,createdate,path,sent) VALUES ("Чек","", "'
         		+new Date().toJSON()
-        		+'","'+filePath+'",0)');},
+        		+'","'+filePath+'",0)')} ,
         		 onError, onSuccess);
       refreshBills();
    }
@@ -40,7 +40,7 @@
             db.transaction(
     		function(transaction) { 
         		transaction.executeSql(
-        		'UPDATE Bills set sent=1 where id='+billID);} ,
+        		'UPDATE Bills set sent=1 where id='+billID)} ,
         		 onError, onSuccess);
       refreshBills();
     }

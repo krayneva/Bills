@@ -6,9 +6,6 @@ var SETTING_OUTPUT_WIDTH = "outputWidth";
 var SETTING_USER_LOGIN = "userLogin";
 var SETTING_USER_PASSWORD = "userPassword";
 var SETTING_USER_TOKEN = "userToken";
-var SETTING_SERVER_ADDRESS = "ServerAddress";
-var BILL_ID_KEY = "BillIdKey";
-
 
 // дефолтные значения
 var JPEG_QUALITY_DEFAULT = "100";
@@ -17,7 +14,7 @@ var OUTPUT_WIDTH_DEFAULT = "0";
 var USER_LOGIN_DEFAULT = "";
 var USER_PASSWORD_DEFAULT= "";
 var USER_TOKEN_DEFAULT = "";
-var SERVER_ADDRESS_DEFAULT = "https://billview.cloudapp.net/receipts/";
+
 
 function putSetting(setting, value){
 	window.localStorage.setItem(setting, value);
@@ -30,7 +27,6 @@ function getSetting(setting){
 function getSetting(setting, def){
 	sett = window.localStorage.getItem(setting);
 	if (sett=="undefined") sett = def;
-	if (sett==null) sett = def;
 	return sett;
 }
 
@@ -55,12 +51,3 @@ function saveSettings(){
 	console.log(getSetting(SETTING_OUTPUT_WIDTH));
 	console.log(getSetting(SETTING_COLOR_MODE));
 }
-
-
-function saveConnectionSettings(){
-	var serverAddress = document.getElementById("serverAddress").value;
-	if (serverAddress =="") serverAddress = SERVER_ADDRESS_DEFAULT;
-	putSetting(SETTING_SERVER_ADDRESS, serverAddress);
-	
-}
-
