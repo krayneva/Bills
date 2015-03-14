@@ -2,6 +2,7 @@
 package com.performanceactive.plugins.camera;
 
 import android.annotation.SuppressLint;
+import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -29,6 +30,7 @@ import android.location.LocationManager;
 import android.media.ExifInterface;
 import android.net.Uri;
 import android.os.AsyncTask;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.util.DisplayMetrics;
@@ -41,9 +43,11 @@ import android.view.View.OnLongClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
+import android.widget.ProgressBar;
 import android.widget.TextView;
 import android.widget.Toast;
 import android.widget.ImageView.ScaleType;
@@ -115,7 +119,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     private ArrayList<String> bitmaps= new ArrayList<String>();
     private Bitmap previousBitmap;
     double latitude, longitude;  
-    
+    private ProgressBar progress;
     
     @Override
     protected void onResume() {
@@ -152,7 +156,8 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         List <Size> sizes = cameraSettings.getSupportedPictureSizes();
         Size maxSize = sizes.get(0);
         for (Size s:sizes){
-        	if ((maxSize.width<s.width)||(maxSize.height<s.height))
+        	//if ((maxSize.width<s.width)||(maxSize.height<s.height))
+        	if (maxSize.width<s.width)
         		maxSize = s;
         }
         cameraSettings.setPictureSize(maxSize.width, maxSize.height);
@@ -370,6 +375,14 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
      //  previousImage.setImageDrawable(resources.getDrawable(R.drawable.icon));
        controlsLayout.addView(previousImage,params);   
         updateDynamicLayout();
+
+        progress = new ProgressBar(this);
+        progress.setVisibility(View.INVISIBLE);
+        params = new RelativeLayout.LayoutParams(margin,margin);
+        params.addRule(RelativeLayout.CENTER_IN_PARENT,RelativeLayout.TRUE);
+        progress.setLayoutParams(params);
+        layout.addView(progress);
+        
     }
     
 	/**
@@ -683,7 +696,8 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         }
     }
 
-    private class OutputCapturedImageTask extends AsyncTask<byte[], Void, Void> {
+    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+	private class OutputCapturedImageTask extends AsyncTask<byte[], Void, Void> {
 
         @SuppressLint("NewApi")
 		@Override
@@ -789,9 +803,12 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
             return null;
         }
         
+
+        
         @Override
         protected void onPostExecute(Void result) {
         	super.onPostExecute(result);
+        	progress.setVisibility(View.INVISIBLE);
         	   try {
         		   updateDynamicLayout();
         		   releaseCamera();
@@ -801,6 +818,15 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
                	captureButton.setEnabled(true);
             	sendButton.setEnabled(true);
             	recaptureButton.setEnabled(true);
+    			flashButton.setEnabled(true);
+    			exitButton.setEnabled(true);
+    			if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
+    				captureButton.setAlpha(1f);
+    				sendButton.setAlpha(1f);
+    				recaptureButton.setAlpha(1f);
+    				flashButton.setAlpha(1f);
+    				exitButton.setAlpha(1f);
+    			}
                } catch (Exception e) {
                    finishWithError("Camera is not accessible");
                }
@@ -810,9 +836,20 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         @Override 
         protected void onPreExecute() {
         	super.onPreExecute();
+        	progress.setVisibility(View.VISIBLE);
         	captureButton.setEnabled(false);
         	sendButton.setEnabled(false);
         	recaptureButton.setEnabled(false);
+			flashButton.setEnabled(false);
+			exitButton.setEnabled(false);
+			if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
+				captureButton.setAlpha(0.5f);
+				sendButton.setAlpha(0.5f);
+				recaptureButton.setAlpha(0.5f);
+				flashButton.setAlpha(0.5f);
+				exitButton.setAlpha(0.5f);
+			}
+			
         } 
     }
 
@@ -921,44 +958,8 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 
      
     private void sendPicture(){
-    	Bitmap capturedImage = combineImages();
-    	
-    	 String filename = getIntent().getStringExtra(FILENAME).concat(""+System.currentTimeMillis()).concat(".jpg");
-         int quality = getIntent().getIntExtra(QUALITY, 100);
-         File capturedImageFile = new File(Environment.getExternalStorageDirectory(), filename);
-    	try {
-			capturedImage.compress(CompressFormat.JPEG,100, new FileOutputStream(capturedImageFile));
-					
-		} catch (FileNotFoundException e) {
-			e.printStackTrace();
-			finishWithError("Failed to save image");
-		} 
-    	capturedImage.recycle();
-    	bitmaps.clear();
-    	System.gc();
-    	
-    	//add geo tag
-    	
-    	try {
-			ExifInterface exif = new ExifInterface(capturedImageFile.getAbsolutePath());
-			exif.setAttribute(ExifInterface.TAG_GPS_LATITUDE, ""+latitude);
-			
-			Log.w("Latitide", ""+latitude);
-			exif.setAttribute(ExifInterface.TAG_GPS_LONGITUDE, ""+longitude);
-			Log.w("Longitude", ""+longitude);
-			exif.saveAttributes();
-
-		} catch (IOException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		} 
-    	
-    	
-        Intent data = new Intent();
-        data.putExtra(IMAGE_URI, Uri.fromFile(capturedImageFile).toString());
-        setResult(RESULT_OK, data);
-        finish();
-    	this.finish();
+    	CombineImagesTask task = new CombineImagesTask();
+    	task.execute();
     }
     
     
@@ -1032,4 +1033,76 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 		AppBlade.doFeedbackWithScreenshot(this, this);
 		return false;
 	}
+	
+	@SuppressLint("NewApi")
+	private class CombineImagesTask extends AsyncTask<Void,Void,File>{
+		
+		@Override
+		protected void onPreExecute() {
+			super.onPreExecute();
+			captureButton.setOnClickListener(null);
+			sendButton.setOnClickListener(null); 
+			recaptureButton.setOnClickListener(null);
+			flashButton.setOnClickListener(null); 
+			exitButton.setOnClickListener(null);
+			if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
+				captureButton.setAlpha(0.5f);
+				sendButton.setAlpha(0.5f);
+				recaptureButton.setAlpha(0.5f);
+				flashButton.setAlpha(0.5f);
+				exitButton.setAlpha(0.5f);
+			}
+			
+				
+		}
+
+		@Override
+		protected File doInBackground(Void... params) {
+			Bitmap capturedImage = combineImages();
+	    	
+	    	 String filename = getIntent().getStringExtra(FILENAME).concat(""+System.currentTimeMillis()).concat(".jpg");
+	         int quality = getIntent().getIntExtra(QUALITY, 100);
+	         File capturedImageFile = new File(Environment.getExternalStorageDirectory(), filename);
+	    	try {
+				capturedImage.compress(CompressFormat.JPEG,100, new FileOutputStream(capturedImageFile));
+						
+			} catch (FileNotFoundException e) {
+				e.printStackTrace();
+				finishWithError("Failed to save image");
+			} 
+	    	capturedImage.recycle();
+	    	bitmaps.clear();
+	    	System.gc();
+	    	
+	    	//add geo tag
+	    	
+	    	try {
+				ExifInterface exif = new ExifInterface(capturedImageFile.getAbsolutePath());
+				exif.setAttribute(ExifInterface.TAG_GPS_LATITUDE, ""+latitude);
+				exif.setAttribute("UserComment", "USER COMMENT!");
+				Log.w("Latitide", ""+latitude);
+				exif.setAttribute(ExifInterface.TAG_GPS_LONGITUDE, ""+longitude);
+				Log.w("Longitude", ""+longitude);
+				exif.saveAttributes();
+
+			} catch (IOException e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
+			return capturedImageFile; 
+	    	
+	    	
+
+		}
+		
+		@Override
+		protected void onPostExecute(File result) {
+			super.onPostExecute(result);
+	        Intent data = new Intent();
+	        data.putExtra(IMAGE_URI, Uri.fromFile(result).toString());
+	        setResult(RESULT_OK, data);
+	        finish();
+		}
+	}
+		
 }

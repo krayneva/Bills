@@ -8,6 +8,7 @@ D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\com\perfo
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\com\performanceactive\plugins\camera\CustomCameraActivity$6.class \
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\com\performanceactive\plugins\camera\CustomCameraActivity$7.class \
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\com\performanceactive\plugins\camera\CustomCameraActivity$8.class \
+D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\com\performanceactive\plugins\camera\CustomCameraActivity$CombineImagesTask.class \
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\com\performanceactive\plugins\camera\CustomCameraActivity$OutputCapturedImageTask.class \
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\com\performanceactive\plugins\camera\CustomCameraActivity.class \
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\com\performanceactive\plugins\camera\CustomCameraPreview.class \
