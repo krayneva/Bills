@@ -145,3 +145,13 @@ function refershBillSendStatus(rowID){
 		currentPage = "pageConnectionSettings";
 		$.mobile.pageContainer.pagecontainer( "change", "connectionSettings.html" ,{transition:"none"});
 	}
+	
+	function showExpensesPage(){
+		currentPage = "pageExpenses";
+		$.mobile.pageContainer.pagecontainer( "change", "expenses.html" ,{transition:"none"});
+	}
+	
+	function showTransactionPage(){
+		currentPage = "pageTransaction";
+		$.mobile.pageContainer.pagecontainer( "change", "transaction.html" ,{transition:"none"});
+	}
