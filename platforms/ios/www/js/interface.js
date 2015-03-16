@@ -11,6 +11,8 @@ function refreshBills() {
     function(transaction) {
         transaction.executeSql('SELECT * FROM Bills;', [], function(transaction, result) {
         	 $('#billList').html('');
+
+        		 
             for (var i = 0; i < result.rows.length; i++) {
              d = new Date();
                 var row = result.rows.item(i);
@@ -108,6 +110,7 @@ function refershBillSendStatus(rowID){
 	
 	function showCheck(billID){
 	    currentPage = "pageCheck";
+	    window.localStorage.setItem(BILL_ID_KEY, billID);
 		$.mobile.pageContainer.pagecontainer( "change", "check.html",{transition:"none"});
 
 	}
@@ -133,16 +136,12 @@ function refershBillSendStatus(rowID){
 	}
 	
 	
-	
-
-	
-	
 	function showMainPage(){
 		currentPage = "pageMain";
-	//	$(":mobile-pagecontainer" ).pagecontainer( "load", ",main.html");
 		$.mobile.pageContainer.pagecontainer( "change", "main.html" ,{transition:"none"});
-	/*	$('#pageMain').on('taphold', function(ev) {
-			plugins.appBlade.showFeedbackDialog("true");
-		});
-      */ 
+	}
+	
+	function showConnectionSettingsPage(){
+		currentPage = "pageConnectionSettings";
+		$.mobile.pageContainer.pagecontainer( "change", "connectionSettings.html" ,{transition:"none"});
 	}

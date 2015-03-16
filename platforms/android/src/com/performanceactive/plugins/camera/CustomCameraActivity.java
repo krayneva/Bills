@@ -156,10 +156,11 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         List <Size> sizes = cameraSettings.getSupportedPictureSizes();
         Size maxSize = sizes.get(0);
         for (Size s:sizes){
-        	//if ((maxSize.width<s.width)||(maxSize.height<s.height))
-        	if (maxSize.width<s.width)
+        	if ((maxSize.width<s.width)||(maxSize.height<s.height))
+        	//if (maxSize.width<s.width)
         		maxSize = s;
-        }
+        } 
+        Log.w("CustomCameraActivivty: ", " maxSize: "+maxSize.width+" "+maxSize.height);
         cameraSettings.setPictureSize(maxSize.width, maxSize.height);
         camera.setParameters(cameraSettings);
     }
@@ -704,15 +705,9 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         protected Void doInBackground(byte[]... jpegData) {
             try {
                 String filename = getIntent().getStringExtra(FILENAME);
-                int quality = getIntent().getIntExtra(QUALITY, 100);
-              //  File capturedImageFile = new File(Environment.getExternalStorageDirectory(), filename);
                 Bitmap capturedImage = getScaledBitmap(jpegData[0]);
-           //     float scale=((float)camera.getParameters().getPictureSize().width)/ (float)capturedImage.getWidth();
-                float scale=((float)camera.getParameters().getPictureSize().height)/ (float)screenWidthInPixels();
-             // float scale= getResources().getDisplayMetrics().density;
                 Log.w("currentMarginTop",""+currentMarginTop);
                 Log.w("currentMarginBottom",""+currentMarginBottom);
-
                 Log.w("screenWidthInPixels()", ""+screenWidthInPixels());
                 Log.w("screenHeightInPixels()", ""+screenHeightInPixels());
                 Log.w("cameraImageWidth", ""+camera.getParameters().getPictureSize().width);
@@ -723,15 +718,18 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 
                 jpegData = null;
                 capturedImage = correctCaptureImageOrientation(capturedImage);
+                
                 Log.w("capturedImageWidth", ""+capturedImage.getWidth());
                 Log.w("capturedImageHeight", ""+capturedImage.getHeight());
-               
                 
                 float scaleHor = ((float)capturedImage.getWidth())/(float)screenWidthInPixels();
+                float scaleVer =  ((float)capturedImage.getHeight())/(float)screenHeightInPixels();
+                scaleHor = scaleVer;
+
                 int impWidth = (int) (((float)(screenWidthInPixels()-(currentMarginTop*2)))*scaleHor);
                 int leftMarginCorrected = (capturedImage.getWidth()-impWidth)/2;
  
-                float scaleVer =  ((float)capturedImage.getHeight())/(float)screenHeightInPixels();
+               
 
                 scaledMarginBottom = (int)(currentMarginBottom*scaleVer);
                 scaledMarginTop = (int)(currentMarginTop*scaleVer);
