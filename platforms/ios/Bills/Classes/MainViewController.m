@@ -79,6 +79,7 @@
         viewBounds.size.height = viewBounds.size.height - 18;
         self.webView.frame = viewBounds;
     }*/
+    [[UIApplication sharedApplication] setStatusBarHidden:YES ];
     [super viewWillAppear:animated];
 }
 
@@ -101,6 +102,10 @@
     return [super shouldAutorotateToInterfaceOrientation:interfaceOrientation];
 }
 
+- (BOOL) prefersStatusBarHidden{
+    return YES;
+}
+
 /* Comment out the block below to over-ride */
 
 /*
@@ -116,7 +121,6 @@
 {
     // Black base color for background matches the native apps
     theWebView.backgroundColor = [UIColor blackColor];
-
     return [super webViewDidFinishLoad:theWebView];
 }
 
