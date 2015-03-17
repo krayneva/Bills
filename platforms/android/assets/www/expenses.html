@@ -3,7 +3,7 @@
       <div id="pageExpenses"  data-role="page"  >
         <div class="background"></div>
         <div class="topPanel">
-            <span><img src="img/back.png"/></span>
+            <span><img src="img/back.png" onclick="navigator.app.backHistory();"/></span>
             <div class="topPanel_title">Развлечения</div>
             <span><img src="img/menu.png"/></span>
         </div>
@@ -13,7 +13,10 @@
             <div class="filter_item">За неделю<img src="img/filter_arrow.png" class="filter_arrow"/></div>
             <div class="filter_item">За месяц<img src="img/filter_arrow.png" class="filter_arrow"/></div>
         </div>
-        <div class="expenses"></div>
+        <div class="expenses">
+        <ul data-role="listview" data-inset="true" id="expensesList">
+			</ul>
+        </div>
         <div class="foottopPanel">
             <div class="footer_result">
                 <div class="footer_ico_percentage"><img src="img/ico_empty.png"/></div>                
