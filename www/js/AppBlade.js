@@ -98,7 +98,7 @@
     	{
 	    	args = [_screenshotFlag];
     	}
-    	
+ 
         var successCallback = function (result) {
             if (typeof _onSuccess == 'function') {
                 _onSuccess.apply(null, [result]);
