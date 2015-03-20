@@ -629,8 +629,9 @@ textarea:focus{
 	float: right;
 	width: 21px;
 	height: 20px;
-	background: transparent url(&#39;images/menu/menuIconsSprite.png&#39;) 0 0 no-repeat;
+	background: transparent url('images/menu/menuIconsSprite.png') 0 0 no-repeat;
 	position: relative;
 	right: 20px;
 	top: -2px;
+}
 <!-- slide side menu ends-->

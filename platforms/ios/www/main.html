@@ -1,5 +1,13 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1 height=device-height">
+<div id="side-menu">
+		<ul>
+			<li>ssdfh</li>
+			<li>dsgdf</li>
+			<li>sdrg</li>
+			<li>dslfks;dl</li>
+		</ul>
+	</div>
       <div id="pageMain"  data-role="page"  >
        <div class="backgroundImg"> </div>
         <div class="header">
@@ -17,7 +25,7 @@
                     <img src="img/ico_menu.png"/>
                     <div class="menuPanel">
                         <img class="ico" src="img/ico_6.png" onclick="showBillsList()"/>
-                        <img class="ico" src="img/ico_7.png" />
+                        <img class="ico" src="img/ico_7.png"/>
                         <img class="ico" src="img/ico_8.png"/>
                         <img class="ico" src="img/ico_9.png"/>
                     </div>
@@ -110,7 +118,7 @@
                     <tr>
                         <td>
                             <div class="footerLeft">
-                                <img class="showMenu" src="img/ico_login.png"/>
+                                <img class="icoLogin" src="img/ico_login.png"/>
                                 <img class="monitor" src="img/ico_10.png" onclick = "getUserEnvironment()"/>                                
                             </div>
                         </td>                           
@@ -121,13 +129,9 @@
             </table>
         </div>   
         
-      
-        
         </div>
-  <div id = "side-menu">
-	        <ul>
-		        <li>dgsdfgdf</li>
-		        <li>dgsdfgdf</li>
-	        </ul>
-        
-        </div>
+<script type="text/javascript">
+	$(function(){
+		$('#side-menu').slideMenu();
+	});
+	</script>

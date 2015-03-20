@@ -219,13 +219,9 @@ function refershBillSendStatus(rowID){
 	}
 	
 	
-	
-	
-	// slide side menu
-	
-	
 	(function($){
-		$.fn.slideMenu = function(options) {  
+		console.log("SLIDE MENUCALLED!!");
+		$.fn.slideMenu = function(options) {
 			// If options exist, merge them with the default settings
 			options = $.extend({
 				duration:	500,
@@ -239,7 +235,7 @@ function refershBillSendStatus(rowID){
 			
 				$(document).on('click', 'a.showMenu', function(e) {
 					if(!menuStatus){
-						$('side-menu').css('visibility','visible');
+						$('#side-menu').css('visibility','visible');
 						$('.ui-page-active').animate({
 							marginLeft: '165px',
 						}, options.duration, options.easing, function(){menuStatus = true});
@@ -252,7 +248,8 @@ function refershBillSendStatus(rowID){
 					}
 				});
 			
-				$(document).on('swipeleft', '.pages', function(e) {
+				$( ":mobile-pagecontainer" ).on('swipeleft', function(e) {
+					console.log("SIPE LEFT!!");
 					if (menuStatus){
 						$('.ui-page-active').animate({
 							marginLeft: '0px',
@@ -260,7 +257,7 @@ function refershBillSendStatus(rowID){
 					}
 				});
 			
-				$(document).on('swiperight', '.pages', function(e) {
+				$( ":mobile-pagecontainer" ).on('swipeleft', function(e) {
 					if (!menuStatus){
 						//alert($(window).scrollTop() + ' - ' + $('#side-menu').offset().top);
 						$('#side-menu').css('marginTop', $(window).scrollTop());
@@ -284,5 +281,3 @@ function refershBillSendStatus(rowID){
 			});
 		};
 	})(jQuery);
-	
-	// slidfe side menu ends

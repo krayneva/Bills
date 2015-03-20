@@ -217,3 +217,67 @@ function refershBillSendStatus(rowID){
 		currentPage = "pageTransaction";
 		$.mobile.pageContainer.pagecontainer( "change", "transaction.html" ,{transition:"none"});
 	}
+	
+	
+	(function($){
+		console.log("SLIDE MENUCALLED!!");
+		$.fn.slideMenu = function(options) {
+			// If options exist, merge them with the default settings
+			options = $.extend({
+				duration:	500,
+				easing:		'swing'
+			}, options);
+			
+			return this.each(function() {
+				var obj = $(this);
+				
+				var menuStatus = false;
+			
+				$(document).on('click', 'a.showMenu', function(e) {
+					if(!menuStatus){
+						$('#side-menu').css('visibility','visible');
+						$('.ui-page-active').animate({
+							marginLeft: '165px',
+						}, options.duration, options.easing, function(){menuStatus = true});
+						return false;
+					} else {
+						$('.ui-page-active').animate({
+							marginLeft: '0px',
+						}, options.duration, options.easing, function(){menuStatus = false});
+						return false;
+					}
+				});
+			
+				$( ":mobile-pagecontainer" ).on('swipeleft', function(e) {
+					console.log("SIPE LEFT!!");
+					if (menuStatus){
+						$('.ui-page-active').animate({
+							marginLeft: '0px',
+						}, options.duration, options.easing, function(){menuStatus = false; $('#side-menu').css('marginTop', $(window).scrollTop());});
+					}
+				});
+			
+				$( ":mobile-pagecontainer" ).on('swipeleft', function(e) {
+					if (!menuStatus){
+						//alert($(window).scrollTop() + ' - ' + $('#side-menu').offset().top);
+						$('#side-menu').css('marginTop', $(window).scrollTop());
+						$('#side-menu').css('visibility','visible');
+						$('.ui-page-active').animate({
+							marginLeft: '165px',
+						}, options.duration, options.easing, function(){menuStatus = true});
+					}
+				});
+			
+				$('#side-menu li a').click(function(){
+					var p = $(this).parent();
+					if($(p).hasClass('active')){
+						$('#side-menu li').removeClass('active');
+					} else {
+						$('#side-menu li').removeClass('active');
+						$(p).addClass('active');
+					}
+					menuStatus = false;
+				});
+			});
+		};
+	})(jQuery);
