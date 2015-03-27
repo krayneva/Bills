@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		019E6D894C914C638790FDB1 /* CDVConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F3B8982D1947039A317CBE /* CDVConnection.m */; };
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
@@ -985,7 +986,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = Bills;
-				PROVISIONING_PROFILE = "312f1282-eb97-4dee-9191-1d0e4e845a2f";
+				PROVISIONING_PROFILE = "c1cf0362-01d9-4b9f-902d-1758ff340b8f";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s";
 			};
@@ -1033,7 +1034,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = Bills;
-				PROVISIONING_PROFILE = "312f1282-eb97-4dee-9191-1d0e4e845a2f";
+				PROVISIONING_PROFILE = "c1cf0362-01d9-4b9f-902d-1758ff340b8f";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s";
 			};
@@ -1083,7 +1084,7 @@
 					"-weak-lSystem",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "312f1282-eb97-4dee-9191-1d0e4e845a2f";
+				PROVISIONING_PROFILE = "c1cf0362-01d9-4b9f-902d-1758ff340b8f";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				USER_HEADER_SEARCH_PATHS = "";
@@ -1134,7 +1135,7 @@
 					"-weak-lSystem",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "312f1282-eb97-4dee-9191-1d0e4e845a2f";
+				PROVISIONING_PROFILE = "c1cf0362-01d9-4b9f-902d-1758ff340b8f";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				USER_HEADER_SEARCH_PATHS = "";
