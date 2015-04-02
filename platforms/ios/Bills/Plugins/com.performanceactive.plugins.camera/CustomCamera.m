@@ -140,7 +140,7 @@ CLLocationDegrees latitude=-1,longitude=-1;
                 res = [res stringByAppendingString:[[NSString alloc] initWithFormat:@"%f", longitude]];
                res = [res stringByAppendingString:@"\"}"];
   */
-               NSString *res=@"\"ImageUri:\"lkjhgkjufkhgfjk\"";
+               NSString *res=@"{ImageUri:lkjhgkjufkhgfjk}";
                NSLog(@"------");
                NSLog(res);
                CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
