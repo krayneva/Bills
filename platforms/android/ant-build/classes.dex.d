@@ -90,6 +90,7 @@ D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\ru\krayne
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\ru\krayneva\bills\R$string.class \
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\ru\krayneva\bills\R$xml.class \
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\ru\krayneva\bills\R.class \
+D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\dexedLibs\annotations-a4e82f0af5bc34208072482ae1a8d410.jar \
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\dexedLibs\httpmime-4.1.2-09453966832714707fc2837f90a166b2.jar \
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\dexedLibs\bills-cordovalib-430b257e6737f6f05e4e3cc1d970e90c.jar \
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\dexedLibs\appblade framework-9243e988e817c0194f7d3c7d89441fc3.jar \

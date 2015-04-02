@@ -33,6 +33,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
+import android.provider.Settings;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.Display;
@@ -82,10 +83,18 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     public static String TARGET_HEIGHT = "TargetHeight";
     public static String COLOR_MODE = "ColorMode";
     public static String TEMPFILEPATH = "TempFilePath"; 
-    public static String IMAGE_URI = "ImageUri";
+
     public static String ERROR_MESSAGE = "ErrorMessage";
     public static int RESULT_ERROR = 2;
     public static int MAX_IMAGE_WIDTH = 4*1024;
+    
+    
+    
+    // возвращаемые параметры
+    public static String IMAGE_URI = "ImageUri";
+    public static String LATITUDE = "Latitude";
+    public static String LONGITUDE = "Longitude";
+    
 
     private Camera camera;
     private RelativeLayout layout;
@@ -118,7 +127,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     
     private ArrayList<String> bitmaps= new ArrayList<String>();
     private Bitmap previousBitmap;
-    double latitude, longitude;  
+    double latitude=-1, longitude=-1 ;  
     private ProgressBar progress;
     
     @Override
@@ -208,21 +217,34 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         Location location = null;
         boolean isGPSActive  = lm.isProviderEnabled(LocationManager.GPS_PROVIDER);
       
+
+        
  		if (!isGPSActive ) {
+ 				
  			location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
  			//Toast.makeText(this, ""+location.getLongitude(), Toast.LENGTH_LONG).show();
  			
  		}
  		else{
+
  			location = lm.getLastKnownLocation(LocationManager.GPS_PROVIDER);
- 			Toast.makeText(this, ""+location.getLongitude(), Toast.LENGTH_LONG).show();
+ 
          	
  		}
+ 		if (location==null){
+ 			location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
+ 		}
+ 		
  		if (location!=null){
+ 		//	Toast.makeText(this, ""+location.getLongitude(), Toast.LENGTH_LONG).show();
 	 		latitude = location.getLatitude();
 	 	 	longitude = location.getLongitude();
  		}
     }
+    
+    
+    
+
 
     private void createCameraPreview() {
         cameraPreviewView = new FrameLayout(this);
@@ -1098,6 +1120,8 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 			super.onPostExecute(result);
 	        Intent data = new Intent();
 	        data.putExtra(IMAGE_URI, Uri.fromFile(result).toString());
+	        data.putExtra(LATITUDE, latitude);
+	        data.putExtra(LONGITUDE, longitude);
 	        setResult(RESULT_OK, data);
 	        finish();
 		}

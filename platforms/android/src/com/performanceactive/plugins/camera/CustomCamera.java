@@ -4,11 +4,14 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
+import android.webkit.WebSettings.PluginState;
 
 import org.apache.cordova.CallbackContext;
 import org.apache.cordova.CordovaArgs;
 import org.apache.cordova.CordovaPlugin;
+import org.apache.cordova.PluginResult;
 import org.json.JSONException;
+import org.json.JSONObject;
 
 import static com.performanceactive.plugins.camera.CustomCameraActivity.ERROR_MESSAGE;
 import static com.performanceactive.plugins.camera.CustomCameraActivity.FILENAME;
@@ -18,6 +21,9 @@ import static com.performanceactive.plugins.camera.CustomCameraActivity.RESULT_E
 import static com.performanceactive.plugins.camera.CustomCameraActivity.TARGET_HEIGHT;
 import static com.performanceactive.plugins.camera.CustomCameraActivity.TARGET_WIDTH;
 import static com.performanceactive.plugins.camera.CustomCameraActivity.COLOR_MODE;
+
+import static com.performanceactive.plugins.camera.CustomCameraActivity.LATITUDE;
+import static com.performanceactive.plugins.camera.CustomCameraActivity.LONGITUDE;
 
 public class CustomCamera extends CordovaPlugin {
 
@@ -49,7 +55,19 @@ public class CustomCamera extends CordovaPlugin {
 	@Override
     public void onActivityResult(int requestCode, int resultCode, Intent intent) {
 	    if (resultCode == Activity.RESULT_OK) {
-	        callbackContext.success(intent.getExtras().getString(IMAGE_URI));
+	        //callbackContext.success(intent.getExtras().getString(IMAGE_URI)));
+	    	JSONObject result = new JSONObject();
+	    	try {
+				result.put(IMAGE_URI, intent.getExtras().getString(IMAGE_URI));
+				result.put(LATITUDE, intent.getExtras().getDouble(LATITUDE));
+				result.put(LONGITUDE, intent.getExtras().getDouble(LONGITUDE));
+			} catch (JSONException e) {
+				e.printStackTrace();
+	            callbackContext.error("Failed to form json");
+			}
+	    //    PluginResult pluginResult = new PluginResult(PluginResult.Status.OK,result);
+	     //   callbackContext.sendPluginResult(pluginResult);
+	    	callbackContext.success(result);
 	    } else if (resultCode == RESULT_ERROR) {
 	        String errorMessage = intent.getExtras().getString(ERROR_MESSAGE);
 	        if (errorMessage != null) {
