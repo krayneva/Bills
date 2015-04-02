@@ -57,9 +57,6 @@ function saveSettings(){
 }
 
 
-/**
- * сохранение настройки адреса сервера
- */
 function saveConnectionSettings(){
 	var serverAddress = document.getElementById("serverAddress").value;
 	if (serverAddress =="") serverAddress = SERVER_ADDRESS_DEFAULT;

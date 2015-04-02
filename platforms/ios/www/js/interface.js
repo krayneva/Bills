@@ -219,7 +219,7 @@ function refershBillSendStatus(rowID){
 	}
 	
 	
-/*	(function($){
+	(function($){
 		console.log("SLIDE MENUCALLED!!");
 		$.fn.slideMenu = function(options) {
 			// If options exist, merge them with the default settings
@@ -280,10 +280,4 @@ function refershBillSendStatus(rowID){
 				});
 			});
 		};
-	})(jQuery);*/
-	
-	
-	function showUserEnvironment(){
-		var environment = getUserEnvironment();
-		alert(environment);
-	}
+	})(jQuery);
