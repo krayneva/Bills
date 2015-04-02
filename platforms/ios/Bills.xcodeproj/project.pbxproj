@@ -985,7 +985,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = Bills;
-				PROVISIONING_PROFILE = "c1cf0362-01d9-4b9f-902d-1758ff340b8f";
+				PROVISIONING_PROFILE = "312f1282-eb97-4dee-9191-1d0e4e845a2f";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s";
 			};
@@ -1033,7 +1033,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = Bills;
-				PROVISIONING_PROFILE = "c1cf0362-01d9-4b9f-902d-1758ff340b8f";
+				PROVISIONING_PROFILE = "312f1282-eb97-4dee-9191-1d0e4e845a2f";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s";
 			};
@@ -1083,7 +1083,7 @@
 					"-weak-lSystem",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "c1cf0362-01d9-4b9f-902d-1758ff340b8f";
+				PROVISIONING_PROFILE = "312f1282-eb97-4dee-9191-1d0e4e845a2f";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				USER_HEADER_SEARCH_PATHS = "";
@@ -1134,7 +1134,7 @@
 					"-weak-lSystem",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "c1cf0362-01d9-4b9f-902d-1758ff340b8f";
+				PROVISIONING_PROFILE = "312f1282-eb97-4dee-9191-1d0e4e845a2f";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				USER_HEADER_SEARCH_PATHS = "";

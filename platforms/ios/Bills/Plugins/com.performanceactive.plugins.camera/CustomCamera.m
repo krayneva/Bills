@@ -45,6 +45,7 @@ NSMutableDictionary *GPSDictionary;
 NSString *path;
 NSString *finalImagePath;
 NSMutableArray *imagePaths;
+CLLocationDegrees latitude=-1,longitude=-1;
 
 - (void)takePicture:(CDVInvokedUrlCommand*)command {
     NSString *filename = [command argumentAtIndex:0];
@@ -130,8 +131,18 @@ NSMutableArray *imagePaths;
         }
            callbackSend:^(){
                [self combineImages];
+               
+               NSString *res=@"{\"ImageUri\":\"";
+              res = [res stringByAppendingString:[[NSURL fileURLWithPath:finalImagePath] absoluteString]];
+               res = [res stringByAppendingString:@"\",\"Latitude\":\""];
+               res = [res stringByAppendingString:[[NSString alloc] initWithFormat:@"%f", latitude]];
+               res = [res stringByAppendingString:@"\",\"Longitude\":\""];
+                res = [res stringByAppendingString:[[NSString alloc] initWithFormat:@"%f", longitude]];
+               res = [res stringByAppendingString:@"\"}"];
+                NSLog(@"--------------");
+               NSLog(res);
                CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
-                      messageAsString:[[NSURL fileURLWithPath:finalImagePath] absoluteString]];
+                      messageAsString:res];
                [self.commandDelegate sendPluginResult:result callbackId:command.callbackId];
                 [self.viewController dismissViewControllerAnimated:YES completion:nil];
                
@@ -370,7 +381,7 @@ NSMutableArray *imagePaths;
         
 		GPSDictionary = [[NSMutableDictionary dictionary] init];
         
-		CLLocationDegrees latitude  = newLocation.coordinate.latitude;
+		latitude  = newLocation.coordinate.latitude;
 		CLLocationDegrees longitude = newLocation.coordinate.longitude;
         printf("LATITUDE");
         printf("%f",newLocation.coordinate.latitude);
@@ -431,8 +442,8 @@ NSMutableArray *imagePaths;
     if (locationManager != nil) {
     GPSDictionary = [[NSMutableDictionary dictionary] init];
     
-    CLLocationDegrees latitude  = locationManager.location.coordinate.latitude;
-    CLLocationDegrees longitude = locationManager.location.coordinate.longitude;
+    latitude  = locationManager.location.coordinate.latitude;
+    longitude = locationManager.location.coordinate.longitude;
     printf("LATITUDE");
     printf("%f",locationManager.location.coordinate.latitude);
     printf("\n");
