@@ -132,14 +132,16 @@ CLLocationDegrees latitude=-1,longitude=-1;
            callbackSend:^(){
                [self combineImages];
                
-               NSString *res=@"{\"ImageUri\":\"";
+            /*   NSString *res=@"{\"ImageUri\":\"";
               res = [res stringByAppendingString:[[NSURL fileURLWithPath:finalImagePath] absoluteString]];
-               res = [res stringByAppendingString:@"\",\"Latitude\":\""];
-               res = [res stringByAppendingString:[[NSString alloc] initWithFormat:@"%f", latitude]];
+               res = [res stringByAppendingString:@"\",\"Latitude\":\"" ];
+               res = [res stringByAppendingString:[[NSString alloc] initWithFormat:@"%f", latitude] ];
                res = [res stringByAppendingString:@"\",\"Longitude\":\""];
                 res = [res stringByAppendingString:[[NSString alloc] initWithFormat:@"%f", longitude]];
                res = [res stringByAppendingString:@"\"}"];
-                NSLog(@"--------------");
+  */
+               NSString *res=@"\"ImageUri:\"lkjhgkjufkhgfjk\"";
+               NSLog(@"------");
                NSLog(res);
                CDVPluginResult *result = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK
                       messageAsString:res];
