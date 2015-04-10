@@ -19,7 +19,7 @@ var USER_PASSWORD_DEFAULT= "";
 var USER_TOKEN_DEFAULT = "";
 var SERVER_ADDRESS_DEFAULT = "https://billview.cloudapp.net/receipts/";
 
-function putSetting(setting, value){
+/*function putSetting(setting, value){
 	window.localStorage.setItem(setting, value);
 }
 
@@ -33,7 +33,7 @@ function getSetting(setting, def){
 	if (sett==null) sett = def;
 	return sett;
 }
-
+*/
 
 function removeSetting(setting){
 	window.localStorage.removeItem(setting);

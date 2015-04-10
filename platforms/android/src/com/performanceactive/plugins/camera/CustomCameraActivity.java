@@ -94,6 +94,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     public static String IMAGE_URI = "ImageUri";
     public static String LATITUDE = "Latitude";
     public static String LONGITUDE = "Longitude";
+    public static String ALTITUDE = "Altitude";
     
 
     private Camera camera;
@@ -127,7 +128,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     
     private ArrayList<String> bitmaps= new ArrayList<String>();
     private Bitmap previousBitmap;
-    double latitude=-1, longitude=-1 ;  
+    double latitude=-1, longitude=-1, altitude=-1 ;  
     private ProgressBar progress;
     
     @Override
@@ -237,8 +238,11 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
  		
  		if (location!=null){
  		//	Toast.makeText(this, ""+location.getLongitude(), Toast.LENGTH_LONG).show();
+ 		//	Toast.makeText(this, ""+location.getAltitude(), Toast.LENGTH_LONG).show();
+
 	 		latitude = location.getLatitude();
 	 	 	longitude = location.getLongitude();
+	 	 	altitude = location.getAltitude();
  		}
     }
     
@@ -1103,6 +1107,8 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 				Log.w("Latitide", ""+latitude);
 				exif.setAttribute(ExifInterface.TAG_GPS_LONGITUDE, ""+longitude);
 				Log.w("Longitude", ""+longitude);
+				exif.setAttribute(ExifInterface.TAG_GPS_ALTITUDE, ""+altitude);
+				Log.w("Altitude", ""+altitude);
 				exif.saveAttributes();
 
 			} catch (IOException e) {
@@ -1122,6 +1128,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 	        data.putExtra(IMAGE_URI, Uri.fromFile(result).toString());
 	        data.putExtra(LATITUDE, latitude);
 	        data.putExtra(LONGITUDE, longitude);
+	        data.putExtra(ALTITUDE, altitude);
 	        setResult(RESULT_OK, data);
 	        finish();
 		}

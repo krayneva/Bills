@@ -24,6 +24,7 @@ import static com.performanceactive.plugins.camera.CustomCameraActivity.COLOR_MO
 
 import static com.performanceactive.plugins.camera.CustomCameraActivity.LATITUDE;
 import static com.performanceactive.plugins.camera.CustomCameraActivity.LONGITUDE;
+import static com.performanceactive.plugins.camera.CustomCameraActivity.ALTITUDE;
 
 public class CustomCamera extends CordovaPlugin {
 
@@ -61,6 +62,7 @@ public class CustomCamera extends CordovaPlugin {
 				result.put(IMAGE_URI, intent.getExtras().getString(IMAGE_URI));
 				result.put(LATITUDE, intent.getExtras().getDouble(LATITUDE));
 				result.put(LONGITUDE, intent.getExtras().getDouble(LONGITUDE));
+				result.put(ALTITUDE, intent.getExtras().getDouble(ALTITUDE));
 			} catch (JSONException e) {
 				e.printStackTrace();
 	            callbackContext.error("Failed to form json");

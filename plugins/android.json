@@ -31,6 +31,10 @@
                         {
                             "xml": "<feature name=\"AppBlade\"><param name=\"android-package\" value=\"ru.krayneva.bills.AppBladePlugin\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -86,6 +90,10 @@
             "PACKAGE_NAME": "ru.krayneva.bills"
         },
         "org.apache.cordova.network-information": {
+            "PACKAGE_NAME": "ru.krayneva.bills"
+        },
+        "org.apache.cordova.splashscreen": {},
+        "org.apache.cordova.device": {
             "PACKAGE_NAME": "ru.krayneva.bills"
         }
     },

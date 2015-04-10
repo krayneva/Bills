@@ -7,7 +7,7 @@
 			 if (!db) {
 			      db = window.openDatabase("BillsDatabase", "1.0", "PhoneGap Training", 200000);
 			    }
-			// пока забиваем руками значения
+			// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			 db.transaction(populateDB, onError, onSuccess);
 		 } catch(e) { 
 			 onError("Error in database "+e);
@@ -17,44 +17,87 @@
 	
  
 
-    /** создаем таблицы
+    /** пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
      * @param tx
      */
     function populateDB(tx) {
      //    tx.executeSql('DROP TABLE IF EXISTS Bills');
          tx.executeSql('CREATE TABLE IF NOT EXISTS Bills' 
         		 		+'(id integer primary key autoincrement,name, description,'
-        		 		+'createdate,path, sent, latitude,longitude)');
-     //    tx.executeSql('INSERT INTO Bills (id, name, description,path) VALUES (1, "Счет 1","Описание счета 1","/mnt/sdcard/test.jpg")');
-     //    tx.executeSql('INSERT INTO Bills (id, name, description,path) VALUES (2, "Счет 2","Описание счета 2","/mnt/sdcard/test.jpg")');
-         tx.executeSql('DROP TABLE IF EXISTS UserEnvironment');
+        		 		+'createdate,path, sent, latitude,longitude,altitude)');
+     //    tx.executeSql('INSERT INTO Bills (id, name, description,path) VALUES (1, "пїЅпїЅпїЅпїЅ 1","пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ 1","/mnt/sdcard/test.jpg")');
+     //    tx.executeSql('INSERT INTO Bills (id, name, description,path) VALUES (2, "пїЅпїЅпїЅпїЅ 2","пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ 2","/mnt/sdcard/test.jpg")');
          tx.executeSql('CREATE TABLE IF NOT EXISTS UserEnvironment' 
  		 		+'(environment)');
-       //  tx.executeSql('INSERT INTO UserEnvironment (environment) VALUES ("Тест!!")');
+     //  tx.executeSql('INSERT INTO UserEnvironment (environment) VALUES ("пїЅпїЅпїЅпїЅ!!")');
 
+         /*
+          * // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+			var SETTING_JPEG_QUALITY = "jpegQuality";
+			var SETTING_COLOR_MODE = "colorMode";
+			var SETTING_OUTPUT_WIDTH = "outputWidth";
+			var SETTING_USER_LOGIN = "userLogin";
+			var SETTING_USER_PASSWORD = "userPassword";
+			var SETTING_USER_TOKEN = "userToken";
+			var SETTING_SERVER_ADDRESS = "ServerAddress";
+			var BILL_ID_KEY = "BillIdKey";
+          */
+         
+         tx.executeSql('CREATE TABLE IF NOT EXISTS Settings' 
+  		 +'(id integer primary key autoincrement,'
+  		+SETTING_USER_LOGIN+','
+  		+SETTING_USER_PASSWORD+','
+  		+SETTING_USER_TOKEN+','
+  		+SETTING_SERVER_ADDRESS
+         +')');
+ 
+         
+         tx.executeSql('SELECT * FROM Settings;', [],
+		        		function(transaction, result) {
+		        	if (result.rows.length==0){
+		        		 tx.executeSql('INSERT INTO Settings' 
+		        		  		 +'('
+		        		  		+SETTING_USER_LOGIN+','
+		        		  		+SETTING_USER_PASSWORD+','
+		        		  		+SETTING_USER_TOKEN+','
+		        		  		+SETTING_SERVER_ADDRESS
+		        		         +') values '
+		        		         +'("'
+		        		  		+USER_LOGIN_DEFAULT+'","'
+		        		  		+USER_PASSWORD_DEFAULT+'","'
+		        		  		+USER_TOKEN_DEFAULT+'","'
+		        		  		+SERVER_ADDRESS_DEFAULT+'"'
+		        		         +')'
+		        		 );
+		        		 
+		        	}
+		        	        	
+		    }, onError);
+        
     }
     
-    /** добавление чека в бд
-     * @param filePath путь к файлу
-     * @param latitude широта
-     * @param longitude долгота
+    /** пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅ
+     * @param filePath пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ
+     * @param latitude пїЅпїЅпїЅпїЅпїЅпїЅ
+     * @param longitude пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
      */
-    function addBill(filePath, latitude, longitude){
+    function addBill(filePath, latitude, longitude,altitude){
         db.transaction(
     		function(transaction) { 
         		transaction.executeSql(
-        		'INSERT INTO Bills (name, description,createdate,path,sent,latitude,longitude) VALUES ("Чек","", "'
+        		'INSERT INTO Bills (name, description,createdate,path,sent,latitude,longitude,altitude) VALUES ("Чек","", "'
         		+new Date().toJSON()
         		+'","'+filePath+'",0'
         		+','+latitude
         		+','+longitude
+        		+','+altitude
         		+')'
         		);},
         		 onError, onSuccess);
       refreshBills();
    }
     
-    /** установка статуса "отправлен" чеку
+    /** пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ" пїЅпїЅпїЅпїЅ
      * @param billID
      */
     function setBillSent(billID){
@@ -69,7 +112,7 @@
     
     
     /**
-     * очистка таблицы чеков (отладка)
+     * пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
      */
     function clearBillsTable(){
         db.transaction(
@@ -82,7 +125,7 @@
     
     
     
-    /** добавление\обновление окружения пользователя
+    /** пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ\пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
      * @param environment
      */
     function addUserEnvironment(environment){
@@ -92,13 +135,13 @@
     		//	alert(environment);
         		transaction.executeSql(
         		"INSERT OR REPLACE INTO UserEnvironment (environment) VALUES ('"+environment+"')"
-        		//		'INSERT INTO UserEnvironment (environment) VALUES ("Тест")'
+        		//		'INSERT INTO UserEnvironment (environment) VALUES ("пїЅпїЅпїЅпїЅ")'
         		);},
         		 onError, onSuccess);
    }
     
     /**
-     * получение окружения пользователя из бд
+     * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ
      */
     function getUserEnvironment(){
     	var res = "";
@@ -116,10 +159,42 @@
         
     
     /**
-     * дата последнего апдейта транзакций
+     * пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
      */
     function getLastUpdateTime(){
     	
     }
     
+    
+    function putSetting(setting, value){
+    	 console.log("SQL: "+'UPDATE Settings set '+setting+'="'+value+'" where id=1');
+       db.transaction(
+      		function(transaction) { 
+          		transaction.executeSql(
+           		'UPDATE Settings set '+setting+'="'+value+'"');} ,
+           		 onError, onSuccess);
+      
+    }
 
+    
+    function getSetting(setting, defValue){
+   	console.log("SQL: "+'SELECT '+setting+' FROM Settings where id=1;');
+    var res = "";
+	db.transaction(
+		    function(transaction) {
+		        transaction.executeSql('SELECT '+setting+' FROM Settings;', [],
+		        		function(transaction, result) {
+		        	
+		        	var row =  result.rows.item(0);
+		        	$.each(row, function(columnName, value) {
+		        			res = value;
+		        			alert(res);
+		        			if (res==="") res = defValue;
+		        			console.log("Get setting "+setting+" returned "+res );
+		        			return res;
+        	        });
+		        	        	
+		    }, onError);
+		 });
+
+	}
