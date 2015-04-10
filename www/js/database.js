@@ -180,34 +180,23 @@
     function getSetting(setting, defValue){
    	console.log("SQL: "+'SELECT '+setting+' FROM Settings where id=1;');
     var res = "";
-    var deferred = $.Deferred;
+   var deferred = $.Deferred();
 	db.transaction(
 		    function(transaction) {
 		        transaction.executeSql('SELECT '+setting+' FROM Settings;', [],
 		        		function(transaction, result) {
-		        	
 		        	var row =  result.rows.item(0);
 		        	$.each(row, function(columnName, value) {
 		        			res = value;
-		        			deffered.resolve(res);
-		        			alert(res);
+		        			deferred.resolve(res);
 		        			if (res==="") res = defValue;
 		        			console.log("Get setting "+setting+" returned "+res );
-		        	
         	        });
 		        	        	
 		    }, onError);
 		 });
 	return deferred;
-	
-	
-
 	}
     
     
     
-	function waitForDB(){
-		
-		getSetting.done
-		
-	}

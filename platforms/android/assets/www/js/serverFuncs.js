@@ -215,14 +215,11 @@ function uploadPhoto() {
                success: function(response, textStatus, jqXHR) {
             	   //  alert(jqXHR.responseText);
                     var obj = jQuery.parseJSON(jqXHR.responseText);
-                   userToken = obj.access_token;
+                   var userToken = obj.access_token;
                    putSetting(SETTING_USER_LOGIN, login);
                    putSetting(SETTING_USER_PASSWORD, password);
                    putSetting(SETTING_USER_TOKEN, userToken);
-                   
-                   getSetting(SETTING_USER_LOGIN);
-                   getSetting(SETTING_USER_PASSWORD);
-                   getSetting(SETTING_USER_TOKEN);
+
            		$.mobile.loading("hide");
                    showMainPage();
                    
