@@ -447,11 +447,12 @@ td{
   width: 15%;
   float:left;
 }
-.topPanel>span>img{
+.topPanel_backButton,
+.topPanel_menuButton{
   height: 3em;
   float:left;
 }
-.topPanel>span:last-child>img{
+.topPanel_menuButton{
   float:right;
 }
 .foottopPanel{
