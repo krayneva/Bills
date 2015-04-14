@@ -619,4 +619,73 @@ textarea:focus{
   height: 3em;
   margin-top: -0.7em;
 }
-/*test*/
+.expenses > ul {
+    list-style: none;
+    margin: 0.1em;
+    padding: 0;
+}
+.expenses_item {
+    position: relative;
+    padding: 1em 10em 1em 9em;
+    color: #59a6b2;
+    min-height: 5em;
+}
+.expenses_item > hr {
+    position: absolute;
+    bottom: 0;
+    left: 1em;
+    right: 1em;
+    height: 0;
+    border-bottom: 0;
+    border-color: #59a6b2;
+}
+.expenses_info {
+    width: 5em;
+    float: left;
+    top: 0;
+    left: 0;
+    position: absolute;
+    line-height: 2em;
+    padding-left: 1em;
+}
+.expenses_title {
+    font-size: 1.4em;
+    font-weight: bold;
+}
+.expenses_remark {
+    font-size: 1.2em;
+}
+.expenses_button {
+    width: 9em;
+    float: left;
+    top: 0;
+    right: 0;
+    position: absolute;
+}
+.expenses_buttonChek,
+.expenses_buttonInfo {
+    width: 40%;
+    padding: 1em 0.2em;
+}
+.expenses_date {
+    width: 100%;
+    background: #ecf1f1;
+    color: #8eabae;
+    padding: 0 0.5em 0 1em;
+    position: absolute;
+    left: 0;
+    font-weight: bold;
+    font-size: 1.2em;
+}
+.expenses_time {
+    font-size: 1.2em;
+    padding-top: 1.7em;
+    color: #8eabae;
+}
+.expenses_price {
+    color: red;
+    font-size: 1.4em;
+    line-height: 1;
+    color: #943232;
+    font-weight: bold;
+}
