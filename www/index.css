@@ -629,6 +629,7 @@ textarea:focus{
     padding: 1em 10em 1em 9em;
     color: #59a6b2;
     min-height: 5em;
+    height: 5em;
 }
 .expenses_item > hr {
     position: absolute;

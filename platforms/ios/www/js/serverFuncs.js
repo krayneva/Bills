@@ -165,7 +165,8 @@ function uploadPhoto() {
     	
     }
 
-    function getUserToken(login, password){
+    function requestUserToken(login, password){
+    	var deferred = $.Deferred();
     	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
     		var serverAddress = res;
     	//	alert("GetUserToken serverAddress: "+serverAddress+getTokenURL);
@@ -188,18 +189,20 @@ function uploadPhoto() {
                        putSetting(SETTING_USER_LOGIN, login);
                        putSetting(SETTING_USER_PASSWORD, password);
                        putSetting(SETTING_USER_TOKEN, userToken);
-
-               		  $.mobile.loading("hide");
-                       showMainPage();
                        
+               		  $.mobile.loading("hide");
+                      // showMainPage();
+                     deferred.resolve(userToken);  
                    },
                    error: function(jqXHR, textStatus, errorThrown) {
-                	   alert("getUserToken: "+textStatus + " " + errorThrown+" "+jqXHR.responseText+textStatus);
+                	   //alert("getUserToken: "+textStatus + " " + errorThrown+" "+jqXHR.responseText+textStatus);
                			$.mobile.loading("hide");
-                	   showMainPage();
+                	   //showMainPage();
+                	   deferred.resolve("");
                    } 
                    });  
     	});
+    	return deferred;
     }
 
 
@@ -226,10 +229,32 @@ function uploadPhoto() {
     	               deferred.resolve();
     	            },
     	            error: function(jqXHR, textStatus, errorThrown) {
-    	            	alert("user token: " +userToken);
-    	                alert(textStatus + " " + errorThrown);
-    	                alert("Код ошибки " + errorThrown.code);
-    	                deferred.resolve();
+    	                if (errorThrown=="Unauthorized"){
+    	                	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(login){
+    	                		var log = login;
+    	                		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(password){
+    	                		var pass = password;
+    	                		alert("Requesting userToken!");
+    	                			requestUserToken(log, pass).done(function(uToken){
+    	    	                		var userToken = uToken;
+    	    	                		if (userToken!=""){
+    	    	                			 requestTransactions();
+    	    	                		}
+    	    	                		else{
+    	    	                			alert("Ошибка авторизации");
+    	    	                			deferred.resolve();
+    	    	                		}
+    	                			});
+    	                		});
+    	                	});
+    	                }
+    	                else{
+	    	            	alert("user token: " +userToken);
+	    	            	alert("server address:"+serverAddress+getEnvironmentURL);
+	    	                alert(textStatus + " " + errorThrown);
+	    	                alert("Код ошибки " + errorThrown.code);
+	    	                deferred.resolve();
+    	                }
     	            }
     	        });
     		});
@@ -249,7 +274,10 @@ function uploadPhoto() {
     		var serverAddress = res;
     		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
     		var userToken = uToken;
-    		console.log("requestTransactionsURL: "+serverAddress+getTransactionsURL);
+    		
+    		console.log("requestTransactionsURL server address: "+serverAddress+getTransactionsURL);
+    		console.log("requestTransactionsURL user token: "+userToken);
+    		
     	   $.ajax({
     	          url: serverAddress+getTransactionsURL+"?dateFrom=null&dateTo=null",
     	            type: "get",
@@ -259,7 +287,7 @@ function uploadPhoto() {
                 },
     	            data: [],       
     	            success: function(response, textStatus, jqXHR) {
-    	               alert(jqXHR.responseText);
+    	              // alert(jqXHR.responseText);
     	               console.log(jqXHR.responseText);
     	               //putSetting(SETTING_USER_ENVIRONMENT,jqXHR.responseText);
     	               //addUserEnvironment(jqXHR.responseText);
@@ -270,7 +298,8 @@ function uploadPhoto() {
     	           		  var id = transaction.Id;
      	           		  var purseID = transaction.PurseID;
      	           		  var transactionDate = transaction.transactionDate;
-	    	           	  addTransaction(id,transaction, purseID, transactionDate);
+     	           		  var categoryID = transaction.categoryID;
+	    	           	  addTransaction(id,JSON.stringify(transaction), purseID, transactionDate, categoryID);
     	           		}
     	               
     	               deferred.resolve();
@@ -278,8 +307,32 @@ function uploadPhoto() {
     	            error: function(jqXHR, textStatus, errorThrown) {
     	            	alert("user token: " +userToken);
     	                alert(textStatus + " " + errorThrown);
-    	                alert("Код ошибки " + errorThrown.code);
-    	                deferred.resolve();
+    	                if (errorThrown=="Unauthorized"){
+    	                	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(login){
+    	                		var log = login;
+    	                		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(password){
+    	                		var pass = password;
+    	                			requestUserToken(log, pass).done(function(uToken){
+    	    	                		var userToken = uToken;
+    	    	                		if (userToken!=""){
+    	    	                			 requestTransactions();
+    	    	                		}
+    	    	                		else{
+    	    	                			alert("Ошибка авторизации");
+    	    	                			deferred.resolve();
+    	    	                		}
+    	                			});
+    	                		});
+    	                	});
+    	                }
+    	                else{
+	    	            	alert("user token: " +userToken);
+	    	            	alert("server address:"+serverAddress+getEnvironmentURL);
+	    	                alert(textStatus + " " + errorThrown);
+	    	                alert("Код ошибки " + errorThrown.code);
+	    	                deferred.resolve();
+    	                }
+
     	            }
     	        });
     		});

@@ -9,13 +9,23 @@ function updateLoginPage(){
 }
 
 
+function requestAndUpdateMainPage(){
+	requestUserEnvironment().done(function(){
+		updateMainPage();
+	});
+}
+
+
 
 function updateMainPage(){
-	//alert("Update Main Page called!");
-	requestUserEnvironment().done(function(){
 		getUserEnvironment().done(function(res){
+			console.log("Update main page json :"+res);
+			if (res==="") {
+				console.log("updateMainPage: requesting environment From server");
+				requestAndUpdateMainPage();
+				return;
+			}
 			var json = jQuery.parseJSON(res);
-			console.log(res);
 			
 			//--------------- доход----------//
 			var incomeRublesTD = document.getElementById("incomeRublesTD");
@@ -56,7 +66,7 @@ function updateMainPage(){
 			
 			// ------------- расход-------------------//
 			var expenses = document.getElementById("expenses");
-			expenses.innerHTML = json.ExpencesAmount;
+			expenses.innerHTML = json.ExpencesAmountStr;
 			// ------------- конец расход-------------------//
 			
 			
@@ -67,7 +77,7 @@ function updateMainPage(){
 				
 				 widget.style.display = "block";
 				 widget.style.visibility = "visible";
-
+				 widget.setAttribute("categoryID", w.CategoryID);
 				  var arr=widget.childNodes;
 				  for (var i=0;i<arr.length;i++){
 			            if (arr[i].id == "interest"){
@@ -105,11 +115,10 @@ function updateMainPage(){
 			                arr[i].setAttribute("src",src);
 			            }
 				  }
-				  console.log("Widget "+w.WidgetID+" left: "+w.Left+" top:"+w.Top+" interest:"+w.Percent);
+				//  console.log("Widget "+w.WidgetID+" left: "+w.Left+" top:"+w.Top+" interest:"+w.Percent);
 
 				}
 		});
-	});
 }
 
 
@@ -122,38 +131,48 @@ function updateTransactionPage(){
 	
 	requestTransactions().done(function(){
 		getTransactions().done(function(result){
-			//  alert ("Rows count: "+result.rows.length);
 			  
 			  for (var i = 0; i <result.rows.length; i++) {
 				  var row = result.rows.item(i);
-				  var listrow = document.getElementById("listRowTemplate").cloneNode(true);
+				  var listrow = document.getElementById("transactionRow").cloneNode(true);
 				  listrow.style.display = "block";
-				  var arr=listrow.find("td");
+				  var arr=listrow.childNodes;
+				  var jsonText = row.transactionJSON;
+				  var json =  jQuery.parseJSON(jsonText);
+				  var date = new Date(json.CreatedAt);
+				  var currency = json.Currency;
 				  
-				 // var json = row.transactionJSON;
 				  for (var j=0;j<arr.length;j++){
-					  console.log("ID of element is: "+arr[j].id);
-					  if(arr[j].id == "transactionName"){
-						  arr[j].innerHTML = "Билеты в кино";
+					 
+					  if(arr[j].id == "transactionInfoDiv"){
+						  var childArray=arr[j].childNodes;
+						  for (var k=0; k<childArray.length; k++){
+							  if(childArray[k].id == "transactionPrice"){
+								  childArray[k].innerHTML = json.Amount;
+							  }
+	
+							  if(childArray[k].id == "transactionTime"){
+								  childArray[k].innerHTML = date.getHours()+":"+date.getMinutes();
+							  }
+	
+							  if(childArray[k].id == "transactionDate"){
+								  childArray[k].innerHTML = date.getDay()+"."+date.getMonth();
+							  }
+						  }
 					  }
-					  if(arr[j].id == "transactionComment"){
-						  arr[j].innerHTML = "Ходили в кино, фильм плохой";
+					 
+					  if(arr[j].id == "transactionDescriptionDiv"){
+						  var childArray=arr[j].childNodes;
+						  for (var k=0; k<childArray.length; k++){
+							  if(childArray[k].id == "transactionName"){
+								  childArray[k].innerHTML =json.Name;
+							  }
+							  if(childArray[k].id == "transactionComment"){
+								  childArray[k].innerHTML = json.CreatedAt;
+							  }
+						  }
 					  }
-
-					  if(arr[j].id == "transactionPrice"){
-						  arr[j].innerHTML = "2000";
-					  }
-
-					  if(arr[j].id == "transactionTime"){
-						  arr[j].innerHTML = "14:20";
-					  }
-
-					  if(arr[j].id == "transactionDate"){
-						  arr[j].innerHTML = "07.04";
-					  }
-
 				  }
-				  console.log("Appending listview with id: "+row.id);
 				  $('#expensesList').append(listrow);
 				 
 			  }

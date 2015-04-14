@@ -183,7 +183,7 @@
 
     
     function getSetting(setting, defValue){
-   	console.log("SQL: "+'SELECT '+setting+' FROM Settings where id=1;');
+  // 	console.log("SQL: "+'SELECT '+setting+' FROM Settings where id=1;');
     var res = "";
    var deferred = $.Deferred();
 	db.transaction(
@@ -213,11 +213,18 @@
      * @param transaction
      */
     function addTransaction(id,transactionJSON, purseID, transactionDate, categoryID){
-    	
+    	console.log(	"INSERT OR REPLACE INTO Transactions (id, transactionJSON, purseID,transactionDate, categoryID) " +
+        		" values ("
+        		+"'"+id+"',"
+        		+"'"+transactionJSON+"',"
+        		+"'"+purseID+"',"
+        		+"'"+transactionDate+"',"
+        		+"'"+categoryID+
+        		"')");
         db.transaction(
     		function(transaction) { 
         		transaction.executeSql(
-        		"INSERT INTO Transactions (id, transactionJSON, purseID,transactionDate, categoryID) " +
+        		"INSERT OR REPLACE INTO Transactions (id, transactionJSON, purseID,transactionDate, categoryID) " +
         		" values ("
         		+"'"+id+"',"
         		+"'"+transactionJSON+"',"
