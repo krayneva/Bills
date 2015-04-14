@@ -22,26 +22,19 @@
      */
     function populateDB(tx) {
      //    tx.executeSql('DROP TABLE IF EXISTS Bills');
+    	tx.executeSql('DROP TABLE IF EXISTS UserEnvironment');
+    	tx.executeSql('DROP TABLE IF EXISTS Transactions');
          tx.executeSql('CREATE TABLE IF NOT EXISTS Bills' 
         		 		+'(id integer primary key autoincrement,name, description,'
         		 		+'createdate,path, sent, latitude,longitude,altitude)');
      //    tx.executeSql('INSERT INTO Bills (id, name, description,path) VALUES (1, "пїЅпїЅпїЅпїЅ 1","пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ 1","/mnt/sdcard/test.jpg")');
      //    tx.executeSql('INSERT INTO Bills (id, name, description,path) VALUES (2, "пїЅпїЅпїЅпїЅ 2","пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ 2","/mnt/sdcard/test.jpg")');
          tx.executeSql('CREATE TABLE IF NOT EXISTS UserEnvironment' 
- 		 		+'(environment)');
-     //  tx.executeSql('INSERT INTO UserEnvironment (environment) VALUES ("пїЅпїЅпїЅпїЅ!!")');
-
-         /*
-          * // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
-			var SETTING_JPEG_QUALITY = "jpegQuality";
-			var SETTING_COLOR_MODE = "colorMode";
-			var SETTING_OUTPUT_WIDTH = "outputWidth";
-			var SETTING_USER_LOGIN = "userLogin";
-			var SETTING_USER_PASSWORD = "userPassword";
-			var SETTING_USER_TOKEN = "userToken";
-			var SETTING_SERVER_ADDRESS = "ServerAddress";
-			var BILL_ID_KEY = "BillIdKey";
-          */
+ 		 		+' (id integer primary key autoincrement,environment)');
+   
+         tx.executeSql('CREATE TABLE IF NOT EXISTS Transactions' 
+  		 		+' (id text primary key,transactionJSON, purseID, transactionDate, categoryID)');
+    
          
          tx.executeSql('CREATE TABLE IF NOT EXISTS Settings' 
   		 +'(id integer primary key autoincrement,'
@@ -73,7 +66,21 @@
 		        	}
 		        	        	
 		    }, onError);
-        
+         
+         
+         tx.executeSql('SELECT * FROM UserEnvironment;', [],
+	        		function(transaction, result) {
+	        	if (result.rows.length==0){
+	        		 tx.executeSql('INSERT INTO UserEnvironment' 
+	        		  		 +'(environment) values '
+	        		         +'("")'
+	        		 );
+	        		 
+	        	}
+	        	        	
+	    }, onError);
+         
+
     }
     
     /** пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅ
@@ -129,13 +136,12 @@
      * @param environment
      */
     function addUserEnvironment(environment){
+    	
         db.transaction(
     		function(transaction) { 
     		//	environment.replace ('"','""');
-    		//	alert(environment);
         		transaction.executeSql(
-        		"INSERT OR REPLACE INTO UserEnvironment (environment) VALUES ('"+environment+"')"
-        		//		'INSERT INTO UserEnvironment (environment) VALUES ("пїЅпїЅпїЅпїЅ")'
+        		"UPDATE UserEnvironment set environment='"+environment+"' where id=1"
         		);},
         		 onError, onSuccess);
    }
@@ -144,17 +150,16 @@
      * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ
      */
     function getUserEnvironment(){
-    	var res = "";
+    	var deferred = $.Deferred();
     	db.transaction(
   		    function(transaction) {
-  		        transaction.executeSql('SELECT * FROM UserEnvironment;', [],
+  		        transaction.executeSql('SELECT * FROM UserEnvironment where id=1', [],
   		        		function(transaction, result) {
-  		        	res =  result.rows.item(0).environment;
-  		        	        	
+  		        	deferred.resolve( result.rows.item(0).environment);
     		    }, onError);
   		 });
-
-    	return res;
+    	
+    	return deferred;
     }
         
     
@@ -189,15 +194,69 @@
 		        	$.each(row, function(columnName, value) {
 		        			res = value;
 		        			deferred.resolve(res);
-		        			alert(res);
 		        			if (res==="") res = defValue;
 		        			console.log("Get setting "+setting+" returned "+res );
         	        });
 		        	        	
-		    }, onError);
+		    },  function onError(error){
+		    	alert("GetSetting: "+setting+" error: "+error);
+		    	console.log(error);
+		    });
 		 });
 	return deferred;
 	}
     
     
+    
+    
+    /** добавление данных о транзакциях пользователя
+     * @param transaction
+     */
+    function addTransaction(id,transactionJSON, purseID, transactionDate, categoryID){
+    	
+        db.transaction(
+    		function(transaction) { 
+        		transaction.executeSql(
+        		"INSERT INTO Transactions (id, transactionJSON, purseID,transactionDate, categoryID) " +
+        		" values ("
+        		+"'"+id+"',"
+        		+"'"+transactionJSON+"',"
+        		+"'"+purseID+"',"
+        		+"'"+transactionDate+"',"
+        		+"'"+categoryID+
+        		"')"
+        		);},
+        		 onError, onSuccess);
+   }
+    
+    /**
+     * получение всех транзацкций
+     */
+    function getTransactions(){
+   	var deferred = $.Deferred();
+    	db.transaction(
+  		    function(transaction) {
+  		        transaction.executeSql('SELECT * FROM Transactions', [],
+  		        		function(transaction, result) {
+  		        	deferred.resolve(result);
+    		    }, onError);
+  		 });
+    	return deferred;
+    }
+        
+    
+    /**
+     * получение транзакций по категории
+     */
+    function getTransactions(categoryID){
+   	var deferred = $.Deferred();
+    	db.transaction(
+  		    function(transaction) {
+  		        transaction.executeSql('SELECT * FROM Transactions where categoryID="'+categoryID+'"', [],
+  		        		function(transaction, result) {
+  		        	deferred.resolve(result);
+    		    }, onError);
+  		 });
+    	return deferred;
+    }
     

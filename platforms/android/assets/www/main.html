@@ -21,8 +21,8 @@
                     <tbody>
                         <tr>
                             <td><span class="bigFontSize">ДОХОД:</span></td>
-                            <td><img class="currency" src="img/ruble.png"/><span class="bigFontSize">80000</span></td>
-                            <td><img class="currency" src="img/usd.png"/><span class="bigFontSize">6000</span></td>
+                            <td id = "incomeRublesTD"><img class="currency" src="img/ruble.png"/><span class="bigFontSize" id="incomeRubles">80000</span></td>
+                            <td id = "incomeDollarsTD"><img class="currency" src="img/usd.png"/><span class="bigFontSize" id="incomeDollars">6000</span></td>
                         </tr>
                     </tbody>
                 </table> 
@@ -54,69 +54,76 @@
             </div>
         </div>
         <div class="content">
-            <div class="leftCol">
-                <div class="category income">
-                    <div class="interest">15%</div>
-                    <img class="icoCategory" src="img/ico_category_2.png"/>
-                    <img class="categoryMenu" src="img/category_menu.png"/>
+            <div class="leftCol" id = "leftColumn">
+                <div class="category income" style="visibility: hidden;" id="widget11">
+                    <div class="interest" id = "interest" name = "interest">15%</div>
+                    <img class="icoCategory" src="img/ico_category_2.png" id = "icon"/>
+                    <img class="categoryMenu" src="img/category_menu.png" id = "menuIcon"/>
                 </div>
-                <div class="category">
-                    <div class="interest">15%</div>
-                    <img class="icoCategory" src="img/ico_category_smoll_1.png"/>
-                    <img class="categoryMenu" src="img/category_menu.png"/>
+                <div class="category"  style="visibility: hidden;" id="widget12">
+                    <div class="interest" id = "interest" name = "interest">15%</div>
+                    <img class="icoCategory" src="img/ico_category_2.png" id = "icon"/>
+                    <img class="categoryMenu" src="img/category_menu.png" id = "menuIcon"/>
                 </div>
-                <div class="category">
-                    <div class="interest">10%</div>
-                    <img class="icoCategory" src="img/ico_category_smoll_3.png"/>
-                    <img class="categoryMenu" src="img/category_menu.png"/>
+                <div class="category"  style="visibility: hidden;" id="widget13">
+                    <div class="interest" id = "interest" name = "interest">15%</div>
+                    <img class="icoCategory" src="img/ico_category_2.png" id = "icon"/>
+                    <img class="categoryMenu" src="img/category_menu.png" id = "menuIcon"/>
                 </div>
-                <div class="category">
-                    <div class="interest">2%</div>
-                    <img class="icoCategory" src="img/ico_category_4.png"/>
-                    <img class="categoryMenu" src="img/category_menu.png"/>
+                <div class="category"  style="visibility: hidden;" id="widget14">
+                    <div class="interest" id = "interest" name = "interest">15%</div>
+                    <img class="icoCategory" src="img/ico_category_2.png" id = "icon"/>
+                    <img class="categoryMenu" src="img/category_menu.png" id = "menuIcon"/>
                 </div>
+              
                 
             </div>
-            <div class="centerCol">
-                <div class="category income">
-                    <div class="interest">18%</div>
-                    <img class="icoCategory" src="img/ico_category_2.png"/>
-                    <img class="categoryMenu" src="img/category_menu.png"/>
+            <div class="centerCol" id = "centerColumn">
+ 			<div class="category income" style="visibility: hidden;" id="widget21">
+                    <div class="interest" id = "interest" name = "interest">15%</div>
+                    <img class="icoCategory" src="img/ico_category_2.png" id = "icon"/>
+                    <img class="categoryMenu" src="img/category_menu.png" id = "menuIcon"/>
                 </div>
-                <div class="category">
-                    <div class="interest">44%</div>
-                    <img class="icoCategory" src="img/ico_category_7.png"/>
-                    <img class="categoryMenu" src="img/category_menu.png"/>
+                <div class="category"  style="visibility: hidden;" id="widget22">
+                    <div class="interest" id = "interest" name = "interest">15%</div>
+                    <img class="icoCategory" src="img/ico_category_2.png" id = "icon"/>
+                    <img class="categoryMenu" src="img/category_menu.png" id = "menuIcon"/>
                 </div>
-                <div class="category">
-                    <div class="interest">25%</div>
-                    <img class="icoCategory" src="img/ico_category_4.png"/>
-                    <img class="categoryMenu" src="img/category_menu.png"/>
+                <div class="category"  style="visibility: hidden;" id="widget23">
+                    <div class="interest" id = "interest" name = "interest">15%</div>
+                    <img class="icoCategory" src="img/ico_category_2.png" id = "icon"/>
+                    <img class="categoryMenu" src="img/category_menu.png" id = "menuIcon"/>
+                </div>
+                <div class="category"  style="visibility: hidden;" id="widget24">
+                    <div class="interest" id = "interest" name = "interest">15%</div>
+                    <img class="icoCategory" src="img/ico_category_2.png" id = "icon"/>
+                    <img class="categoryMenu" src="img/category_menu.png" id = "menuIcon"/>
                 </div>
             </div>
-            <div class="rightCol">
-                <div class="category income">
-                    <div class="interest">32%</div>
-                    <img class="icoCategory" src="img/ico_category_2.png"/>
-                    <img class="categoryMenu" src="img/category_menu.png"/>
+            <div class="rightCol" id = "rightColumn">
+			<div class="category income" style="visibility: hidden;" id="widget31">
+                    <div class="interest" id = "interest" name = "interest">15%</div>
+                    <img class="icoCategory" src="img/ico_category_2.png" id = "icon"/>
+                    <img class="categoryMenu" src="img/category_menu.png" id = "menuIcon"/>
                 </div>
-                <div class="category">
-                    <div class="interest">97%</div>
-                    <img class="icoCategory" src="img/ico_category_smoll_6.png"/>
-                    <img class="categoryMenu" src="img/category_menu.png"/>
+                <div class="category"  style="visibility: hidden;" id="widget32">
+                    <div class="interest" id = "interest" name = "interest">15%</div>
+                    <img class="icoCategory" src="img/ico_category_2.png" id = "icon"/>
+                    <img class="categoryMenu" src="img/category_menu.png" id = "menuIcon"/>
                 </div>
-                <div class="category">
-                    <div class="interest">100%</div>
-                    <img class="icoCategory" src="img/ico_category_7.png"/>
-                    <img class="categoryMenu" src="img/category_menu.png"/>
+                <div class="category"  style="visibility: hidden;" id="widget33">
+                    <div class="interest" id = "interest" name = "interest">15%</div>
+                    <img class="icoCategory" src="img/ico_category_2.png" id = "icon"/>
+                    <img class="categoryMenu" src="img/category_menu.png" id = "menuIcon"/>
                 </div>
-                <div class="category">
-                    <div class="interest">1%</div>
-                    <img class="icoCategory" src="img/ico_category_smoll_5.png"/>
-                    <img class="categoryMenu" src="img/category_menu.png"/>
+                <div class="category"  style="visibility: hidden;" id="widget34">
+                    <div class="interest" id = "interest" name = "interest">15%</div>
+                    <img class="icoCategory" src="img/ico_category_2.png" id = "icon"/>
+                    <img class="categoryMenu" src="img/category_menu.png" id = "menuIcon"/>
                 </div>
             </div>
         </div>
+        
         <div class="footer">
             <table>
                 <tbody>
@@ -124,19 +131,16 @@
                         <td>
                             <div class="footerLeft">
                                 <img class="icoLogin" src="img/ico_login.png" onclick = "showUserEnvironment()"/>
-                                <img class="monitor" src="img/ico_10.png" onclick = "requestUserEnvironment()"/>                                
+                                <img class="monitor" src="img/ico_10.png" 
+                                onclick = "requestTransactions()"/> 
                             </div>
                         </td>                           
                          <td><img src="img/largeImages/camera393_cut.png" class="camera" onclick="captureCustomPhoto();"/></td>
-                        <td><div class="footerRight"><span class="bigFontSize">РАСХОД: </span><img class="currency" src="img/ruble.png"/><span class="bigFontSize"> 60000</span></div></td>
+                        <td ><div class="footerRight"><span class="bigFontSize">РАСХОД: </span><img class="currency" src="img/ruble.png"/><span class="bigFontSize" id = "expenses"> 60000</span></div></td>
                     </tr>
                 </tbody>
             </table>
         </div>   
-        
+       
         </div>
- <!-- <script type="text/javascript">
-	$(function(){
-		$('#side-menu').slideMenu();
-	});*/ -->
-	</script>
+

@@ -37,40 +37,41 @@ function uploadPhoto() {
 		        	lon = null;
 		        	alt = null;
 		        }
+		        getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(res){
+		        	var userToken = res;
 		        
-		        var headers={'Authorization':'Bearer '+getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT), 
-		        		'Latitude':lat, 
-		        		'Longitude':lon,
-		        		'Altitude':alt,
-		        };
-		        
-		        //alert(lat);
-		        //alert(lon);
-		        options.headers = headers;
-		        var ft = new FileTransfer();
-		        var loadingStatus; 
-		        ft.onprogress = function(progressEvent) {
-				    if (progressEvent.lengthComputable) {
-					  //    loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
-				    	  $('#uploadProgress'+row.id).show();
-					      $('#uploadProgress'+row.id).html(''+Math.round((progressEvent.loaded / progressEvent.total)*100)+'%');
-					    
-					   //   $('#uploadPercent').html(''+Math.round((progressEvent.loaded / progressEvent.total)*100)+'%');
-					 } 
-					 else {
-					      //loadingStatus.increment();
-						 $('#uploadProgress'+row.id).show();
-						 $('#uploadProgress'+row.id).html(''+loadingStatus);
-						// $('#uploadPercent').html(''+loadingStatus);
-					    }
-					};
-		        var serverAddress = getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
-		      //  imageURI = "file:///mnt/sdcard/fr.jpg";
-		        console.log("ImageURI: ",imageURI);
-		        ft.upload(imageURI, encodeURI(serverAddress.concat(addPhotoURL)), onFileUploadSuccess, onFileUploadError, options,true);
-                               
-		        
-                break;
+			        var headers={'Authorization':'Bearer '+userToken, 
+			        		'Latitude':lat, 
+			        		'Longitude':lon,
+			        		'Altitude':alt,
+			        };
+			        
+			        //alert(lat);
+			        //alert(lon);
+			        options.headers = headers;
+			        var ft = new FileTransfer();
+			        var loadingStatus; 
+			        ft.onprogress = function(progressEvent) {
+					    if (progressEvent.lengthComputable) {
+						  //    loadingStatus.setPercentage(progressEvent.loaded / progressEvent.total);
+					    	  $('#uploadProgress'+row.id).show();
+						      $('#uploadProgress'+row.id).html(''+Math.round((progressEvent.loaded / progressEvent.total)*100)+'%');
+						 } 
+						 else {
+							 $('#uploadProgress'+row.id).show();
+							 $('#uploadProgress'+row.id).html(''+loadingStatus);
+							// $('#uploadPercent').html(''+loadingStatus);
+						    }
+						};
+						getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
+				    		var serverAddress = res;
+				    		console.log("ImageURI: ",imageURI);
+				    		ft.upload(imageURI, encodeURI(serverAddress.concat(addPhotoURL)), onFileUploadSuccess, onFileUploadError, options,true);
+						});
+			        
+	                
+		        });
+		        break;
             }
     	}
     }, onError);
@@ -79,13 +80,7 @@ function uploadPhoto() {
     }
 
     function onFileUploadSuccess(r) {
-        //console.log("RESPONSE FROM SERVER" + r.responseCode);
-        //alert("HTTP CODE "+r.responseCode);
-        //console.log("Response = " + r.response);
-        //console.log("Sent = " + r.bytesSent);
-      //  alert("Р¤Р°Р№Р» СѓСЃРїРµС€РЅРѕ РѕС‚РїСЂР°РІР»РµРЅ!");
     	setBillSent(currentRowID);
-    	//refreshBillSendStatus(currentRowID);
     	$.mobile.loading("hide");
         uploadPhoto();
         
@@ -145,33 +140,7 @@ function uploadPhoto() {
     
     
     
- /*   function getImageList(){
-    	var ids;
-    	$.get(
-    		    serverAddress.concat(getPhotosURL),
-    		   // {paramOne : 1, paramX : 'abc'},
-    		    function(data) {
-    		    	ids = data;
-    		     	alert(data);
-    		       //5460de59755df80a001da3d9 - вЂљпЈїГ“вЂ°Г‚ вЂЎГ€вЂ°Г‹ВЇГЊГ‹ГЌ
-    		      
-    		    }
-    		);
-  
-    	 for (var i=0; i<3; i++){
-	    	   var id = data[i];
-	    	   alert(id);
-	    	   console.log("image id "+i+": " + id);
-		       	$.get(
-		    		    serverAddress.concat(getPhotoURL).concat(id),
-		    		    function(datadd) {
-		    		    	alert("get "+id);
-		    		    	writeToFile(id.concat(".jpeg"), datadd);
-		    		    }
-		    		);
-	       }
-    	
-    }*/
+
     
     function getImageList(){
         var serverAddress = getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
@@ -197,77 +166,129 @@ function uploadPhoto() {
     }
 
     function getUserToken(login, password){
-    	// alert(login+" "+password);
-       // alert(serverAddress+getTokenURL);
-        var serverAddress = getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
-    	$.mobile.loading("show",{
-    		text: "Загрузка",
-    		textVisible: true,
-    		theme: 'e',
-    	});
-        $.ajax({
-               url:serverAddress+getTokenURL,
-               type: "POST",
-               contentType: "application/x-www-form-urlencoded",
-             //  data:'grant_type=password&username=aworux@gmail.com&password=cd73geW8',
-               data:'grant_type=password&username='+login+'&password='+password,
-               		
-               success: function(response, textStatus, jqXHR) {
-            	   //  alert(jqXHR.responseText);
-                    var obj = jQuery.parseJSON(jqXHR.responseText);
-                   var userToken = obj.access_token;
-                   putSetting(SETTING_USER_LOGIN, login);
-                   putSetting(SETTING_USER_PASSWORD, password);
-                   putSetting(SETTING_USER_TOKEN, userToken);
+    	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
+    		var serverAddress = res;
+    	//	alert("GetUserToken serverAddress: "+serverAddress+getTokenURL);
+        	$.mobile.loading("show",{
+        		text: "Загрузка",
+        		textVisible: true,
+        		theme: 'e',
+        	});
+            $.ajax({
+                   url:serverAddress+getTokenURL,
+                   type: "POST",
+                   contentType: "application/x-www-form-urlencoded",
+                 //  data:'grant_type=password&username=aworux@gmail.com&password=cd73geW8',
+                   data:'grant_type=password&username='+login+'&password='+password,
+                   		
+                   success: function(response, textStatus, jqXHR) {
+                	   //  alert(jqXHR.responseText);
+                        var obj = jQuery.parseJSON(jqXHR.responseText);
+                       var userToken = obj.access_token;
+                       putSetting(SETTING_USER_LOGIN, login);
+                       putSetting(SETTING_USER_PASSWORD, password);
+                       putSetting(SETTING_USER_TOKEN, userToken);
 
-           		$.mobile.loading("hide");
-                   showMainPage();
-                   
-               },
-               error: function(jqXHR, textStatus, errorThrown) {
-            	   alert(textStatus + " " + errorThrown+" "+jqXHR.responseText+textStatus);
-           		$.mobile.loading("hide");
-            	   // пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ!!
-            	   showMainPage();
-               } 
-               });  
+               		  $.mobile.loading("hide");
+                       showMainPage();
+                       
+                   },
+                   error: function(jqXHR, textStatus, errorThrown) {
+                	   alert("getUserToken: "+textStatus + " " + errorThrown+" "+jqXHR.responseText+textStatus);
+               			$.mobile.loading("hide");
+                	   showMainPage();
+                   } 
+                   });  
+    	});
     }
 
 
     function requestUserEnvironment(){
-//    	https://billview.cloudapp.net/receipts/api/account/environment
-        var serverAddress = getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
+    	var deferred = $.Deferred();
+    	 
+    	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
+    		var serverAddress = res;
+    		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
+    		var userToken = uToken;
     	   $.ajax({
     	          url: serverAddress+getEnvironmentURL,
     	            type: "get",
                 beforeSend: function (request)
                 {
-                request.setRequestHeader("Authorization", "Bearer "+getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT));
+                request.setRequestHeader("Authorization", "Bearer "+userToken);
                 },
     	            data: [],       
     	            success: function(response, textStatus, jqXHR) {
-    	               alert(jqXHR.responseText);
-    	               console.log(jqXHR.responseText);
+    	             //  alert(jqXHR.responseText);
+    	             //  console.log(jqXHR.responseText);
+    	               //putSetting(SETTING_USER_ENVIRONMENT,jqXHR.responseText);
     	               addUserEnvironment(jqXHR.responseText);
+    	               deferred.resolve();
     	            },
     	            error: function(jqXHR, textStatus, errorThrown) {
-    	            	alert("user token: " +getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT));
+    	            	alert("user token: " +userToken);
     	                alert(textStatus + " " + errorThrown);
     	                alert("Код ошибки " + errorThrown.code);
+    	                deferred.resolve();
     	            }
     	        });
+    		});
+    	});
+    	return deferred;
     }
 
 
     
     /**
-     * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
-     * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅ
      * api/transactions?dateFrom=1.1.2000&dateTo=1.1.2020
      */
-    function requestTransations(){
+    function requestTransactions(){
+    	var deferred = $.Deferred();
+   	 	
+    	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
+    		var serverAddress = res;
+    		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
+    		var userToken = uToken;
+    		console.log("requestTransactionsURL: "+serverAddress+getTransactionsURL);
+    	   $.ajax({
+    	          url: serverAddress+getTransactionsURL+"?dateFrom=null&dateTo=null",
+    	            type: "get",
+                beforeSend: function (request)
+                {
+                request.setRequestHeader("Authorization", "Bearer "+userToken);
+                },
+    	            data: [],       
+    	            success: function(response, textStatus, jqXHR) {
+    	               alert(jqXHR.responseText);
+    	               console.log(jqXHR.responseText);
+    	               //putSetting(SETTING_USER_ENVIRONMENT,jqXHR.responseText);
+    	               //addUserEnvironment(jqXHR.responseText);
+    	               
+    	           		var json = jQuery.parseJSON(jqXHR.responseText);
+    	           		for (var k in json) {
+    	           		  var transaction = json[k];
+    	           		  var id = transaction.Id;
+     	           		  var purseID = transaction.PurseID;
+     	           		  var transactionDate = transaction.transactionDate;
+	    	           	  addTransaction(id,transaction, purseID, transactionDate);
+    	           		}
+    	               
+    	               deferred.resolve();
+    	            },
+    	            error: function(jqXHR, textStatus, errorThrown) {
+    	            	alert("user token: " +userToken);
+    	                alert(textStatus + " " + errorThrown);
+    	                alert("Код ошибки " + errorThrown.code);
+    	                deferred.resolve();
+    	            }
+    	        });
+    		});
+    	});
+    	return deferred;
     	
     }
+    
+
 
 
 
