@@ -447,11 +447,12 @@ td{
   width: 15%;
   float:left;
 }
-.topPanel>span>img{
+.topPanel_backButton,
+.topPanel_menuButton{
   height: 3em;
   float:left;
 }
-.topPanel>span:last-child>img{
+.topPanel_menuButton{
   float:right;
 }
 .foottopPanel{
@@ -626,10 +627,7 @@ textarea:focus{
 }
 .expenses_item {
     position: relative;
-    padding: 1em 10em 1em 9em;
     color: #59a6b2;
-    min-height: 5em;
-    height: 5em;
 }
 .expenses_item > hr {
     position: absolute;
@@ -639,6 +637,7 @@ textarea:focus{
     height: 0;
     border-bottom: 0;
     border-color: #59a6b2;
+    margin: 0;
 }
 .expenses_info {
     width: 5em;
@@ -648,6 +647,11 @@ textarea:focus{
     position: absolute;
     line-height: 2em;
     padding-left: 1em;
+}
+.expenses_description{  
+  margin: 0 10em 0 9em;
+  min-height: 4.5em;
+  padding: 1em 0;
 }
 .expenses_title {
     font-size: 1.4em;
@@ -659,14 +663,14 @@ textarea:focus{
 .expenses_button {
     width: 9em;
     float: left;
-    top: 0;
+    bottom: 0;
     right: 0;
     position: absolute;
 }
 .expenses_buttonChek,
 .expenses_buttonInfo {
     width: 40%;
-    padding: 1em 0.2em;
+    margin: 0.4em 0.2em;
 }
 .expenses_date {
     width: 100%;

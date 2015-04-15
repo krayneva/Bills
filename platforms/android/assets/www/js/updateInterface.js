@@ -80,7 +80,7 @@ function updateMainPage(){
 
 function updateTransactionPage(){
 	  $('#expensesList').html('');
-	 var categoryID =  window.localStorage.getItem("categoryID");
+	 var categoryID =  window.localStorage.getItem(CATEGORY_ID_KEY);
 	 getWidget(categoryID).done(function(result){
 		  var json = jQuery.parseJSON(result);
 			$('#categoryTitle').html(json.Name);	
@@ -194,3 +194,21 @@ function updateWidgets(){
 		}
 	});
 	}
+
+
+
+
+function updateTransactionInfoPage(){
+	var transactionID = window.localStorage.getItem(TRANSACTION_ID_KEY);
+	getTransaction(transactionID).done(function(res){
+		var transaction = jQuery.parseJSON(res.rows.item(0).json);
+		$('#name').append(json.Name);
+		$('#category').append(json.Name);
+		$('#subCategory').append(json.Name);
+		$('#name').append(json.Name);
+		
+		
+	});
+	
+	
+}

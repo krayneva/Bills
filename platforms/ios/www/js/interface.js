@@ -209,7 +209,7 @@ function refershBillSendStatus(rowID){
 	}
 	
 	function showExpensesPage(categoryID){
-		window.localStorage.setItem("categoryID", categoryID);
+		window.localStorage.setItem(CATEGORY_ID_KEY, categoryID);
 		currentPage = "pageExpenses";
 		$.mobile.pageContainer.pagecontainer( "change", "expenses.html" ,{transition:"none"});
 	}
@@ -234,3 +234,9 @@ function refershBillSendStatus(rowID){
 		});
 	}
 	
+	
+	function showTransactionInfo(transactionID){
+		window.localStorage.setItem(TRANSACTION_ID_KEY, transactionID);
+		currentPage = "pageTransactionInfo";
+		$.mobile.pageContainer.pagecontainer( "change", "transactionInfo.html",{transition:"none"});
+	}

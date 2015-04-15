@@ -266,6 +266,20 @@
     	return deferred;
     }
     
+    
+    function getTransaction(transactionID){
+    	var deferred = $.Deferred();
+    	db.transaction(
+  		    function(transaction) {
+  		        transaction.executeSql("SELECT * FROM Transactions where id='"+transactionID+"'", [],
+  		        		function(transaction, result) {
+  		        	
+  		        	deferred.resolve(result);
+    		    }, onError);
+  		 });
+    	return deferred;
+    }
+    
     function addWidget(id,json){
        db.transaction(
        		function(transaction) { 
