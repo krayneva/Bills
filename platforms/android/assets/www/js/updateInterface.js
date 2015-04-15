@@ -69,55 +69,7 @@ function updateMainPage(){
 			expenses.innerHTML = json.ExpencesAmountStr;
 			// ------------- конец расход-------------------//
 			
-			
-			for (var k in json.Widgets) {
-				  var w = json.Widgets[k];
-				 // alert("Widget "+w.Name+" left: "+w.Left+" top:"+w.Top+" interest:"+w.Percent);
-				  var widget = document.getElementById("widget".concat(w.Left,w.Top));
-				
-				 widget.style.display = "block";
-				 widget.style.visibility = "visible";
-				 widget.setAttribute("categoryID", w.CategoryID);
-				  var arr=widget.childNodes;
-				  for (var i=0;i<arr.length;i++){
-			            if (arr[i].id == "interest"){
-			                   arr[i].innerHTML = w.Percent;//+" "+w.Name;
-			            }
-			            if (arr[i].id == "icon"){
-			            	var src = "img/largeImages/";
-			            	switch(w.IconIdentifier){
-				            	case "ico_purse":
-				            		src ="img/purse396.png";
-				            		break;
-				            	case "ico_food":
-				            		src = src.concat("food396/0.png");
-				            		break;
-				            	case "ico_medicine":
-				            		src = src.concat("health396/0.png");
-				            		break;
-				            	case "ico_education":
-				            		src = src.concat("education396/0.png");
-				            		break;
-				            	case "ico_entertainment":
-				            		src ="img/ico_category_1.png";
-				            		break;
-				            	case "ico_house":
-				            		src ="img/ico_category_smoll_5.png";
-				            		break;
-				            	case "ico_auto":
-				            		src ="img/auto396.png";
-				            		break;
-				            	default:
-				            		console.log("GOT ICON IDENTIFIER "+w.IconIdentifier);
-				            		break;
-			            	}
-			            	console.log("Setting src="+src,"iconID: ");//+w.IconIdentifier);
-			                arr[i].setAttribute("src",src);
-			            }
-				  }
-				//  console.log("Widget "+w.WidgetID+" left: "+w.Left+" top:"+w.Top+" interest:"+w.Percent);
-
-				}
+			updateWidgets();
 		});
 }
 
@@ -128,10 +80,15 @@ function updateMainPage(){
 
 function updateTransactionPage(){
 	  $('#expensesList').html('');
-	
+	 var categoryID =  window.localStorage.getItem("categoryID");
+	 getWidget(categoryID).done(function(result){
+		  var json = jQuery.parseJSON(result);
+			$('#categoryTitle').html(json.Name);	
+		});
 	requestTransactions().done(function(){
-		getTransactions().done(function(result){
-			  
+		//getTransactions().done(function(result){
+		getTransactionsByCategoryID(categoryID).done(function(result){
+		
 			  for (var i = 0; i <result.rows.length; i++) {
 				  var row = result.rows.item(i);
 				  var listrow = document.getElementById("transactionRow").cloneNode(true);
@@ -166,10 +123,9 @@ function updateTransactionPage(){
 						  for (var k=0; k<childArray.length; k++){
 							  if(childArray[k].id == "transactionName"){
 								  childArray[k].innerHTML =json.Name;
+								  childArray[k].innerHTML ="Наименование транзакции "+i;
 							  }
-							  if(childArray[k].id == "transactionComment"){
-								  childArray[k].innerHTML = json.CreatedAt;
-							  }
+							 
 						  }
 					  }
 				  }
@@ -179,5 +135,62 @@ function updateTransactionPage(){
 	
 		});
 	});	
+}
+
+
+function updateWidgets(){
+	getWidgets().done(function(res){
+		for (var j=0;j<res.rows.length;j++){
+		var w = jQuery.parseJSON(res.rows.item(j).json);
+		  //var w = json.Widgets[k];
+		 // alert("Widget "+w.Name+" left: "+w.Left+" top:"+w.Top+" interest:"+w.Percent);
+		  var widget = document.getElementById("widget".concat(w.Left,w.Top));
 		
-} 
+		 widget.style.display = "block";
+		 widget.style.visibility = "visible";
+		 console.log("Setting categoryID for widget: "+w.VisualObjectId);
+		 widget.setAttribute("categoryID", w.VisualObjectId);
+		 var s = "showExpensesPage('"+ w.VisualObjectId+"')";
+		 console.log("Setting onclick categoryID "+s);
+		 widget.setAttribute("onclick",s);
+		  var arr=widget.childNodes;
+		  for (var i=0;i<arr.length;i++){
+	            if (arr[i].id == "interest"){
+	                   arr[i].innerHTML = w.Percent;//+" "+w.Name;
+	            }
+	            if (arr[i].id == "icon"){
+	            	var src = "img/largeImages/";
+	            	switch(w.IconIdentifier){
+		            	case "ico_purse":
+		            		src ="img/purse396.png";
+		            		break;
+		            	case "ico_food":
+		            		src = src.concat("food396/0.png");
+		            		break;
+		            	case "ico_medicine":
+		            		src = src.concat("health396/0.png");
+		            		break;
+		            	case "ico_education":
+		            		src = src.concat("education396/0.png");
+		            		break;
+		            	case "ico_entertainment":
+		            		src ="img/ico_category_1.png";
+		            		break;
+		            	case "ico_house":
+		            		src ="img/ico_category_smoll_5.png";
+		            		break;
+		            	case "ico_auto":
+		            		src ="img/auto396.png";
+		            		break;
+		            	default:
+		            		console.log("GOT ICON IDENTIFIER "+w.IconIdentifier);
+		            		break;
+	            	}
+	            //	console.log("Setting src="+src,"iconID: ");//+w.IconIdentifier);
+	                arr[i].setAttribute("src",src);
+	            }
+		  }
+		//  console.log("Widget "+w.WidgetID+" left: "+w.Left+" top:"+w.Top+" interest:"+w.Percent);
+		}
+	});
+	}

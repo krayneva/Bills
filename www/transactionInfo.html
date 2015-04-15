@@ -1,0 +1,55 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1 height=device-height">
+      <div id="pageTransactionInfo"  data-role="page"  >
+       <div class="background"></div>
+        <div class="topPanel">
+            <span> <a data-rel="back"><img src="img/back.png" data-rel="back"/></a></span>
+            <div class="topPanel_title" id="categoryTitle">Данные транзакции</div>
+            <span><img src="img/menu.png"/></span>
+        </div>
+      
+	      <ul data-role="listview" id="transactionInfoListView">
+		    <li id = "name">Наименование: </li>
+		    <li id = "category">Категория: </li>
+		    <li id = "subcategory">Подкатегория: </li>
+		    <li id = "id">Идентификатор: </li>
+		    <li id = "createdAt">Дата создания: </li>
+		      <li>
+		    	<div data-role="collapsible" data-theme="b" data-content-theme="b">
+				<h2>Данные чека</h2>
+				    <ul data-role="listview" data-filter="true">
+				        <li><a href="index.html">Acura</a></li>
+				        <li><a href="index.html">Audi</a></li>
+				    </ul>
+				</div>
+		    </li>
+		    
+		    
+		    <li>
+		    	<div data-role="collapsible" data-theme="b" data-content-theme="b">
+				<h2>Теги</h2>
+				    <ul data-role="listview" data-filter="true">
+				        <li><a href="index.html">Acura</a></li>
+				        <li><a href="index.html">Audi</a></li>
+				    </ul>
+				</div>
+		    </li>
+		    <li></li>
+		</ul>
+		
+		
+		
+		<div id="receiptDataTemplate">
+			<ul data-role="listview" id="receiptItems">
+		    	<li id = "itemName"></li>
+		    	<li id = "value"></li>
+		    	<li id = "quantity"></li>
+		    	<li id = "pricePerUnit"></li>
+		    	<li id = "tag"></li>
+		    </ul>
+		</div>
+		
+		
+		
+		
+      </div>

@@ -208,7 +208,8 @@ function refershBillSendStatus(rowID){
 		$.mobile.pageContainer.pagecontainer( "change", "connectionSettings.html" ,{transition:"none"});
 	}
 	
-	function showExpensesPage(){
+	function showExpensesPage(categoryID){
+		window.localStorage.setItem("categoryID", categoryID);
 		currentPage = "pageExpenses";
 		$.mobile.pageContainer.pagecontainer( "change", "expenses.html" ,{transition:"none"});
 	}
