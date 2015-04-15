@@ -1,4 +1,5 @@
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes.dex : \
+D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\com\performanceactive\plugins\camera\CameraSettingsActivity.class \
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\com\performanceactive\plugins\camera\CustomCamera.class \
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\com\performanceactive\plugins\camera\CustomCameraActivity$1.class \
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\com\performanceactive\plugins\camera\CustomCameraActivity$2.class \

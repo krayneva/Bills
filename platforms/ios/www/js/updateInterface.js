@@ -109,10 +109,12 @@ function updateTransactionPage(){
 							  }
 	
 							  if(childArray[k].id == "transactionTime"){
-								  childArray[k].innerHTML = date.getHours()+":"+date.getMinutes();
+							//	  childArray[k].innerHTML = date.format("hh-MM");// date.getHours()+":"+date.getMinutes();
+								  childArray[k].innerHTML =  date.getHours()+":"+date.getMinutes();
 							  }
 	
 							  if(childArray[k].id == "transactionDate"){
+								 // childArray[k].innerHTML = date.format("dd-mm");//date.getDay()+"."+date.getMonth();
 								  childArray[k].innerHTML = date.getDay()+"."+date.getMonth();
 							  }
 						  }
@@ -128,6 +130,21 @@ function updateTransactionPage(){
 							 
 						  }
 					  }
+					  
+					  
+					  if(arr[j].id == "transactionButtonsDiv"){
+						  var childArray=arr[j].childNodes;
+						  for (var k=0; k<childArray.length; k++){
+							  if(childArray[k].id == "expensesButtonInfo"){
+								  childArray[k].setAttribute("onclick","showTransactionInfo('"+json.Id+"')");
+							  }
+							 
+						  }
+					  }
+/*					  var s = "showExpensesPage('"+ w.VisualObjectId+"')";
+						 console.log("Setting onclick categoryID "+s);
+						 widget.setAttribute("onclick",s);
+  */
 				  }
 				  $('#expensesList').append(listrow);
 				 
@@ -201,14 +218,41 @@ function updateWidgets(){
 function updateTransactionInfoPage(){
 	var transactionID = window.localStorage.getItem(TRANSACTION_ID_KEY);
 	getTransaction(transactionID).done(function(res){
-		var transaction = jQuery.parseJSON(res.rows.item(0).json);
+		var json = jQuery.parseJSON(res.rows.item(0).transactionJSON);
+		alert(res.rows.item(0).transactionJSON);
+		$('#ReceiptsDataListView').html('');
+		
 		$('#name').append(json.Name);
-		$('#category').append(json.Name);
-		$('#subCategory').append(json.Name);
-		$('#name').append(json.Name);
+		$('#category').append(json.Category);
+		$('#subCategory').append(json.SubCategory);
+		$('#id').append(json.id);
+		$('#createdAt').append(json.CreatedAt);
 		
 		
-	});
+		for (var i=0; i<json.Tags.length; i++){
+			alert(json.Tags[i]);
+			$('#tagsListView').append("<li>"+json.Tags[i]+"</li>");
+		}
+		
+		
+		for (var i=0; i<json.Receiptdata[0].Items.length; i++){
+			  var receiptRow = document.getElementById("receiptDataTemplate").cloneNode(true);
+			  for (var k=0; k<receiptRow.childNodes.length; k++){
+				  	if (receiptRow.childNodes[k].id=="receiptItems"){
+				  		var receiptItems = receiptRow.childNodes[k].childNodes;
+				  		for (var f=0; f<receiptItems.length; f++){
+				  			if (receiptItems[f].id=="itemName")receiptItems[f].innerHTML+=(" "+i);
+				  		}
+				  	}
+			  }
+			  
+			  
+			  $('#ReceiptsDataListView').append(receiptRow);
+		}
+		
+
 	
+	});
+
 	
 }

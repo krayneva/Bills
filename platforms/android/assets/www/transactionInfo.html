@@ -8,7 +8,7 @@
             <span><img src="img/menu.png"/></span>
         </div>
       
-	      <ul data-role="listview" id="transactionInfoListView">
+	      <ul data-role="listview" id="ReceiptsListView">
 		    <li id = "name">Наименование: </li>
 		    <li id = "category">Категория: </li>
 		    <li id = "subcategory">Подкатегория: </li>
@@ -16,21 +16,18 @@
 		    <li id = "createdAt">Дата создания: </li>
 		      <li>
 		    	<div data-role="collapsible" data-theme="b" data-content-theme="b">
-				<h2>Данные чека</h2>
-				    <ul data-role="listview" data-filter="true">
-				        <li><a href="index.html">Acura</a></li>
-				        <li><a href="index.html">Audi</a></li>
+				<h2>Данные по чекам</h2>
+				    <ul data-role="listview" id = "receiptsDataListView" >
+
 				    </ul>
 				</div>
 		    </li>
 		    
 		    
 		    <li>
-		    	<div data-role="collapsible" data-theme="b" data-content-theme="b">
+		    	<div data-role="collapsible" data-theme="b" data-content-theme="b" >
 				<h2>Теги</h2>
-				    <ul data-role="listview" data-filter="true">
-				        <li><a href="index.html">Acura</a></li>
-				        <li><a href="index.html">Audi</a></li>
+				    <ul data-role="listview" id="tagsListView">
 				    </ul>
 				</div>
 		    </li>
@@ -39,17 +36,18 @@
 		
 		
 		
-		<div id="receiptDataTemplate">
+		<div id="receiptDataTemplate" style="display: none;">
+			<h2 id = "receiptHeader">Данные чека</h2>
 			<ul data-role="listview" id="receiptItems">
-		    	<li id = "itemName"></li>
+		    	<li id = "itemName">Наименование:</li>
 		    	<li id = "value"></li>
 		    	<li id = "quantity"></li>
 		    	<li id = "pricePerUnit"></li>
-		    	<li id = "tag"></li>
+		    	<li id = "tag">Тег: </li>
 		    </ul>
 		</div>
 		
 		
 		
-		
+
       </div>

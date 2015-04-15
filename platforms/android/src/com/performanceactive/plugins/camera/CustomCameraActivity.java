@@ -146,17 +146,24 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 
     private void configureCamera() { 
         Camera.Parameters cameraSettings = camera.getParameters();
-    //    cameraSettings.setJpegQuality(100);
 
-        cameraSettings.setJpegQuality( getIntent().getIntExtra(QUALITY, 100) );
+        cameraSettings.setJpegQuality(100);
         List<String> supportedFocusModes = cameraSettings.getSupportedFocusModes();
         if (supportedFocusModes.contains(FOCUS_MODE_CONTINUOUS_PICTURE)) {
             cameraSettings.setFocusMode(FOCUS_MODE_CONTINUOUS_PICTURE);
         } else if (supportedFocusModes.contains(FOCUS_MODE_AUTO)) {
             cameraSettings.setFocusMode(FOCUS_MODE_AUTO);
-            
-          
         }
+        
+        
+      //  android.hardware.Camera.Parameters.
+        //(android.hardware.Camera.Parameters.FOCUS_MODE_MACRO)
+       if  (cameraSettings.getSupportedFocusModes().contains(android.hardware.Camera.Parameters.FOCUS_MODE_MACRO)){
+        	 cameraSettings.setFocusMode(android.hardware.Camera.Parameters.FOCUS_MODE_MACRO);
+        	 Toast.makeText(this, "Focus Mode Macro is set!", Toast.LENGTH_LONG).show();
+        }
+        
+        
         if (flashEnabled){
         	  cameraSettings.setFlashMode(android.hardware.Camera.Parameters.FLASH_MODE_ON);
         }
