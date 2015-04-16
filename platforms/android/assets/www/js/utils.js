@@ -25,9 +25,9 @@
 
 function getCurrencyString(currency){
 	switch(currency){
-	case 1:
-		return "ð.";
 	case 2:
+		return "ð.";
+	case 1:
 		return "$";
 	case 3:
 		return "&#8364;";

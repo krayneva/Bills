@@ -694,3 +694,34 @@ textarea:focus{
     color: #943232;
     font-weight: bold;
 }
+.myPanel{  
+  background-color: #59a6b2!important;
+}
+.myPanel li{
+  font-size: 1.4em;
+  font-weight: bold;
+  padding: 1.5em 1em 0em 4.5em!important;  
+  color:#ffffff!important;
+  background-color: #59a6b2!important;
+  position: relative;
+  height: 2.5em!important;
+  min-height: 1em!important;
+  margin: 0!important;
+  border: none!important;
+}
+.myPanel li.myPanelTitle:hover,
+.myPanel li.myPanelTitle{
+  background-color: #97c045!important;
+  margin-right: 1em!important;
+  border: 0 1px 1px 0!important;
+  border-color: #2b686b!important;
+}
+.myPanel li:hover{
+  background-color: #2b686b!important;
+}
+.myPanel li img{
+  position: absolute!important;
+  height: 3em!important;
+  top:0.5em!important;
+  left: 1em!important;
+}

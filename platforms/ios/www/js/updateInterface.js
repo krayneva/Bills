@@ -105,17 +105,20 @@ function updateTransactionPage(){
 						  var childArray=arr[j].childNodes;
 						  for (var k=0; k<childArray.length; k++){
 							  if(childArray[k].id == "transactionPrice"){
-								  childArray[k].innerHTML = json.Amount;
+								  childArray[k].innerHTML = json.Amount+getCurrencyString(json.Currency);
 							  }
 	
+							  var hours = date.getHours();
+							var minutes = date.getMinutes();
 							  if(childArray[k].id == "transactionTime"){
 							//	  childArray[k].innerHTML = date.format("hh-MM");// date.getHours()+":"+date.getMinutes();
-								  childArray[k].innerHTML =  date.getHours()+":"+date.getMinutes();
+								  childArray[k].innerHTML = (hours<10?'0':'')+hours+"."+(minutes<10?'0':'')+minutes;
 							  }
-	
+							  var month = date.getMonth()+1;
+							  var day =  date.getDate();
 							  if(childArray[k].id == "transactionDate"){
 								 // childArray[k].innerHTML = date.format("dd-mm");//date.getDay()+"."+date.getMonth();
-								  childArray[k].innerHTML = date.getDay()+"."+date.getMonth();
+								  childArray[k].innerHTML =(day<10?'0':'')+day+"."+(month<10?'0':'')+month;
 							  }
 						  }
 					  }
@@ -219,35 +222,45 @@ function updateTransactionInfoPage(){
 	var transactionID = window.localStorage.getItem(TRANSACTION_ID_KEY);
 	getTransaction(transactionID).done(function(res){
 		var json = jQuery.parseJSON(res.rows.item(0).transactionJSON);
-		alert(res.rows.item(0).transactionJSON);
-		$('#ReceiptsDataListView').html('');
+	//	alert(res.rows.item(0).transactionJSON);
+	//	$('#receiptsDataListView').html('');
 		
-		$('#name').append(json.Name);
+	
 		$('#category').append(json.Category);
-		$('#subCategory').append(json.SubCategory);
-		$('#id').append(json.id);
+		$('#subcategory').append(json.SubCategory);
+		$('#id').append(json.Id);
 		$('#createdAt').append(json.CreatedAt);
+		$('#currency').append(getCurrencyString(json.Currency));
+		$('#transactionDate').append(json.TransactionDate);
+		$('#amount').append(json.Amount);
 		
 		
 		for (var i=0; i<json.Tags.length; i++){
-			alert(json.Tags[i]);
+		//	alert(json.Tags[i]);
 			$('#tagsListView').append("<li>"+json.Tags[i]+"</li>");
 		}
 		
-		
-		for (var i=0; i<json.Receiptdata[0].Items.length; i++){
+
+		for (var i=0; i<json.receiptData.Items.length; i++){
 			  var receiptRow = document.getElementById("receiptDataTemplate").cloneNode(true);
 			  for (var k=0; k<receiptRow.childNodes.length; k++){
 				  	if (receiptRow.childNodes[k].id=="receiptItems"){
-				  		var receiptItems = receiptRow.childNodes[k].childNodes;
-				  		for (var f=0; f<receiptItems.length; f++){
-				  			if (receiptItems[f].id=="itemName")receiptItems[f].innerHTML+=(" "+i);
-				  		}
+				  		var item = receiptRow.childNodes[k];
+				  	//	alert("appending item: "+item.id +" with "+json.receiptData.Items[i].ItemName);
+				  		item.innerHTML="<li>Наименование: "+json.receiptData.Items[i].ItemName+"</li>";
+				  		item.innerHTML+="<li>Количество: "+json.receiptData.Items[i].Quantity+"</li>";
+				  		item.innerHTML+="<li>Цена за единицу: "+json.receiptData.Items[i].PricePerUnit+"</li>";
+				  		item.innerHTML+="<li>Стоимость: "+json.receiptData.Items[i].Value+"</li>";
+				  		item.innerHTML+="<li>Тэг: "+json.receiptData.Items[i].Tag+"</li>";
 				  	}
+					if (receiptRow.childNodes[k].id=="receiptHeader"){
+						receiptRow.childNodes[k].id.innerHTML = "Позиция "+i;
+					}
 			  }
 			  
-			  
-			  $('#ReceiptsDataListView').append(receiptRow);
+			  receiptRow.style.display = "block";
+			  receiptRow.style.visibility = "visible";
+			  $('#receiptsDataListView').append(receiptRow);
 		}
 		
 
