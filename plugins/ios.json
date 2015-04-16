@@ -121,7 +121,9 @@
         },
         "com.appblade.cordova.plugin": {
             "PACKAGE_NAME": "ru.krayneva.bills"
-        }
+        },
+        "org.apache.cordova.device": {},
+        "org.apache.cordova.splashscreen": {}
     },
     "dependent_plugins": {}
 }

@@ -20,6 +20,9 @@
     <feature name="AppBlade">
         <param name="android-package" value="ru.krayneva.bills.AppBladePlugin" />
     </feature>
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
+    </feature>
     <name>Bills</name>
     <description>
         Application for financial accounting
