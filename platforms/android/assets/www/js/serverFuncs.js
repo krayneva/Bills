@@ -205,7 +205,7 @@ function uploadPhoto() {
                    data:'grant_type=password&username='+login+'&password='+password,
                    		
                    success: function(response, textStatus, jqXHR) {
-                	  //   alert("GET uSER TOKEN:" +jqXHR.responseText);
+                	   //  alert(jqXHR.responseText);
                         var obj = jQuery.parseJSON(jqXHR.responseText);
                        var userToken = obj.access_token;
                        putSetting(SETTING_USER_LOGIN, login);
@@ -217,8 +217,7 @@ function uploadPhoto() {
                      deferred.resolve(userToken);  
                    },
                    error: function(jqXHR, textStatus, errorThrown) {
-                	   alert("getUserToken: "+textStatus + " " + errorThrown+" "+jqXHR.responseText+textStatus);
-                	   alert("login: "+login+ " password: "+password);
+                	   //alert("getUserToken: "+textStatus + " " + errorThrown+" "+jqXHR.responseText+textStatus);
                			$.mobile.loading("hide");
                 	   //showMainPage();
                 	   deferred.resolve("");
@@ -259,11 +258,11 @@ function uploadPhoto() {
     	            },
     	            error: function(jqXHR, textStatus, errorThrown) {
     	                if (errorThrown=="Unauthorized"){
-    	                	getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
+    	                	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(login){
     	                		var log = login;
-    	                		getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
+    	                		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(password){
     	                		var pass = password;
-    	                	//	alert("Requesting userToken!");
+    	                		alert("Requesting userToken!");
     	                			requestUserToken(log, pass).done(function(uToken){
     	    	                		var userToken = uToken;
     	    	                		if (userToken!=""){
@@ -338,9 +337,9 @@ function uploadPhoto() {
     	            	alert("user token: " +userToken);
     	                alert(textStatus + " " + errorThrown);
     	                if (errorThrown=="Unauthorized"){
-    	                	getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
+    	                	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(login){
     	                		var log = login;
-    	                		getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
+    	                		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(password){
     	                		var pass = password;
     	                			requestUserToken(log, pass).done(function(uToken){
     	    	                		var userToken = uToken;

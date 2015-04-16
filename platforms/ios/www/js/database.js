@@ -22,8 +22,8 @@
      */
     function populateDB(tx) {
      //    tx.executeSql('DROP TABLE IF EXISTS Bills');
-    //	tx.executeSql('DROP TABLE IF EXISTS UserEnvironment');
-   // 	tx.executeSql('DROP TABLE IF EXISTS Transactions');
+    	tx.executeSql('DROP TABLE IF EXISTS UserEnvironment');
+    	//tx.executeSql('DROP TABLE IF EXISTS Transactions');
          tx.executeSql('CREATE TABLE IF NOT EXISTS Bills' 
         		 		+'(id integer primary key autoincrement,name, description,'
         		 		+'createdate,path, sent, latitude,longitude,altitude)');
@@ -242,7 +242,7 @@
    	var deferred = $.Deferred();
     	db.transaction(
   		    function(transaction) {
-  		        transaction.executeSql('SELECT * FROM Transactions order by transactionDate desc', [],
+  		        transaction.executeSql('SELECT * FROM Transactions', [],
   		        		function(transaction, result) {
   		        	deferred.resolve(result);
     		    }, onError);
@@ -259,7 +259,7 @@
    	var deferred = $.Deferred();
     	db.transaction(
   		    function(transaction) {
-  		        transaction.executeSql("SELECT * FROM Transactions where categoryID='"+categoryID+"'  order by transactionDate desc", [],
+  		        transaction.executeSql("SELECT * FROM Transactions where categoryID='"+categoryID+"'", [],
   		        		function(transaction, result) {
   		        	
   		        	deferred.resolve(result);
