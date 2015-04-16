@@ -25,7 +25,7 @@ function refreshBills() {
 		        +'<h5 id="uploadProgress'+row.id+'">asdfasd</h5>' 
 		        +'</p>'
 		        +'</a>'
-		      +'</li>');
+		      +'</li>'); 
                 if (row.sent==1){
                 	 $('#uploadImage'+row.id).attr('src','img/cameraoverlay/send.png');
                 	 $('#uploadProgress'+row.id).hide();
@@ -208,7 +208,8 @@ function refershBillSendStatus(rowID){
 		$.mobile.pageContainer.pagecontainer( "change", "connectionSettings.html" ,{transition:"none"});
 	}
 	
-	function showExpensesPage(){
+	function showExpensesPage(categoryID){
+		window.localStorage.setItem(CATEGORY_ID_KEY, categoryID);
 		currentPage = "pageExpenses";
 		$.mobile.pageContainer.pagecontainer( "change", "expenses.html" ,{transition:"none"});
 	}
@@ -227,11 +228,15 @@ function refershBillSendStatus(rowID){
 	
 	function getUserTokenAndShowMainPage(login, password){
 		requestUserToken(login,password).done(function(res){
-                                              
 			if (res!=""){
-                                             
 				showMainPage();
 			}
 		});
 	}
 	
+	
+	function showTransactionInfo(transactionID){
+		window.localStorage.setItem(TRANSACTION_ID_KEY, transactionID);
+		currentPage = "pageTransactionInfo";
+		$.mobile.pageContainer.pagecontainer( "change", "transactionInfo.html",{transition:"none"});
+	}

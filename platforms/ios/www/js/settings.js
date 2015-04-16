@@ -9,6 +9,8 @@ var SETTING_USER_TOKEN = "userToken";
 var SETTING_SERVER_ADDRESS = "ServerAddress";
 
 var BILL_ID_KEY = "BillIdKey";
+var CATEGORY_ID_KEY = "CategoryIdKey";
+var TRANSACTION_ID_KEY = "TransactionIdKey";
 
 
 // дефолтные значения

@@ -56,6 +56,7 @@
 		AE9DEC107830430881EC6C7C /* CDVCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D707BB212E145C48AE80291 /* CDVCamera.m */; };
 		FA69D50056A645FDA3C381E5 /* CDVJpegHeaderWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1598D0327443D7B5FCD2D7 /* CDVJpegHeaderWriter.m */; };
 		FC4BA1FC6C89430D9CD4768E /* CDVLocalFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0336EAA034074C6297A29B63 /* CDVLocalFilesystem.m */; };
+		1C36B9D5F1944E8981CD1A5C /* CDVDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = C815FB89C45041A4BDBA8E78 /* CDVDevice.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -379,6 +380,8 @@
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = Bills/config.xml; sourceTree = "<group>"; };
 		FC1598D0327443D7B5FCD2D7 /* CDVJpegHeaderWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVJpegHeaderWriter.m; path = org.apache.cordova.camera/CDVJpegHeaderWriter.m; sourceTree = "<group>"; };
+		C815FB89C45041A4BDBA8E78 /* CDVDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVDevice.m"; path = "org.apache.cordova.device/CDVDevice.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		194A1146219E4D60BF8D6407 /* CDVDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVDevice.h"; path = "org.apache.cordova.device/CDVDevice.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -731,6 +734,8 @@
 				0F4086C133FD4A71A88F1CDD /* CDVReachability.h */,
 				C56A340239A04F8A8576077E /* AppBladePlugin.m */,
 				8999EA5908D847AC914B619A /* AppBladePlugin.h */,
+				C815FB89C45041A4BDBA8E78 /* CDVDevice.m */,
+				194A1146219E4D60BF8D6407 /* CDVDevice.h */,
 			);
 			name = Plugins;
 			path = Bills/Plugins;
@@ -927,6 +932,7 @@
 				83D3A51FD6514E268947A5FF /* CDVFileTransfer.m in Sources */,
 				019E6D894C914C638790FDB1 /* CDVConnection.m in Sources */,
 				A589E59449864E509A21D29A /* CDVReachability.m in Sources */,
+				1C36B9D5F1944E8981CD1A5C /* CDVDevice.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

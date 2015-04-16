@@ -87,6 +87,10 @@
                         {
                             "xml": "<feature name=\"AppBlade\"><param name=\"ios-package\" value=\"AppBladePlugin\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -122,8 +126,10 @@
         "com.appblade.cordova.plugin": {
             "PACKAGE_NAME": "ru.krayneva.bills"
         },
-        "org.apache.cordova.device": {},
-        "org.apache.cordova.splashscreen": {}
+        "org.apache.cordova.splashscreen": {},
+        "org.apache.cordova.device": {
+            "PACKAGE_NAME": "ru.krayneva.bills"
+        }
     },
     "dependent_plugins": {}
 }

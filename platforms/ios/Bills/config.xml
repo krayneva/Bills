@@ -39,6 +39,9 @@
     <feature name="AppBlade">
         <param name="ios-package" value="AppBladePlugin" />
     </feature>
+    <feature name="Device">
+        <param name="ios-package" value="CDVDevice" />
+    </feature>
     <name>Bills</name>
     <description>
         Application for financial accounting
