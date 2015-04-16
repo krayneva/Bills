@@ -15,6 +15,7 @@ D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\com\perfo
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\org\apache\cordova\camera\CameraLauncher.class \
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\org\apache\cordova\camera\ExifHelper.class \
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\org\apache\cordova\camera\FileHelper.class \
+D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\org\apache\cordova\device\Device.class \
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\org\apache\cordova\file\ContentFilesystem.class \
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\org\apache\cordova\file\DirectoryManager.class \
 D:\Projects\Krayneva\Android\Bills\platforms\android\ant-build\classes\org\apache\cordova\file\EncodingException.class \

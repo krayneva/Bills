@@ -1,0 +1,295 @@
+{
+  "project": {
+    "projectSettingsVersion": "1.2",
+    "creationData": {
+      "type": "Import",
+      "projectTypeName": "com.intel.xdk.projecttype.jsapp",
+      "src": "",
+      "projectGuid": "bb958f54-5364-4617-96eb-57724779ba64",
+      "lastModifiedDate": 1428497268844,
+      "creationDate": 1428332561222
+    },
+    "sourceDirectory": "www",
+    "cordovaPluginsDirectory": "plugins",
+    "gameAssetDirectory": "asset",
+    "gameMetadata": {},
+    "startFile": "index.html",
+    "projectTags": [],
+    "projectFiles": {},
+    "projectDirectories": {},
+    "libraries": [],
+    "cordovaPlugins": [
+      {
+        "id": "org.apache.cordova.device",
+        "version": "0.2.13",
+        "selectedState": "Included",
+        "data": {},
+        "paramvals": {},
+        "dependsOn": [],
+        "dependedBy": []
+      },
+      {
+        "id": "org.apache.cordova.splashscreen",
+        "version": "0.3.5",
+        "selectedState": "Included",
+        "data": {},
+        "paramvals": {},
+        "dependsOn": [],
+        "dependedBy": []
+      },
+      {
+        "id": "com.appblade.cordova.plugin",
+        "version": "0.9.0",
+        "selectedState": "Included",
+        "data": {},
+        "paramvals": {},
+        "checksum": "e74d1e138c5de4f5139ff2799ec4fc25d9062938ce7b2404034770c7c62ca695",
+        "dependsOn": [],
+        "dependedBy": [],
+        "custom": "true",
+        "name": "AppBlade SDK",
+        "origin": "com.appblade.cordova.plugin",
+        "originType": "cordova.io",
+        "sourceLocation": "d:\\Projects\\Krayneva\\Android\\Bills\\plugins\\com.appblade.cordova.plugin"
+      },
+      {
+        "id": "com.performanceactive.plugins.camera",
+        "version": "1.4",
+        "selectedState": "Included",
+        "data": {},
+        "paramvals": {},
+        "checksum": "6f8529cf93d5e6c79e3cc209333a8ec7bae3f2f9ad9e00731fcf9eb0cb40e8e9",
+        "dependsOn": [],
+        "dependedBy": [],
+        "custom": "true",
+        "name": "Custom Camera",
+        "origin": "com.performanceactive.plugins.camera",
+        "originType": "cordova.io",
+        "sourceLocation": "d:\\Projects\\Krayneva\\Android\\Bills\\plugins\\com.performanceactive.plugins.camera"
+      },
+      {
+        "id": "org.apache.cordova.camera",
+        "version": "0.3.4",
+        "selectedState": "Included",
+        "data": {},
+        "paramvals": {},
+        "checksum": "1777f09447e64ae83c8566b1a3a4f5e4ac22b13aaf602c5ca9e3fd2ce120e13c",
+        "dependsOn": [],
+        "dependedBy": []
+      },
+      {
+        "id": "org.apache.cordova.file",
+        "version": "1.3.2",
+        "selectedState": "Included",
+        "data": {},
+        "paramvals": {},
+        "checksum": "5e177bd3a16921ce12ea9a29d839c58a3fcdb31d6a674ad891fd023919c80706",
+        "dependsOn": [],
+        "dependedBy": []
+      },
+      {
+        "id": "org.apache.cordova.file-transfer",
+        "version": "0.4.8",
+        "selectedState": "Included",
+        "data": {},
+        "paramvals": {},
+        "checksum": "7198f1fc658501e20d63e88076c941cc5956064d9dc8ba63652d7e1c092d05eb",
+        "dependsOn": [],
+        "dependedBy": []
+      },
+      {
+        "id": "org.apache.cordova.network-information",
+        "version": "0.2.14",
+        "selectedState": "Included",
+        "data": {},
+        "paramvals": {},
+        "checksum": "583fc3970f7d2da441753da036ba5b56e6298779a6ca823e2bb1f20f1b4b0e4f",
+        "dependsOn": [],
+        "dependedBy": []
+      },
+      {
+        "id": "intel.xdk.file",
+        "selectedState": "Excluded",
+        "data": {},
+        "paramvals": {},
+        "dependsOn": [],
+        "dependedBy": []
+      }
+    ],
+    "serviceMethods": [],
+    "buildConfigurations": {
+      "Android": {
+        "platform_": "android",
+        "runtime_": "Cordova 3.x",
+        "name_": "Android",
+        "preferences_": {
+          "android-minSdkVersion": "10",
+          "android-targetSdkVersion": "19",
+          "android-installLocation": "auto"
+        },
+        "isActive_": true,
+        "appName_": "Bills",
+        "appID_": "not.yet.specified",
+        "appAccess_": [
+          {
+            "origin": "*"
+          }
+        ],
+        "icons_": [],
+        "splashes_": [],
+        "addlPermissions_": "",
+        "excludedLibraries_": "",
+        "appVersion_": "0.0.1",
+        "appVersionCode_": "1",
+        "crosswalkVersion_": "10",
+        "cordovaCLIVersion_": "4.1.2"
+      },
+      "Android-Crosswalk": {
+        "platform_": "android",
+        "runtime_": "Crosswalk with Cordova 3.x",
+        "name_": "Android-Crosswalk",
+        "preferences_": {
+          "android-minSdkVersion": "14",
+          "android-targetSdkVersion": "19",
+          "android-installLocation": "auto"
+        },
+        "isActive_": true,
+        "appName_": "Bills",
+        "appID_": "not.yet.specified",
+        "appAccess_": [
+          {
+            "origin": "*"
+          }
+        ],
+        "icons_": [],
+        "splashes_": [],
+        "addlPermissions_": "",
+        "excludedLibraries_": "",
+        "appVersion_": "0.0.1",
+        "appVersionCode_": "1",
+        "crosswalkVersion_": "10",
+        "cordovaCLIVersion_": "4.1.2"
+      },
+      "iOS": {
+        "platform_": "ios",
+        "runtime_": "Cordova 3.x",
+        "name_": "iOS",
+        "preferences_": {
+          "ios-target": "6",
+          "ios-configuration": "adhoc"
+        },
+        "isActive_": true,
+        "appName_": "Bills",
+        "appID_": "not.yet.specified",
+        "appAccess_": [
+          {
+            "origin": "*"
+          }
+        ],
+        "icons_": [],
+        "splashes_": [],
+        "addlPermissions_": "",
+        "excludedLibraries_": "",
+        "appVersion_": "0.0.1",
+        "cordovaCLIVersion_": "4.1.2",
+        "iosProvs_": []
+      },
+      "Windows8": {
+        "platform_": "windows8",
+        "runtime_": "Cordova 3.x",
+        "name_": "Windows8",
+        "preferences_": {},
+        "isActive_": true,
+        "appName_": "Bills",
+        "appID_": "not.yet.specified",
+        "appAccess_": [
+          {
+            "origin": "*"
+          }
+        ],
+        "icons_": [],
+        "splashes_": [],
+        "addlPermissions_": "",
+        "excludedLibraries_": "",
+        "appVersion_": "0.0.0.1",
+        "cordovaCLIVersion_": "4.1.2"
+      },
+      "WebApp": {
+        "platform_": "webapp",
+        "runtime_": "W3C",
+        "name_": "WebApp",
+        "preferences_": {},
+        "isActive_": false,
+        "appName_": "Bills",
+        "appID_": "not.yet.specified",
+        "appAccess_": [
+          {
+            "origin": "*"
+          }
+        ],
+        "icons_": [],
+        "splashes_": [],
+        "addlPermissions_": "",
+        "excludedLibraries_": "",
+        "appVersion_": "0.0.1"
+      },
+      "Firefox": {
+        "platform_": "firefoxos",
+        "runtime_": "W3C on Firefox OS",
+        "name_": "Firefox",
+        "preferences_": {},
+        "isActive_": false,
+        "appName_": "Bills",
+        "appID_": "not.yet.specified",
+        "appAccess_": [
+          {
+            "origin": "*"
+          }
+        ],
+        "icons_": [],
+        "splashes_": [],
+        "addlPermissions_": "",
+        "excludedLibraries_": "",
+        "appVersion_": "0.0.1"
+      },
+      "Chrome": {
+        "platform_": "chromeos",
+        "runtime_": "W3C on Chrome OS",
+        "name_": "Chrome",
+        "preferences_": {},
+        "isActive_": false,
+        "appName_": "Bills",
+        "appID_": "not.yet.specified",
+        "appAccess_": [
+          {
+            "origin": "*"
+          }
+        ],
+        "icons_": [],
+        "splashes_": [],
+        "addlPermissions_": "",
+        "excludedLibraries_": "",
+        "appVersion_": "0.0.1"
+      },
+      "Facebook": {
+        "platform_": "facebook",
+        "runtime_": "W3C on Facebook",
+        "name_": "Facebook",
+        "preferences_": {},
+        "isActive_": false,
+        "appName_": "Bills",
+        "appID_": "not.yet.specified",
+        "appAccess_": [
+          {
+            "origin": "*"
+          }
+        ],
+        "icons_": [],
+        "splashes_": [],
+        "addlPermissions_": "",
+        "excludedLibraries_": "",
+        "appVersion_": "0.0.1"
+      }
+    }
+  }
+}
