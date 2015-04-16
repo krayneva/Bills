@@ -25,7 +25,7 @@ function refreshBills() {
 		        +'<h5 id="uploadProgress'+row.id+'">asdfasd</h5>' 
 		        +'</p>'
 		        +'</a>'
-		      +'</li>');
+		      +'</li>'); 
                 if (row.sent==1){
                 	 $('#uploadImage'+row.id).attr('src','img/cameraoverlay/send.png');
                 	 $('#uploadProgress'+row.id).hide();

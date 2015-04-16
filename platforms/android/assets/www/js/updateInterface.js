@@ -255,7 +255,7 @@ function updateTransactionInfoPage(){
 				  	}
 					if (receiptRow.childNodes[k].id=="receiptHeader"){
 						receiptRow.childNodes[k].id.innerHTML = "Позиция "+i;
-					}
+					} 
 			  }
 			  
 			  receiptRow.style.display = "block";
