@@ -87,28 +87,6 @@ function uploadPhoto() {
     }
 
     function onFileUploadError(error) {
-    	if (error.http_status===401){
-    		getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
-        		var log = login;
-        		getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
-        		var pass = password;
-        	//	alert("Requesting userToken!");
-        			requestUserToken(log, pass).done(function(uToken){
-                		var userToken = uToken;
-                		if (userToken!=""){
-               			
-                			uploadPhoto();
-                			return;
-                		}
-                		else{
-                			$.mobile.loading("hide");
-                			alert("Ошибка авторизации");
-                			return;
-                		}
-        			});
-        		});
-        	});
-    	}
     	$.mobile.loading("hide");
     	//1--пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     
@@ -321,7 +299,6 @@ function uploadPhoto() {
     	               //addUserEnvironment(jqXHR.responseText);
     	               
     	           		var json = jQuery.parseJSON(jqXHR.responseText);
-    	           	//	alert("Transactions count: "+json.length);
     	           		for (var k in json) {
     	           		  var transaction = json[k];
     	           		  var id = transaction.Id;

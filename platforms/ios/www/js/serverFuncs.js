@@ -87,28 +87,6 @@ function uploadPhoto() {
     }
 
     function onFileUploadError(error) {
-    	if (error.http_status===401){
-    		getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
-        		var log = login;
-        		getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
-        		var pass = password;
-        	//	alert("Requesting userToken!");
-        			requestUserToken(log, pass).done(function(uToken){
-                		var userToken = uToken;
-                		if (userToken!=""){
-               			
-                			uploadPhoto();
-                			return;
-                		}
-                		else{
-                			$.mobile.loading("hide");
-                			alert("Ошибка авторизации");
-                			return;
-                		}
-        			});
-        		});
-        	});
-    	}
     	$.mobile.loading("hide");
     	//1--пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     
@@ -205,7 +183,7 @@ function uploadPhoto() {
                    data:'grant_type=password&username='+login+'&password='+password,
                    		
                    success: function(response, textStatus, jqXHR) {
-                	   //  alert(jqXHR.responseText);
+                	  //   alert("GET uSER TOKEN:" +jqXHR.responseText);
                         var obj = jQuery.parseJSON(jqXHR.responseText);
                        var userToken = obj.access_token;
                        putSetting(SETTING_USER_LOGIN, login);
@@ -217,7 +195,8 @@ function uploadPhoto() {
                      deferred.resolve(userToken);  
                    },
                    error: function(jqXHR, textStatus, errorThrown) {
-                	   //alert("getUserToken: "+textStatus + " " + errorThrown+" "+jqXHR.responseText+textStatus);
+                	   alert("getUserToken: "+textStatus + " " + errorThrown+" "+jqXHR.responseText+textStatus);
+                	   alert("login: "+login+ " password: "+password);
                			$.mobile.loading("hide");
                 	   //showMainPage();
                 	   deferred.resolve("");
@@ -258,11 +237,11 @@ function uploadPhoto() {
     	            },
     	            error: function(jqXHR, textStatus, errorThrown) {
     	                if (errorThrown=="Unauthorized"){
-    	                	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(login){
+    	                	getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
     	                		var log = login;
-    	                		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(password){
+    	                		getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
     	                		var pass = password;
-    	                		alert("Requesting userToken!");
+    	                	//	alert("Requesting userToken!");
     	                			requestUserToken(log, pass).done(function(uToken){
     	    	                		var userToken = uToken;
     	    	                		if (userToken!=""){
@@ -321,7 +300,6 @@ function uploadPhoto() {
     	               //addUserEnvironment(jqXHR.responseText);
     	               
     	           		var json = jQuery.parseJSON(jqXHR.responseText);
-    	           	//	alert("Transactions count: "+json.length);
     	           		for (var k in json) {
     	           		  var transaction = json[k];
     	           		  var id = transaction.Id;
@@ -337,9 +315,9 @@ function uploadPhoto() {
     	            	alert("user token: " +userToken);
     	                alert(textStatus + " " + errorThrown);
     	                if (errorThrown=="Unauthorized"){
-    	                	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(login){
+    	                	getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
     	                		var log = login;
-    	                		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(password){
+    	                		getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
     	                		var pass = password;
     	                			requestUserToken(log, pass).done(function(uToken){
     	    	                		var userToken = uToken;
