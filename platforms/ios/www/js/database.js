@@ -91,7 +91,13 @@
      * @param longitude ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½ï¿½
      */
     function addBill(filePath, latitude, longitude,altitude){
-       
+        alert('INSERT INTO Bills (name, description,createdate,path,sent,latitude,longitude,altitude) VALUES ("×åê","", "'
+              +new Date().toJSON()
+              +'","'+filePath+'",0'
+              +','+latitude
+              +','+longitude
+              +','+altitude
+              +')');
         db.transaction(
     		function(transaction) { 
         		transaction.executeSql(
