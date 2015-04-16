@@ -211,17 +211,17 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.device/www/device.js",
-        "id": "org.apache.cordova.device.device",
-        "clobbers": [
-            "device"
-        ]
-    },
-    {
         "file": "plugins/org.apache.cordova.splashscreen/www/splashscreen.js",
         "id": "org.apache.cordova.splashscreen.SplashScreen",
         "clobbers": [
             "navigator.splashscreen"
+        ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.device/www/device.js",
+        "id": "org.apache.cordova.device.device",
+        "clobbers": [
+            "device"
         ]
     }
 ];
@@ -234,8 +234,8 @@ module.exports.metadata =
     "org.apache.cordova.file-transfer": "0.4.8",
     "org.apache.cordova.network-information": "0.2.14",
     "com.appblade.cordova.plugin": "0.9.0",
-    "org.apache.cordova.device": "0.2.13",
-    "org.apache.cordova.splashscreen": "0.3.5"
+    "org.apache.cordova.splashscreen": "0.3.5",
+    "org.apache.cordova.device": "0.3.0"
 }
 // BOTTOM OF METADATA
 });

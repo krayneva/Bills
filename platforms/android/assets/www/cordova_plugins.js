@@ -235,7 +235,7 @@ module.exports.metadata =
     "org.apache.cordova.file-transfer": "0.4.8",
     "org.apache.cordova.network-information": "0.2.14",
     "org.apache.cordova.splashscreen": "0.3.5",
-    "org.apache.cordova.device": "0.2.13"
+    "org.apache.cordova.device": "0.3.0"
 }
 // BOTTOM OF METADATA
 });

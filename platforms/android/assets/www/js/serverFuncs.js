@@ -226,12 +226,6 @@ function uploadPhoto() {
     	             //  console.log(jqXHR.responseText);
     	               //putSetting(SETTING_USER_ENVIRONMENT,jqXHR.responseText);
     	               addUserEnvironment(jqXHR.responseText);
-    	           		var json = jQuery.parseJSON(jqXHR.responseText);
-    	           		for (var k in json.Widgets) {
-    	  				  var w = json.Widgets[k];
-    	  				  	addWidget(w.VisualObjectId, JSON.stringify(w));
-    	  				  //	alert (JSON.stringify(w));
-    	           		}
     	               deferred.resolve();
     	            },
     	            error: function(jqXHR, textStatus, errorThrown) {
@@ -244,7 +238,7 @@ function uploadPhoto() {
     	                			requestUserToken(log, pass).done(function(uToken){
     	    	                		var userToken = uToken;
     	    	                		if (userToken!=""){
-    	    	                			 requestUserEnvironment();
+    	    	                			 requestTransactions();
     	    	                		}
     	    	                		else{
     	    	                			alert("Ошибка авторизации");
@@ -303,8 +297,8 @@ function uploadPhoto() {
     	           		  var transaction = json[k];
     	           		  var id = transaction.Id;
      	           		  var purseID = transaction.PurseID;
-     	           		  var transactionDate = transaction.TransactionDate;
-     	           		  var categoryID = transaction.CategoryID;
+     	           		  var transactionDate = transaction.transactionDate;
+     	           		  var categoryID = transaction.categoryID;
 	    	           	  addTransaction(id,JSON.stringify(transaction), purseID, transactionDate, categoryID);
     	           		}
     	               
