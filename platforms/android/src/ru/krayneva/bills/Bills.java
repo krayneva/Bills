@@ -29,6 +29,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.view.WindowManager;
 import android.widget.Toast; 
 
 
@@ -53,6 +54,7 @@ public class Bills extends CordovaActivity
       //  AppBlade.register(this, "593a33fc-2d22-418c-967a-a2ff60e40da6","a676f0fc1be603eb9db15316490a605c", "28bfa152cbb25ce82f447784994addc7", "1419938400");
       //  AppBlade.doFeedback(this);
        // AppBlade.authorize(this);  
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_PAN);
         loadUrl(launchUrl);  
     }
 
