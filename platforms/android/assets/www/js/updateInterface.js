@@ -75,34 +75,20 @@ function updateMainPage(){
 
 
 
-function requestAndUpdateTransactionPage(){
-	requestTransactions().done(function(){
-		alert("Requesting transactions!");
-		updateTransactionPage();
-	});
-}
 
 
 
 function updateTransactionPage(){
-	getTransactions().done(function(result){
-		if (result.rows.length==0){
-			requestAndUpdateTransactionPage();
-			return;
-		}
-	});
-	
-	  
+	  $('#expensesList').html('');
 	 var categoryID =  window.localStorage.getItem(CATEGORY_ID_KEY);
 	 getWidget(categoryID).done(function(result){
 		  var json = jQuery.parseJSON(result);
 			$('#categoryTitle').html(json.Name);	
 		});
-//	requestTransactions().done(function(){
+	requestTransactions().done(function(){
 		//getTransactions().done(function(result){
 		getTransactionsByCategoryID(categoryID).done(function(result){
-			
-			$('#expensesList').html('');
+		
 			  for (var i = 0; i <result.rows.length; i++) {
 				  var row = result.rows.item(i);
 				  var listrow = document.getElementById("transactionRow").cloneNode(true);
@@ -126,7 +112,7 @@ function updateTransactionPage(){
 							var minutes = date.getMinutes();
 							  if(childArray[k].id == "transactionTime"){
 							//	  childArray[k].innerHTML = date.format("hh-MM");// date.getHours()+":"+date.getMinutes();
-								  childArray[k].innerHTML = (hours<10?'0':'')+hours+":"+(minutes<10?'0':'')+minutes;
+								  childArray[k].innerHTML = (hours<10?'0':'')+hours+"."+(minutes<10?'0':'')+minutes;
 							  }
 							  var month = date.getMonth()+1;
 							  var day =  date.getDate();
@@ -168,7 +154,7 @@ function updateTransactionPage(){
 			  }
 	
 		});
-	//});	
+	});	
 }
 
 
