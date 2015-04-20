@@ -103,12 +103,16 @@ function updateTransactionPage(){
 		getTransactionsByCategoryID(categoryID).done(function(result){
 			
 			$('#expensesList').html('');
+<<<<<<< HEAD
 			var start = +new Date();  // log start timestamp
 			
 			
 		//	for (var t=0; t<5; t++){
 			 // for (var i = 0; i <result.rows.length; i++) {
 				  for (var i = 0; i <2; i++) {
+=======
+			  for (var i = 0; i <result.rows.length; i++) {
+>>>>>>> 99473cd2f16f324529026b5d23dae0d73e9913a1
 				  var row = result.rows.item(i);
 				  var listrow = document.getElementById("transactionRow").cloneNode(true);
 				  listrow.style.display = "list-item";
