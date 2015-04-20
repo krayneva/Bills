@@ -201,6 +201,7 @@ function refershBillSendStatus(rowID){
 	function showMainPage(){
 		currentPage = "pageMain";
 		$.mobile.pageContainer.pagecontainer( "change", "main.html" ,{transition:"none"});
+	//	$.mobile.pageContainer.pagecontainer( "change", "pull.html" ,{transition:"none"});
 	}
 	
 	function showConnectionSettingsPage(){

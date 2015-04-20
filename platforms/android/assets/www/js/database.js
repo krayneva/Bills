@@ -22,8 +22,8 @@
      */
     function populateDB(tx) {
      //    tx.executeSql('DROP TABLE IF EXISTS Bills');
-    	tx.executeSql('DROP TABLE IF EXISTS UserEnvironment');
-    	//tx.executeSql('DROP TABLE IF EXISTS Transactions');
+    //	tx.executeSql('DROP TABLE IF EXISTS UserEnvironment');
+    //	tx.executeSql('DROP TABLE IF EXISTS Transactions');
          tx.executeSql('CREATE TABLE IF NOT EXISTS Bills' 
         		 		+'(id integer primary key autoincrement,name, description,'
         		 		+'createdate,path, sent, latitude,longitude,altitude)');
@@ -91,13 +91,7 @@
      * @param longitude пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
      */
     function addBill(filePath, latitude, longitude,altitude){
-        alert('INSERT INTO Bills (name, description,createdate,path,sent,latitude,longitude,altitude) VALUES ("���","", "'
-              +new Date().toJSON()
-              +'","'+filePath+'",0'
-              +','+latitude
-              +','+longitude
-              +','+altitude
-              +')');
+       
         db.transaction(
     		function(transaction) { 
         		transaction.executeSql(
@@ -200,6 +194,8 @@
 		        transaction.executeSql('SELECT '+setting+' FROM Settings;', [],
 		        		function(transaction, result) {
 		        	var row =  result.rows.item(0);
+		        	// первый аргумент - порядковый номер
+		        	// второй - значение, объект
 		        	$.each(row, function(columnName, value) {
 		        			res = value;
 		        			deferred.resolve(res);
@@ -222,10 +218,11 @@
      * @param transaction
      */
     function addTransaction(id,transactionJSON, purseID, transactionDate, categoryID){
-    	var sql1=  "INSERT OR REPLACE INTO Transactions (id, transactionJSON, purseID,transactionDate, categoryID) " +
+    	
+    	var sql=  "INSERT OR REPLACE INTO Transactions (id, transactionJSON, purseID,transactionDate, categoryID) " +
 		" values ("
 		+"'"+id+"',"
-		+"'"+transactionJSON+"',"
+		+"'"+transactionJSON.replace(/'/g,"''")+"',"
 		+"'"+purseID+"',"
 		+"'"+transactionDate+"',"
 		+"'"+categoryID+
@@ -237,7 +234,7 @@
         		);},
         		function onError(error){
     		    	console.log("Error trying to add transaction!"+error.message);
-    		    	console.log(sql);
+    		    	console.log("SQL: "+sql);
     		    }, onSuccess);
    }
     
@@ -248,7 +245,7 @@
    	var deferred = $.Deferred();
     	db.transaction(
   		    function(transaction) {
-  		        transaction.executeSql('SELECT * FROM Transactions', [],
+  		        transaction.executeSql('SELECT * FROM Transactions order by transactionDate desc', [],
   		        		function(transaction, result) {
   		        	deferred.resolve(result);
     		    }, onError);
@@ -265,7 +262,7 @@
    	var deferred = $.Deferred();
     	db.transaction(
   		    function(transaction) {
-  		        transaction.executeSql("SELECT * FROM Transactions where categoryID='"+categoryID+"'", [],
+  		        transaction.executeSql("SELECT * FROM Transactions where categoryID='"+categoryID+"'  order by transactionDate desc", [],
   		        		function(transaction, result) {
   		        	
   		        	deferred.resolve(result);

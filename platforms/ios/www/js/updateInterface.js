@@ -75,44 +75,65 @@ function updateMainPage(){
 
 
 
+function requestAndUpdateTransactionPage(){
+	requestTransactions().done(function(){
+		alert("Requesting transactions!");
+		updateTransactionPage();
+	});
+}
 
 
 
 function updateTransactionPage(){
-	  $('#expensesList').html('');
+	getTransactions().done(function(result){
+		if (result.rows.length==0){
+			requestAndUpdateTransactionPage();
+			return;
+		}
+	});
+	
+	  
 	 var categoryID =  window.localStorage.getItem(CATEGORY_ID_KEY);
 	 getWidget(categoryID).done(function(result){
 		  var json = jQuery.parseJSON(result);
 			$('#categoryTitle').html(json.Name);	
 		});
-	requestTransactions().done(function(){
+//	requestTransactions().done(function(){
 		//getTransactions().done(function(result){
 		getTransactionsByCategoryID(categoryID).done(function(result){
-		
-			  for (var i = 0; i <result.rows.length; i++) {
+			
+			$('#expensesList').html('');
+			var start = +new Date();  // log start timestamp
+			
+			
+		//	for (var t=0; t<5; t++){
+			 // for (var i = 0; i <result.rows.length; i++) {
+				  for (var i = 0; i <2; i++) {
 				  var row = result.rows.item(i);
 				  var listrow = document.getElementById("transactionRow").cloneNode(true);
-				  listrow.style.display = "block";
+				  listrow.style.display = "list-item";
+				//  listrow.show();
 				  var arr=listrow.childNodes;
 				  var jsonText = row.transactionJSON;
 				  var json =  jQuery.parseJSON(jsonText);
-				  var date = new Date(json.CreatedAt);
+				  var date = new Date(json.TransactionDate);
 				  var currency = json.Currency;
-				  
+				  listrow.setAttribute("onclick","showTransactionInfo('"+json.Id+"')");
 				  for (var j=0;j<arr.length;j++){
 					 
 					  if(arr[j].id == "transactionInfoDiv"){
+						  
 						  var childArray=arr[j].childNodes;
 						  for (var k=0; k<childArray.length; k++){
 							  if(childArray[k].id == "transactionPrice"){
 								  childArray[k].innerHTML = json.Amount+getCurrencyString(json.Currency);
 							  }
 	
-							  var hours = date.getHours();
+							var hours = date.getHours();
 							var minutes = date.getMinutes();
 							  if(childArray[k].id == "transactionTime"){
 							//	  childArray[k].innerHTML = date.format("hh-MM");// date.getHours()+":"+date.getMinutes();
-								  childArray[k].innerHTML = (hours<10?'0':'')+hours+"."+(minutes<10?'0':'')+minutes;
+								  childArray[k].innerHTML = (hours<10?'0':'')+hours+":"+(minutes<10?'0':'')+minutes;
 							  }
 							  var month = date.getMonth()+1;
 							  var day =  date.getDate();
@@ -123,7 +144,7 @@ function updateTransactionPage(){
 						  }
 					  }
 					 
-					  if(arr[j].id == "transactionDescriptionDiv"){
+					  else if(arr[j].id == "transactionDescriptionDiv"){
 						  var childArray=arr[j].childNodes;
 						  for (var k=0; k<childArray.length; k++){
 							  if(childArray[k].id == "transactionName"){
@@ -135,26 +156,27 @@ function updateTransactionPage(){
 					  }
 					  
 					  
-					  if(arr[j].id == "transactionButtonsDiv"){
+					  else if(arr[j].id == "transactionButtonsDiv"){
 						  var childArray=arr[j].childNodes;
 						  for (var k=0; k<childArray.length; k++){
 							  if(childArray[k].id == "expensesButtonInfo"){
-								  childArray[k].setAttribute("onclick","showTransactionInfo('"+json.Id+"')");
+							//	  childArray[k].setAttribute("onclick","showTransactionInfo('"+json.Id+"')");
 							  }
 							 
 						  }
 					  }
-/*					  var s = "showExpensesPage('"+ w.VisualObjectId+"')";
-						 console.log("Setting onclick categoryID "+s);
-						 widget.setAttribute("onclick",s);
-  */
+
 				  }
 				  $('#expensesList').append(listrow);
 				 
 			  }
+		//	}
+			var end =  +new Date();  // log end timestamp
+			var diff = (end - start)/(20*result.rows.length);
+			console.log("Time per row: "+diff);
 	
 		});
-	});	
+	//});	
 }
 
 
@@ -212,19 +234,25 @@ function updateWidgets(){
 		  }
 		//  console.log("Widget "+w.WidgetID+" left: "+w.Left+" top:"+w.Top+" interest:"+w.Percent);
 		}
+
 	});
+	
 	}
 
 
 
 
 function updateTransactionInfoPage(){
+	
 	var transactionID = window.localStorage.getItem(TRANSACTION_ID_KEY);
+	
 	getTransaction(transactionID).done(function(res){
+	//	alert("TransactionsCount: "+res.rows.length);
 		var json = jQuery.parseJSON(res.rows.item(0).transactionJSON);
 	//	alert(res.rows.item(0).transactionJSON);
 	//	$('#receiptsDataListView').html('');
-		
+	//	alert("Amount: "+json.Amount);
+
 	
 		$('#category').append(json.Category);
 		$('#subcategory').append(json.SubCategory);
