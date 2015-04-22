@@ -6,7 +6,9 @@ function updateLoginPage(){
 		document.getElementById('password').value= res;
 	});
 	
-	 $('#login').focus();
+	 if ( $("#login").length==0)$('#login').focus();
+	 else
+		 $('#login_button').focus();
 	     
 	  $('#login').bind("keydown", function(e) {
 	    
@@ -270,6 +272,9 @@ function updateWidgets(){
 		            		break;
 		            	case "ico_auto":
 		            		src ="img/auto396.png";
+		            		break;
+		            	case "ico_other":
+		            		src ="img/other_396.png";
 		            		break;
 		            	default:
 		            		console.log("GOT ICON IDENTIFIER "+w.IconIdentifier);
