@@ -5,8 +5,10 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		019E6D894C914C638790FDB1 /* CDVConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F3B8982D1947039A317CBE /* CDVConnection.m */; };
+		1C36B9D5F1944E8981CD1A5C /* CDVDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = C815FB89C45041A4BDBA8E78 /* CDVDevice.m */; };
 		1D3623260D0F684500981E51 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D3623250D0F684500981E51 /* AppDelegate.m */; };
 		1D60589B0D05DD56006BFB54 /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 29B97316FDCFA39411CA2CEA /* main.m */; };
 		2CF766A04F3349B08ECD9F5A /* CDVFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 25591E039C88460A8974E5BE /* CDVFile.m */; };
@@ -56,7 +58,6 @@
 		AE9DEC107830430881EC6C7C /* CDVCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D707BB212E145C48AE80291 /* CDVCamera.m */; };
 		FA69D50056A645FDA3C381E5 /* CDVJpegHeaderWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = FC1598D0327443D7B5FCD2D7 /* CDVJpegHeaderWriter.m */; };
 		FC4BA1FC6C89430D9CD4768E /* CDVLocalFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 0336EAA034074C6297A29B63 /* CDVLocalFilesystem.m */; };
-		1C36B9D5F1944E8981CD1A5C /* CDVDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = C815FB89C45041A4BDBA8E78 /* CDVDevice.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXBuildRule section */
@@ -94,6 +95,7 @@
 		038B797082DE4EA183A03274 /* ImageIO.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = ImageIO.framework; path = System/Library/Frameworks/ImageIO.framework; sourceTree = SDKROOT; };
 		03ED7BEF37F74A648BB55B6E /* CustomCamera.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CustomCamera.m; path = com.performanceactive.plugins.camera/CustomCamera.m; sourceTree = "<group>"; };
 		0F4086C133FD4A71A88F1CDD /* CDVReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVReachability.h; path = "org.apache.cordova.network-information/CDVReachability.h"; sourceTree = "<group>"; };
+		194A1146219E4D60BF8D6407 /* CDVDevice.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVDevice.h; path = org.apache.cordova.device/CDVDevice.h; sourceTree = "<group>"; };
 		1D3623240D0F684500981E51 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* Bills.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bills.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -369,6 +371,7 @@
 		C159A28B6071438DAC2132E6 /* LibAppBladeUniversal.a */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = archive.ar; name = LibAppBladeUniversal.a; path = Bills/Plugins/com.appblade.cordova.plugin/LibAppBladeUniversal.a; sourceTree = "<group>"; };
 		C1F3B8982D1947039A317CBE /* CDVConnection.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVConnection.m; path = "org.apache.cordova.network-information/CDVConnection.m"; sourceTree = "<group>"; };
 		C56A340239A04F8A8576077E /* AppBladePlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AppBladePlugin.m; path = com.appblade.cordova.plugin/AppBladePlugin.m; sourceTree = "<group>"; };
+		C815FB89C45041A4BDBA8E78 /* CDVDevice.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVDevice.m; path = org.apache.cordova.device/CDVDevice.m; sourceTree = "<group>"; };
 		D27E63A5558F4E18A500B394 /* AppBlade.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppBlade.h; path = com.appblade.cordova.plugin/AppBlade.h; sourceTree = "<group>"; };
 		D4A0D8751607E02300AEF8BB /* Default-568h@2x~iphone.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x~iphone.png"; sourceTree = "<group>"; };
 		D57DA561EC1B4929BF99F769 /* AVFoundation.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = AVFoundation.framework; path = System/Library/Frameworks/AVFoundation.framework; sourceTree = SDKROOT; };
@@ -380,8 +383,6 @@
 		EB87FDF41871DAF40020F90C /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = ../../config.xml; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = Bills/config.xml; sourceTree = "<group>"; };
 		FC1598D0327443D7B5FCD2D7 /* CDVJpegHeaderWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVJpegHeaderWriter.m; path = org.apache.cordova.camera/CDVJpegHeaderWriter.m; sourceTree = "<group>"; };
-		C815FB89C45041A4BDBA8E78 /* CDVDevice.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVDevice.m"; path = "org.apache.cordova.device/CDVDevice.m"; sourceTree = "<group>"; fileEncoding = 4; };
-		194A1146219E4D60BF8D6407 /* CDVDevice.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVDevice.h"; path = "org.apache.cordova.device/CDVDevice.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -819,6 +820,11 @@
 			isa = PBXProject;
 			attributes = {
 				LastUpgradeCheck = 510;
+				TargetAttributes = {
+					1D6058900D05DD3D006BFB54 = {
+						DevelopmentTeam = VY3KH9NS29;
+					};
+				};
 			};
 			buildConfigurationList = C01FCF4E08A954540054247B /* Build configuration list for PBXProject "Bills" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -952,7 +958,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iOS Development: Irina Krayneva (9SGDRUHU9C)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iOS Development: Irina Krayneva (9SGDRUHU9C)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iOS Development: Irina Krayneva (9SGDRUHU9C)";
 				COPY_PHASE_STRIP = NO;
@@ -1002,7 +1008,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iOS Development: Irina Krayneva (9SGDRUHU9C)";
+				CODE_SIGN_IDENTITY = "iPhone Developer";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iOS Development: Irina Krayneva (9SGDRUHU9C)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iOS Development: Irina Krayneva (9SGDRUHU9C)";
 				COPY_PHASE_STRIP = YES;
@@ -1056,6 +1062,7 @@
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
 				CODE_SIGN_IDENTITY = "iOS Development: Irina Krayneva (9SGDRUHU9C)";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iOS Development: Irina Krayneva (9SGDRUHU9C)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iOS Development: Irina Krayneva (9SGDRUHU9C)";
 				DEPLOYMENT_LOCATION = NO;
 				DEPLOYMENT_POSTPROCESSING = NO;
