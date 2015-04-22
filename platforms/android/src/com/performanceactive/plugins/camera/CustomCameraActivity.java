@@ -220,6 +220,12 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
      //   createCaptureButton();
         createShadowLayer();
         setContentView(layout);
+        layout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                takePictureWithAutoFocus();
+            }
+        });
         
         LocationManager lm = (LocationManager)getSystemService(Context.LOCATION_SERVICE); 
         Location location = null;

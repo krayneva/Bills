@@ -7,7 +7,7 @@
 			 if (!db) {
 			      db = window.openDatabase("BillsDatabase", "1.0", "PhoneGap Training", 200000);
 			    }
-			// ���� �������� ������ ��������
+			// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			 db.transaction(populateDB, onError, onSuccess);
 		 } catch(e) { 
 			 onError("Error in database "+e);
@@ -17,18 +17,18 @@
 	
  
 
-    /** ������� �������
+    /** пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
      * @param tx
      */
     function populateDB(tx) {
      //    tx.executeSql('DROP TABLE IF EXISTS Bills');
-    	tx.executeSql('DROP TABLE IF EXISTS UserEnvironment');
-    	//tx.executeSql('DROP TABLE IF EXISTS Transactions');
+    //	tx.executeSql('DROP TABLE IF EXISTS UserEnvironment');
+    //	tx.executeSql('DROP TABLE IF EXISTS Transactions');
          tx.executeSql('CREATE TABLE IF NOT EXISTS Bills' 
         		 		+'(id integer primary key autoincrement,name, description,'
         		 		+'createdate,path, sent, latitude,longitude,altitude)');
-     //    tx.executeSql('INSERT INTO Bills (id, name, description,path) VALUES (1, "���� 1","�������� ����� 1","/mnt/sdcard/test.jpg")');
-     //    tx.executeSql('INSERT INTO Bills (id, name, description,path) VALUES (2, "���� 2","�������� ����� 2","/mnt/sdcard/test.jpg")');
+     //    tx.executeSql('INSERT INTO Bills (id, name, description,path) VALUES (1, "пїЅпїЅпїЅпїЅ 1","пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ 1","/mnt/sdcard/test.jpg")');
+     //    tx.executeSql('INSERT INTO Bills (id, name, description,path) VALUES (2, "пїЅпїЅпїЅпїЅ 2","пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ 2","/mnt/sdcard/test.jpg")');
          tx.executeSql('CREATE TABLE IF NOT EXISTS UserEnvironment' 
  		 		+' (id integer primary key autoincrement,environment)');
          tx.executeSql('CREATE TABLE IF NOT EXISTS Transactions' 
@@ -85,23 +85,17 @@
 
     }
     
-    /** ���������� ���� � ��
-     * @param filePath ���� � �����
-     * @param latitude ������
-     * @param longitude �������
+    /** пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅ
+     * @param filePath пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ
+     * @param latitude пїЅпїЅпїЅпїЅпїЅпїЅ
+     * @param longitude пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
      */
     function addBill(filePath, latitude, longitude,altitude){
-        alert('INSERT INTO Bills (name, description,createdate,path,sent,latitude,longitude,altitude) VALUES ("���","", "'
-              +new Date().toJSON()
-              +'","'+filePath+'",0'
-              +','+latitude
-              +','+longitude
-              +','+altitude
-              +')');
+       
         db.transaction(
     		function(transaction) { 
         		transaction.executeSql(
-        		'INSERT INTO Bills (name, description,createdate,path,sent,latitude,longitude,altitude) VALUES ("���","", "'
+        		'INSERT INTO Bills (name, description,createdate,path,sent,latitude,longitude,altitude) VALUES ("Чек","", "'
         		+new Date().toJSON()
         		+'","'+filePath+'",0'
         		+','+latitude
@@ -113,7 +107,7 @@
       refreshBills();
    }
     
-    /** ��������� ������� "���������" ����
+    /** пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ" пїЅпїЅпїЅпїЅ
      * @param billID
      */
     function setBillSent(billID){
@@ -128,7 +122,7 @@
     
     
     /**
-     * ������� ������� ����� (�������)
+     * пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
      */
     function clearBillsTable(){
         db.transaction(
@@ -141,7 +135,7 @@
     
     
     
-    /** ����������\���������� ��������� ������������
+    /** пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ\пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
      * @param environment
      */
     function addUserEnvironment(environment){
@@ -156,7 +150,7 @@
    }
     
     /**
-     * ��������� ��������� ������������ �� ��
+     * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ
      */
     function getUserEnvironment(){
     	var deferred = $.Deferred();
@@ -173,7 +167,7 @@
         
     
     /**
-     * ���� ���������� ������� ����������
+     * пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
      */
     function getLastUpdateTime(){
     	
@@ -200,6 +194,8 @@
 		        transaction.executeSql('SELECT '+setting+' FROM Settings;', [],
 		        		function(transaction, result) {
 		        	var row =  result.rows.item(0);
+		        	// первый аргумент - порядковый номер
+		        	// второй - значение, объект
 		        	$.each(row, function(columnName, value) {
 		        			res = value;
 		        			deferred.resolve(res);
@@ -218,36 +214,38 @@
     
     
     
-    /** ���������� ������ � ����������� ������������
+    /** добавление данных о транзакциях пользователя
      * @param transaction
      */
     function addTransaction(id,transactionJSON, purseID, transactionDate, categoryID){
-
+    	
+    	var sql=  "INSERT OR REPLACE INTO Transactions (id, transactionJSON, purseID,transactionDate, categoryID) " +
+		" values ("
+		+"'"+id+"',"
+		+"'"+transactionJSON.replace(/'/g,"''")+"',"
+		+"'"+purseID+"',"
+		+"'"+transactionDate+"',"
+		+"'"+categoryID+
+		"')";
         db.transaction(
     		function(transaction) { 
         		transaction.executeSql(
-        		"INSERT OR REPLACE INTO Transactions (id, transactionJSON, purseID,transactionDate, categoryID) " +
-        		" values ("
-        		+"'"+id+"',"
-        		+"'"+transactionJSON+"',"
-        		+"'"+purseID+"',"
-        		+"'"+transactionDate+"',"
-        		+"'"+categoryID+
-        		"')"
+        		sql
         		);},
         		function onError(error){
-    		    	console.log("Error trying to add transaction!"+error);
+    		    	console.log("Error trying to add transaction!"+error.message);
+    		    	console.log("SQL: "+sql);
     		    }, onSuccess);
    }
     
     /**
-     * ��������� ���� �����������
+     * получение всех транзацкций
      */
     function getTransactions(){
    	var deferred = $.Deferred();
     	db.transaction(
   		    function(transaction) {
-  		        transaction.executeSql('SELECT * FROM Transactions', [],
+  		        transaction.executeSql('SELECT * FROM Transactions order by transactionDate desc', [],
   		        		function(transaction, result) {
   		        	deferred.resolve(result);
     		    }, onError);
@@ -258,13 +256,13 @@
         
     
     /**
-     * ��������� ���������� �� ���������
+     * получение транзакций по категории
      */
     function getTransactionsByCategoryID(categoryID){
    	var deferred = $.Deferred();
     	db.transaction(
   		    function(transaction) {
-  		        transaction.executeSql("SELECT * FROM Transactions where categoryID='"+categoryID+"'", [],
+  		        transaction.executeSql("SELECT * FROM Transactions where categoryID='"+categoryID+"'  order by transactionDate desc", [],
   		        		function(transaction, result) {
   		        	
   		        	deferred.resolve(result);

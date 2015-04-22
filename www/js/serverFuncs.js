@@ -1,4 +1,15 @@
+var SERVER_ERROR_NO_INTERNET = "noInternet";
+var SERVER_ERROR_NO_AUTH = "noAuth";
+var SERVER_ERROR_NO_CONNECTION_TO_HOST = "noConnectionToHost";
+var SERVER_ERROR_OTHER = "other";
+var SERVER_ERROR_TRY_AGAIN = "tryAgain";
+
+
+
 var currentRowID = 0;
+
+var authCount = 0;
+
 function uploadPhoto() {
 
     var billsToSend = 0;
@@ -87,28 +98,20 @@ function uploadPhoto() {
     }
 
     function onFileUploadError(error) {
+    	 var errorThrown ="";
     	if (error.http_status===401){
-    		getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
-        		var log = login;
-        		getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
-        		var pass = password;
-        	//	alert("Requesting userToken!");
-        			requestUserToken(log, pass).done(function(uToken){
-                		var userToken = uToken;
-                		if (userToken!=""){
-               			
-                			uploadPhoto();
-                			return;
-                		}
-                		else{
-                			$.mobile.loading("hide");
-                			alert("Ошибка авторизации");
-                			return;
-                		}
-        			});
-        		});
-        	});
+    		errorThrown = "Unauthorized";
     	}
+    	
+
+   		 onServerRequestError("", "", errorThrown).done(function(res){
+   			 if (res==SERVER_ERROR_TRY_AGAIN){
+   				 uploadPhoto();
+   				 return;
+   			 }
+   		 });
+		 
+    	
     	$.mobile.loading("hide");
     	//1--пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     
@@ -189,6 +192,7 @@ function uploadPhoto() {
 
     function requestUserToken(login, password){
     	var deferred = $.Deferred();
+    	authCount = authCount+1;
     	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
     		var serverAddress = res;
     	//	alert("GetUserToken serverAddress: "+serverAddress+getTokenURL);
@@ -211,17 +215,21 @@ function uploadPhoto() {
                        putSetting(SETTING_USER_LOGIN, login);
                        putSetting(SETTING_USER_PASSWORD, password);
                        putSetting(SETTING_USER_TOKEN, userToken);
-                       
+                       authCount = 0;
                		  $.mobile.loading("hide");
                       // showMainPage();
                      deferred.resolve(userToken);  
                    },
                    error: function(jqXHR, textStatus, errorThrown) {
-                	   alert("getUserToken: "+textStatus + " " + errorThrown+" "+jqXHR.responseText+textStatus);
+                	 /*  alert("getUserToken: "+textStatus + " " + errorThrown+" "+jqXHR.responseText+textStatus);
                 	   alert("login: "+login+ " password: "+password);
                			$.mobile.loading("hide");
-                	   //showMainPage();
-                	   deferred.resolve("");
+               			*/
+                	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
+                    	   //showMainPage();
+                    	   deferred.resolve("");
+                		   
+                	   });
                    } 
                    });  
     	});
@@ -258,32 +266,12 @@ function uploadPhoto() {
     	               deferred.resolve();
     	            },
     	            error: function(jqXHR, textStatus, errorThrown) {
-    	                if (errorThrown=="Unauthorized"){
-    	                	getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
-    	                		var log = login;
-    	                		getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
-    	                		var pass = password;
-    	                	//	alert("Requesting userToken!");
-    	                			requestUserToken(log, pass).done(function(uToken){
-    	    	                		var userToken = uToken;
-    	    	                		if (userToken!=""){
-    	    	                			 requestUserEnvironment();
-    	    	                		}
-    	    	                		else{
-    	    	                			alert("Ошибка авторизации");
-    	    	                			deferred.resolve();
-    	    	                		}
-    	                			});
-    	                		});
-    	                	});
-    	                }
-    	                else{
-	    	            	alert("user token: " +userToken);
-	    	            	alert("server address:"+serverAddress+getEnvironmentURL);
-	    	                alert(textStatus + " " + errorThrown);
-	    	                alert("Код ошибки " + errorThrown.code);
-	    	                deferred.resolve();
-    	                }
+    	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
+                        	   //showMainPage();
+                        	   deferred.resolve();
+                    		   
+                    	   });
+     
     	            }
     	        });
     		});
@@ -298,7 +286,6 @@ function uploadPhoto() {
      */
     function requestTransactions(){
     	var deferred = $.Deferred();
-   	 	
     	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
     		var serverAddress = res;
     		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
@@ -316,13 +303,8 @@ function uploadPhoto() {
                 },
     	            data: [],       
     	            success: function(response, textStatus, jqXHR) {
-    	              // alert(jqXHR.responseText);
     	               console.log(jqXHR.responseText);
-    	               //putSetting(SETTING_USER_ENVIRONMENT,jqXHR.responseText);
-    	               //addUserEnvironment(jqXHR.responseText);
-    	               
     	           		var json = jQuery.parseJSON(jqXHR.responseText);
-    	           	//	alert("Transactions count: "+json.length);
     	           		for (var k in json) {
     	           		  var transaction = json[k];
     	           		  var id = transaction.Id;
@@ -335,33 +317,12 @@ function uploadPhoto() {
     	               deferred.resolve();
     	            },
     	            error: function(jqXHR, textStatus, errorThrown) {
-    	            	alert("user token: " +userToken);
-    	                alert(textStatus + " " + errorThrown);
-    	                if (errorThrown=="Unauthorized"){
-    	                	getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
-    	                		var log = login;
-    	                		getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
-    	                		var pass = password;
-    	                			requestUserToken(log, pass).done(function(uToken){
-    	    	                		var userToken = uToken;
-    	    	                		if (userToken!=""){
-    	    	                			 requestTransactions();
-    	    	                		}
-    	    	                		else{
-    	    	                			alert("Ошибка авторизации");
-    	    	                			deferred.resolve();
-    	    	                		}
-    	                			});
-    	                		});
-    	                	});
-    	                }
-    	                else{
-	    	            	alert("user token: " +userToken);
-	    	            	alert("server address:"+serverAddress+getEnvironmentURL);
-	    	                alert(textStatus + " " + errorThrown);
-	    	                alert("Код ошибки " + errorThrown.code);
-	    	                deferred.resolve();
-    	                }
+    	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
+                        	   //showMainPage();
+                        	   deferred.resolve("");
+                    		   
+                    	   });
+     
 
     	            }
     	        });
@@ -388,4 +349,91 @@ function uploadPhoto() {
     
     
     
+    function onServerRequestError(jqXHR, textStatus, errorThrown){
+    	var deferred = $.Deferred();
+    	if (authCount==2){
+    		 deferred.resolve(SERVER_ERROR_NO_AUTH);
+	    	    $.mobile.loading("hide");
+	    	    alert("Ошибка авторизации");
+	    	    getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
+	        		var log = login;
+	        		getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
+	        		var pass = password;
+	        		alert("Логин: "+log);
+	        		alert("Пароль: "+pass);
+	        		return deferred;
+	        		});
+	    	    });
+    	}
+    	/*
+    	var SERVER_ERROR_NO_INTERNET = "noInternet";
+    	var SERVER_ERROR_NO_AUTH = "noAuth";
+    	var SERVER_ERROR_NO_CONNECTION_TO_HOST = "noConnectionToHost";
+    	var SERVER_ERROR_OTHER = "other";
+    	var SERVER_ERROR_TRY_AGAIN = "tryAgain";
+    	*/
     
+    	var networkState = navigator.connection.type;
+   	    var states = {};
+   	    states[Connection.UNKNOWN]  = 'Unknown connection';
+   	    states[Connection.ETHERNET] = 'Ethernet connection';
+   	    states[Connection.WIFI]     = 'WiFi connection';
+   	    states[Connection.CELL_2G]  = 'Cell 2G connection';
+   	    states[Connection.CELL_3G]  = 'Cell 3G connection';
+   	    states[Connection.CELL_4G]  = 'Cell 4G connection';
+   	    states[Connection.CELL]     = 'Cell generic connection';
+   	    states[Connection.NONE]     = 'No network connection';
+   	//	alert(  states[networkState]);
+   	    // Проверяем доступность интернета
+    	if (networkState==Connection.NONE){
+    		$.mobile.loading("hide");
+    		deferred.resolve(SERVER_ERROR_NO_INTERNET);
+    		alert("Проверьте подключение к интернету");
+    		authCount = 0;
+    		return deferred;
+    	}
+
+    	// Проверяем доступность сервера
+    	var isReachable = false;
+    	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
+	    	$.get(res)
+	    	    .done( function(){ isReachable = true; } )
+	    	    .fail( function(){ isReachable = false; 
+	    	    deferred.resolve(SERVER_ERROR_NO_CONNECTION_TO_HOST);
+	    	    $.mobile.loading("hide");
+	    	    alert("Нет связи с сервером");
+	    	    authCount = 0;
+	    	    return deferred;
+	    	    } );
+    	});
+    	// проверяем, не протух ли ключ авторизации и если что пытаемся обновить
+    	if (errorThrown=="Unauthorized"){
+    		getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
+        		var log = login;
+        		getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
+        		var pass = password;
+        			requestUserToken(log, pass).done(function(uToken){
+                		var userToken = uToken;
+                		if (userToken!=""){
+                			
+                			deferred.resolve(SERVER_ERROR_TRY_AGAIN);
+                		}
+                		else{
+                			deferred.resolve(SERVER_ERROR_NO_AUTH);
+                		}
+                		$.mobile.loading("hide");
+                		return deferred;
+        			});
+        		});
+        	});
+    	}
+    	
+    	
+    	$.mobile.loading("hide");
+    	deferred.resolve(SERVER_ERROR_OTHER);
+    	alert("Сервер ответил "+jqXHR.reponseText);
+        alert(textStatus + " " + errorThrown);
+        alert("Код ошибки " + errorThrown.code);
+
+    	return deferred;
+    }

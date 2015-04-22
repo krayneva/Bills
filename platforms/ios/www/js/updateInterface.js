@@ -6,6 +6,32 @@ function updateLoginPage(){
 		document.getElementById('password').value= res;
 	});
 	
+	 $('#login').focus();
+	     
+	  $('#login').bind("keydown", function(e) {
+	    
+	     if (e.which == 13) 
+	 	    { //Enter key
+	 	      e.preventDefault(); //Skip default behavior of the enter key
+	 	        $('#password').focus();
+	 	        var n = $("#password").length;
+	 	      // setCaretToPos($("#password"),$("#password").length);
+
+	 	    }
+	 	  });
+	 	 
+	 
+
+	  $('#password').bind("keydown", function(e) {
+		     if (e.which == 13) 
+		 	    { //Enter key
+		 	      e.preventDefault(); //Skip default behavior of the enter key
+		 	      	$('#password').blur();
+		 	        $('#login_button').click();
+		 	    }
+		 	  });
+
+	
 }
 
 
@@ -76,15 +102,21 @@ function updateMainPage(){
 
 
 function requestAndUpdateTransactionPage(){
+	var deferred = $.Deferred();
 	requestTransactions().done(function(){
-		alert("Requesting transactions!");
-		updateTransactionPage();
+	//	alert("Requesting transactions!");
+		updateTransactionPage().done(function(){
+			deferred.resolve();
+			 $('#expensesList').listview('refresh');
+		});
 	});
+	return deferred;
 }
 
 
 
 function updateTransactionPage(){
+	var deferred = $.Deferred();
 	getTransactions().done(function(result){
 		if (result.rows.length==0){
 			requestAndUpdateTransactionPage();
@@ -103,26 +135,33 @@ function updateTransactionPage(){
 		getTransactionsByCategoryID(categoryID).done(function(result){
 			
 			$('#expensesList').html('');
+		//	$('#expensesList').listview();
+			var start = +new Date();  // log start timestamp
+			
+			
+		//	for (var t=0; t<5; t++){
 			  for (var i = 0; i <result.rows.length; i++) {
+		//		  for (var i = 0; i <2; i++) {
 				  var row = result.rows.item(i);
 				  var listrow = document.getElementById("transactionRow").cloneNode(true);
-				  listrow.style.display = "block";
+				  listrow.style.display = "list-item";
 				  var arr=listrow.childNodes;
 				  var jsonText = row.transactionJSON;
 				  var json =  jQuery.parseJSON(jsonText);
-				  var date = new Date(json.CreatedAt);
+				  var date = new Date(json.TransactionDate);
 				  var currency = json.Currency;
-				  
+				  listrow.setAttribute("onclick","showTransactionInfo('"+json.Id+"')");
 				  for (var j=0;j<arr.length;j++){
 					 
 					  if(arr[j].id == "transactionInfoDiv"){
+						  
 						  var childArray=arr[j].childNodes;
 						  for (var k=0; k<childArray.length; k++){
 							  if(childArray[k].id == "transactionPrice"){
 								  childArray[k].innerHTML = json.Amount+getCurrencyString(json.Currency);
 							  }
 	
-							  var hours = date.getHours();
+							var hours = date.getHours();
 							var minutes = date.getMinutes();
 							  if(childArray[k].id == "transactionTime"){
 							//	  childArray[k].innerHTML = date.format("hh-MM");// date.getHours()+":"+date.getMinutes();
@@ -137,7 +176,7 @@ function updateTransactionPage(){
 						  }
 					  }
 					 
-					  if(arr[j].id == "transactionDescriptionDiv"){
+					  else if(arr[j].id == "transactionDescriptionDiv"){
 						  var childArray=arr[j].childNodes;
 						  for (var k=0; k<childArray.length; k++){
 							  if(childArray[k].id == "transactionName"){
@@ -149,26 +188,40 @@ function updateTransactionPage(){
 					  }
 					  
 					  
-					  if(arr[j].id == "transactionButtonsDiv"){
+					  else if(arr[j].id == "transactionButtonsDiv"){
 						  var childArray=arr[j].childNodes;
 						  for (var k=0; k<childArray.length; k++){
 							  if(childArray[k].id == "expensesButtonInfo"){
-								  childArray[k].setAttribute("onclick","showTransactionInfo('"+json.Id+"')");
+							//	  childArray[k].setAttribute("onclick","showTransactionInfo('"+json.Id+"')");
 							  }
 							 
 						  }
 					  }
-/*					  var s = "showExpensesPage('"+ w.VisualObjectId+"')";
-						 console.log("Setting onclick categoryID "+s);
-						 widget.setAttribute("onclick",s);
-  */
+
 				  }
 				  $('#expensesList').append(listrow);
+				  
+				/*  $('#expensesList').append(listrow).promise().done(function () {
+					  $('#expensesList').listview("refresh");    
+				      });*/
+				 // $('#expensesList').listview('refresh');
+
+				 if (i==result.rows.length-1){
+					//    $('#expensesList').listview('refresh');
+					 deferred.resolve();
+				 }
 				 
 			  }
+		//	}
+			var end =  +new Date();  // log end timestamp
+			var diff = (end - start)/(20*result.rows.length);
+			console.log("Time per row: "+diff);
 	
 		});
 	//});	
+		 
+		return deferred; 
+		
 }
 
 
@@ -190,11 +243,13 @@ function updateWidgets(){
 		  var arr=widget.childNodes;
 		  for (var i=0;i<arr.length;i++){
 	            if (arr[i].id == "interest"){
-	                   arr[i].innerHTML = w.Percent;//+" "+w.Name;
+	                   arr[i].innerHTML = w.Percent.replace(/\s/g, '');//+" "+w.Name;
 	            }
 	            if (arr[i].id == "icon"){
 	            	var src = "img/largeImages/";
+	            	console.log("GOT ICON IDENTIFIER "+w.IconIdentifier+" for kind "+w.Kind );
 	            	switch(w.IconIdentifier){
+	            	
 		            	case "ico_purse":
 		            		src ="img/purse396.png";
 		            		break;
@@ -208,10 +263,10 @@ function updateWidgets(){
 		            		src = src.concat("education396/0.png");
 		            		break;
 		            	case "ico_entertainment":
-		            		src ="img/ico_category_1.png";
+		            		src ="img/ico_category_1_396.png";
 		            		break;
 		            	case "ico_house":
-		            		src ="img/ico_category_smoll_5.png";
+		            		src ="img/ico_category_5_396.png";
 		            		break;
 		            	case "ico_auto":
 		            		src ="img/auto396.png";
@@ -226,19 +281,25 @@ function updateWidgets(){
 		  }
 		//  console.log("Widget "+w.WidgetID+" left: "+w.Left+" top:"+w.Top+" interest:"+w.Percent);
 		}
+
 	});
+	
 	}
 
 
 
 
 function updateTransactionInfoPage(){
+	
 	var transactionID = window.localStorage.getItem(TRANSACTION_ID_KEY);
+	
 	getTransaction(transactionID).done(function(res){
+	//	alert("TransactionsCount: "+res.rows.length);
 		var json = jQuery.parseJSON(res.rows.item(0).transactionJSON);
 	//	alert(res.rows.item(0).transactionJSON);
 	//	$('#receiptsDataListView').html('');
-		
+	//	alert("Amount: "+json.Amount);
+
 	
 		$('#category').append(json.Category);
 		$('#subcategory').append(json.SubCategory);
@@ -280,6 +341,8 @@ function updateTransactionInfoPage(){
 
 	
 	});
-
+	
+	
 	
 }
+
