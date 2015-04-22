@@ -25,18 +25,19 @@
   function gotPullDownData(event, data) {
     var i,
         newContent = "";        
-    for (i=0; i<3; i+=1) {  // Generate some fake new content
+   /* for (i=0; i<3; i+=1) {  // Generate some fake new content
       newContent = "<li class='expenses_item'>Pulldown-generated row " + (++pullDownGeneratedCount) + "</li>" + newContent;
       }
 
-   console.log(newContent);
+    
     
    $('#expensesList').prepend(newContent);//.listview("refresh");  // Prepend new content and refresh listview
-    
-  //  data.iscrollview.refresh();    // Refresh the iscrollview
+    */
+    data.iscrollview.refresh();    // Refresh the iscrollview
     $('#expensesList').listview('refresh');
-
+    alert('gotPullDownData!');
     console.log($('#expensesList').html());
+
     }
   
   function gotPullUpData(event, data) {
@@ -68,10 +69,16 @@
   //
   // For demo, we just use timeout to simulate the time required to complete the operation.
   function onPullDown (event, data) { 
-    setTimeout(function fakeRetrieveDataTimeout() {
+
+	  requestAndUpdateTransactionPage().done(function(){
+	
+		//  gotPullDownData(event, data);
+	  });
+	  
+  /*  setTimeout(function fakeRetrieveDataTimeout() {
       gotPullDownData(event, data);
       }, 
-      1500); 
+      1500);*/ 
     }    
 
   // Called when the user completes the pull-up gesture.
@@ -79,7 +86,9 @@
     setTimeout(function fakeRetrieveDataTimeout() {
       gotPullUpData(event, data);
       }, 
-      1500); 
+      1500);
+  
+	  
     }    
   
   // Set-up jQuery event callbacks

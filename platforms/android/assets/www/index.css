@@ -175,14 +175,14 @@ td{
 }
 .login input{
   width: 100%;
-  margin-bottom: 1em;
+  margin-bottom: 0.8em;
   border: none;
   border-radius: 1%;
   height: 2em;
   color: #367272;
   padding-left: 0.5em;
   padding-right: 0.5em;
-  font-size: 1em;
+  font-size: 1.7em;
 }
 .login_social{
   height: 14%;
