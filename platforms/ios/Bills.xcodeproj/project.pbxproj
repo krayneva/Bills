@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		019E6D894C914C638790FDB1 /* CDVConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F3B8982D1947039A317CBE /* CDVConnection.m */; };
 		1C36B9D5F1944E8981CD1A5C /* CDVDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = C815FB89C45041A4BDBA8E78 /* CDVDevice.m */; };
@@ -957,7 +958,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iOS Development: Irina Krayneva (9SGDRUHU9C)";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iOS Development: Irina Krayneva (9SGDRUHU9C)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iOS Development: Irina Krayneva (9SGDRUHU9C)";
 				COPY_PHASE_STRIP = NO;
@@ -1007,7 +1008,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Developer";
+				CODE_SIGN_IDENTITY = "iOS Development: Irina Krayneva (9SGDRUHU9C)";
 				"CODE_SIGN_IDENTITY[sdk=*]" = "iOS Development: Irina Krayneva (9SGDRUHU9C)";
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iOS Development: Irina Krayneva (9SGDRUHU9C)";
 				COPY_PHASE_STRIP = YES;

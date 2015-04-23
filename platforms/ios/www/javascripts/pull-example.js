@@ -44,9 +44,9 @@
     var i,
         iscrollview = data.iscrollview,
         newContent = "";
-    for (i=0; i<3; i+=1) { 
+   /* for (i=0; i<3; i+=1) { 
       newContent += "<li>Pullup-generated row " + (++pullUpGeneratedCount) + "</li>";
-      }
+      }*/
     $(listSelector).append(newContent).listview("refresh");
   
     // The refresh is a bit different for the pull-up, because I want to demonstrate the use
