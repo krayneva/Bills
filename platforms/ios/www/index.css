@@ -639,7 +639,7 @@ textarea:focus{
 }
 .expenses_item {
     position: relative;
-    color: #59a6b2;
+    color: #59a6b2  !important;
 }
 .expenses_item > hr {
     position: absolute;
@@ -661,9 +661,12 @@ textarea:focus{
     padding-left: 1em;
 }
 .expenses_description{  
-  margin: 0 10em 0 9em;
+  margin: 0 10em 0 9em !important;
   min-height: 4.5em;
-  padding: 1em 0;
+  padding: 1em 0 !important;
+  border: 1 !important;
+border-color: #59a6b2;
+  
 }
 .expenses_title {
     font-size: 1.4em;
