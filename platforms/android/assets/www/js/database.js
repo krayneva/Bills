@@ -245,7 +245,7 @@
    	var deferred = $.Deferred();
     	db.transaction(
   		    function(transaction) {
-  		        transaction.executeSql('SELECT * FROM Transactions order by transactionDate desc', [],
+  		        transaction.executeSql("SELECT * FROM Transactions order by datetime(transactionDate) desc", [],
   		        		function(transaction, result) {
   		        	deferred.resolve(result);
     		    }, onError);
@@ -262,7 +262,7 @@
    	var deferred = $.Deferred();
     	db.transaction(
   		    function(transaction) {
-  		        transaction.executeSql("SELECT * FROM Transactions where categoryID='"+categoryID+"'  order by transactionDate desc", [],
+  		        transaction.executeSql("SELECT * FROM Transactions where categoryID='"+categoryID+"'  order by datetime(transactionDate) desc", [],
   		        		function(transaction, result) {
   		        	
   		        	deferred.resolve(result);

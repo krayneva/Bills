@@ -664,8 +664,6 @@ textarea:focus{
   margin: 0 10em 0 9em !important;
   min-height: 4.5em;
   padding: 1em 0 !important;
-  border: 1 !important;
-border-color: #59a6b2;
   
 }
 .expenses_title {
@@ -740,32 +738,11 @@ border-color: #59a6b2;
   top:0.5em!important;
   left: 1em!important;
 }
-
-*.ui-listview li.ui-btn-up-c,
-*.ui-listview li.ui-btn-down-c,
-*.ui-listview li.ui-btn-hover-c,
-*.ui-listview li div.ui-btn-hover-c
-  {
-	background: #fff !important;
-	font-weight: bold !important;
-	color: #222 !important;
-	
-	background-color: none !important;
-	background-image: none !important;
-	background-image: -webkit-gradient(linear, left top, left bottom, from( #fff ), to( #f1f1f1 )) !important;
-	background-image: -webkit-linear-gradient( #fff , #f1f1f1 ) !important;
-	background-image: -moz-linear-gradient( #fff , #f1f1f1 ) !important;
-	background-image: -ms-linear-gradient( #fff , #f1f1f1 ) !important;
-	background-image: -o-linear-gradient( #fff , #f1f1f1 ) !important;
-	background-image: linear-gradient( #fff , #f1f1f1 ) !important;
- 
-	border-top-style: solid !important;
-	border-top-width: 0px !important;
-	border-top-color: rgb(204, 204, 204) !important;
-	
-	border-bottom-style: solid;
-	border-bottom-width: 1px;
-	border-bottom-color: rgb(204, 204, 204) !important;
-	box-shadow: none !important;
-	
-  }
+.scrollablecontent{
+    left: 0;
+    top:3.6em;
+    bottom: 0%;
+    overflow: scroll;
+    position: absolute;
+    right: 0;
+}
