@@ -113,9 +113,9 @@ UIButton *_captureButton;
    // [_captureButton setImage:[UIImage imageNamed:@"www/img/cameraoverlay/capture_button_pressed.png"] forState:UIControlStateHighlighted];
     
     
-    [_captureButton setImage:[UIImage imageNamed:@"www/img/cameraoverlay/camera_brown.png"] forState:UIControlStateNormal];
-    [_captureButton setImage:[UIImage imageNamed:@"www/img/cameraoverlay/camera_brown.png"] forState:UIControlStateSelected];
-     [_captureButton setImage:[UIImage imageNamed:@"www/img/cameraoverlay/camera_brown.png"] forState:UIControlStateHighlighted];
+    [_captureButton setImage:[UIImage imageNamed:@"www/img/cameraoverlay/camera393.png"] forState:UIControlStateNormal];
+    [_captureButton setImage:[UIImage imageNamed:@"www/img/cameraoverlay/camera393.png"] forState:UIControlStateSelected];
+     [_captureButton setImage:[UIImage imageNamed:@"www/img/cameraoverlay/camera393.png"] forState:UIControlStateHighlighted];
     [_captureButton addTarget:self action:@selector(takePictureWaitingForCameraToFocus) forControlEvents:UIControlEventTouchUpInside];
     [overlay addSubview:_captureButton];
     
@@ -139,9 +139,9 @@ UIButton *_captureButton;
     
     
     _recaptureButton = [UIButton buttonWithType:UIButtonTypeCustom];
-    [_recaptureButton setImage:[UIImage imageNamed:@"www/img/cameraoverlay/cancel_red.png"] forState:UIControlStateNormal];
-    [_recaptureButton setImage:[UIImage imageNamed:@"www/img/cameraoverlay/cancel_red.png"] forState:UIControlStateSelected];
-    [_recaptureButton setImage:[UIImage imageNamed:@"www/img/cameraoverlay/cancel_red.png"] forState:UIControlStateHighlighted];
+    [_recaptureButton setImage:[UIImage imageNamed:@"www/img/cameraoverlay/esc256.png"] forState:UIControlStateNormal];
+    [_recaptureButton setImage:[UIImage imageNamed:@"www/img/cameraoverlay/esc256.png"] forState:UIControlStateSelected];
+    [_recaptureButton setImage:[UIImage imageNamed:@"www/img/cameraoverlay/esc256.png"] forState:UIControlStateHighlighted];
     [_recaptureButton addTarget:self action:@selector(recapturePhoto) forControlEvents:UIControlEventTouchUpInside];
     [overlay addSubview:_recaptureButton];
     
