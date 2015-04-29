@@ -171,9 +171,10 @@ function updateTransactionPage(){
 							  }
 							  var month = date.getMonth()+1;
 							  var day =  date.getDate();
+							  var year = date.getYear()+1900;
 							  if(childArray[k].id == "transactionDate"){
 								 // childArray[k].innerHTML = date.format("dd-mm");//date.getDay()+"."+date.getMonth();
-								  childArray[k].innerHTML =(day<10?'0':'')+day+"."+(month<10?'0':'')+month;
+								  childArray[k].innerHTML =(day<10?'0':'')+day+"."+(month<10?'0':'')+month+"."+year;
 							  }
 						  }
 					  }
@@ -276,7 +277,11 @@ function updateWidgets(){
 		            	case "ico_other":
 		            		src ="img/other_396.png";
 		            		break;
+		            	case "ico_wear":
+		            		src ="img/wear_396.png";
+		            		break;
 		            	default:
+		            		src = src.concat("food396/0.png");
 		            		console.log("GOT ICON IDENTIFIER "+w.IconIdentifier);
 		            		break;
 	            	}
@@ -305,8 +310,10 @@ function updateTransactionInfoPage(){
 	//	$('#receiptsDataListView').html('');
 	//	alert("Amount: "+json.Amount);
 
-	
+		document.getElementById('ReceiptsListView').style.fontSize = "medium";
+		document.getElementById('tagsListView').style.fontSize = "medium";
 		$('#category').append(json.Category);
+		
 		$('#subcategory').append(json.SubCategory);
 		$('#id').append(json.Id);
 		$('#createdAt').append(json.CreatedAt);
@@ -323,6 +330,7 @@ function updateTransactionInfoPage(){
 
 		for (var i=0; i<json.receiptData.Items.length; i++){
 			  var receiptRow = document.getElementById("receiptDataTemplate").cloneNode(true);
+			  receiptRow.style.fontSize = "medium";
 			  for (var k=0; k<receiptRow.childNodes.length; k++){
 				  	if (receiptRow.childNodes[k].id=="receiptItems"){
 				  		var item = receiptRow.childNodes[k];

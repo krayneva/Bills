@@ -354,9 +354,11 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT,RelativeLayout.TRUE);
         params.addRule(RelativeLayout.ALIGN_PARENT_TOP,RelativeLayout.TRUE);
         if (flashEnabled)
-        	setBitmap(flashButton, "flash_yellow.png");
+        	//setBitmap(flashButton, "flash_yellow.png");
+        	setBitmap(flashButton, "flashOn256.png");
         else
-        	setBitmap(flashButton, "flash_dark_blue.png");
+        	//setBitmap(flashButton, "flash_dark_blue.png");
+        	setBitmap(flashButton, "flashOff256.png");
     	flashButton.setBackgroundColor(Color.TRANSPARENT);
         flashButton.setScaleType(ScaleType.CENTER_INSIDE);
     	
@@ -366,12 +368,12 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
             public void onClick(View v) {
               if (flashEnabled){
             	  flashEnabled = false;
-            	  setBitmap(flashButton, "flash_dark_blue.png");
+            	  setBitmap(flashButton, "flashOff256.png");
             	  configureCamera();
               }
               else{
             	  flashEnabled = true;
-            	  setBitmap(flashButton, "flash_yellow.png");
+            	  setBitmap(flashButton, "flashOn256.png");
             	  configureCamera();
               }
             }
@@ -472,7 +474,19 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     private LinearLayout createPanelLayout(){
     	panelLayout = new LinearLayout(this);
     	captureButton = new ImageButton(this);
-    	setBitmap(captureButton, "camera_brown.png");
+    	int buttonSize =  dpToPixels(MARGIN_BIG)*2;
+        if (isXLargeScreen()) {
+        	buttonSize = dpToPixels(MARGIN_BIG)*2;
+        } else if (isLargeScreen()) {
+        	buttonSize = dpToPixels(MARGIN_MEDIUM)*2;
+        } else {
+        	buttonSize = dpToPixels(MARGIN_SMALL)*2;
+        }
+    	
+    	LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(buttonSize, buttonSize);
+    	//setBitmap(captureButton, "camera_brown.png");
+    	setBitmap(captureButton, "camera393.png");
+    	
         captureButton.setBackgroundColor(Color.TRANSPARENT);
         captureButton.setScaleType(ScaleType.FIT_CENTER);
     	
@@ -490,7 +504,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
             }
         });
         
-        panelLayout.addView(captureButton);
+        panelLayout.addView(captureButton, buttonParams);
         
         sendButton = new ImageButton(this);
     	setBitmap(sendButton, "send.png");
@@ -511,10 +525,11 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
             }
         });
         
-        panelLayout.addView(sendButton);
+        panelLayout.addView(sendButton, buttonParams);
         
         recaptureButton = new ImageButton(this);
-    	setBitmap(recaptureButton, "cancel_red.png");
+    	//setBitmap(recaptureButton, "cancel_red.png");
+        setBitmap(recaptureButton, "esc256.png");
     	recaptureButton.setBackgroundColor(Color.TRANSPARENT);
     	recaptureButton.setScaleType(ScaleType.FIT_CENTER);
         recaptureButton.setOnClickListener(new View.OnClickListener() {
@@ -524,7 +539,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
                 }
             });
             
-            panelLayout.addView(recaptureButton);
+            panelLayout.addView(recaptureButton, buttonParams);
     	return panelLayout;
     }
     
