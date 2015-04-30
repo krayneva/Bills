@@ -1,0 +1,84 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1 height=device-height">
+<div id="pageShoppingList"  data-role="page">
+      
+
+    <div class="background"></div>
+    <div class="topPanel">
+        <span> <a data-rel="back"><img class="topPanel_backButton" src="img/back.png" data-rel="back"/></a></span>
+        <div class="topPanel_title">Список покупок</div>
+        <span><img class="topPanel_menuButton" src="img/menu.png"/></span>
+    </div>
+
+
+
+
+    <div class="body shopList">
+        <!--Фильтры. Классы shopList_filter_darkRed, shopList_filter_saddleBrown,... нужны только для определения группы(цвета). Класс shopList_filter_active указывает активный фильтр, то есть под которым распологается стрелка -->
+        <div class="shopList_filter">
+            <table>
+                <tbody>
+                    <tr>
+                        <td class="shopList_filter_darkRed"><div></div><span></span></td>
+                        <td class="shopList_filter_saddleBrown"><div></div><span></span></td>
+                        <td class="shopList_filter_yellow"><div></div><span></span></td>
+                        <td class="shopList_filter_yellowGreen"><div></div><span></span></td>
+                        <td class="shopList_filter_lightSeaGreen"><div></div><span></span></td>
+                        <td class="shopList_filter_slateBlue shopList_filter_active"><div></div><span></span></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+        <!--Список. Классы shopList_group_darkRed, shopList_group_saddleBrown,...нужны только для определения группы(цвета).  -->
+        <div class="shopList_needToBbuy">
+            <ul>
+                <li class="shopList_group_darkRed">
+                    <input type="checkbox" class="checkbox" />                          
+                    <span>Картофель</span>
+                </li>
+                <li class="shopList_group_darkRed">
+                    <input type="checkbox" class="checkbox" />  
+                    <span>Помидоры</span>
+                </li>
+                <li class="shopList_group_saddleBrown">
+                    <input type="checkbox" class="checkbox" />
+                    <span>Cыр</span>
+                </li>
+                <li class="shopList_group_saddleBrown">
+                    <input type="checkbox" class="checkbox" />
+                    <span>Фасоль</span>
+                </li>
+                <li class="shopList_group_yellow">
+                    <input type="checkbox" class="checkbox" />
+                    <span>Яйца</span>
+                </li>
+                <li class="shopList_group_yellowGreen">
+                    <input type="checkbox" class="checkbox" />
+                    <span>Стиральный порошок</span>
+                </li>
+                <li class="shopList_group_lightSeaGreen">
+                    <input type="checkbox" class="checkbox" />
+                    <span>Средство для стекол</span>
+                </li>
+                <li class="shopList_group_slateBlue">
+                    <input type="checkbox" class="checkbox" />
+                    <span>Фери</span>
+                </li>
+            </ul>
+        </div>
+        <!--Список завершенных-->
+        <div class="shopList_alreadyBuy">
+            <ul>
+                <li>Зубная паста</li>
+                <li>Жидкое мыло</li>
+                <li>Зубная щетка</li>
+            </ul>
+        </div>
+    </div>
+
+
+
+    <div class="foottopPanel">
+    </div>
+
+</div>
