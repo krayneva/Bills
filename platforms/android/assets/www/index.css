@@ -746,3 +746,123 @@ textarea:focus{
     position: absolute;
     right: 0;
 }
+
+/*shopList*/
+.shopList{
+  padding:0;
+  background: #396365;
+}
+.shopList_filter, 
+.shopList_needToBbuy{ 
+  background: #fff;
+  float: left;
+  width: 100%;
+}
+.shopList_filter table{
+  width:100%;
+}
+.shopList_filter table td{
+  padding: 0.2em 0.1em;
+  text-align:center;
+}
+.shopList_filter table td>div{
+  width:100%;
+  height:1em;
+}
+.shopList_filter table td>span{
+  width: 0;
+  height: 0;
+  border: 0.7em solid transparent; 
+  border-top-color: #367272;  
+  border-bottom: 0;
+  background: white;
+  display: inline-block;
+  margin: 0px;
+  visibility: hidden;
+}
+.shopList_filter table td.shopList_filter_active>span{
+  visibility: visible;
+}
+.shopList_needToBbuy>ul,
+.shopList_alreadyBuy>ul{
+  list-style: none;
+    float: left;
+    padding: 0;
+    width: 100%;
+}
+.shopList_needToBbuy>ul{  
+    margin: 0 0 0.7em 0;
+}
+.shopList_alreadyBuy>ul{
+    margin: 0.7em 0 0 0;
+}
+.shopList_alreadyBuy>ul>li,
+.shopList_needToBbuy>ul>li{
+  padding: 0.5em 0;
+    margin: 0.2em 0;
+    font-weight: bold;
+    float: left;
+    display: block;
+    width: 100%;
+}
+.shopList_needToBbuy>ul>li{
+    color: #367272;
+
+}
+.shopList_alreadyBuy>ul>li{
+    color: #4c969b;
+    padding-left: 4em;
+    text-decoration:line-through;
+}
+.shopList_needToBbuy li>input{
+  width: 1em;
+    padding: 0;
+    display: block;
+    float: left;
+    margin: 0 0.5em 0 1em;
+}
+.shopList_needToBbuy li>span{
+  display: block;
+    float: left;
+    margin-top: 0.5em;
+}
+.shopList_alreadyBuy>ul>li{
+  background:#417272;
+}
+.shopList_filter_darkRed>div{
+  background:rgba(186, 33, 17, 1);
+}
+.shopList_group_darkRed{
+  background:rgba(186, 33, 17, 0.4);
+}
+.shopList_filter_saddleBrown>div{
+  background:rgba(186, 77, 17, 1);
+}
+.shopList_group_saddleBrown{
+  background:rgba(186, 77, 17, 0.4);
+}
+.shopList_filter_yellow>div{
+  background:rgba(226, 235, 83, 1);
+}
+.shopList_group_yellow{
+  background:rgba(226, 235, 83, 0.4);
+}
+.shopList_filter_yellowGreen>div{
+  background:rgba(173, 207, 83, 1);
+}
+.shopList_group_yellowGreen{
+  background:rgba(173, 207, 83, 0.4);
+}
+.shopList_filter_lightSeaGreen>div{
+  background:rgba(93, 190, 173, 1);
+}
+.shopList_group_lightSeaGreen{
+  background:rgba(93, 190, 173, 0.4);
+}
+.shopList_filter_slateBlue>div{
+  background:rgba(97, 90, 186, 1);
+}
+.shopList_group_slateBlue{
+  background:rgba(97, 90, 186, 0.4);
+}
+

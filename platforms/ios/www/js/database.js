@@ -15,7 +15,7 @@
 			 
 	}
 	
- 
+
 
     /** пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
      * @param tx
@@ -81,6 +81,10 @@
 	        	}
 	        	        	
 	    }, onError);
+         
+         // таблица для списка покупок
+         tx.executeSql('CREATE TABLE IF NOT EXISTS ShopLists' 
+ 		 		+'(objectId integer primary key,name, listJSON)');
          
 
     }
@@ -323,3 +327,59 @@
     	return deferred;
     }
     
+    function addShopList(listId,name, listJSON){
+        // таблица для списка покупок
+     	/*Пользователь может иметь несколько списков продуктов, идентифицируемых по ObjectId,  Name.
+     	   В БД SQLite необходимо сделать табличку для хранения таких объектов.
+     	каждый список имеет продуктов состоит из:
+     	идентификатора (ObjectId)
+     	наименования (Name)
+     	перечня продуктов, каждый продукт из:
+     	порядковый номер No,
+     	Тег  (TAG_BEEF, например),  Tag
+     	Наименование из классификатора (Говядина) , ItemName
+     	Количество,   Quantity
+     	Ед. измерения, Measure*/
+
+     /*    tx.executeSql('CREATE TABLE IF NOT EXISTS ShopLists' 
+ 		 		+'(ObjectId integer primary key,name, listJSON)');
+ 		 		*/
+    	
+    	 db.transaction(
+    	   function(transaction) { 
+    	   		transaction.executeSql(
+    	      		"INSERT OR REPLACE INTO ShopLists (objectId, name, listJSON) " +
+    	      		" values ("
+    	       		+listId+","
+    	       		+"'"+name+"',"
+    	       		+"'"+lisJSON+
+    	       		"')"
+    	   		);},
+    	    onError, onSuccess);
+    }
+    
+    
+    function getShopLists(){
+    	var deferred = $.Deferred();
+    	db.transaction(
+  		    function(transaction) {
+  		        transaction.executeSql("SELECT * FROM ShopLists", [],
+  		        		function(transaction, result) {
+  		        	deferred.resolve(result);
+    		    }, onError);
+  		 });
+    	return deferred;
+    }
+    
+    
+    function getShopList(listId){
+    	var deferred = $.Deferred();
+    	db.transaction(
+  		    function(transaction) {
+  		        transaction.executeSql("SELECT * FROM ShopLists where objectId=listId", [],
+  		        		function(transaction, result) {
+  		        	deferred.resolve(result);
+    		    }, onError);
+  		 });
+    	return deferred;
+    }

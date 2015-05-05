@@ -334,7 +334,53 @@ function uploadPhoto() {
     
 
 
-
+    /*var getProductListsURL = "api/productlists";*/
+    function requestProductLists(){
+    	var deferred = $.Deferred();
+    	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
+    		var serverAddress = res;
+    		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
+    		var userToken = uToken;
+    		console.log("requestTransactionsURL server address: "+serverAddress+getTransactionsURL);
+    		console.log("requestTransactionsURL user token: "+userToken);
+    	   $.ajax({
+    	          url: serverAddress+getProductListsURL,
+    	            type: "get",
+                beforeSend: function (request)
+                {
+                request.setRequestHeader("Authorization", "Bearer "+userToken);
+                },
+    	            data: [],       
+    	            success: function(response, textStatus, jqXHR) {
+    	               console.log(jqXHR.responseText);
+    	           		var json = jQuery.parseJSON(jqXHR.responseText);
+    	           		/*for (var k in json) {
+    	           		  var transaction = json[k];
+    	           		  var id = transaction.Id;
+     	           		  var purseID = transaction.PurseID;
+     	           		  var transactionDate = transaction.TransactionDate;
+     	           		  var categoryID = transaction.CategoryID;
+	    	           	  addTransaction(id,JSON.stringify(transaction), purseID, transactionDate, categoryID);
+    	           		}
+    	           		*/
+    	           		alert(json);
+    	               deferred.resolve();
+    	            },
+    	            error: function(jqXHR, textStatus, errorThrown) {
+    	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
+                        	   //showMainPage();
+                        	   deferred.resolve("");
+                    		   
+                    	   });
+    	            }
+    	        });
+    		});
+    	});
+    	return deferred;
+    }
+    
+    
+    
 
 
 

@@ -110,6 +110,8 @@ function requestAndUpdateTransactionPage(){
 		updateTransactionPage().done(function(){
 			deferred.resolve();
 			 $('#expensesList').listview('refresh');
+			 $('#expensesList').listview( "refresh" );
+			 $('#expensesList').trigger( "updatelayout");
 		});
 	});
 	return deferred;

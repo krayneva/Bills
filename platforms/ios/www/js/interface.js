@@ -220,6 +220,11 @@ function refershBillSendStatus(rowID){
 		$.mobile.pageContainer.pagecontainer( "change", "transaction.html" ,{transition:"none"});
 	}
 	
+	function showShopListPage(){
+		currentPage = "pageShopList";
+		$.mobile.pageContainer.pagecontainer( "change", "shopList.html" ,{transition:"none"});
+	}
+	
 
 	
 	function showUserEnvironment(){
