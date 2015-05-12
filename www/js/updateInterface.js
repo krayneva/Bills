@@ -575,7 +575,7 @@ function updateTransactionInfoPage(){
 	  }
 	
 	function nextShopList(event){
-		event.prevent
+		
 		var currentShopList = window.localStorage.getItem("CurrentShopListNum");
 		getShopListCount().done(function(count){
 			currentShopList = parseInt(currentShopList)+1;
