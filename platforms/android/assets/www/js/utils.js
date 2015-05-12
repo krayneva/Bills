@@ -20,6 +20,18 @@
     Euro = 3
 
   }
+  
+  // цвета строк списка покупок
+    public enum ColorSchemasEnum : byte
+  {
+    
+    Orange = 1,
+    Crimson = 2,
+    LightSeaGreen = 3,
+    Lime = 4,
+    Teal = 5
+
+  }
  */
 
 

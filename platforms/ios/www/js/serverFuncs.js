@@ -209,12 +209,13 @@ function uploadPhoto() {
                    data:'grant_type=password&username='+login+'&password='+password,
                    		
                    success: function(response, textStatus, jqXHR) {
-                	  //   alert("GET uSER TOKEN:" +jqXHR.responseText);
+                	//     alert("GET uSER TOKEN:" +jqXHR.responseText);
                         var obj = jQuery.parseJSON(jqXHR.responseText);
                        var userToken = obj.access_token;
                        putSetting(SETTING_USER_LOGIN, login);
                        putSetting(SETTING_USER_PASSWORD, password);
                        putSetting(SETTING_USER_TOKEN, userToken);
+
                        authCount = 0;
                		  $.mobile.loading("hide");
                       // showMainPage();
@@ -254,7 +255,7 @@ function uploadPhoto() {
     	            data: [],       
     	            success: function(response, textStatus, jqXHR) {
     	             //  alert(jqXHR.responseText);
-    	             //  console.log(jqXHR.responseText);
+    	               console.log("request user environment: "+jqXHR.responseText);
     	               //putSetting(SETTING_USER_ENVIRONMENT,jqXHR.responseText);
     	               addUserEnvironment(jqXHR.responseText);
     	           		var json = jQuery.parseJSON(jqXHR.responseText);
@@ -335,7 +336,7 @@ function uploadPhoto() {
 
 
     /*var getProductListsURL = "api/productlists";*/
-    function requestProductLists(){
+    function requestShopLists(){
     	var deferred = $.Deferred();
     	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
     		var serverAddress = res;
@@ -354,23 +355,25 @@ function uploadPhoto() {
     	            success: function(response, textStatus, jqXHR) {
     	               console.log(jqXHR.responseText);
     	           		var json = jQuery.parseJSON(jqXHR.responseText);
-    	           		/*for (var k in json) {
-    	           		  var transaction = json[k];
-    	           		  var id = transaction.Id;
-     	           		  var purseID = transaction.PurseID;
-     	           		  var transactionDate = transaction.TransactionDate;
-     	           		  var categoryID = transaction.CategoryID;
-	    	           	  addTransaction(id,JSON.stringify(transaction), purseID, transactionDate, categoryID);
+    	           		for (var k in json) {
+    	           		  var shopList = json[k];
+    	           		//  alert("accountID: " +shopList.AccountID);
+    	           		  var id = shopList.Id;
+    	           		  var name = shopList.Name;
+    	           		  var createdAt = shopList.CreatedAt;
+    	           		  var itemsJSON = JSON.stringify(shopList.Items);
+    	           		  var fullJSON = JSON.stringify(shopList);
+	         	          addShopList(id,name, createdAt, fullJSON, itemsJSON);
+	     	           		  
     	           		}
-    	           		*/
-    	           		alert(json);
-    	               deferred.resolve();
+    	           		//alert(jqXHR.responseText);
+    	           		showShopListPage();
+    	           		deferred.resolve();
     	            },
     	            error: function(jqXHR, textStatus, errorThrown) {
     	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
                         	   //showMainPage();
                         	   deferred.resolve("");
-                    		   
                     	   });
     	            }
     	        });
@@ -380,7 +383,73 @@ function uploadPhoto() {
     }
     
     
-    
+    /*var getProductListsURL = "api/productlists";*/
+    function sendShopList(listID){
+    	var deferred = $.Deferred();
+    	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
+    		var serverAddress = res;
+    		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
+    		var userToken = uToken;
+    		console.log("requestTransactionsURL server address: "+serverAddress+getTransactionsURL);
+    		console.log("requestTransactionsURL user token: "+userToken);
+    		
+    		// форимруем json списка продуктов для отправки на серевр
+    		getShopList(listID).done(function(result){
+    		//	alert("ListID: "+listID);
+    		//	alert("result rows count: "+result.rows.length);
+    		
+    		var list =new Object();
+    		var row = result.rows.item(0);
+    		//???
+    		//list.AccountID = ;
+    		
+    		//	+'(id text primary key,name, createdAt, fullJSON, itemsJSON)');
+    		list.Name = row.name;
+    		list.Items = row.itemsJSON;
+    		list.Id = row.id;
+    		
+    		var listJSON = JSON.stringify(list); 
+    		alert(JSON.stringify(jQuery.parseJSON(listJSON)))	;
+    		
+	    	   $.ajax({
+	    	          url: serverAddress+getProductListsURL,
+	    	            type: "post",
+	                beforeSend: function (request)
+	                {
+	                request.setRequestHeader("Authorization", "Bearer "+userToken);
+	                },
+	    	            data: [listJSON],       
+	    	            success: function(response, textStatus, jqXHR) {
+	    	               console.log(jqXHR.responseText);
+	    	           		var json = jQuery.parseJSON(jqXHR.responseText);
+	    	           		alert("status: "+textStatus);
+	    	           		alert(jqXHR.responseText);
+	    	           		for (var k in json) {
+	    	           		  var shopList = json[k];
+	    	           		  var id = shopList.Id;
+	    	           		  var name = shopList.Name;
+	    	           		  var createdAt = shopList.CreatedAt;
+	    	           		  var itemsJSON = JSON.stringify(shopList.Items);
+	    	           		  var fullJSON = JSON.stringify(shopList);
+		         	        //  addShopList(id,name, createdAt, fullJSON, itemsJSON);
+		     	           		  
+	    	           		}
+	    	           		//alert(jqXHR.responseText);
+	    	           		showShopListPage();
+	    	           		deferred.resolve();
+	    	            },
+	    	            error: function(jqXHR, textStatus, errorThrown) {
+	    	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
+	                        	   //showMainPage();
+	                        	   deferred.resolve("");
+	                    	   });
+	    	            }
+	    	        });
+	    		});
+    		});
+    	});
+    	return deferred;
+    }
 
 
 

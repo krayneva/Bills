@@ -110,7 +110,6 @@ function requestAndUpdateTransactionPage(){
 		updateTransactionPage().done(function(){
 			deferred.resolve();
 			 $('#expensesList').listview('refresh');
-			 $('#expensesList').listview( "refresh" );
 			 $('#expensesList').trigger( "updatelayout");
 		});
 	});
@@ -344,7 +343,7 @@ function updateTransactionInfoPage(){
 				  		item.innerHTML+="<li>Тэг: "+json.receiptData.Items[i].Tag+"</li>";
 				  	}
 					if (receiptRow.childNodes[k].id=="receiptHeader"){
-						receiptRow.childNodes[k].id.innerHTML = "Позиция "+i;
+						receiptRow.childNodes[k].innerHTML = "Позиция "+i;
 					} 
 			  }
 			  
@@ -357,7 +356,273 @@ function updateTransactionInfoPage(){
 	
 	});
 	
-	
-	
 }
+	
+	
+	function updateShopListsPage(reloadFromBase){
+		// для обнуления криво забитого параметра
+		//window.localStorage.setItem("CurrentShopListNum",0);
+		
+		
+		 var currentShopList = window.localStorage.getItem("CurrentShopListNum");
+		 if (currentShopList==undefined) {
+			 currentShopList = 0;
+			 window.localStorage.setItem("CurrentShopListNum",0);
+		 }
+		 currentShopList = parseInt(currentShopList);
+		 console.log("updateShopListPage currentShopList: "+currentShopList);
+		  
+		 
+		getShopLists().done(function(res){
+			  var listName = res.rows.item(currentShopList).name;
+			  $('#shopListName').html(listName);	
+			  $('#ShopListList').html('');
+			  $('#ShopListList').listview('refresh');
+			  $('#alreadyBoughtList').html('');
+			  $('#alreadyBoughtList').listview('refresh');
+			  //var itemsJSON =  jQuery.parseJSON(res.rows.item(currentShopList).itemsJSON);
+			  // запоминаем айдишник списка покупок
+			  window.localStorage.setItem("ShopListID",res.rows.item(currentShopList).id);
+			  // смотрим нет ли инфы по купленным
 
+			 var itemsString = window.localStorage.getItem("ShopListAlreadyBought"+res.rows.item(currentShopList).id);
+
+			  if ((itemsString==undefined)|(reloadFromBase)){
+			//	  alert("Bought items are not defined!, len"+itemsJSON.length);
+			//	 bought = new Array(itemsJSON.length);
+
+
+				 var itemsJSON =  jQuery.parseJSON(res.rows.item(currentShopList).itemsJSON);
+
+				 var oldJSON = jQuery.parseJSON(itemsString);
+				  for (var i = 0; i < itemsJSON.length; i++){
+					  if (itemsString!=undefined){
+						  for (var j=0; j< oldJSON.length; j++){
+							  if (itemsJSON[i].Value==oldJSON[j].Value){
+								 //alert(itemsJSON[i].value+" "+oldJSON[j].value);
+								  itemsJSON[i].bought = oldJSON[j].bought;
+								  
+							  }
+						  }
+					  }
+					  
+					  else if ( itemsJSON[i].bought ==undefined)
+						  itemsJSON[i].bought ="0";
+				  }
+				
+				window.localStorage.setItem("ShopListAlreadyBought"+res.rows.item(currentShopList).id,JSON.stringify(itemsJSON));
+			  }
+			itemsJSON = jQuery.parseJSON(window.localStorage.getItem("ShopListAlreadyBought"+res.rows.item(currentShopList).id)); 
+			//alert(JSON.stringify(bought))	  ;
+
+			 // alert ("ID of shopList: "+res.rows.item(0).id);
+			for (var k=0; k<itemsJSON.length; k++) {
+				console.log("Running through itemsJSON "+k);
+		  		  var item  = itemsJSON[k];
+	      		  var tag = item.Tag;
+	      		  var value = item.Value;
+	       		  var quantity = item.Quantity;
+	       		  var measure = item.Measure;
+	       		  var color = item.Color;
+	       		  var bought = item.bought;
+	       		  console.log('Item: '+k);
+	       		  console.log('Tag: '+tag);
+	       		  console.log('Value: '+value);
+	       		  console.log('Quantity: '+quantity);
+	       		  console.log('Measure: '+measure);
+	       		  console.log('Color: '+color);
+	       		  // товар еще в спсике некупленных
+	       		  console.log('Bought: '+bought);
+	       		if (bought=="0")	{
+		       		  var listrow = document.getElementById("shopListRow").cloneNode(true);
+		       		  var style = "shopList_group_darkRed";
+		       		  switch(color){
+		       		  case 1:
+		       			  style = "shopList_group_yellowGreen";
+		       			  break;
+		       		  case 2:
+		       			  style = "shopList_group_darkRed";
+		       			  break;
+		       		  case 3:
+		       			 style = "shopList_group_yellow";
+		       			  break;
+		       		  case 4:
+		       			 style = "shopList_group_saddleBrown";
+		       			  break;
+		       		  case 5:
+		       			 style = "shopList_group_lightSeaGreen";
+		       			  break;
+		       		  }
+		       		  listrow.setAttribute("id", "listrow"+k);
+		       		 listrow.setAttribute("pos", k);
+					  listrow.setAttribute("class",style);
+					  listrow.style.display = "block";
+					  listrow.style.visibility = "visible";
+	
+					  for (var i=0; i<listrow.childNodes.length; i++){
+					  		if (listrow.childNodes[i].id=="itemTag"){
+					  			listrow.childNodes[i].innerHTML = value+("  ")+quantity+(" ")+measure;
+					  			listrow.setAttribute("key",value);
+					  			listrow.setAttribute("pos",k);
+	
+							}
+					  		if (listrow.childNodes[i].id=="rowCheckBox"){
+					  			listrow.childNodes[i].setAttribute("id", "rowCheckBox"+i);
+					  			listrow.setAttribute("pos",k);
+							}
+				  			//alert("ID of child : "+listrow.childNodes[i].id+" type: "+listrow.childNodes[i].type);
+					  }
+					 
+					  $('#ShopListList').append(listrow);
+	       		  }
+	       		  // товар в списке купленных
+	       		  else{
+		       		  var listrowBought = document.getElementById("alreadyBoughtRow").cloneNode(true);
+		       		  listrowBought.setAttribute("id", "listrowBought"+k);
+					  listrowBought.style.display = "block";
+					  listrowBought.style.visibility = "visible";
+					  listrowBought.innerHTML = value;
+					  $('#alreadyBoughtList').append(listrowBought);
+					  
+	       		  }
+			}
+			
+			
+			 $('#ShopListList').listview('refresh');
+			 $('#alreadyBoughtList').listview('refresh');
+			 $('#ShopListList').trigger( "updatelayout");
+			 $('#alreadyBoughtList').trigger('updatelayout');
+
+			 
+
+			 for (var i=0; i<itemsJSON.length; i++){
+					 $( "#listrow"+i).on( "swiperight",swiperightHandler);
+					 $( "#listrow"+i).on( "tap",function(e){
+				          e.preventDefault();
+				          e.stopPropagation();
+						 var items =  jQuery.parseJSON(window.localStorage.getItem("ShopListAlreadyBought"+res.rows.item(currentShopList).id));
+						 items[this.getAttribute("pos")].bought = "1";
+						 updateShopList(window.localStorage.getItem('ShopListID'), items);
+						 window.localStorage.setItem("ShopListAlreadyBought"+res.rows.item(currentShopList).id,JSON.stringify(items));
+						 console.log("updateShopListPage1");
+						 updateShopListsPage(true);
+					 });
+			
+			 }
+			 
+		});
+		
+		 $(":checkbox").change(function(event) {
+			  event.preventDefault();
+	            event.stopPropagation();
+			    if(this.checked) {
+			    	
+			    	alert("Checked!");
+			    }
+			    else{
+			    	alert("Unchecked!!");	
+			    }
+			    return false;
+			});
+		
+		  $('#topPanel').on( "swiperight",nextShopList);
+		  $('#topPanel').on( "swipeleft",previousShopList);
+		
+		 
+		 $(".autoLi").click(function(e){
+            event.preventDefault();
+            event.stopPropagation();
+         //   alert ("Выбрано: "+this.innerHTML);
+			 $( "#inset-autocomplete-input").val(this.innerHTML);
+			 $( "#autocomplete").hide();
+			 return false;
+		 });
+		 
+		 
+		 $("#addToShopListImage").click(function(e){
+			addToShopList(window.localStorage.getItem('ShopListID'),$('#inset-autocomplete-input').val()).done(
+					function (res){
+						console.log("updateShopListPage2");
+						updateShopListsPage(true);
+					}
+				);
+		});
+		 
+		 
+		/* $("#sendShopListImage").click(function(e){
+			 sendShopList(window.localStorage.getItem('ShopListID'));
+		});*/
+		 
+	}
+	
+	
+	function swiperightHandler(event){
+
+		var row = $("#"+this.id);
+		 row.animate({left: $(window).width()},{duration:1000, 
+			 complete: function() {
+				  console.log("caught swipe event!");
+				   console.log("key of element: "+this.getAttribute("key"));
+				    removeFromShopList(window.localStorage.getItem('ShopListID'),this.getAttribute("key")).done(
+							function (res){
+								console.log("updateShopListPage3");
+								updateShopListsPage(true);
+							}
+				    	);
+		    }
+
+		 });
+	  }
+	
+	function nextShopList(event){
+		event.prevent
+		var currentShopList = window.localStorage.getItem("CurrentShopListNum");
+		getShopListCount().done(function(count){
+			currentShopList = parseInt(currentShopList)+1;
+			if (currentShopList==count)
+				currentShopList = 0;
+			window.localStorage.setItem("CurrentShopListNum", currentShopList);
+			console.log("CurrentShopList: "+currentShopList+" count: "+count);
+		});
+		
+		clearBoughtItems(window.localStorage.getItem('ShopListID'));
+		console.log("updateShopListPage4");
+		updateShopListsPage(true);
+		
+	}
+	
+	function previousShopList(event){
+	
+		var currentShopList = window.localStorage.getItem("CurrentShopListNum");
+		getShopListCount().done(function(count){
+			currentShopList = parseInt(currentShopList)-1;
+			if (currentShopList==-1)
+				currentShopList = count-1;
+			window.localStorage.setItem("CurrentShopListNum", currentShopList);
+			console.log("CurrentShopList: "+currentShopList+" count: "+count);
+		});
+		
+		clearBoughtItems(window.localStorage.getItem('ShopListID'));
+		console.log("updateShopListPage5");
+		updateShopListsPage(true);
+		
+	}
+	
+	function closeShopListsPage(){
+		getShopLists().done(function(res){
+			for (var i=0; i<res.rows.length;i++){
+				var row = res.rows.item(i);
+				window.localStorage.removeItem("ShopListAlreadyBought"+row.id);
+			}
+			/*var currentShopList = window.localStorage.getItem("CurrentShopListNum");
+			window.localStorage.removeItem("ShopListAlreadyBought"+res.rows.item(currentShopList).id);
+			window.localStorage.removeItem("CurrentShopListNum");
+			*/
+			
+		});
+	}
+	
+	
+	function clearBoughtItems(listID){
+		window.localStorage.removeItem("ShopListAlreadyBought"+listID);
+	}

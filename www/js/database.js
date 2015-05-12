@@ -24,6 +24,7 @@
      //    tx.executeSql('DROP TABLE IF EXISTS Bills');
     //	tx.executeSql('DROP TABLE IF EXISTS UserEnvironment');
     //	tx.executeSql('DROP TABLE IF EXISTS Transactions');
+    //	 tx.executeSql('DROP TABLE IF EXISTS ShopLists');
          tx.executeSql('CREATE TABLE IF NOT EXISTS Bills' 
         		 		+'(id integer primary key autoincrement,name, description,'
         		 		+'createdate,path, sent, latitude,longitude,altitude)');
@@ -84,7 +85,7 @@
          
          // таблица для списка покупок
          tx.executeSql('CREATE TABLE IF NOT EXISTS ShopLists' 
- 		 		+'(id integer primary key,name, createdAt, fullJSON, itemsJSON)');
+ 		 		+'(id text primary key,name, createdAt, fullJSON, itemsJSON)');
          
 
     }
@@ -327,7 +328,7 @@
     	return deferred;
     }
     
-    function addShopList(listId,name, createdAt, fullJSON, itemsJSON){
+    function addShopList(id,name, createdAt, fullJSON, itemsJSON){
         // таблица для списка покупок
      	/*Пользователь может иметь несколько списков продуктов, идентифицируемых по ObjectId,  Name.
      	   В БД SQLite необходимо сделать табличку для хранения таких объектов.
@@ -341,21 +342,25 @@
      	Количество,   Quantity
      	Ед. измерения, Measure*/
 
-     /*  	+'(id integer primary key,name, createdAt, fullJSON, itemsJSON)');
- 		 		*/
+     /*  +'(id integer primary key,name, createdAt, fullJSON, itemsJSON)');
+ 		*/
+
     	
     	 db.transaction(
     	   function(transaction) { 
     	   		transaction.executeSql(
     	      		"INSERT OR REPLACE INTO ShopLists (id, name, createdAt, fullJSON, itemsJSON) " +
-    	      		" values ("
-    	       		+listId+","
+    	      		" values ('"
+    	       		+id+"',"
     	       		+"'"+name+"',"
     	       		+"'"+createdAt+"',"
     	       		+"'"+fullJSON+"',"
     	       		+"'"+itemsJSON+"')"
     	   		);},
-    	    onError, onSuccess);
+    	     onSuccess,function onError(error){
+    		    	console.log("Error trying to add transaction!"+error.message);
+    		    	console.log("SQL: "+sql);
+    		    });
     }
     
     
@@ -372,14 +377,144 @@
     }
     
     
-    function getShopList(listId){
+    function getShopList(listID){
     	var deferred = $.Deferred();
     	db.transaction(
   		    function(transaction) {
-  		        transaction.executeSql("SELECT * FROM ShopLists where objectId=listId", [],
+  		        transaction.executeSql("SELECT * FROM ShopLists where id='"+listID+"'", [],
   		        		function(transaction, result) {
   		        	deferred.resolve(result);
     		    }, onError);
   		 });
     	return deferred;
     }
+    
+    
+
+    /** добавление продукта в список покупок
+     * @param listID
+     * @param product
+     * @returns
+     */
+    function addToShopList(listID,product){
+    	//var listID = window.localStorage.getItem("ShopListID");
+    	var deferred = $.Deferred();
+    //	alert ("ListID: "+listID);
+    //	alert ("Product String: "+product);
+    	// обрабатываем строку продукта
+    	//var expr = new RegExp('[0-9]*[.,/\*]*[0-9]*', 'i');
+    	var expr = new RegExp('[0-9][.,/\*]?[0-9]?');
+    /*	var quantityPos = expr.search(product);
+    	var quantity = expr.exec(product);
+    	alert ("Quantity: "+quantity);
+    	alert ("Quantity postition: "+quantityPos);
+    	var value = product.substr(0, quantityPos);
+    	var measure = product.substring((quantityPos+quantity.length), product.length);
+    	console.log('Value: '+value);
+    	console.log('Measure: '+measure);
+    	*/
+    	var quantityPos = product.search(expr);
+    	var quantity = expr.exec(product);
+    	alert("Quantity: "+quantity);
+    	var value = product.substr(0, quantityPos);
+    	var measure = product.substring((quantityPos+quantity.length), product.length);
+    	console.log('Value: '+value);
+    	console.log('Quantity: '+quantity);
+    	console.log('Measure: '+measure);
+    	
+    	getShopList(listID).done(function(res){
+    	var itemsJSON =jQuery.parseJSON(res.rows.item(0).itemsJSON);
+    	//	alert(JSON.stringify(itemsJSON));
+    		itemsJSON.push({
+    			'Tag': 'TAG_OTHER', 
+    			'Value': value,
+    			'Quantity':quantity,
+    			'Measure':measure,
+    			'Color':'2',
+    			'bought':'0'
+    			});
+    	alert(JSON.stringify(itemsJSON));
+    	db.transaction(
+      		    function(transaction) {
+      		        transaction.executeSql("UPDATE ShopLists set itemsJSON='"+JSON.stringify(itemsJSON)+"' where id='"+listID+"'", [],
+      		        		function(transaction, result) {
+      		        	deferred.resolve(result);
+        		    }, function onError(error){
+        		    	console.log("Error trying to add to shop list!"+error.message);
+        		    	console.log("SQL: "+sql);
+        		    });
+      		 });    	
+    	});
+    	return deferred;
+    }
+    
+    /** удаление продукта из списка покупок
+     * @param listID
+     * @param product
+     * @returns
+     */
+    function removeFromShopList(listID, product){
+    	console.log("Trying to find item: "+product);
+    	var deferred = $.Deferred();
+    	getShopList(listID).done(function(res){
+        	var itemsJSON =jQuery.parseJSON(res.rows.item(0).itemsJSON);
+        	var pos = 0;
+        	for (var i=0; i<itemsJSON.length;i++){
+        		console.log("Found item: "+itemsJSON[i].Value);
+        		if (itemsJSON[i].Value==product){
+        			pos = i;
+        			console.log("FOUND MATCH!");
+        			break;
+        		}
+        	}
+        	itemsJSON.splice(pos, 1);
+        	db.transaction(
+          		    function(transaction) {
+          		        transaction.executeSql("UPDATE ShopLists set itemsJSON='"+JSON.stringify(itemsJSON)+"' where id='"+listID+"'", [],
+          		        		function(transaction, result) {
+          		        	deferred.resolve(result);
+            		    }, function onError(error){
+            		    	console.log("Error trying to remove from shop lisr!"+error.message);
+            		    	console.log("SQL: "+sql);
+            		    });
+          		 });    	
+    	});
+    	return deferred;
+
+    }
+
+    
+    
+    function updateShopList(listID, itemsJSON){
+    	var deferred = $.Deferred();
+        	db.transaction(
+          		    function(transaction) {
+          		        transaction.executeSql("UPDATE ShopLists set itemsJSON='"+JSON.stringify(itemsJSON)+"' where id='"+listID+"'", [],
+          		        		function(transaction, result) {
+          		        	deferred.resolve(result);
+            		    }, function onError(error){
+            		    	console.log("Error trying to remove from shop lisr!"+error.message);
+            		    	console.log("SQL: "+sql);
+            		    });
+          		 });    	
+    	return deferred;
+    }
+    
+    function getShopListCount(){
+    	var deferred = $.Deferred();
+    	db.transaction(
+      		    function(transaction) {
+      		        transaction.executeSql("select count(*) as count from ShopLists ", [],
+      		        		function(transaction, result) {
+      		        	var count = result.rows.item(0).count;
+      		        	deferred.resolve(count);
+        		    }, function onError(error){
+        		    	console.log("Error trying to get count of shop lists!"+error.message);
+        		    	console.log("SQL: "+sql);
+        		    });
+      		 });    	
+	return deferred;
+    }
+    
+    
+    
