@@ -404,13 +404,11 @@ function uploadPhoto() {
     		//list.AccountID = ;
     		
     		//	+'(id text primary key,name, createdAt, fullJSON, itemsJSON)');
-    		list.Name = row.name;
-    		list.Items = row.itemsJSON;
-    		list.Id = row.id;
-    		
+    		list = jQuery.parseJSON(row.fullJSON);
+    		list.Items = jQuery.parseJSON(row.itemsJSON);
+
     		var listJSON = JSON.stringify(list); 
-    		alert(JSON.stringify(jQuery.parseJSON(listJSON)))	;
-    		
+    		alert(listJSON)	;
 	    	   $.ajax({
 	    	          url: serverAddress+getProductListsURL,
 	    	            type: "post",
@@ -421,10 +419,12 @@ function uploadPhoto() {
 	    	            data: [listJSON],       
 	    	            success: function(response, textStatus, jqXHR) {
 	    	               console.log(jqXHR.responseText);
-	    	           		var json = jQuery.parseJSON(jqXHR.responseText);
+	    	           	//	var json = jQuery.parseJSON(jqXHR.responseText);
 	    	           		alert("status: "+textStatus);
 	    	           		alert(jqXHR.responseText);
-	    	           		for (var k in json) {
+	    	           		//addShopList(id,name, createdAt, fullJSON, itemsJSON)
+	    	           		addShopList(row.id, row.name, row.createdAt,JSON.stringify(list), JSON.stringify(list.Items));
+	    	           		/*for (var k in json) {
 	    	           		  var shopList = json[k];
 	    	           		  var id = shopList.Id;
 	    	           		  var name = shopList.Name;
@@ -433,9 +433,10 @@ function uploadPhoto() {
 	    	           		  var fullJSON = JSON.stringify(shopList);
 		         	        //  addShopList(id,name, createdAt, fullJSON, itemsJSON);
 		     	           		  
-	    	           		}
+	    	           		}*/
 	    	           		//alert(jqXHR.responseText);
-	    	           		showShopListPage();
+	    	           		
+	    	           		updateShopListsPage(true);
 	    	           		deferred.resolve();
 	    	            },
 	    	            error: function(jqXHR, textStatus, errorThrown) {

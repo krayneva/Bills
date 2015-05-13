@@ -363,16 +363,14 @@ function updateTransactionInfoPage(){
 		// для обнуления криво забитого параметра
 		//window.localStorage.setItem("CurrentShopListNum",0);
 		
-		
+
 		 var currentShopList = window.localStorage.getItem("CurrentShopListNum");
 		 if (currentShopList==undefined) {
 			 currentShopList = 0;
 			 window.localStorage.setItem("CurrentShopListNum",0);
 		 }
 		 currentShopList = parseInt(currentShopList);
-		 console.log("updateShopListPage currentShopList: "+currentShopList);
 		  
-		 
 		getShopLists().done(function(res){
 			  var listName = res.rows.item(currentShopList).name;
 			  $('#shopListName').html(listName);	
@@ -416,6 +414,7 @@ function updateTransactionInfoPage(){
 			//alert(JSON.stringify(bought))	  ;
 
 			 // alert ("ID of shopList: "+res.rows.item(0).id);
+			console.log("Start running through itemsJSON,count:  "+itemsJSON.length);
 			for (var k=0; k<itemsJSON.length; k++) {
 				console.log("Running through itemsJSON "+k);
 		  		  var item  = itemsJSON[k];
@@ -452,6 +451,8 @@ function updateTransactionInfoPage(){
 		       		  case 5:
 		       			 style = "shopList_group_lightSeaGreen";
 		       			  break;
+		       			 default:
+		       				 break;
 		       		  }
 		       		  listrow.setAttribute("id", "listrow"+k);
 		       		 listrow.setAttribute("pos", k);
@@ -490,8 +491,6 @@ function updateTransactionInfoPage(){
 			
 			 $('#ShopListList').listview('refresh');
 			 $('#alreadyBoughtList').listview('refresh');
-			 $('#ShopListList').trigger( "updatelayout");
-			 $('#alreadyBoughtList').trigger('updatelayout');
 
 			 
 
@@ -525,10 +524,7 @@ function updateTransactionInfoPage(){
 			    return false;
 			});
 		
-		  $('#topPanel').on( "swiperight",nextShopList);
-		  $('#topPanel').on( "swipeleft",previousShopList);
 		
-		 
 		 $(".autoLi").click(function(e){
             event.preventDefault();
             event.stopPropagation();
@@ -539,19 +535,10 @@ function updateTransactionInfoPage(){
 		 });
 		 
 		 
-		 $("#addToShopListImage").click(function(e){
-			addToShopList(window.localStorage.getItem('ShopListID'),$('#inset-autocomplete-input').val()).done(
-					function (res){
-						console.log("updateShopListPage2");
-						updateShopListsPage(true);
-					}
-				);
-		});
+
 		 
 		 
-		/* $("#sendShopListImage").click(function(e){
-			 sendShopList(window.localStorage.getItem('ShopListID'));
-		});*/
+		
 		 
 	}
 	
@@ -567,44 +554,45 @@ function updateTransactionInfoPage(){
 							function (res){
 								console.log("updateShopListPage3");
 								updateShopListsPage(true);
-							}
-				    	);
+							});
 		    }
 
 		 });
 	  }
 	
 	function nextShopList(event){
-		
+		event.preventDefault();
+        event.stopPropagation();
 		var currentShopList = window.localStorage.getItem("CurrentShopListNum");
 		getShopListCount().done(function(count){
-			currentShopList = parseInt(currentShopList)+1;
+			currentShopList = (parseInt(currentShopList))+1;
 			if (currentShopList==count)
 				currentShopList = 0;
 			window.localStorage.setItem("CurrentShopListNum", currentShopList);
 			console.log("CurrentShopList: "+currentShopList+" count: "+count);
+			clearBoughtItems(window.localStorage.getItem('ShopListID'));
+			updateShopListsPage(true);
+			return false;
 		});
 		
-		clearBoughtItems(window.localStorage.getItem('ShopListID'));
-		console.log("updateShopListPage4");
-		updateShopListsPage(true);
-		
+	
 	}
 	
 	function previousShopList(event){
-	
+		event.preventDefault();
+        event.stopPropagation();
 		var currentShopList = window.localStorage.getItem("CurrentShopListNum");
 		getShopListCount().done(function(count){
-			currentShopList = parseInt(currentShopList)-1;
+			currentShopList = (parseInt(currentShopList))-1;
 			if (currentShopList==-1)
 				currentShopList = count-1;
 			window.localStorage.setItem("CurrentShopListNum", currentShopList);
 			console.log("CurrentShopList: "+currentShopList+" count: "+count);
+			clearBoughtItems(window.localStorage.getItem('ShopListID'));
+			updateShopListsPage(true);
+			return false;
 		});
 		
-		clearBoughtItems(window.localStorage.getItem('ShopListID'));
-		console.log("updateShopListPage5");
-		updateShopListsPage(true);
 		
 	}
 	

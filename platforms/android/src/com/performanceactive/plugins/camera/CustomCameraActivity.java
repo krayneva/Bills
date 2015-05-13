@@ -1,8 +1,8 @@
 
 package com.performanceactive.plugins.camera;
 
-import android.annotation.SuppressLint;
-import android.annotation.TargetApi;
+//import android.annotation.SuppressLint;
+//import android.annotation.TargetApi;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
@@ -643,7 +643,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     }
 
 
-	@SuppressLint("NewApi")
+	//@SuppressLint("NewApi")
 	private int screenWidthInPixels() {
        /* Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
@@ -668,7 +668,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     }
 
 
-	@SuppressLint("NewApi")
+	//@SuppressLint("NewApi")
 	private int screenHeightInPixels() {
       /*  Point size = new Point();
         getWindowManager().getDefaultDisplay().getSize(size);
@@ -751,10 +751,10 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         }
     }
 
-    @TargetApi(Build.VERSION_CODES.HONEYCOMB)
+   // @TargetApi(Build.VERSION_CODES.HONEYCOMB)
 	private class OutputCapturedImageTask extends AsyncTask<byte[], Void, Void> {
 
-        @SuppressLint("NewApi")
+     //   @SuppressLint("NewApi")
 		@Override
         protected Void doInBackground(byte[]... jpegData) {
             try {
@@ -1016,7 +1016,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     
     
     
-    @SuppressLint("NewApi")
+   // @SuppressLint("NewApi")
 	public Bitmap combineImages() { // can add a 3rd parameter 'String loc' if you want to save the new image - left some code to do that at the bottom 
         Bitmap resultBitmap = null; 
         Bitmap b = null;
@@ -1086,7 +1086,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 		return false;
 	}
 	
-	@SuppressLint("NewApi")
+//	@SuppressLint("NewApi")
 	private class CombineImagesTask extends AsyncTask<Void,Void,File>{
 		
 		@Override
