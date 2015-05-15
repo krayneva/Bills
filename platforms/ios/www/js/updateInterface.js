@@ -480,11 +480,21 @@ function updateTransactionInfoPage(){
 	       		  else{
 		       		  var listrowBought = document.getElementById("alreadyBoughtRow").cloneNode(true);
 		       		  listrowBought.setAttribute("id", "listrowBought"+k);
+		       		  listrowBought.setAttribute("pos",k);
 					  listrowBought.style.display = "block";
 					  listrowBought.style.visibility = "visible";
 					  listrowBought.innerHTML = value;
 					  $('#alreadyBoughtList').append(listrowBought);
-					  
+					  $( "#listrowBought"+k).on( "tap",function(e){
+				          e.preventDefault();
+				          e.stopPropagation();
+						 var items =  jQuery.parseJSON(window.localStorage.getItem("ShopListAlreadyBought"+res.rows.item(currentShopList).id));
+						 items[this.getAttribute("pos")].bought = "0";
+						 updateShopList(window.localStorage.getItem('ShopListID'), items);
+						 window.localStorage.setItem("ShopListAlreadyBought"+res.rows.item(currentShopList).id,JSON.stringify(items));
+						 console.log("updateShopListPage1");
+						 updateShopListsPage(true);
+					 });
 	       		  }
 			}
 			
