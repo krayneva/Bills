@@ -34,6 +34,51 @@
   }
  */
 
+/*
+  public enum MeasureType
+    {
+        /// <summary>
+        /// Штуки
+        /// </summary>
+        Piece = 0,
+        /// <summary>
+        /// Литр
+        /// </summary>
+        Liter = 1,
+        /// <summary>
+        /// Банка
+        /// </summary>
+        Jar = 2,
+        /// <summary>
+        /// Бутылка
+        /// </summary>
+        Bottle = 3,
+        /// <summary>
+        /// Грамм
+        /// </summary>
+        Gram = 4,
+        /// <summary>
+        /// Килограмм
+        /// </summary>
+        Kilogram = 5,
+        /// <summary>
+        /// Метр
+        /// </summary>
+        Meter = 6,
+        /// <summary>
+        /// Упаковка
+        /// </summary>
+        Pack = 7,
+        /// <summary>
+        /// Час, для обозначения времени проката/парковки
+        /// </summary>
+        Hour = 8,
+        /// <summary>
+        /// Сутки
+        /// </summary>
+        Day = 9
+    }
+*/
 
 function getCurrencyString(currency){
 	switch(currency){
