@@ -470,6 +470,7 @@ td{
   left: 0;
   right: 0;
   height: 4.6em;
+  min-height: 4.6em;
   padding: 0;
   z-index: 1;
   color: #fff;
@@ -751,6 +752,7 @@ textarea:focus{
 .shopList{
   padding:0;
   background: #396365;
+  font-size: 1.3em;
 }
 .shopList_filter, 
 .shopList_needToBbuy{ 
@@ -785,49 +787,60 @@ textarea:focus{
 }
 .shopList_needToBbuy>ul,
 .shopList_alreadyBuy>ul{
-  list-style: none;
-    float: left;
-    padding: 0;
-    width: 100%;
+  list-style: none!important;
+    float: left!important;
+    padding: 0!important;
+    width: 100%!important;
 }
 .shopList_needToBbuy>ul{  
-    margin: 0 0 0.7em 0;
+    margin: 0 0 0.7em 0!important;
 }
 .shopList_alreadyBuy>ul{
-    margin: 0.7em 0 0 0;
+    margin: 0.7em 0 0 0!important;
 }
 .shopList_alreadyBuy>ul>li,
 .shopList_needToBbuy>ul>li{
-  padding: 0.5em 0;
-    margin: 0.2em 0;
-    font-weight: bold;
-    float: left;
-    display: block;
-    width: 100%;
+    padding: 0!important;
+    margin: 0.2em 0!important;
+    font-weight: bold!important;
+    float: left!important;
+    display: block!important;
+    width: 100%!important;
+    text-shadow: none!important;
+    height: auto!important;
 }
+
 .shopList_needToBbuy>ul>li{
     color: #367272 !important;
-
 }
 .shopList_alreadyBuy>ul>li{
+    background: #417272!important;
+    border-color: transparent !important;
+    border-bottom-width: 1px !important;
     color: #4c969b !important;
-    padding-left: 4em !important;
     text-decoration:line-through !important;
+    height: auto!important;
 }
-.shopList_needToBbuy li>input{
-  width: 1em;
+.shopList_needToBbuy li .shopList_checkbox{
+    width: 1em;
     padding: 0;
     display: block;
     float: left;
-    margin: 0 0.5em 0 1em;
+    top: 0.7em;
+    left: 0.5em;
+    position: absolute;
 }
-.shopList_needToBbuy li>span{
-  display: block;
-    float: left;
-    margin-top: 0.5em;
+.shopList_needToBbuy li>.shopList_itemName,
+.shopList_alreadyBuy li>.shopList_itemName{
+    display: block;
+    margin: 0.5em 6em 0.4em 3.5em;
 }
-.shopList_alreadyBuy>ul>li{
-  background:#417272;
+.shopList_needToBbuy li>.shopList_itemQuantity,
+.shopList_alreadyBuy li>.shopList_itemQuantity{
+    top: 0.5em;
+    right: 2em;
+    width: 3em;
+    position: absolute;
 }
 .shopList_filter_darkRed>div{
   background:rgba(186, 33, 17, 1);
@@ -865,4 +878,12 @@ textarea:focus{
 .shopList_group_slateBlue{
   background:rgba(97, 90, 186, 0.4) !important;
 }
-
+.shopList_addItemPanel{
+  position: relative;
+  height:4.6em;
+  right:0;
+  left:0;
+  bottom: 0;
+  width: 100%;
+  max-width: 100%;
+}

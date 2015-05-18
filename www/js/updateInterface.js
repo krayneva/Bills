@@ -455,17 +455,20 @@ function updateTransactionInfoPage(){
 		       				 break;
 		       		  }
 		       		  listrow.setAttribute("id", "listrow"+k);
-		       		 listrow.setAttribute("pos", k);
+		       		  listrow.setAttribute("pos", k);
 					  listrow.setAttribute("class",style);
 					  listrow.style.display = "block";
 					  listrow.style.visibility = "visible";
-	
+					
+					
 					  for (var i=0; i<listrow.childNodes.length; i++){
 					  		if (listrow.childNodes[i].id=="itemTag"){
-					  			listrow.childNodes[i].innerHTML = value+("  ")+quantity+(" ")+measure;
+					  			listrow.childNodes[i].innerHTML = value;
 					  			listrow.setAttribute("key",value);
-					  			listrow.setAttribute("pos",k);
-	
+					  			listrow.setAttribute("pos",k);	
+							}
+							if (listrow.childNodes[i].id=="itemQuantity"){
+					  			listrow.childNodes[i].innerHTML = quantity+(" ")+measure;
 							}
 					  		if (listrow.childNodes[i].id=="rowCheckBox"){
 					  			listrow.childNodes[i].setAttribute("id", "rowCheckBox"+i);
@@ -483,7 +486,15 @@ function updateTransactionInfoPage(){
 		       		  listrowBought.setAttribute("pos",k);
 					  listrowBought.style.display = "block";
 					  listrowBought.style.visibility = "visible";
-					  listrowBought.innerHTML = value;
+					  for (var i=0; i<listrowBought.childNodes.length; i++){
+					  		if (listrowBought.childNodes[i].id=="itemTag"){
+					  			listrowBought.childNodes[i].innerHTML = value;
+							}
+							if (listrowBought.childNodes[i].id=="itemQuantity"){
+					  			listrowBought.childNodes[i].innerHTML = quantity+(" ")+measure;
+							}
+				  			//alert("ID of child : "+listrow.childNodes[i].id+" type: "+listrow.childNodes[i].type);
+					  }
 					  $('#alreadyBoughtList').append(listrowBought);
 					  $( "#listrowBought"+k).on( "tap",function(e){
 				          e.preventDefault();
@@ -520,7 +531,6 @@ function updateTransactionInfoPage(){
 			 }
 			 
 		});
-		
 		 $(":checkbox").change(function(event) {
 			  event.preventDefault();
 	            event.stopPropagation();
