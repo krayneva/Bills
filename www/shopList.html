@@ -49,48 +49,40 @@
 
     <div class="foottopPanel">
 <!--  отсебятинка -->
-		<table>
-			<tr>
-				<td >	
-
-				<form class="ui-filterable">
-				    <input id="inset-autocomplete-input" placeholder="Введите название товара..." >
-				</form>
-				<ul  id="autocomplete"data-role="listview" data-inset="true" data-filter="true" data-filter-reveal="true" data-input="#inset-autocomplete-input" >
-				  <li class="autoLi">Хлебушек</li>
-				 <li class="autoLi">Булочка</li>
-					<li class="autoLi">Варенье</li>
-					<li class="autoLi">Молоко</li>
-					<li class="autoLi">Стиральный порошок</li>
-					<li class="autoLi">Пельмешки</li>
-					<li class="autoLi">Кетчуп</li>
-					<li class="autoLi">Сахар</li>
-				</ul>
-				</td>
-			
-				<td>
-				 	<img id="addToShopListImage"src="img/add_transaction.png" width = "37px" height="37px" 
- 				/>
-				</td>
-				
-				<td>
-				 	<img id="sendShopListImage"src="img/cameraoverlay/upload_blue.png" width = "37px" height="37px" 
- 				/>
-				</td>
-			</tr>
-		</table>
-	
+            <div style="position: absolute; left:0.5em; right: 12em; top:0.1em;">
+                    <form class="ui-filterable">
+                        <input id="inset-autocomplete-input" placeholder="Введите название товара..." >
+                        <ul  id="autocomplete"data-role="listview" data-inset="true" data-filter="true" data-filter-reveal="true" data-input="#inset-autocomplete-input" >
+                          <li class="autoLi">Хлебушек</li>
+                            <li class="autoLi">Булочка</li>
+                            <li class="autoLi">Варенье</li>
+                            <li class="autoLi">Молоко</li>
+                            <li class="autoLi">Стиральный порошок</li>
+                            <li class="autoLi">Пельмешки</li>
+                            <li class="autoLi">Кетчуп</li>
+                            <li class="autoLi">Сахар</li>
+                        </ul>
+                    </form>     
+            </div>
+            <div style="width:6em; float:right; padding:0.3em 1em 0.3em 0.3em; margin-top:-2em;"><img id="addToShopListImage" src="img/add_transaction.png" width = "100%" /></div>
+            <div style="width:4em; float:right; padding:0.3em;"><img id="sendShopListImage" src="img/cameraoverlay/upload_blue.png" width = "100%" /></div>
+            
+            
+		
 		<!--  конец отсебятинка -->
     </div>
     
     
     <li  id="shopListRow"  style="display: none;"  data-transition="slide" >
-        <input type="checkbox" class="checkbox" id = "rowCheckBox"></input>                          
-           <span id = "itemTag"></span>
+        <div class="shopList_checkbox"><input type="checkbox" class="checkbox" id = "rowCheckBox"></input></div>
+           <span class="shopList_itemName" id = "itemTag"></span>
+           <span class="shopList_itemQuantity" id = "itemQuantity">3 куска</span>
          </li>
          
          
         <li  id="alreadyBoughtRow"  style="display: none;" >
+            <span class="shopList_itemName" id = "itemTag"></span>
+           <span class="shopList_itemQuantity" id = "itemQuantity"></span>
          </li>
 
 </div>
