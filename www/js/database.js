@@ -87,6 +87,13 @@
          tx.executeSql('CREATE TABLE IF NOT EXISTS ShopLists' 
  		 		+'(id text primary key,name, createdAt, fullJSON, itemsJSON)');
          
+         // таблица  продуктов
+         tx.executeSql('CREATE TABLE IF NOT EXISTS Goods' 
+  		 		+'(id integer primary key autoincrement,tag, value, measure, color,soundTranscription,json)');
+         
+         // таблица единиц измерения
+         tx.executeSql('CREATE TABLE IF NOT EXISTS Measures' 
+   		 		+'(id integer primary key,name)');
 
     }
     
@@ -397,13 +404,14 @@
      * @returns
      */
     function addToShopList(listID,product){
+    	
     	//var listID = window.localStorage.getItem("ShopListID");
     	var deferred = $.Deferred();
     //	alert ("ListID: "+listID);
     //	alert ("Product String: "+product);
     	// обрабатываем строку продукта
     	//var expr = new RegExp('[0-9]*[.,/\*]*[0-9]*', 'i');
-    	var expr = new RegExp('[0-9][.,/\*]?[0-9]?');
+    	var expr = new RegExp('[0-9][.,\*]?[0-9]?');
     /*	var quantityPos = expr.search(product);
     	var quantity = expr.exec(product);
     	alert ("Quantity: "+quantity);
@@ -413,14 +421,34 @@
     	console.log('Value: '+value);
     	console.log('Measure: '+measure);
     	*/
+    	var value,measure ;
     	var quantityPos = product.search(expr);
-    	var quantity = expr.exec(product);
-    	alert("Quantity: "+quantity);
-    	var value = product.substr(0, quantityPos);
-    	var measure = product.substring((quantityPos+quantity.length), product.length);
-    	console.log('Value: '+value);
-    	console.log('Quantity: '+quantity);
-    	console.log('Measure: '+measure);
+    	var quantityArray = expr.exec(product);
+    	var quantity = null;
+    	if (quantityArray!=null)
+    		quantity = expr.exec(product)[0];
+    	else
+    		quantity = null;
+    	if (quantity!=null){
+	    //	alert("Quantity: "+quantity);
+	    	value = product.substr(0, quantityPos);
+	    	measure = product.substring((quantityPos+quantity.length), product.length);
+	    	console.log('Value: '+value);
+	    	console.log('Quantity: '+quantity);
+	    	console.log('Measure: '+measure);
+    	}
+    	else{
+    		value = product;
+    		quantity = "";
+    		measure ="";
+    	}
+    /*	alert('Value:*'+value+"*");
+    	alert('Quantity:*'+quantity+"*");
+    	alert('Measure:*'+measure+"*");
+    	*/
+    	
+    	value = value.replace(/\s/g, '');
+    	measure = measure.replace(/\s/g, '');
     	
     	getShopList(listID).done(function(res){
     	var itemsJSON =jQuery.parseJSON(res.rows.item(0).itemsJSON);
@@ -433,7 +461,7 @@
     			'Color':'2',
     			'bought':'0'
     			});
-    	alert(JSON.stringify(itemsJSON));
+    	//alert(JSON.stringify(itemsJSON));
     	db.transaction(
       		    function(transaction) {
       		        transaction.executeSql("UPDATE ShopLists set itemsJSON='"+JSON.stringify(itemsJSON)+"' where id='"+listID+"'", [],
@@ -517,4 +545,88 @@
     }
     
     
+    // таблица  продуктов
+ /*   tx.executeSql('CREATE TABLE IF NOT EXISTS Goods' 
+		 		+'(id integer primary key autoincrement,tag, value, measure, color,soundTranscription,json)');
+   
+    */
+    
+    function deleteGoodItemsTable(){
+    	   db.transaction(
+           		function(transaction) { 
+               		transaction.executeSql(
+               		'delete from Goods')} ,
+               		 onError, onSuccess);
+    }
+    function deleteGoodMeasuresTable(){
+    	   db.transaction(
+           		function(transaction) { 
+               		transaction.executeSql(
+               		'delete from Measures')} ,
+               		 onError, onSuccess);
+    }
+    
+  function addGoodItem(tag, value,measure,color,soundTranscription,json){
+	  db.transaction(
+	    	   function(transaction) { 
+	    	   		transaction.executeSql(
+	    	      		"INSERT OR REPLACE INTO Goods (tag, value, measure, color,soundTranscription, json) " +
+	    	      		" values ('"
+	    	       		+tag+"',"
+	    	       		+"'"+value+"',"
+	    	       		+"'"+measure+"',"
+	    	       		+"'"+color+"',"
+	    	       		+"'"+soundTranscription+"',"
+	    	       		+"'"+json+"')"
+	    	   		);},
+	    	     onSuccess,function onError(error){
+	    		    	console.log("Error trying to add good item!"+error.message);
+	    		    	console.log("SQL: "+sql);
+	    		    });
+    }
+    // таблица единиц измерения
+ /*   tx.executeSql('CREATE TABLE IF NOT EXISTS Measures' 
+		 		+'(index integer primary key,name)');
+*/
+  
+    function addGoodMeasure(index, name){
+    	 db.transaction(
+  	    	   function(transaction) { 
+  	    	   		transaction.executeSql(
+  	    	      		"INSERT OR REPLACE INTO Measures (id, name) " +
+  	    	      		" values ("
+  	    	       		+index+","
+  	    	       		+"'"+name+"')"
+  	    	   		);},
+  	    	     onSuccess,function onError(error){
+  	    		    	console.log("Error trying to add measure item!"+error.message);
+  	    		    	console.log("SQL: "+sql);
+  	    		    });
+    }
+    
+    
+    function getGoodItems(){
+    	var deferred = $.Deferred();
+    	db.transaction(
+  		    function(transaction) {
+  		        transaction.executeSql("SELECT * FROM Goods", [],
+  		        		function(transaction, result) {
+  		        	deferred.resolve(result);
+    		    }, onError);
+  		 });
+    	return deferred;
+    }
+    
+    
+    function getMeasure(index){
+    	var deferred = $.Deferred();
+    	db.transaction(
+  		    function(transaction) {
+  		        transaction.executeSql("SELECT * FROM Measures where index="+index, [],
+  		        		function(transaction, result) {
+  		        	deferred.resolve(result);
+    		    }, onError);
+  		 });
+    	return deferred;
+    }
     

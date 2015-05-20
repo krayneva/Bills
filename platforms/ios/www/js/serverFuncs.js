@@ -197,7 +197,7 @@ function uploadPhoto() {
     		var serverAddress = res;
     	//	alert("GetUserToken serverAddress: "+serverAddress+getTokenURL);
         	$.mobile.loading("show",{
-        		text: "Загрузка",
+        		text: "Авторизация",
         		textVisible: true,
         		theme: 'e',
         	});
@@ -228,6 +228,7 @@ function uploadPhoto() {
                			*/
                 	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
                     	   //showMainPage();
+                		   $.mobile.loading("hide");
                     	   deferred.resolve("");
                 		   
                 	   });
@@ -240,7 +241,11 @@ function uploadPhoto() {
 
     function requestUserEnvironment(){
     	var deferred = $.Deferred();
-    	 
+    	$.mobile.loading("show",{
+    		text: "Загрузка окружения пользователя",
+    		textVisible: true,
+    		theme: 'e',
+    	});
     	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
     		var serverAddress = res;
     		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
@@ -264,11 +269,13 @@ function uploadPhoto() {
     	  				  	addWidget(w.VisualObjectId, JSON.stringify(w));
     	  				  //	alert (JSON.stringify(w));
     	           		}
+    	           		$.mobile.loading("hide");
     	               deferred.resolve();
     	            },
     	            error: function(jqXHR, textStatus, errorThrown) {
     	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
                         	   //showMainPage();
+    	              		 $.mobile.loading("hide");
                         	   deferred.resolve();
                     		   
                     	   });
@@ -287,6 +294,11 @@ function uploadPhoto() {
      */
     function requestTransactions(){
     	var deferred = $.Deferred();
+    	$.mobile.loading("show",{
+    		text: "Загрузка транзакций",
+    		textVisible: true,
+    		theme: 'e',
+    	});
     	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
     		var serverAddress = res;
     		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
@@ -314,12 +326,13 @@ function uploadPhoto() {
      	           		  var categoryID = transaction.CategoryID;
 	    	           	  addTransaction(id,JSON.stringify(transaction), purseID, transactionDate, categoryID);
     	           		}
-    	               
+    	           		$.mobile.loading("hide");
     	               deferred.resolve();
     	            },
     	            error: function(jqXHR, textStatus, errorThrown) {
     	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
                         	   //showMainPage();
+    	              		 $.mobile.loading("hide");
                         	   deferred.resolve("");
                     		   
                     	   });
@@ -338,6 +351,11 @@ function uploadPhoto() {
     /*var getProductListsURL = "api/productlists";*/
     function requestShopLists(){
     	var deferred = $.Deferred();
+    	$.mobile.loading("show",{
+    		text: "Обновление списков покупок",
+    		textVisible: true,
+    		theme: 'e',
+    	});
     	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
     		var serverAddress = res;
     		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
@@ -367,12 +385,14 @@ function uploadPhoto() {
 	     	           		  
     	           		}
     	           		//alert(jqXHR.responseText);
-    	           		showShopListPage();
+    	           		$.mobile.loading("hide");
+    	           		
     	           		deferred.resolve();
     	            },
     	            error: function(jqXHR, textStatus, errorThrown) {
     	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
                         	   //showMainPage();
+    	              		 $.mobile.loading("hide");
                         	   deferred.resolve("");
                     	   });
     	            }
@@ -383,65 +403,58 @@ function uploadPhoto() {
     }
     
     
-    /*var getProductListsURL = "api/productlists";*/
     function sendShopList(listID){
+    	$.mobile.loading("show",{
+    		text: "Отправка списка покупок",
+    		textVisible: true,
+    		theme: 'e',
+    	});
     	var deferred = $.Deferred();
     	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
     		var serverAddress = res;
     		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
     		var userToken = uToken;
-    		console.log("requestTransactionsURL server address: "+serverAddress+getTransactionsURL);
+    		console.log("requestTransactionsURL server address: "+serverAddress+getProductListsURL);
     		console.log("requestTransactionsURL user token: "+userToken);
     		
     		// форимруем json списка продуктов для отправки на серевр
     		getShopList(listID).done(function(result){
-    		//	alert("ListID: "+listID);
-    		//	alert("result rows count: "+result.rows.length);
-    		
+
     		var list =new Object();
     		var row = result.rows.item(0);
-    		//???
-    		//list.AccountID = ;
     		
-    		//	+'(id text primary key,name, createdAt, fullJSON, itemsJSON)');
     		list = jQuery.parseJSON(row.fullJSON);
     		list.Items = jQuery.parseJSON(row.itemsJSON);
 
     		var listJSON = JSON.stringify(list); 
-    		alert(listJSON)	;
+    		//listJSON ='{"AccountID":"54ef3e2073915440bcd7d216","Number":2,"Name":"Мои покупки 2","Items":[{"Tag":"TAG_VODKA","Value":"Водочка","Quantity":"1","Measure":"бутылочка","Color":-983041,"bought":"0"},{"Tag":"TAG_APPLES","Value":"Яблочки","Quantity":"1","Measure":"кг","Color":-7722014},{"Tag":"TAG_PISTACHES","Value":"Фисташки","Quantity":"1","Measure":"п.","Color":-2180985},{"Tag":"TAG_CHIPS","Value":"Чипсы","Quantity":"1","Measure":"п.","Color":-32944}],"Id":"55411209e657afb61404689f","CreatedAt":"2015-04-29T20:16:57.217+03:00"}';
+    	//	alert(listJSON)	;
+    		console.log("sending shop list: "+listJSON);
 	    	   $.ajax({
 	    	          url: serverAddress+getProductListsURL,
-	    	            type: "post",
+	    	          type: "post",
+	    	        //    contentType: "application/json; charset=utf-8",
 	                beforeSend: function (request)
 	                {
-	                request.setRequestHeader("Authorization", "Bearer "+userToken);
+		                request.setRequestHeader("Authorization", "Bearer "+userToken);
+		                request.setRequestHeader("Content-Type", "application/json; charset=utf-8");
 	                },
-	    	            data: [listJSON],       
+	    	            data: listJSON,       
 	    	            success: function(response, textStatus, jqXHR) {
 	    	               console.log(jqXHR.responseText);
 	    	           	//	var json = jQuery.parseJSON(jqXHR.responseText);
-	    	           		alert("status: "+textStatus);
-	    	           		alert(jqXHR.responseText);
+	    	           //		alert("status: "+textStatus);
+	    	           //		alert(jqXHR.responseText);
 	    	           		//addShopList(id,name, createdAt, fullJSON, itemsJSON)
 	    	           		addShopList(row.id, row.name, row.createdAt,JSON.stringify(list), JSON.stringify(list.Items));
-	    	           		/*for (var k in json) {
-	    	           		  var shopList = json[k];
-	    	           		  var id = shopList.Id;
-	    	           		  var name = shopList.Name;
-	    	           		  var createdAt = shopList.CreatedAt;
-	    	           		  var itemsJSON = JSON.stringify(shopList.Items);
-	    	           		  var fullJSON = JSON.stringify(shopList);
-		         	        //  addShopList(id,name, createdAt, fullJSON, itemsJSON);
-		     	           		  
-	    	           		}*/
-	    	           		//alert(jqXHR.responseText);
-	    	           		
 	    	           		updateShopListsPage(true);
+	    	           		$.mobile.loading("hide");
 	    	           		deferred.resolve();
 	    	            },
 	    	            error: function(jqXHR, textStatus, errorThrown) {
 	    	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
 	                        	   //showMainPage();
+	    	              		 $.mobile.loading("hide");
 	                        	   deferred.resolve("");
 	                    	   });
 	    	            }
@@ -451,8 +464,137 @@ function uploadPhoto() {
     	});
     	return deferred;
     }
+    
+    
+    
+    /**
+     * отправка всех списков на сервер
+     */
+    function sendShopLists(){
+    	var deferred = $.Deferred();
+    	//alert("Синкаем списки покупок!");
+    	getShopLists().done(function(res){
+			for (var i=0; i<res.rows.length;i++){
+				var row = res.rows.item(i);
+				var listID =  row.id;
+				sendShopList(listID);
+			}
+			deferred.resolve();
+		});
+    	return deferred;
+    }
+    
+    /**
+     *  запрос классификатора продуктов
+     */
+    function requestGoodItems(){
+    	var deferred = $.Deferred();
+    	$.mobile.loading("show",{
+    		text: "Загрузка списков продуктов",
+    		textVisible: true,
+    		theme: 'e',
+    	});
+    	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
+    		var serverAddress = res;
+    		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
+    		var userToken = uToken;
+    		console.log("requestGoodItems server address: "+serverAddress+getGoodItemsURL);
+    		console.log("requestGoodItems user token: "+userToken);
+    		//alert("requesting good items!");
+    		
+     	   $.ajax({
+ 	          url: serverAddress+getGoodItemsURL,
+ 	            type: "get",
+             beforeSend: function (request)
+             {
+            	 request.setRequestHeader("Authorization", "Bearer "+userToken);
+             },
+ 	            data: [],       
+ 	            success: function(response, textStatus, jqXHR) {
+ 	            	deleteGoodItemsTable();
+ 	               console.log(jqXHR.responseText);
+ 	               
+ 	           		var json = jQuery.parseJSON(jqXHR.responseText);
+ 	           		for (var k in json) {
+ 	           		  var item = json[k];
+ 	           		  //+'(id integer primary key autoincrement,tag, value, measure, color,soundTranscription,json)');
+ 	           		  var tag = item.Tag;
+ 	           		  var value = item.Value;
+ 	           		  var measure = item.Measure;
+ 	           		  var color = item.Color;
+ 	           		  var soundTranscription = item.SoundTranscription;
+ 	           		  
+ 	           		  addGoodItem(tag,value,measure,color,soundTranscription,JSON.stringify(item));
+ 	           		}
+ 	           	$.mobile.loading("hide");
+ 	           		deferred.resolve();
+ 	            },
+ 	            error: function(jqXHR, textStatus, errorThrown) {
+ 	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
+                     	   //showMainPage();
+ 	              		$.mobile.loading("hide");
+                     	   deferred.resolve("");
+                 	   });
+ 	            }
+ 	        });
+    		
+    		
+    		
+    		});
+    	});
+    	return deferred;
+    }
+    
 
 
+    
+    function requestGoodMeasures(){
+    	var deferred = $.Deferred();
+    	$.mobile.loading("show",{
+    		text: "Загрузка единиц измерения",
+    		textVisible: true,
+    		theme: 'e',
+    	});
+    	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
+    		var serverAddress = res;
+    		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
+    		var userToken = uToken;
+    		console.log("requestGoodMeasures server address: "+serverAddress+getGoodMeasuresURL);
+    		console.log("requestGoodMeasures user token: "+userToken);
+    	//	alert("requestiong good Measures!");
+      	   $.ajax({
+  	          url: serverAddress+getGoodMeasuresURL,
+  	            type: "get",
+              beforeSend: function (request)
+              {
+             	 request.setRequestHeader("Authorization", "Bearer "+userToken);
+              },
+  	            data: [],       
+  	            success: function(response, textStatus, jqXHR) {
+  	            	deleteGoodMeasuresTable();
+  	               console.log(jqXHR.responseText);
+  	           		var json = jQuery.parseJSON(jqXHR.responseText);
+  	           		for (var k in json) {
+  	           		  var item = json[k];
+  	           		//  alert(JSON.stringify(item));
+  	           		  var index = item.Index;
+  	           		  var name = item.name;
+  	           		  addGoodMeasure(index, name);
+  	           		}
+  	           	$.mobile.loading("hide");
+  	           		deferred.resolve();
+  	            },
+  	            error: function(jqXHR, textStatus, errorThrown) {
+  	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
+  	              		$.mobile.loading("hide");
+                      	   deferred.resolve("");
+                  	   });
+  	            }
+  	        });
+    		});
+    	});
+    	return deferred;
+    }
 
     function writeToFile(fileName,data){
     	fileSystem.root.getFile(fileName, {create: true, exclusive: false}, function gotFileEntry(fileEntry){

@@ -1,4 +1,5 @@
 function updateLoginPage(){
+	
 	(getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT)).done(function(res){
 			document.getElementById('login').value = res;
 		});
@@ -32,7 +33,7 @@ function updateLoginPage(){
 		 	        $('#login_button').click();
 		 	    }
 		 	  });
-
+	  	$('#buildVersion').html("Версия сборки: "+buildVersion);
 	
 }
 
@@ -370,7 +371,8 @@ function updateTransactionInfoPage(){
 			 window.localStorage.setItem("CurrentShopListNum",0);
 		 }
 		 currentShopList = parseInt(currentShopList);
-		  
+		 console.log("CurrentShopList: "+currentShopList);
+		
 		getShopLists().done(function(res){
 			  var listName = res.rows.item(currentShopList).name;
 			  $('#shopListName').html(listName);	
@@ -543,24 +545,55 @@ function updateTransactionInfoPage(){
 			    }
 			    return false;
 			});
+		 
+		  $("#autocomplete").html('');
+		 // наполняем автокомплит
+		 getGoodItems().done(function(res){
+			 	//alert("goods items count: "+res.rows.length);
+			  for (var i=0; i<res.rows.length; i++){
+				  var row = res.rows.item(i);
+			//	  $('#autocomplete').append("<li class = 'autoLi' measure='"+row.measure+"' onclick ='onAutoCompleteRowClick()'>"+row.value+"</li>");
+				  $('#autocomplete').append("<li id='autoRow"+i+"'class = 'autoLi' measure='"+row.measure+"'>"+row.value+"</li>");
+			  }
 		
 		
-		 $(".autoLi").click(function(e){
-            event.preventDefault();
-            event.stopPropagation();
-         //   alert ("Выбрано: "+this.innerHTML);
-			 $( "#inset-autocomplete-input").val(this.innerHTML);
 			 $( "#autocomplete").hide();
-			 return false;
+			 
+			 $( "#autocomplete" ).on( "filterablebeforefilter", function ( e, data ) {
+			        var $ul = $( this ),
+			            $input = $( data.input ),
+			            value = $input.val();
+			           
+			        	//$ul.html( "" );
+			        if ( value && value.length > 1 ) {
+			        	 $( "#autocomplete").show();
+			        	
+			        }
+			    });
+	
+			 $('#autocomplete').listview('refresh');
+			 $(".autoLi").click(function(){
+				 var measureId = this.getAttribute("measure");
+				 var measure = MeasureEnum[measureId].valueRus;
+				 var amount = MeasureEnum[measureId].defaultAmount;
+				 var value = this.innerHTML;
+				 if (measure!=undefined){
+					 value = value+" "+amount+" "+measure;
+				 }
+				 $( "#inset-autocomplete-input").val(value);
+				 $( "#autocomplete").hide();
+				 return false;
+			 });
+		 
+	
 		 });
-		 
-		 
-
-		 
-		 
-		
-		 
 	}
+	
+	
+	function onAutoCompleteRowClick(){
+		alert(this.innerHTML);
+	}
+	
 	
 	
 	function swiperightHandler(event){
@@ -585,6 +618,7 @@ function updateTransactionInfoPage(){
         event.stopPropagation();
 		var currentShopList = window.localStorage.getItem("CurrentShopListNum");
 		getShopListCount().done(function(count){
+//			alert("count of shop lists: "+count);
 			currentShopList = (parseInt(currentShopList))+1;
 			if (currentShopList==count)
 				currentShopList = 0;
@@ -622,11 +656,6 @@ function updateTransactionInfoPage(){
 				var row = res.rows.item(i);
 				window.localStorage.removeItem("ShopListAlreadyBought"+row.id);
 			}
-			/*var currentShopList = window.localStorage.getItem("CurrentShopListNum");
-			window.localStorage.removeItem("ShopListAlreadyBought"+res.rows.item(currentShopList).id);
-			window.localStorage.removeItem("CurrentShopListNum");
-			*/
-			
 		});
 	}
 	

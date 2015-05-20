@@ -235,7 +235,13 @@ function refershBillSendStatus(rowID){
 	function getUserTokenAndShowMainPage(login, password){
 		requestUserToken(login,password).done(function(res){
 			if (res!=""){
-				showMainPage();
+				requestShopLists().done(function(){
+					requestGoodItems().done(function(){
+						requestGoodMeasures().done(function(){
+							showMainPage();						 
+						});
+					});
+				});
 			}
 		});
 	}

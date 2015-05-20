@@ -229,9 +229,17 @@ textarea.ui-textinput-autogrow.ui-shadow-inset.ui-focus{
   font-size: 1em;
 }
 
-.login_social{
+.login_social, 
+.build_version{
   height: 14%;
   text-align: center;
+}
+.build_version{
+	vertical-align: bottom;
+	 width: 100%;
+  	color: #367272;
+  	font-size: 1.2em;
+	
 }
 .login_social span,
 .login_welcome span{
@@ -934,6 +942,7 @@ label{
   border-radius: 4px!important;
   border: none!important;
 }
+
 .shopList_addItem #autocomplete>.autoLi{  
   background: #59a6b2!important;
   color: #fff!important;

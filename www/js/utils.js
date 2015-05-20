@@ -33,47 +33,40 @@
 
   }
  */
+var MeasureEnum = {
+  0 : {valueRus:"шт", code: "Piece", defaultAmount:"1"}, 
+  1 : {valueRus:"л.", code: "Liter", defaultAmount:"1"},
+  2 : {valueRus:"бан.", code: "Jar", defaultAmount:"1"},
+  3 : {valueRus:"бут.", code: "Bottle", defaultAmount:"1"},
+  4 : {valueRus:"гр", code: "Gram", defaultAmount:"500"},
+  5 : {valueRus:"кг", code: "Kilogram", defaultAmount:"1"},
+  6 : {valueRus:"м", code: "Meter", defaultAmount:"1"},
+  7 : {valueRus:"упак.", code: "Pack", defaultAmount:"1"},
+  8 : {valueRus:"час.", code: "Hour", defaultAmount:"1"},
+  9 : {valueRus:"сут.", code: "Day", defaultAmount:"1"}
+};
 
 /*
-  public enum MeasureType
+ Enum MeasureType = 
     {
-        /// <summary>
         /// Штуки
-        /// </summary>
         Piece = 0,
-        /// <summary>
         /// Литр
-        /// </summary>
         Liter = 1,
-        /// <summary>
         /// Банка
-        /// </summary>
         Jar = 2,
-        /// <summary>
         /// Бутылка
-        /// </summary>
         Bottle = 3,
-        /// <summary>
-        /// Грамм
-        /// </summary>
+        /// Грамм        
         Gram = 4,
-        /// <summary>
         /// Килограмм
-        /// </summary>
         Kilogram = 5,
-        /// <summary>
         /// Метр
-        /// </summary>
         Meter = 6,
-        /// <summary>
         /// Упаковка
-        /// </summary>
         Pack = 7,
-        /// <summary>
         /// Час, для обозначения времени проката/парковки
-        /// </summary>
         Hour = 8,
-        /// <summary>
         /// Сутки
         /// </summary>
         Day = 9
