@@ -79,10 +79,12 @@
    font-family: aparaj;
    src: url(aparaji.ttf);
 }
+* {  
+  text-shadow: none!important;
+}
 body{
   height: 100%;
   min-height: 100%;
-  
   margin: 0;
 }
 table {
@@ -100,51 +102,47 @@ div.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset>input,
 div.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset.ui-focus>input{
   margin: none!important; 
   padding: none!important;
-  text-shadow: none!important;
-}
-
-div.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset{
-  box-shadow: none!important;
-  border: 1px solid #367272!important;
-}
-.login div.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset{
-  border: none!important;
-}
-div.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset.ui-focus{
-  box-shadow: 0 0 1px 1px #367272!important;  
 }
 div.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset,
 div.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset.ui-focus{
   min-height:auto!important;
   height: auto!important;
-  border-radius: 4px!important;
-  overflow: hidden!important;
 }
 div.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset>input,
 div.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset.ui-focus>input{
   height: 2em!important;
   min-height:2em!important;
-  max-height: 2em!important;
-  color: #367272!important;
-  background: #fff!important;
-  font-weight: bold!important;  
-  font-size: 1.5em!important;
-  border: none!important;
-  box-shadow: none!important;
-},
-textarea.ui-textinput-autogrow.ui-shadow-inset{
-  color: #367272!important;
-  background: #fff!important;
-  font-weight: bold!important;  
-  font-size: 1.5em!important;
-  border-radius: 4px!important;
+  max-height: 2em!important;  
+  
+}
+*.ui-body-inherit{
+  border-color: #367272!important;
+}
+*.ui-input-text{
   border: 1px solid #367272!important;
+  color: #367272!important;
+  font-weight: bold!important;
+  background: #fff!important;    
+  font-size: 1.5em!important;
+}
+*.ui-corner-all{
+  -webkit-border-radius: 0px!important;
+  -moz-border-radius: 0px!important;
+  border-radius: 0px!important;
+}
+*.ui-shadow-inset{
+  -webkit-box-shadow: none!important;
+  -moz-box-shadow: none!important;
   box-shadow: none!important;
 }
-textarea.ui-textinput-autogrow.ui-shadow-inset.ui-focus{
+*.ui-shadow-inset.ui-focus{
+  -webkit-box-shadow: 0 0 1px 1px #367272!important;
+  -moz-box-shadow: 0 0 1px 1px #367272!important;
   box-shadow: 0 0 1px 1px #367272!important;
 }
-
+.login div.ui-input-text{
+  border: none!important;
+}
 .background,
 .backgroundImg,
 .backgroundImg2,
@@ -504,6 +502,7 @@ textarea.ui-textinput-autogrow.ui-shadow-inset.ui-focus{
 }
 .topPanel>span{
   height: 3em;
+
   display: block;
   width: 15%;
   float:left;
@@ -512,6 +511,7 @@ textarea.ui-textinput-autogrow.ui-shadow-inset.ui-focus{
 .topPanel_menuButton{
   height: 3em;
   float:left;
+  margin: 0 0.5em;
 }
 .topPanel_menuButton{
   float:right;
@@ -931,15 +931,13 @@ label{
   right: 12em; 
   top:0.1em;
 }
-.shopList_addItem{ 
-}
 
 .shopList_addItem #autocomplete{
   bottom: 3.2em!important;
   left:0!important;
   right: 0!important;
   position: absolute!important;
-  border-radius: 4px!important;
+  border-radius: 0px!important;
   border: none!important;
 }
 
