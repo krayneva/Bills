@@ -371,6 +371,7 @@ function uploadPhoto() {
                 },
     	            data: [],       
     	            success: function(response, textStatus, jqXHR) {
+    	            	deleteShopListsTable();
     	               console.log(jqXHR.responseText);
     	           		var json = jQuery.parseJSON(jqXHR.responseText);
     	           		for (var k in json) {
@@ -379,9 +380,10 @@ function uploadPhoto() {
     	           		  var id = shopList.Id;
     	           		  var name = shopList.Name;
     	           		  var createdAt = shopList.CreatedAt;
+    	           		  var accountID = shopList.AccountID;
     	           		  var itemsJSON = JSON.stringify(shopList.Items);
     	           		  var fullJSON = JSON.stringify(shopList);
-	         	          addShopList(id,name, createdAt, fullJSON, itemsJSON);
+	         	          addShopList(id,name, accountID,createdAt, fullJSON, itemsJSON);
 	     	           		  
     	           		}
     	           		//alert(jqXHR.responseText);
@@ -409,7 +411,14 @@ function uploadPhoto() {
     		textVisible: true,
     		theme: 'e',
     	});
+    	
     	var deferred = $.Deferred();
+    	var deferred = $.Deferred();
+    	getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
+    		var log = login;
+    		getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
+    		var pass = password;
+    			requestUserToken(log, pass).done(function(uToken){
     	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
     		var serverAddress = res;
     		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
@@ -419,16 +428,21 @@ function uploadPhoto() {
     		
     		// форимруем json списка продуктов для отправки на серевр
     		getShopList(listID).done(function(result){
-
+    		//	alert("Count of such listIDs: "+result.rows.length);
+    			
     		var list =new Object();
     		var row = result.rows.item(0);
-    		
-    		list = jQuery.parseJSON(row.fullJSON);
-    		list.Items = jQuery.parseJSON(row.itemsJSON);
-
-    		var listJSON = JSON.stringify(list); 
+    		var listJSON = '';
+    		if (row.fullJSON!=''){
+	    		list = jQuery.parseJSON(row.fullJSON);
+	    	//	alert("Sending list id: "+list.Id);
+	    		list.Items = jQuery.parseJSON(row.itemsJSON);
+	    		listJSON = JSON.stringify(list);
+    		}
+    		else{
+    			alert ("row full json is empty");
+    		}
     		//listJSON ='{"AccountID":"54ef3e2073915440bcd7d216","Number":2,"Name":"Мои покупки 2","Items":[{"Tag":"TAG_VODKA","Value":"Водочка","Quantity":"1","Measure":"бутылочка","Color":-983041,"bought":"0"},{"Tag":"TAG_APPLES","Value":"Яблочки","Quantity":"1","Measure":"кг","Color":-7722014},{"Tag":"TAG_PISTACHES","Value":"Фисташки","Quantity":"1","Measure":"п.","Color":-2180985},{"Tag":"TAG_CHIPS","Value":"Чипсы","Quantity":"1","Measure":"п.","Color":-32944}],"Id":"55411209e657afb61404689f","CreatedAt":"2015-04-29T20:16:57.217+03:00"}';
-    	//	alert(listJSON)	;
     		console.log("sending shop list: "+listJSON);
 	    	   $.ajax({
 	    	          url: serverAddress+getProductListsURL,
@@ -442,14 +456,19 @@ function uploadPhoto() {
 	    	            data: listJSON,       
 	    	            success: function(response, textStatus, jqXHR) {
 	    	               console.log(jqXHR.responseText);
-	    	           	//	var json = jQuery.parseJSON(jqXHR.responseText);
+	    	           var json = jQuery.parseJSON(jqXHR.responseText);
 	    	           //		alert("status: "+textStatus);
-	    	           //		alert(jqXHR.responseText);
+	    	           		res = jqXHR.responseText.replace(/"/g,"");
+	    	         //  		alert("received ID: "+res);
 	    	           		//addShopList(id,name, createdAt, fullJSON, itemsJSON)
-	    	           		addShopList(row.id, row.name, row.createdAt,JSON.stringify(list), JSON.stringify(list.Items));
-	    	           		updateShopListsPage(true);
+	    	           		/*if (row.id!=tempShopListID){
+	    	           			addShopList(row.id, row.name, row.accountID,row.createdAt,JSON.stringify(list), JSON.stringify(list.Items));
+	    	           		}*/
+	    	           		//updateShopListsPage(true);
+	    	           		addShopListID(res, tempShopListID);
+	    	           		
 	    	           		$.mobile.loading("hide");
-	    	           		deferred.resolve();
+	    	           		deferred.resolve(res);
 	    	            },
 	    	            error: function(jqXHR, textStatus, errorThrown) {
 	    	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
@@ -461,7 +480,7 @@ function uploadPhoto() {
 	    	        });
 	    		});
     		});
-    	});
+    	});});});});
     	return deferred;
     }
     
@@ -472,17 +491,27 @@ function uploadPhoto() {
      */
     function sendShopLists(){
     	var deferred = $.Deferred();
-    	//alert("Синкаем списки покупок!");
-    	getShopLists().done(function(res){
-			for (var i=0; i<res.rows.length;i++){
-				var row = res.rows.item(i);
-				var listID =  row.id;
-				sendShopList(listID);
-			}
-			deferred.resolve();
-		});
+    	getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
+    		var log = login;
+    		getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
+    		var pass = password;
+    			requestUserToken(log, pass).done(function(uToken){
+			    	getShopLists().done(function(res){
+						for (var i=0; i<res.rows.length;i++){
+							var row = res.rows.item(i);
+							var listID =  row.id;
+							sendShopList(listID);
+						}
+						deferred.resolve();
+					});
+    			});
+    		});
+    	});
     	return deferred;
     }
+    
+    
+ 
     
     /**
      *  запрос классификатора продуктов

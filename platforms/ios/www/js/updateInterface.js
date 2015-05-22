@@ -371,10 +371,23 @@ function updateTransactionInfoPage(){
 			 window.localStorage.setItem("CurrentShopListNum",0);
 		 }
 		 currentShopList = parseInt(currentShopList);
+	//	 alert(currentShopList);
 		 console.log("CurrentShopList: "+currentShopList);
+		 
+		 getShopLists().done(function(res){
+			for (var i=0; i<res.rows.length; i++){
+				console.log("shop list num: "+i);
+				console.log("shop list id: "+res.rows.item(i).id);
+				console.log("shop list name: "+res.rows.item(i).name);
+				console.log("shop list fullJSOn: "+res.rows.item(i).fullJSON);
+				console.log("shop list itemJSON: "+res.rows.item(i).itemJSON);
+			} 
+		 });
 		
 		getShopLists().done(function(res){
+		//	alert("count of shoplists: "+res.rows.length);
 			  var listName = res.rows.item(currentShopList).name;
+			//  alert("id of list: "+ res.rows.item(currentShopList).id);
 			  $('#shopListName').html(listName);	
 			  $('#ShopListList').html('');
 			  $('#ShopListList').listview('refresh');
@@ -395,13 +408,13 @@ function updateTransactionInfoPage(){
 				 var itemsJSON =  jQuery.parseJSON(res.rows.item(currentShopList).itemsJSON);
 
 				 var oldJSON = jQuery.parseJSON(itemsString);
+				 if (itemsJSON!=null)
 				  for (var i = 0; i < itemsJSON.length; i++){
-					  if (itemsString!=undefined){
+					  if ((itemsString!=undefined)&(oldJSON!=undefined)){
 						  for (var j=0; j< oldJSON.length; j++){
 							  if (itemsJSON[i].Value==oldJSON[j].Value){
 								 //alert(itemsJSON[i].value+" "+oldJSON[j].value);
 								  itemsJSON[i].bought = oldJSON[j].bought;
-								  
 							  }
 						  }
 					  }
@@ -453,7 +466,7 @@ function updateTransactionInfoPage(){
 		       		  case 5:
 		       			 style = "shopList_group_lightSeaGreen";
 		       			  break;
-		       			 default:
+		       		  default:
 		       				 break;
 		       		  }
 		       		  listrow.setAttribute("id", "listrow"+k);
@@ -617,37 +630,66 @@ function updateTransactionInfoPage(){
 		event.preventDefault();
         event.stopPropagation();
 		var currentShopList = window.localStorage.getItem("CurrentShopListNum");
-		getShopListCount().done(function(count){
-//			alert("count of shop lists: "+count);
-			currentShopList = (parseInt(currentShopList))+1;
-			if (currentShopList==count)
-				currentShopList = 0;
-			window.localStorage.setItem("CurrentShopListNum", currentShopList);
-			console.log("CurrentShopList: "+currentShopList+" count: "+count);
-			clearBoughtItems(window.localStorage.getItem('ShopListID'));
-			updateShopListsPage(true);
-			return false;
-		});
+		getShopLists().done(function(res){
+			 var listID = res.rows.item(parseInt(currentShopList)).id;
+			 sendShopList(listID);
 		
-	
+			getShopListCount().done(function(count){
+	//			alert("count of shop lists: "+count);
+				currentShopList = (parseInt(currentShopList))+1;
+				
+				
+				
+				if (currentShopList==count)
+					currentShopList = 0;
+				window.localStorage.setItem("CurrentShopListNum", currentShopList);
+				console.log("CurrentShopList: "+currentShopList+" count: "+count);
+				clearBoughtItems(window.localStorage.getItem('ShopListID'));
+				updateShopListsPage(true);
+				return false;
+			});
+			
+		});
 	}
 	
 	function previousShopList(event){
 		event.preventDefault();
         event.stopPropagation();
 		var currentShopList = window.localStorage.getItem("CurrentShopListNum");
-		getShopListCount().done(function(count){
-			currentShopList = (parseInt(currentShopList))-1;
-			if (currentShopList==-1)
-				currentShopList = count-1;
-			window.localStorage.setItem("CurrentShopListNum", currentShopList);
-			console.log("CurrentShopList: "+currentShopList+" count: "+count);
-			clearBoughtItems(window.localStorage.getItem('ShopListID'));
-			updateShopListsPage(true);
-			return false;
+		getShopLists().done(function(res){
+			 var listID = res.rows.item(parseInt(currentShopList)).id;
+			 sendShopList(listID);
+	
+		
+			getShopListCount().done(function(count){
+				currentShopList = (parseInt(currentShopList))-1;
+				if (currentShopList==-1)
+					currentShopList = count-1;
+				window.localStorage.setItem("CurrentShopListNum", currentShopList);
+				console.log("CurrentShopList: "+currentShopList+" count: "+count);
+				clearBoughtItems(window.localStorage.getItem('ShopListID'));
+				updateShopListsPage(true);
+				return false;
+			});
 		});
+	}
+	
+	
+	function showShopListByNumber(number){
+	//	alert("ShowShopListByNumber! "+number);
 		
-		
+		var currentShopList = window.localStorage.getItem("CurrentShopListNum");
+		getShopLists().done(function(res){
+			 var listID = res.rows.item(parseInt(currentShopList)).id;
+			 sendShopList(listID).done(function(res){
+					window.localStorage.setItem("CurrentShopListNum",number);
+					//	console.log("CurrentShopList: "+number+" count: "+count);
+						clearBoughtItems(window.localStorage.getItem('ShopListID'));
+						$( "#mypanel" ).panel( "close" );
+						updateShopListsPage(true);
+				 
+			 });
+		});
 	}
 	
 	function closeShopListsPage(){
@@ -656,6 +698,7 @@ function updateTransactionInfoPage(){
 				var row = res.rows.item(i);
 				window.localStorage.removeItem("ShopListAlreadyBought"+row.id);
 			}
+		//	  navigator.app.backHistory();
 		});
 	}
 	

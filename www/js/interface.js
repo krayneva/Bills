@@ -225,6 +225,10 @@ function refershBillSendStatus(rowID){
 		$.mobile.pageContainer.pagecontainer( "change", "shopList.html" ,{transition:"none"});
 	}
 	
+	function showCreateShopListPage(){
+		currentPage = "pageCreateShopList";
+		$.mobile.pageContainer.pagecontainer( "change", "createShopList.html" ,{transition:"none"});
+	}
 
 	
 	function showUserEnvironment(){
