@@ -99,9 +99,10 @@ function uploadPhoto() {
 
     function onFileUploadError(error) {
     	 var errorThrown ="";
+    	// alert("file upload error: "+error.http_status);
     	if (error.http_status===401){
     		errorThrown = "Unauthorized";
-    	}
+    	
     	
 
    		 onServerRequestError("", "", errorThrown).done(function(res){
@@ -111,7 +112,8 @@ function uploadPhoto() {
    			 }
    		 });
 		 
-    	
+    	}
+    	else{
     	$.mobile.loading("hide");
     	//1--пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     
@@ -156,11 +158,11 @@ function uploadPhoto() {
             	message ="Path Already Exists Error";
                 break;
         }
-    
+    	}
         console.log(error);
-        alert("Ошибка при отправке файла " + message);
+      /*  alert("Ошибка при отправке файла " + message);
         alert("HTTP RESPONSE CODE: " + error.http_status);
-	    console.log("upload error source " + error.source);
+	    console.log("upload error source " + error.source);*/
     }
     
     
@@ -240,7 +242,6 @@ function uploadPhoto() {
 
 
     function requestUserEnvironment(){
-    	alert("request user environment!");
     	var deferred = $.Deferred();
     	$.mobile.loading("show",{
     		text: "Загрузка окружения пользователя",
@@ -260,7 +261,7 @@ function uploadPhoto() {
                 },
     	            data: [],       
     	            success: function(response, textStatus, jqXHR) {
-    	            	alert("user environment success!");
+    	            //	alert("user environment success!");
     	             //  alert(jqXHR.responseText);
     	               console.log("request user environment: "+jqXHR.responseText);
     	               //putSetting(SETTING_USER_ENVIRONMENT,jqXHR.responseText);
@@ -275,14 +276,15 @@ function uploadPhoto() {
     	               deferred.resolve();
     	            },
     	            error: function(jqXHR, textStatus, errorThrown) {
-    	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
-                        	   //showMainPage();
-    	              		 $.mobile.loading("hide");
-                        	 alert("on server request error returned "+res)  ;
-                        	   if (res==SERVER_ERROR_TRY_AGAIN)
+    	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){  	              		
+                        	   if (res==SERVER_ERROR_TRY_AGAIN){
                         		   requestUserEnvironment();
-                        	   else
+                        	   	   deferred.resolve();
+                        	   }
+                        	   else{
+                        		   $.mobile.loading("hide");
                         		   deferred.resolve();
+                        	   }
                     	   });
      
     	            }
@@ -336,9 +338,15 @@ function uploadPhoto() {
     	            },
     	            error: function(jqXHR, textStatus, errorThrown) {
     	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
-                        	   //showMainPage();
-    	              		 $.mobile.loading("hide");
-                        	   deferred.resolve("");
+                      	   if (res==SERVER_ERROR_TRY_AGAIN){
+                      		   requestTransactions();
+                      	   	   deferred.resolve();
+                      	   }
+                      	   else{
+                      		   $.mobile.loading("hide");
+                      		   deferred.resolve();
+                      	   }
+
                     		   
                     	   });
      
@@ -398,9 +406,15 @@ function uploadPhoto() {
     	            },
     	            error: function(jqXHR, textStatus, errorThrown) {
     	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
-                        	   //showMainPage();
-    	              		 $.mobile.loading("hide");
-                        	   deferred.resolve("");
+                      	   if (res==SERVER_ERROR_TRY_AGAIN){
+                      		   requestShopLists();
+                      	   	   deferred.resolve();
+                      	   }
+                      	   else{
+                      		   $.mobile.loading("hide");
+                      		   deferred.resolve();
+                      	   }
+
                     	   });
     	            }
     	        });
@@ -477,9 +491,15 @@ function uploadPhoto() {
 	    	            },
 	    	            error: function(jqXHR, textStatus, errorThrown) {
 	    	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
-	                        	   //showMainPage();
-	    	              		 $.mobile.loading("hide");
-	                        	   deferred.resolve("");
+	                        	   if (res==SERVER_ERROR_TRY_AGAIN){
+	                        		   sendShopList(listID);
+	                        	   	   deferred.resolve();
+	                        	   }
+	                        	   else{
+	                        		   $.mobile.loading("hide");
+	                        		   deferred.resolve();
+	                        	   }
+
 	                    	   });
 	    	            }
 	    	        });
@@ -565,9 +585,15 @@ function uploadPhoto() {
  	            },
  	            error: function(jqXHR, textStatus, errorThrown) {
  	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
-                     	   //showMainPage();
- 	              		$.mobile.loading("hide");
-                     	   deferred.resolve("");
+                  	   if (res==SERVER_ERROR_TRY_AGAIN){
+                  		   requestGoodItems();
+                  	   	   deferred.resolve();
+                  	   }
+                  	   else{
+                  		   $.mobile.loading("hide");
+                  		   deferred.resolve();
+                  	   }
+
                  	   });
  	            }
  	        });
@@ -620,8 +646,16 @@ function uploadPhoto() {
   	            },
   	            error: function(jqXHR, textStatus, errorThrown) {
   	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
-  	              		$.mobile.loading("hide");
-                      	   deferred.resolve("");
+
+                  	   if (res==SERVER_ERROR_TRY_AGAIN){
+                  		   requestGoodMeasures();
+                  	   	   deferred.resolve();
+                  	   }
+                  	   else{
+                  		   $.mobile.loading("hide");
+                  		   deferred.resolve();
+                  	   }
+
                   	   });
   	            }
   	        });
@@ -642,10 +676,8 @@ function uploadPhoto() {
     
     
     function onServerRequestError(jqXHR, textStatus, errorThrown){
-    	alert("onServer request error authcount="+authCount);
     	var deferred = $.Deferred();
     	if (authCount==2){
-    		 deferred.resolve(SERVER_ERROR_NO_AUTH);
 	    	    $.mobile.loading("hide");
 	    	    alert("Ошибка авторизации");
 	    	    getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
@@ -654,6 +686,7 @@ function uploadPhoto() {
 	        		var pass = password;
 	        		alert("Логин: "+log);
 	        		alert("Пароль: "+pass);
+	        		 deferred.resolve(SERVER_ERROR_NO_AUTH);
 	        		return deferred;
 	        		});
 	    	    });
@@ -700,34 +733,35 @@ function uploadPhoto() {
 	    	    } );
     	});
     	// проверяем, не протух ли ключ авторизации и если что пытаемся обновить
-    	if (errorThrown=="Unauthorized"){
+    	if (errorThrown==="Unauthorized"){
     		getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
         		var log = login;
         		getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
         		var pass = password;
         			requestUserToken(log, pass).done(function(uToken){
                 		var userToken = uToken;
-                		alert("rerequest user token: "+uToken);
                 		if (userToken!=""){
                 			deferred.resolve(SERVER_ERROR_TRY_AGAIN);
                 			
                 		}
                 		else{
                 			deferred.resolve(SERVER_ERROR_NO_AUTH);
+                			$.mobile.loading("hide");
                 		}
-                		$.mobile.loading("hide");
+                		
                 		
         			});
         		});
         	});
     	}
+    	else{
+	    	$.mobile.loading("hide");
+	    	deferred.resolve(SERVER_ERROR_OTHER);
+	    	alert("Сервер ответил "+jqXHR.reponseText);
+	        alert(textStatus + " " + errorThrown);
+	        alert("Код ошибки " + errorThrown.code);
+	       
+    	}
     	
-    	
-    	$.mobile.loading("hide");
-    	deferred.resolve(SERVER_ERROR_OTHER);
-    	alert("Сервер ответил "+jqXHR.reponseText);
-        alert(textStatus + " " + errorThrown);
-        alert("Код ошибки " + errorThrown.code);
-
     	return deferred;
     }

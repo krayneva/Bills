@@ -22,7 +22,7 @@ var USER_PASSWORD_DEFAULT= "";
 var USER_TOKEN_DEFAULT = "";
 
 var SERVER_ADDRESS_DEFAULT = "https://billview.cloudapp.net/receipts/";
-
+//http://ryoga.esed.kodeks.ru/ReceiptsAPI/
 
 function removeSetting(setting){
 	window.localStorage.removeItem(setting);

@@ -120,7 +120,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     private static final int MARGIN_BIG = 100;
     private static final int MARGIN_MEDIUM = 50;
     private static final int MARGIN_SMALL = 50;
-    private static final int PANEL_HEIGHT = 100;
+    private static int PANEL_HEIGHT = 100;
     
     private static final int SHADOW_COLOR = 0x33000000;
     private static final int PANEL_COLOR = 0x99000000;
@@ -180,6 +180,8 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         Log.w("CustomCameraActivivty: ", " maxSize: "+maxSize.width+" "+maxSize.height);
         cameraSettings.setPictureSize(maxSize.width, maxSize.height);
         camera.setParameters(cameraSettings);
+        
+        //Toast.makeText(this, "Density is: "+getResources().getDisplayMetrics().density, Toast.LENGTH_LONG).show();
     }
 
     private void displayCameraPreview() {
@@ -276,18 +278,21 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 	private void createShadowLayer(){
         // затемнение областей
     	int margin = 0;
-          
+         int marginInDP =0;
         controlsLayout = new RelativeLayout(this);
         layout.addView(controlsLayout, new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT));
         
         if (isXLargeScreen()) {
             margin= dpToPixels(MARGIN_BIG);
+
             Log.w("isXLargScreen","!!!");
         } else if (isLargeScreen()) {
             margin = dpToPixels(MARGIN_MEDIUM);
+
             Log.w("isLargScreen","!!!");
         } else {
             margin = dpToPixels(MARGIN_SMALL);
+
             Log.w("isSmallScreen","!!!");
         }
 
@@ -301,8 +306,10 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     
  		params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT,dpToPixels(PANEL_HEIGHT));
         params.addRule(RelativeLayout.ALIGN_PARENT_BOTTOM,RelativeLayout.TRUE);
+        
        
         panelLayout = createPanelLayout();
+        panelLayout.setGravity(Gravity.CENTER);
         panelLayout.setBackgroundColor(PANEL_COLOR);
         panelLayout.setLayoutParams(params);
         int panelViewId = 12345;
@@ -346,11 +353,13 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         controlsLayout.addView(billText);
         
         
+        int bSize = dpToPixels(100);
+        
         flashButton = new ImageButton(this);
-        params = new RelativeLayout.LayoutParams(margin,margin);
+        params = new RelativeLayout.LayoutParams(bSize/2,bSize/2);
         Log.w("margin",""+ margin);
-        params.rightMargin = margin/4;
-        params.topMargin = margin/4;
+        params.rightMargin =bSize/4;
+        params.topMargin = bSize/4;
         params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT,RelativeLayout.TRUE);
         params.addRule(RelativeLayout.ALIGN_PARENT_TOP,RelativeLayout.TRUE);
         if (flashEnabled)
@@ -384,15 +393,15 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
        
        
        exitButton = new ImageButton(this);
-       params = new RelativeLayout.LayoutParams(margin,margin);
-       params.leftMargin = margin/4;
-       params.topMargin = margin/4;
+       params = new RelativeLayout.LayoutParams(bSize/2,bSize/2);
+       params.leftMargin = bSize/4;
+       params.topMargin = bSize/4;
        params.addRule(RelativeLayout.ALIGN_PARENT_LEFT,RelativeLayout.TRUE);
        params.addRule(RelativeLayout.ALIGN_PARENT_TOP,RelativeLayout.TRUE);
-       setBitmap(exitButton, "back_button.png");
+       setBitmap(exitButton, "quit256.png");
 
        exitButton.setBackgroundColor(Color.TRANSPARENT);
-       exitButton.setScaleType(ScaleType.FIT_CENTER);
+       exitButton.setScaleType(ScaleType.CENTER_INSIDE);
    	
        
        exitButton.setOnClickListener(new View.OnClickListener() {
@@ -474,21 +483,24 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     private LinearLayout createPanelLayout(){
     	panelLayout = new LinearLayout(this);
     	captureButton = new ImageButton(this);
-    	int buttonSize =  dpToPixels(MARGIN_BIG)*2;
+    	int buttonSize =  dpToPixels(MARGIN_BIG);
         if (isXLargeScreen()) {
-        	buttonSize = dpToPixels(MARGIN_BIG)*2;
+        	buttonSize = dpToPixels(MARGIN_BIG);
         } else if (isLargeScreen()) {
-        	buttonSize = dpToPixels(MARGIN_MEDIUM)*2;
+        	//buttonSize = dpToPixels(MARGIN_MEDIUM);
+        	buttonSize = dpToPixels(100);
         } else {
-        	buttonSize = dpToPixels(MARGIN_SMALL)*2;
+        	//buttonSize = dpToPixels(MARGIN_SMALL);
+        	buttonSize = dpToPixels(100);
         }
     	
     	LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(buttonSize, buttonSize);
+    	buttonParams.setMargins(20, 0, 20, 0);
     	//setBitmap(captureButton, "camera_brown.png");
     	setBitmap(captureButton, "camera393.png");
     	
         captureButton.setBackgroundColor(Color.TRANSPARENT);
-        captureButton.setScaleType(ScaleType.FIT_CENTER);
+        captureButton.setScaleType(ScaleType.CENTER_INSIDE);
     	
         captureButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -507,9 +519,9 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         panelLayout.addView(captureButton, buttonParams);
         
         sendButton = new ImageButton(this);
-    	setBitmap(sendButton, "send.png");
+    	setBitmap(sendButton, "send256.png");
     	sendButton.setBackgroundColor(Color.TRANSPARENT);
-    	sendButton.setScaleType(ScaleType.FIT_CENTER);
+    	sendButton.setScaleType(ScaleType.CENTER_INSIDE);
     	
     /*	sendButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -531,7 +543,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     	//setBitmap(recaptureButton, "cancel_red.png");
         setBitmap(recaptureButton, "esc256.png");
     	recaptureButton.setBackgroundColor(Color.TRANSPARENT);
-    	recaptureButton.setScaleType(ScaleType.FIT_CENTER);
+    	recaptureButton.setScaleType(ScaleType.CENTER_INSIDE);
         recaptureButton.setOnClickListener(new View.OnClickListener() {
             @Override
              public void onClick(View v) {
