@@ -240,6 +240,7 @@ function uploadPhoto() {
 
 
     function requestUserEnvironment(){
+    	alert("request user environment!");
     	var deferred = $.Deferred();
     	$.mobile.loading("show",{
     		text: "Загрузка окружения пользователя",
@@ -259,6 +260,7 @@ function uploadPhoto() {
                 },
     	            data: [],       
     	            success: function(response, textStatus, jqXHR) {
+    	            	alert("user environment success!");
     	             //  alert(jqXHR.responseText);
     	               console.log("request user environment: "+jqXHR.responseText);
     	               //putSetting(SETTING_USER_ENVIRONMENT,jqXHR.responseText);
@@ -267,7 +269,7 @@ function uploadPhoto() {
     	           		for (var k in json.Widgets) {
     	  				  var w = json.Widgets[k];
     	  				  	addWidget(w.VisualObjectId, JSON.stringify(w));
-    	  				  //	alert (JSON.stringify(w));
+    	  				  	// alert (JSON.stringify(w));
     	           		}
     	           		$.mobile.loading("hide");
     	               deferred.resolve();
@@ -276,8 +278,11 @@ function uploadPhoto() {
     	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
                         	   //showMainPage();
     	              		 $.mobile.loading("hide");
-                        	   deferred.resolve();
-                    		   
+                        	 alert("on server request error returned "+res)  ;
+                        	   if (res==SERVER_ERROR_TRY_AGAIN)
+                        		   requestUserEnvironment();
+                        	   else
+                        		   deferred.resolve();
                     	   });
      
     	            }
@@ -637,6 +642,7 @@ function uploadPhoto() {
     
     
     function onServerRequestError(jqXHR, textStatus, errorThrown){
+    	alert("onServer request error authcount="+authCount);
     	var deferred = $.Deferred();
     	if (authCount==2){
     		 deferred.resolve(SERVER_ERROR_NO_AUTH);
@@ -701,15 +707,16 @@ function uploadPhoto() {
         		var pass = password;
         			requestUserToken(log, pass).done(function(uToken){
                 		var userToken = uToken;
+                		alert("rerequest user token: "+uToken);
                 		if (userToken!=""){
-                			
                 			deferred.resolve(SERVER_ERROR_TRY_AGAIN);
+                			
                 		}
                 		else{
                 			deferred.resolve(SERVER_ERROR_NO_AUTH);
                 		}
                 		$.mobile.loading("hide");
-                		return deferred;
+                		
         			});
         		});
         	});
