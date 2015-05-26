@@ -268,10 +268,10 @@ function updateWidgets(){
 		            		src = src.concat("education396/0.png");
 		            		break;
 		            	case "ico_entertainment":
-		            		src ="img/ico_category_1_396.png";
+		            		src ="img/entertainment396.png";
 		            		break;
 		            	case "ico_house":
-		            		src ="img/ico_category_5_396.png";
+		            		src ="img/house396.png";
 		            		break;
 		            	case "ico_auto":
 		            		src ="img/auto396.png";
