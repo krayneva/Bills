@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		019E6D894C914C638790FDB1 /* CDVConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = C1F3B8982D1947039A317CBE /* CDVConnection.m */; };
 		1C36B9D5F1944E8981CD1A5C /* CDVDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = C815FB89C45041A4BDBA8E78 /* CDVDevice.m */; };
@@ -821,7 +822,7 @@
 				LastUpgradeCheck = 510;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
-						DevelopmentTeam = VY3KH9NS29;
+						DevelopmentTeam = 88DEJM85SK;
 					};
 				};
 			};
@@ -957,9 +958,9 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iOS Development: Irina Krayneva (9SGDRUHU9C)";
-				"CODE_SIGN_IDENTITY[sdk=*]" = "iOS Development: Irina Krayneva (9SGDRUHU9C)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iOS Development: Irina Krayneva (9SGDRUHU9C)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Irina Krayneva (GB8RX7AHPD)";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: Irina Krayneva (GB8RX7AHPD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Irina Krayneva (GB8RX7AHPD)";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -996,7 +997,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = Bills;
-				PROVISIONING_PROFILE = "312f1282-eb97-4dee-9191-1d0e4e845a2f";
+				PROVISIONING_PROFILE = "a9e4f8cf-26ce-4a84-86b5-1c96ce5be960";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s";
 			};
@@ -1007,9 +1008,9 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iOS Development: Irina Krayneva (9SGDRUHU9C)";
-				"CODE_SIGN_IDENTITY[sdk=*]" = "iOS Development: Irina Krayneva (9SGDRUHU9C)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iOS Development: Irina Krayneva (9SGDRUHU9C)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Irina Krayneva (GB8RX7AHPD)";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: Irina Krayneva (GB8RX7AHPD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Irina Krayneva (GB8RX7AHPD)";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
@@ -1044,7 +1045,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = Bills;
-				PROVISIONING_PROFILE = "312f1282-eb97-4dee-9191-1d0e4e845a2f";
+				PROVISIONING_PROFILE = "a9e4f8cf-26ce-4a84-86b5-1c96ce5be960";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s";
 			};
@@ -1060,9 +1061,9 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iOS Development: Irina Krayneva (9SGDRUHU9C)";
-				"CODE_SIGN_IDENTITY[sdk=*]" = "iOS Development: Irina Krayneva (9SGDRUHU9C)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iOS Development: Irina Krayneva (9SGDRUHU9C)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Irina Krayneva (GB8RX7AHPD)";
+				"CODE_SIGN_IDENTITY[sdk=*]" = "iPhone Developer: Irina Krayneva (GB8RX7AHPD)";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer: Irina Krayneva (GB8RX7AHPD)";
 				DEPLOYMENT_LOCATION = NO;
 				DEPLOYMENT_POSTPROCESSING = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -1095,7 +1096,7 @@
 					"-weak-lSystem",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "312f1282-eb97-4dee-9191-1d0e4e845a2f";
+				PROVISIONING_PROFILE = "a9e4f8cf-26ce-4a84-86b5-1c96ce5be960";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				USER_HEADER_SEARCH_PATHS = "";
@@ -1113,7 +1114,7 @@
 				CLANG_WARN_ENUM_CONVERSION = YES;
 				CLANG_WARN_INT_CONVERSION = YES;
 				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
-				CODE_SIGN_IDENTITY = "iOS Development: Irina Krayneva (9SGDRUHU9C)";
+				CODE_SIGN_IDENTITY = "iPhone Developer: Irina Krayneva (GB8RX7AHPD)";
 				DEPLOYMENT_LOCATION = NO;
 				DEPLOYMENT_POSTPROCESSING = NO;
 				GCC_C_LANGUAGE_STANDARD = c99;
@@ -1146,7 +1147,7 @@
 					"-weak-lSystem",
 					"-ObjC",
 				);
-				PROVISIONING_PROFILE = "312f1282-eb97-4dee-9191-1d0e4e845a2f";
+				PROVISIONING_PROFILE = "a9e4f8cf-26ce-4a84-86b5-1c96ce5be960";
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				USER_HEADER_SEARCH_PATHS = "";
