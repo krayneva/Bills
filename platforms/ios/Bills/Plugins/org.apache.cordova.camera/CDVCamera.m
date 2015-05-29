@@ -330,34 +330,8 @@ static NSSet* org_apache_cordova_validArrowDirections;
                         [[self locationManager] startUpdatingLocation];
                         return;
                     }
-               }
-            }
-            
-            
-            data = UIImageJPEGRepresentation(returnedImage, cameraPicker.quality / 100.0f);
-            
-            //     if (cameraPicker.usesGeolocation) {
-            NSDictionary *controllerMetadata = [info objectForKey:@"UIImagePickerControllerMediaMetadata"];
-            if (controllerMetadata) {
-                self.data = data;
-                self.metadata = [[NSMutableDictionary alloc] init];
-                
-                NSMutableDictionary *EXIFDictionary = [[controllerMetadata objectForKey:(NSString *)kCGImagePropertyExifDictionary]mutableCopy];
-                if (EXIFDictionary)	[self.metadata setObject:EXIFDictionary forKey:(NSString *)kCGImagePropertyExifDictionary];
-                
-                if (IsAtLeastiOSVersion(@"6.0")) {
-                    [[self locationManager] performSelector:NSSelectorFromString(@"requestWhenInUseAuthorization") withObject:nil afterDelay:0];
                 }
-                [[self locationManager] startUpdatingLocation];
-                return;
             }
-
-            
-            
-            
-            
-            
-            
             
             if (cameraPicker.saveToPhotoAlbum) {
                 ALAssetsLibrary *library = [ALAssetsLibrary new];
@@ -658,7 +632,7 @@ static NSSet* org_apache_cordova_validArrowDirections;
     CDVPluginResult* result = nil;
     
     if (self.metadata) {
-        CGImageSourceRef sourceImage = CGImageSourceCreateWithData((__bridge_retained CFDataRef)self.data, NULL);
+        CGImageSourceRef sourceImage = CGImageSourceCreateWithData((__bridge CFDataRef)self.data, NULL);
         CFStringRef sourceType = CGImageSourceGetType(sourceImage);
         
         CGImageDestinationRef destinationImage = CGImageDestinationCreateWithData((__bridge CFMutableDataRef)self.data, sourceType, 1, NULL);

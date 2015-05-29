@@ -122,5 +122,8 @@ com.appblade.cordova.plugin,com.performanceactive.plugins.camera,org.apache.cord
 
 Error retrieving Android platform information: Error: android: Command failed with exit code ENOENT
 
-Error retrieving iOS platform information: Error: xcodebuild: Command failed with exit code ENOENT
+iOS platform:
+
+Xcode 6.2
+Build version 6C131e
 
