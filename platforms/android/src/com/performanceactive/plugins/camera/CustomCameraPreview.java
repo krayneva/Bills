@@ -1,6 +1,3 @@
-/**
- *
- */
 package com.performanceactive.plugins.camera;
 
 import android.content.Context;
@@ -14,9 +11,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-/**
- *
- */
+
 public class CustomCameraPreview extends SurfaceView implements SurfaceHolder.Callback {
 
     private static final String TAG = CustomCameraPreview.class.getSimpleName();

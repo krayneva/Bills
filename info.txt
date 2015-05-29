@@ -5,7 +5,7 @@ Cordova version: 5.0.0
 Config.xml file: 
 
 <?xml version='1.0' encoding='utf-8'?>
-<widget id="ru.krayneva.bills" version="1.0.0" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
+<widget id="com.checkomatic" version="1.1.8" xmlns="http://www.w3.org/ns/widgets" xmlns:gap="http://phonegap.com/ns/1.0">
     <name>Bills</name>
     <description>
         Application for financial accounting
@@ -122,8 +122,5 @@ com.appblade.cordova.plugin,com.performanceactive.plugins.camera,org.apache.cord
 
 Error retrieving Android platform information: Error: android: Command failed with exit code ENOENT
 
-iOS platform:
-
-Xcode 6.2
-Build version 6C131e
+Error retrieving iOS platform information: Error: xcodebuild: Command failed with exit code ENOENT
 

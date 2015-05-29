@@ -66,9 +66,8 @@ import java.util.List;
 
 import com.appblade.framework.AppBlade;
 
-import ru.krayneva.bills.R;
+import com.checkomatic.R;
 
-import static android.hardware.Camera.Parameters.FLASH_MODE_OFF;
 import static android.hardware.Camera.Parameters.FOCUS_MODE_AUTO;
 import static android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE;
 
@@ -90,7 +89,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     
     
     
-    // возвращаемые параметры
+
     public static String IMAGE_URI = "ImageUri";
     public static String LATITUDE = "Latitude";
     public static String LONGITUDE = "Longitude";
@@ -168,7 +167,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         	  cameraSettings.setFlashMode(android.hardware.Camera.Parameters.FLASH_MODE_ON);
         }
         else{
-        	  cameraSettings.setFlashMode(FLASH_MODE_OFF);
+        	  cameraSettings.setFlashMode(android.hardware.Camera.Parameters.FLASH_MODE_OFF);
         }
         List <Size> sizes = cameraSettings.getSupportedPictureSizes();
         Size maxSize = sizes.get(0);
@@ -276,7 +275,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     
 
 	private void createShadowLayer(){
-        // затемнение областей
+      
     	int margin = 0;
          int marginInDP =0;
         controlsLayout = new RelativeLayout(this);
@@ -436,19 +435,17 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         
     }
     
-	/**
-	 * обновление частей интерфейса, которые изменяются в зависимости от колва фоток
-	 */
+	
 	private void updateDynamicLayout(){
 		if (bitmaps.size()==0){
-			billText.setText("Фото чека");
+			billText.setText("пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ");
 			recaptureButton.setVisibility(View.GONE);
 			sendButton.setVisibility(View.GONE);
 			previousImage.setVisibility(View.GONE);
 		}
 		else{
 			previousImage.setVisibility(View.VISIBLE);
-			billText.setText("Продолжение чека");
+			billText.setText("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ");
 			recaptureButton.setVisibility(View.VISIBLE);
 			sendButton.setVisibility(View.VISIBLE);
 			if (previousBitmap!=null){
@@ -477,9 +474,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 		
 	}
     
-    /**
-     * создание нижней панели с кнопками
-     */
+
     private LinearLayout createPanelLayout(){
     	panelLayout = new LinearLayout(this);
     	captureButton = new ImageButton(this);
@@ -813,11 +808,11 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
                 Log.w("top margin corrected", ""+topMarginCorrected);
 
                 
-                // обрезаем битмапу
+                
                 Bitmap croppedBitmap = Bitmap.createBitmap(capturedImage, leftMarginCorrected , topMarginCorrected, impWidth,impHeight);
                 capturedImage.recycle();
                 System.gc();
-                // складываем ее в список
+                
                 bitmaps.add(bitmaps.size()+filename); 
                 File file = new File(Environment.getExternalStorageDirectory(), bitmaps.get(bitmaps.size()-1));
                 FileOutputStream output = new FileOutputStream(file);
