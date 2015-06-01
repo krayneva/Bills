@@ -429,6 +429,7 @@ function updateTransactionInfoPage(){
 			//alert(JSON.stringify(bought))	  ;
 
 			 // alert ("ID of shopList: "+res.rows.item(0).id);
+			if (itemsJSON!=null){
 			console.log("Start running through itemsJSON,count:  "+itemsJSON.length);
 			for (var k=0; k<itemsJSON.length; k++) {
 				console.log("Running through itemsJSON "+k);
@@ -523,7 +524,7 @@ function updateTransactionInfoPage(){
 					 });
 	       		  }
 			}
-			
+			}
 			
 			 $('#ShopListList').listview('refresh');
 			 $('#alreadyBoughtList').listview('refresh');

@@ -129,6 +129,9 @@
         "org.apache.cordova.splashscreen": {},
         "org.apache.cordova.device": {
             "PACKAGE_NAME": "ru.krayneva.bills"
+        },
+        "cordova-plugin-crosswalk-webview": {
+            "PACKAGE_NAME": "com.checkomatic"
         }
     },
     "dependent_plugins": {}

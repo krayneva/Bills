@@ -23,6 +23,11 @@
     <feature name="Device">
         <param name="android-package" value="org.apache.cordova.device.Device" />
     </feature>
+    <preference name="webView" value="org.crosswalk.engine.XWalkWebViewEngine" />
+    <feature name="Whitelist">
+        <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
+        <param name="onload" value="true" />
+    </feature>
     <name>Bills</name>
     <description>
         Application for financial accounting
@@ -47,7 +52,8 @@
     <preference name="android-minSdkVersion" value="10" />
     <preference name="android-installLocation" value="auto" />
     <preference name="DisallowOverScroll" value="true" />
-    <preference name="android-windowSoftInputMode" value="adjustPan" />
+    <preference name="android-windowSoftInputMode" value="adjustResize" />
+    <preference name="xwalkVersion" value="13+" />
     <gap:plugin name="org.apache.cordova.battery-status" />
     <gap:plugin name="org.apache.cordova.camera" />
     <gap:plugin name="org.apache.cordova.media-capture" />

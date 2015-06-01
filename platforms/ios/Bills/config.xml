@@ -61,7 +61,8 @@
     <preference name="android-minSdkVersion" value="10" />
     <preference name="android-installLocation" value="auto" />
     <preference name="DisallowOverScroll" value="true" />
-    <preference name="android-windowSoftInputMode" value="adjustPan" />
+    <preference name="android-windowSoftInputMode" value="adjustResize" />
+    <preference name="xwalkVersion" value="13+" />
     <gap:plugin name="org.apache.cordova.battery-status" />
     <gap:plugin name="org.apache.cordova.camera" />
     <gap:plugin name="org.apache.cordova.media-capture" />
