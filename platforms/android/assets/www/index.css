@@ -674,6 +674,7 @@ label{
 .expenses_item {
     position: relative;
     color: #59a6b2  !important;
+    width:100% !important;
 }
 .expenses_item > hr {
     position: absolute;

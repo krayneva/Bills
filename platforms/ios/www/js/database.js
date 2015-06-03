@@ -229,8 +229,8 @@
     /** добавление данных о транзакциях пользователя
      * @param transaction
      */
-    function addTransaction(id,transactionJSON, purseID, transactionDate, categoryID){
-    	
+    function addTransaction(i,json,id,transactionJSON, purseID, transactionDate, categoryID){
+    	var deferred = $.Deferred();
     	var sql=  "INSERT OR REPLACE INTO Transactions (id, transactionJSON, purseID,transactionDate, categoryID) " +
 		" values ("
 		+"'"+id+"',"
@@ -245,10 +245,34 @@
         		sql
         		);},
         		function onError(error){
-    		    	console.log("Error trying to add transaction!"+error.message);
+    		    	console.log("Error trying to add transaction!");
     		    	console.log("SQL: "+sql);
-    		    }, onSuccess);
+    		    	deferred.resolve(i,json);
+    		    }, function onSuccess(res){
+    		    	deferred.resolve(i,json);
+    		    });
+        return deferred;
    }
+    
+    
+    function addSeveralTransactions(json,i, deferred){
+    	if (deferred==undefined) deferred = $.Deferred();
+       	var transaction = json[i];
+       	var id = transaction.Id;
+    	var purseID = transaction.PurseID;
+    	var transactionDate = transaction.TransactionDate;
+    	var categoryID = transaction.CategoryID;
+       	addTransaction(i,json,id,JSON.stringify(transaction), purseID, transactionDate, categoryID).done(function(i, json){
+       		if (i==json.length-1) {
+  	   			deferred.resolve(''); 
+  	   			return deferred;
+  	   		}
+  	   		else{
+  	   			addSeveralTransactions(json, i+1, deferred);
+  	   		}
+  	   	});
+     	return deferred;
+    }
     
     /**
      * получение всех транзацкций
@@ -335,7 +359,7 @@
     	return deferred;
     }
     
-    function addShopList(id,name, accountID,createdAt, fullJSON, itemsJSON){
+    function addShopList(i,json,id,name, accountID,createdAt, fullJSON, itemsJSON){
         // таблица для списка покупок
      	/*Пользователь может иметь несколько списков продуктов, идентифицируемых по ObjectId,  Name.
      	   В БД SQLite необходимо сделать табличку для хранения таких объектов.
@@ -352,7 +376,7 @@
      /*  +'(id integer primary key,name, createdAt, fullJSON, itemsJSON)');
  		*/
 
-    	
+    	var deferred = $.Deferred();
     	 db.transaction(
     	   function(transaction) { 
     	   		transaction.executeSql(
@@ -365,10 +389,37 @@
     	       		+"'"+fullJSON+"',"
     	       		+"'"+itemsJSON+"')"
     	   		);},
-    	     onSuccess,function onError(error){
+    	     function onError(error){
     		    	console.log("Error trying to add transaction!"+error.message);
-    		    	console.log("SQL: "+sql);
+    		    	deferred.resolve(i, json);
+    		    },function onSuccess(){
+    		    	deferred.resolve(i, json);
     		    });
+    	 return deferred;
+    }
+    
+    
+    
+    function addSeveralShopLists(json, i, deferred){
+    	if (deferred==undefined) deferred = $.Deferred();
+ 		  var shopList = json[i];
+   		  var id = shopList.Id;
+   		  var name = shopList.Name;
+   		  var createdAt = shopList.CreatedAt;
+   		  var accountID = shopList.AccountID;
+   		  var itemsJSON = JSON.stringify(shopList.Items);
+   		  var fullJSON = JSON.stringify(shopList);
+   		  
+   		addShopList(i, json,id,name, accountID,createdAt, fullJSON, itemsJSON).done(function(i, json){
+	   			if (i==json.length-1) {
+	   				deferred.resolve(''); 
+	   				return deferred;
+	   			}
+	   			else{
+	   				addSeveralShopLists(json, i+1, deferred);
+	   			}
+	   		});
+   		return deferred;
     }
     
     
@@ -587,7 +638,7 @@
       		        		function(transaction, result) {
       		        	deferred.resolve(result);
         		    }, function onError(error){
-        		    	console.log("Error trying to add to shop list!"+error.message);
+        		    	console.log("Error trying to add to shop list!");
         		    	console.log("SQL: "+sql);
         		    });
       		 });    	
@@ -621,8 +672,7 @@
           		        		function(transaction, result) {
           		        	deferred.resolve(result);
             		    }, function onError(error){
-            		    	console.log("Error trying to remove from shop lisr!"+error.message);
-            		    	console.log("SQL: "+sql);
+            		    	console.log("Error trying to remove from shop lisr!");
             		    });
           		 });    	
     	});
@@ -640,8 +690,8 @@
           		        		function(transaction, result) {
           		        	deferred.resolve(result);
             		    }, function onError(error){
-            		    	console.log("Error trying to remove from shop lisr!"+error.message);
-            		    	console.log("SQL: "+sql);
+            		    	console.log("Error trying to remove from shop list!");
+
             		    });
           		 });    	
     	return deferred;
@@ -656,8 +706,7 @@
       		        	var count = result.rows.item(0).count;
       		        	deferred.resolve(count);
         		    }, function onError(error){
-        		    	console.log("Error trying to get count of shop lists!"+error.message);
-        		    	console.log("SQL: "+sql);
+        		    	console.log("Error trying to get count of shop lists!");
         		    });
       		 });    	
 	return deferred;
@@ -706,10 +755,10 @@
 	    	       		+"'"+soundTranscription+"',"
 	    	       		+"'"+json+"')"
 	    	   		);},
-	    	     onSuccess,function onError(error){
-	    		    	console.log("Error trying to add good item!"+error.message);
-	    		    	console.log("SQL: "+sql);
-	    		    });
+	    	     function onError(error){
+	    		    	console.log("Error trying to add good item!");
+
+	    		    },onSuccess);
     }
     // таблица единиц измерения
  /*   tx.executeSql('CREATE TABLE IF NOT EXISTS Measures' 
@@ -725,10 +774,9 @@
   	    	       		+index+","
   	    	       		+"'"+name+"')"
   	    	   		);},
-  	    	     onSuccess,function onError(error){
-  	    		    	console.log("Error trying to add measure item!"+error.message);
-  	    		    	console.log("SQL: "+sql);
-  	    		    });
+  	    	     function onError(error){
+  	    		    	console.log("Error trying to add measure item!");
+  	    		    },onSuccess);
     }
     
     

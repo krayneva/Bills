@@ -477,7 +477,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 
     private LinearLayout createPanelLayout(){
     	panelLayout = new LinearLayout(this);
-    	captureButton = new ImageButton(this);
+    	
     	int buttonSize =  dpToPixels(MARGIN_BIG);
         if (isXLargeScreen()) {
         	buttonSize = dpToPixels(MARGIN_BIG);
@@ -491,12 +491,26 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     	
     	LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(buttonSize, buttonSize);
     	buttonParams.setMargins(20, 0, 20, 0);
-    	//setBitmap(captureButton, "camera_brown.png");
-    	setBitmap(captureButton, "camera393.png");
     	
+    	recaptureButton = new ImageButton(this);
+        setBitmap(recaptureButton, "esc256.png");
+      	recaptureButton.setBackgroundColor(Color.TRANSPARENT);
+      	recaptureButton.setScaleType(ScaleType.CENTER_INSIDE);
+        recaptureButton.setOnClickListener(new View.OnClickListener() {
+              @Override
+               public void onClick(View v) {
+              		recaptureLast();
+                  }
+              });
+              
+              panelLayout.addView(recaptureButton, buttonParams);
+    	
+    	
+    	
+        captureButton = new ImageButton(this);
+    	setBitmap(captureButton, "camera393.png");
         captureButton.setBackgroundColor(Color.TRANSPARENT);
         captureButton.setScaleType(ScaleType.CENTER_INSIDE);
-    	
         captureButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -512,7 +526,6 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         });
         
         panelLayout.addView(captureButton, buttonParams);
-        
         sendButton = new ImageButton(this);
     	setBitmap(sendButton, "send256.png");
     	sendButton.setBackgroundColor(Color.TRANSPARENT);
@@ -531,22 +544,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         		sendPicture();
             }
         });
-        
         panelLayout.addView(sendButton, buttonParams);
-        
-        recaptureButton = new ImageButton(this);
-    	//setBitmap(recaptureButton, "cancel_red.png");
-        setBitmap(recaptureButton, "esc256.png");
-    	recaptureButton.setBackgroundColor(Color.TRANSPARENT);
-    	recaptureButton.setScaleType(ScaleType.CENTER_INSIDE);
-        recaptureButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-             public void onClick(View v) {
-            		recaptureLast();
-                }
-            });
-            
-            panelLayout.addView(recaptureButton, buttonParams);
     	return panelLayout;
     }
     

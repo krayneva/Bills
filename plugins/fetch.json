@@ -21,5 +21,22 @@
         },
         "is_top_level": true,
         "variables": {}
+    },
+    "com.ionic.keyboard": {
+        "source": {
+            "type": "registry",
+            "id": "com.ionic.keyboard"
+        },
+        "is_top_level": true,
+        "variables": {}
+    },
+    "com.appblade.cordova.plugin": {
+        "source": {
+            "type": "git",
+            "url": "https://github.com/AppBlade/SDK-Phonegap-Plugin.git",
+            "subdir": "."
+        },
+        "is_top_level": true,
+        "variables": {}
     }
 }

@@ -6,7 +6,10 @@ function updateLoginPage(){
 	getSetting(SETTING_USER_PASSWORD, USER_PASSWORD_DEFAULT).done(function(res){
 		document.getElementById('password').value= res;
 	});
+
 	
+	
+    
 	 if ( $("#login").length==0)$('#login').focus();
 	 else
 		 $('#login_button').focus();
@@ -23,13 +26,33 @@ function updateLoginPage(){
 	 	    }
 	 	  });
 	 	 
-	 
+	 /*
+	   $("#login").bind('focus', function(e){
+		  currentBottom = $("#pageAuth").height()-$("#login").offset().top-$("#login").height();
+		  if ((keyboardHeight!=0)&(($("#login").offset.top()+$("#login").height())>($("#pageAuth").height()-keyboardHeight-100)))
+		   		$("#pageAuth").css({'top': -keyboardHeight-100});
+	   });
+	   
+	   $("#login").bind('blur', function(e){
+		   $("#pageAuth").css({'top': 0});
+	 	 });
+
+	   
+	   $("#password").bind('focus', function(e){
+		  if ((keyboardHeight!=0)&(($("#password").offset.top()+$("#password").height())>($("#pageAuth").height()-keyboardHeight-100)))
+	   		$("#pageAuth").css({'top': -keyboardHeight-100});
+
+	   });
+	   
+	   $("#password").bind('blur', function(e){
+		   $("#pageAuth").css({'top': 0});
+	   });
+	*/
+ 	   
 
 	  $('#password').bind("keydown", function(e) {
-		     if (e.which == 13) 
-		 	    { //Enter key
-		 	      e.preventDefault(); //Skip default behavior of the enter key
-		 	      	$('#password').blur();
+		     if (e.which == 13) { 
+		 	      e.preventDefault();
 		 	        $('#login_button').click();
 		 	    }
 		 	  });
@@ -48,6 +71,7 @@ function requestAndUpdateMainPage(){
 
 function updateMainPage(){
 		getUserEnvironment().done(function(res){
+			if (debugMode==true)
 			console.log("Update main page json :"+res);
 			if (res==="") {
 				console.log("updateMainPage: requesting environment From server");
@@ -109,9 +133,10 @@ function requestAndUpdateTransactionPage(){
 	requestTransactions().done(function(){
 	//	alert("Requesting transactions!");
 		updateTransactionPage().done(function(){
+		//	$('#expensesList').listview('refresh');
+
+			 //$('#expensesList').trigger( "updatelayout");
 			deferred.resolve();
-			 $('#expensesList').listview('refresh');
-			 $('#expensesList').trigger( "updatelayout");
 		});
 	});
 	return deferred;
@@ -128,7 +153,7 @@ function updateTransactionPage(){
 		}
 	});
 	
-	  
+	//$('#expensesList').html('');
 	 var categoryID =  window.localStorage.getItem(CATEGORY_ID_KEY);
 	 getWidget(categoryID).done(function(result){
 		  var json = jQuery.parseJSON(result);
@@ -139,7 +164,7 @@ function updateTransactionPage(){
 		getTransactionsByCategoryID(categoryID).done(function(result){
 			
 			$('#expensesList').html('');
-		//	$('#expensesList').listview();
+			$('#expensesList').listview();
 			var start = +new Date();  // log start timestamp
 			
 			
@@ -240,10 +265,10 @@ function updateWidgets(){
 		
 		 widget.style.display = "block";
 		 widget.style.visibility = "visible";
-		 console.log("Setting categoryID for widget: "+w.VisualObjectId);
+		 //console.log("Setting categoryID for widget: "+w.VisualObjectId);
 		 widget.setAttribute("categoryID", w.VisualObjectId);
 		 var s = "showExpensesPage('"+ w.VisualObjectId+"')";
-		 console.log("Setting onclick categoryID "+s);
+		 //console.log("Setting onclick categoryID "+s);
 		 widget.setAttribute("onclick",s);
 		  var arr=widget.childNodes;
 		  for (var i=0;i<arr.length;i++){
@@ -251,39 +276,41 @@ function updateWidgets(){
 	                   arr[i].innerHTML = w.Percent.replace(/\s/g, '');//+" "+w.Name;
 	            }
 	            if (arr[i].id == "icon"){
-	            	var src = "img/largeImages/";
-	            	console.log("GOT ICON IDENTIFIER "+w.IconIdentifier+" for kind "+w.Kind );
+	            	var src = "img/";
+	            	if (debugMode==true){
+	            		console.log("GOT ICON IDENTIFIER "+w.IconIdentifier+" for kind "+w.Kind );
+	            	}
 	            	switch(w.IconIdentifier){
 	            	
 		            	case "ico_purse":
-		            		src ="img/purse396.png";
+		            		src = src.concat("cash396.png");
 		            		break;
 		            	case "ico_food":
-		            		src = src.concat("food396/0.png");
+		            		src = src.concat("food396.png");
 		            		break;
 		            	case "ico_medicine":
-		            		src = src.concat("health396/0.png");
+		            		src = src.concat("medicine396.png");
 		            		break;
 		            	case "ico_education":
-		            		src = src.concat("education396/0.png");
+		            		src = src.concat("education396.png");
 		            		break;
 		            	case "ico_entertainment":
-		            		src ="img/entertainment396.png";
+		            		src = src.concat("entertainment396.png");
 		            		break;
 		            	case "ico_house":
-		            		src ="img/house396.png";
+		            		src = src.concat("house396.png");
 		            		break;
 		            	case "ico_auto":
-		            		src ="img/auto396.png";
+		            		src = src.concat("auto396.png");
 		            		break;
 		            	case "ico_other":
-		            		src ="img/other_396.png";
+		            		src = src.concat("house396.png");
 		            		break;
-		            	case "ico_wear":
-		            		src ="img/wear_396.png";
+		            	case "ico_clothing":
+		            		src = src.concat("clothing396.png");
 		            		break;
 		            	default:
-		            		src = src.concat("food396/0.png");
+		            		src = src.concat("food396.png");
 		            		console.log("GOT ICON IDENTIFIER "+w.IconIdentifier);
 		            		break;
 	            	}
@@ -376,11 +403,13 @@ function updateTransactionInfoPage(){
 		 
 		 getShopLists().done(function(res){
 			for (var i=0; i<res.rows.length; i++){
-				console.log("shop list num: "+i);
-				console.log("shop list id: "+res.rows.item(i).id);
-				console.log("shop list name: "+res.rows.item(i).name);
-				console.log("shop list fullJSOn: "+res.rows.item(i).fullJSON);
-				console.log("shop list itemJSON: "+res.rows.item(i).itemJSON);
+				if (debugMode==true){
+					console.log("shop list num: "+i);
+					console.log("shop list id: "+res.rows.item(i).id);
+					console.log("shop list name: "+res.rows.item(i).name);
+					console.log("shop list fullJSOn: "+res.rows.item(i).fullJSON);
+					console.log("shop list itemJSON: "+res.rows.item(i).itemJSON);
+				}
 			} 
 		 });
 		
@@ -440,12 +469,14 @@ function updateTransactionInfoPage(){
 	       		  var measure = item.Measure;
 	       		  var color = item.Color;
 	       		  var bought = item.bought;
-	       		  console.log('Item: '+k);
-	       		  console.log('Tag: '+tag);
-	       		  console.log('Value: '+value);
-	       		  console.log('Quantity: '+quantity);
-	       		  console.log('Measure: '+measure);
-	       		  console.log('Color: '+color);
+	       		  if (debugMode==true){
+		       		  console.log('Item: '+k);
+		       		  console.log('Tag: '+tag);
+		       		  console.log('Value: '+value);
+		       		  console.log('Quantity: '+quantity);
+		       		  console.log('Measure: '+measure);
+		       		  console.log('Color: '+color);
+	       		  }
 	       		  // товар еще в спсике некупленных
 	       		  console.log('Bought: '+bought);
 	       		if (bought=="0")	{
@@ -519,8 +550,7 @@ function updateTransactionInfoPage(){
 						 items[this.getAttribute("pos")].bought = "0";
 						 updateShopList(window.localStorage.getItem('ShopListID'), items);
 						 window.localStorage.setItem("ShopListAlreadyBought"+res.rows.item(currentShopList).id,JSON.stringify(items));
-						 console.log("updateShopListPage1");
-						 updateShopListsPage(true);
+						  updateShopListsPage(true);
 					 });
 	       		  }
 			}
@@ -540,7 +570,6 @@ function updateTransactionInfoPage(){
 						 items[this.getAttribute("pos")].bought = "1";
 						 updateShopList(window.localStorage.getItem('ShopListID'), items);
 						 window.localStorage.setItem("ShopListAlreadyBought"+res.rows.item(currentShopList).id,JSON.stringify(items));
-						 console.log("updateShopListPage1");
 						 updateShopListsPage(true);
 					 });
 			
@@ -587,6 +616,7 @@ function updateTransactionInfoPage(){
 	
 			 $('#autocomplete').listview('refresh');
 			 $(".autoLi").click(function(){
+			//	 alert("autoLiclick");
 				 var measureId = this.getAttribute("measure");
 				 var measure = MeasureEnum[measureId].valueRus;
 				 var amount = MeasureEnum[measureId].defaultAmount;
@@ -596,10 +626,25 @@ function updateTransactionInfoPage(){
 				 }
 				 $( "#inset-autocomplete-input").val(value);
 				 $( "#autocomplete").hide();
+				 $("#pageShopList").css({'top': 0});
 				 return false;
 			 });
 		 
 	
+	/*   $("#inset-autocomplete-input").bind('focus', function(e){
+		//   alert("focus event caught! "+keyboardHeight+" "+$("#inset-autocomplete-input").offset.top());
+		   alert("keyboardHeight: "+keyboardHeight);
+		 // if ((keyboardHeight!=0)&(($("#inset-autocomplete-input").offset.top()+$("#inset-autocomplete-input").height())>($("#pageShopList").height()-keyboardHeight-100)))
+				$("#pageShopList").css({'top': -keyboardHeight});
+		   });
+		   
+	   $("#inset-autocomplete-input").bind('blur', function(e){
+		   alert("blur");
+		   $("#pageShopList").css({'top': 0});
+		   return true;
+		 //  $( "#autocomplete").hide();
+		  });
+*/
 		 });
 	}
 	
@@ -615,11 +660,8 @@ function updateTransactionInfoPage(){
 		var row = $("#"+this.id);
 		 row.animate({left: $(window).width()},{duration:1000, 
 			 complete: function() {
-				  console.log("caught swipe event!");
-				   console.log("key of element: "+this.getAttribute("key"));
 				    removeFromShopList(window.localStorage.getItem('ShopListID'),this.getAttribute("key")).done(
 							function (res){
-								console.log("updateShopListPage3");
 								updateShopListsPage(true);
 							});
 		    }

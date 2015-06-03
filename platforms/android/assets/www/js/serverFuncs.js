@@ -263,7 +263,8 @@ function uploadPhoto() {
     	            success: function(response, textStatus, jqXHR) {
     	            //	alert("user environment success!");
     	             //  alert(jqXHR.responseText);
-    	               console.log("request user environment: "+jqXHR.responseText);
+    	            	if (debugMode==true)
+    	            		console.log("request user environment: "+jqXHR.responseText);
     	               //putSetting(SETTING_USER_ENVIRONMENT,jqXHR.responseText);
     	               addUserEnvironment(jqXHR.responseText);
     	           		var json = jQuery.parseJSON(jqXHR.responseText);
@@ -323,9 +324,9 @@ function uploadPhoto() {
                 },
     	            data: [],       
     	            success: function(response, textStatus, jqXHR) {
-    	               console.log(jqXHR.responseText);
+    	               if (debugMode==true)console.log(jqXHR.responseText);
     	           		var json = jQuery.parseJSON(jqXHR.responseText);
-    	           		for (var k in json) {
+    	           		/*for (var k in json) {
     	           		  var transaction = json[k];
     	           		  var id = transaction.Id;
      	           		  var purseID = transaction.PurseID;
@@ -333,8 +334,16 @@ function uploadPhoto() {
      	           		  var categoryID = transaction.CategoryID;
 	    	           	  addTransaction(id,JSON.stringify(transaction), purseID, transactionDate, categoryID);
     	           		}
-    	           		$.mobile.loading("hide");
-    	               deferred.resolve();
+    	           		*/
+	    	           	if (json.length>0)
+		    	           	  addSeveralTransactions(json,0,undefined).done(function(r){
+			    	           		$.mobile.loading("hide");
+			    	           		deferred.resolve();
+		    	           	  });
+	    	           	else{
+		    	           		$.mobile.loading("hide");
+		    	               deferred.resolve();
+	    	           	}
     	            },
     	            error: function(jqXHR, textStatus, errorThrown) {
     	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
@@ -385,24 +394,32 @@ function uploadPhoto() {
     	            data: [],       
     	            success: function(response, textStatus, jqXHR) {
     	            	deleteShopListsTable();
-    	               console.log(jqXHR.responseText);
+    	               if (debugMode==true)console.log(jqXHR.responseText);
     	           		var json = jQuery.parseJSON(jqXHR.responseText);
-    	           		for (var k in json) {
-    	           		  var shopList = json[k];
-    	           		//  alert("accountID: " +shopList.AccountID);
+    	           	//	for (var k in json) {
+
+    	           	/*	  var shopList = json[k];
     	           		  var id = shopList.Id;
     	           		  var name = shopList.Name;
     	           		  var createdAt = shopList.CreatedAt;
     	           		  var accountID = shopList.AccountID;
     	           		  var itemsJSON = JSON.stringify(shopList.Items);
     	           		  var fullJSON = JSON.stringify(shopList);
-	         	          addShopList(id,name, accountID,createdAt, fullJSON, itemsJSON);
-	     	           		  
+    	           		*/  
+
+    	           			
+    	           		if (json.length>0)
+    	           		  addSeveralShopLists(json,0, undefined).done(function(r){
+    	    	           		$.mobile.loading("hide");
+    	    	           		deferred.resolve();
+    	           		  });
+    	           		else{
+    	           			$.mobile.loading("hide");
+	    	           		deferred.resolve();
     	           		}
-    	           		//alert(jqXHR.responseText);
-    	           		$.mobile.loading("hide");
-    	           		
-    	           		deferred.resolve();
+    	           			
+	         	          //addShopList(id,name, accountID,createdAt, fullJSON, itemsJSON);
+
     	            },
     	            error: function(jqXHR, textStatus, errorThrown) {
     	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
@@ -414,8 +431,7 @@ function uploadPhoto() {
                       		   $.mobile.loading("hide");
                       		   deferred.resolve();
                       	   }
-
-                    	   });
+                   	   });
     	            }
     	        });
     		});
@@ -432,7 +448,6 @@ function uploadPhoto() {
     	});
     	
     	var deferred = $.Deferred();
-    	var deferred = $.Deferred();
     	getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
     		var log = login;
     		getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
@@ -442,8 +457,8 @@ function uploadPhoto() {
     		var serverAddress = res;
     		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
     		var userToken = uToken;
-    		console.log("requestTransactionsURL server address: "+serverAddress+getProductListsURL);
-    		console.log("requestTransactionsURL user token: "+userToken);
+    		console.log("sendShopList server address: "+serverAddress+getProductListsURL);
+    		console.log("sendShopList user token: "+userToken);
     		
     		// форимруем json списка продуктов для отправки на серевр
     		getShopList(listID).done(function(result){
@@ -474,7 +489,7 @@ function uploadPhoto() {
 	                },
 	    	            data: listJSON,       
 	    	            success: function(response, textStatus, jqXHR) {
-	    	               console.log(jqXHR.responseText);
+	    	              if (debugMode==true) console.log(jqXHR.responseText);
 	    	           var json = jQuery.parseJSON(jqXHR.responseText);
 	    	           //		alert("status: "+textStatus);
 	    	           		res = jqXHR.responseText.replace(/"/g,"");
@@ -566,7 +581,7 @@ function uploadPhoto() {
  	            data: [],       
  	            success: function(response, textStatus, jqXHR) {
  	            	deleteGoodItemsTable();
- 	               console.log(jqXHR.responseText);
+ 	               if(debugMode==true)console.log(jqXHR.responseText);
  	               
  	           		var json = jQuery.parseJSON(jqXHR.responseText);
  	           		for (var k in json) {
@@ -632,7 +647,7 @@ function uploadPhoto() {
   	            data: [],       
   	            success: function(response, textStatus, jqXHR) {
   	            	deleteGoodMeasuresTable();
-  	               console.log(jqXHR.responseText);
+  	               if (debugMode==true)console.log(jqXHR.responseText);
   	           		var json = jQuery.parseJSON(jqXHR.responseText);
   	           		for (var k in json) {
   	           		  var item = json[k];

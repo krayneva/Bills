@@ -91,6 +91,10 @@
                         {
                             "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Keyboard\"><param name=\"ios-package\" onload=\"true\" value=\"IonicKeyboard\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -131,6 +135,9 @@
             "PACKAGE_NAME": "ru.krayneva.bills"
         },
         "cordova-plugin-crosswalk-webview": {
+            "PACKAGE_NAME": "com.checkomatic"
+        },
+        "com.ionic.keyboard": {
             "PACKAGE_NAME": "com.checkomatic"
         }
     },

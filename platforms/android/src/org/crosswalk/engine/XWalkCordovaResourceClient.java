@@ -190,6 +190,7 @@ public class XWalkCordovaResourceClient extends XWalkResourceClient {
 
         // Convert the XWalk error code to Cordova error code, which follows the Android spec,
         // http://developer.android.com/reference/android/webkit/WebViewClient.html.
+        
         errorCode = XWalkCordovaResourceClient.convertErrorCode(errorCode);
         parentEngine.client.onReceivedError(errorCode, description, failingUrl);
     }
