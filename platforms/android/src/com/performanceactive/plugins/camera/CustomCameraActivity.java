@@ -66,9 +66,8 @@ import java.util.List;
 
 import com.appblade.framework.AppBlade;
 
-import ru.krayneva.bills.R;
+import com.checkomatic.R;
 
-import static android.hardware.Camera.Parameters.FLASH_MODE_OFF;
 import static android.hardware.Camera.Parameters.FOCUS_MODE_AUTO;
 import static android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE;
 
@@ -90,7 +89,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     
     
     
-    // возвращаемые параметры
+
     public static String IMAGE_URI = "ImageUri";
     public static String LATITUDE = "Latitude";
     public static String LONGITUDE = "Longitude";
@@ -168,7 +167,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         	  cameraSettings.setFlashMode(android.hardware.Camera.Parameters.FLASH_MODE_ON);
         }
         else{
-        	  cameraSettings.setFlashMode(FLASH_MODE_OFF);
+        	  cameraSettings.setFlashMode(android.hardware.Camera.Parameters.FLASH_MODE_OFF);
         }
         List <Size> sizes = cameraSettings.getSupportedPictureSizes();
         Size maxSize = sizes.get(0);
@@ -276,7 +275,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     
 
 	private void createShadowLayer(){
-        // затемнение областей
+      
     	int margin = 0;
          int marginInDP =0;
         controlsLayout = new RelativeLayout(this);
@@ -436,19 +435,17 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         
     }
     
-	/**
-	 * обновление частей интерфейса, которые изменяются в зависимости от колва фоток
-	 */
+	
 	private void updateDynamicLayout(){
 		if (bitmaps.size()==0){
-			billText.setText("Фото чека");
+			billText.setText("Р¤РѕС‚Рѕ С‡РµРєР°");
 			recaptureButton.setVisibility(View.GONE);
 			sendButton.setVisibility(View.GONE);
 			previousImage.setVisibility(View.GONE);
 		}
 		else{
 			previousImage.setVisibility(View.VISIBLE);
-			billText.setText("Продолжение чека");
+			billText.setText("РџСЂРѕРґРѕР»Р¶РµРЅРёРµ С‡РµРєР°");
 			recaptureButton.setVisibility(View.VISIBLE);
 			sendButton.setVisibility(View.VISIBLE);
 			if (previousBitmap!=null){
@@ -477,12 +474,10 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 		
 	}
     
-    /**
-     * создание нижней панели с кнопками
-     */
+
     private LinearLayout createPanelLayout(){
     	panelLayout = new LinearLayout(this);
-    	captureButton = new ImageButton(this);
+    	
     	int buttonSize =  dpToPixels(MARGIN_BIG);
         if (isXLargeScreen()) {
         	buttonSize = dpToPixels(MARGIN_BIG);
@@ -496,12 +491,26 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     	
     	LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(buttonSize, buttonSize);
     	buttonParams.setMargins(20, 0, 20, 0);
-    	//setBitmap(captureButton, "camera_brown.png");
-    	setBitmap(captureButton, "camera393.png");
     	
+    	recaptureButton = new ImageButton(this);
+        setBitmap(recaptureButton, "esc256.png");
+      	recaptureButton.setBackgroundColor(Color.TRANSPARENT);
+      	recaptureButton.setScaleType(ScaleType.CENTER_INSIDE);
+        recaptureButton.setOnClickListener(new View.OnClickListener() {
+              @Override
+               public void onClick(View v) {
+              		recaptureLast();
+                  }
+              });
+              
+              panelLayout.addView(recaptureButton, buttonParams);
+    	
+    	
+    	
+        captureButton = new ImageButton(this);
+    	setBitmap(captureButton, "camera393.png");
         captureButton.setBackgroundColor(Color.TRANSPARENT);
         captureButton.setScaleType(ScaleType.CENTER_INSIDE);
-    	
         captureButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -517,7 +526,6 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         });
         
         panelLayout.addView(captureButton, buttonParams);
-        
         sendButton = new ImageButton(this);
     	setBitmap(sendButton, "send256.png");
     	sendButton.setBackgroundColor(Color.TRANSPARENT);
@@ -536,22 +544,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         		sendPicture();
             }
         });
-        
         panelLayout.addView(sendButton, buttonParams);
-        
-        recaptureButton = new ImageButton(this);
-    	//setBitmap(recaptureButton, "cancel_red.png");
-        setBitmap(recaptureButton, "esc256.png");
-    	recaptureButton.setBackgroundColor(Color.TRANSPARENT);
-    	recaptureButton.setScaleType(ScaleType.CENTER_INSIDE);
-        recaptureButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-             public void onClick(View v) {
-            		recaptureLast();
-                }
-            });
-            
-            panelLayout.addView(recaptureButton, buttonParams);
     	return panelLayout;
     }
     
@@ -813,11 +806,11 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
                 Log.w("top margin corrected", ""+topMarginCorrected);
 
                 
-                // обрезаем битмапу
+                
                 Bitmap croppedBitmap = Bitmap.createBitmap(capturedImage, leftMarginCorrected , topMarginCorrected, impWidth,impHeight);
                 capturedImage.recycle();
                 System.gc();
-                // складываем ее в список
+                
                 bitmaps.add(bitmaps.size()+filename); 
                 File file = new File(Environment.getExternalStorageDirectory(), bitmaps.get(bitmaps.size()-1));
                 FileOutputStream output = new FileOutputStream(file);

@@ -223,6 +223,13 @@ module.exports = [
         "clobbers": [
             "device"
         ]
+    },
+    {
+        "file": "plugins/com.ionic.keyboard/www/keyboard.js",
+        "id": "com.ionic.keyboard.keyboard",
+        "clobbers": [
+            "cordova.plugins.Keyboard"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -235,7 +242,9 @@ module.exports.metadata =
     "org.apache.cordova.network-information": "0.2.14",
     "com.appblade.cordova.plugin": "0.9.0",
     "org.apache.cordova.splashscreen": "0.3.5",
-    "org.apache.cordova.device": "0.3.0"
+    "org.apache.cordova.device": "0.3.0",
+    "cordova-plugin-crosswalk-webview": "1.2.0",
+    "com.ionic.keyboard": "1.0.4"
 }
 // BOTTOM OF METADATA
 });

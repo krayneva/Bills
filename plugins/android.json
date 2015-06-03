@@ -29,11 +29,23 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"AppBlade\"><param name=\"android-package\" value=\"ru.krayneva.bills.AppBladePlugin\" /></feature>",
+                            "xml": "<feature name=\"AppBlade\"><param name=\"android-package\" value=\"com.checkomatic.AppBladePlugin\" /></feature>",
                             "count": 1
                         },
                         {
                             "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<preference name=\"webView\" value=\"org.crosswalk.engine.XWalkWebViewEngine\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Whitelist\"><param name=\"android-package\" value=\"org.apache.cordova.whitelist.WhitelistPlugin\" /><param name=\"onload\" value=\"true\" /></feature>",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Keyboard\"><param name=\"android-package\" value=\"com.ionic.keyboard.IonicKeyboard\" /><param name=\"onload\" value=\"true\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -75,26 +87,35 @@
     },
     "installed_plugins": {
         "com.appblade.cordova.plugin": {
-            "PACKAGE_NAME": "ru.krayneva.bills"
+            "PACKAGE_NAME": "com.checkomatic"
         },
         "com.performanceactive.plugins.camera": {
-            "PACKAGE_NAME": "ru.krayneva.bills"
+            "PACKAGE_NAME": "com.checkomatic"
         },
         "org.apache.cordova.camera": {
-            "PACKAGE_NAME": "ru.krayneva.bills"
+            "PACKAGE_NAME": "com.checkomatic"
         },
         "org.apache.cordova.file": {
-            "PACKAGE_NAME": "ru.krayneva.bills"
+            "PACKAGE_NAME": "com.checkomatic"
         },
         "org.apache.cordova.file-transfer": {
-            "PACKAGE_NAME": "ru.krayneva.bills"
+            "PACKAGE_NAME": "com.checkomatic"
         },
         "org.apache.cordova.network-information": {
-            "PACKAGE_NAME": "ru.krayneva.bills"
+            "PACKAGE_NAME": "com.checkomatic"
         },
         "org.apache.cordova.splashscreen": {},
         "org.apache.cordova.device": {
-            "PACKAGE_NAME": "ru.krayneva.bills"
+            "PACKAGE_NAME": "com.checkomatic"
+        },
+        "cordova-plugin-crosswalk-webview": {
+            "PACKAGE_NAME": "com.checkomatic"
+        },
+        "cordova-plugin-whitelist": {
+            "PACKAGE_NAME": "com.checkomatic"
+        },
+        "com.ionic.keyboard": {
+            "PACKAGE_NAME": "com.checkomatic"
         }
     },
     "dependent_plugins": {}

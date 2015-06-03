@@ -2,7 +2,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1 height=device-height">
 
-      <div id="pageExpenses"  data-role="page"   class="pull-page" >
+      <div id="pageExpenses"  data-role="page"    >
         <div class="background"></div>
       <!--    <div  data-role="header" data-position="fixed" data-tap-toggle="false" data-transition="none">
         <div class="topPanel">
@@ -19,7 +19,7 @@
         </div>
         
          -->
-        <div data-id="header" data-position="fixed" data-role="header" data-tap-toggle="false" data-transition="none">
+        <div class = "topBar" data-id="header" data-position="fixed" data-role="header" data-tap-toggle="false" data-transition="none">
         <div class="topPanel">
             <span> <a data-rel="back"><img class="topPanel_backButton" src="img/back.png" data-rel="back"/></a></span>
             <div class="topPanel_title" id="categoryTitle">Развлечения</div>
@@ -47,33 +47,27 @@
 
     <!--   <div class="expenses"> -->
     
-  <div data-role="content" data-iscroll=""  id="iscroll-wrapper" class ="expenses" >
-       <!-- <div data-role="content" data-iscroll="" class="expenses"> -->
-      
+<!--   <div data-role="content" data-iscroll=""  id="iscroll-wrapper" class ="expenses" >
          <div class="iscroll-pulldown">
           <span class="iscroll-pull-icon"></span>
        <span data-iscroll-pulled-text="Отпустите, чтобы обновить"
           data-iscroll-loading-text="Загрузка..."
           class="iscroll-pull-label">Потяните, чтобы обновить</span>
       </div>
-      
-       
-      
        <ul data-role="listview" id="expensesList"> 
-   
-			</ul>
-			
-			 
+		</ul>
 		<div class="iscroll-pullup">
         <span class="iscroll-pull-icon"></span>
         <span class="iscroll-pull-label"></span>
       </div>
-       	
        </div>
-
+ -->
        
        
-       
+       <div id="iscroll-wrapper" class ="expenses" >
+       <ul data-role="listview" id="expensesList"> 
+		</ul>
+       </div>
        
      
      <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-transition="none" class="foottopPanel" >
