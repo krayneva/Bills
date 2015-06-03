@@ -438,14 +438,14 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 	
 	private void updateDynamicLayout(){
 		if (bitmaps.size()==0){
-			billText.setText("���� ����");
+			billText.setText("Фото чека");
 			recaptureButton.setVisibility(View.GONE);
 			sendButton.setVisibility(View.GONE);
 			previousImage.setVisibility(View.GONE);
 		}
 		else{
 			previousImage.setVisibility(View.VISIBLE);
-			billText.setText("����������� ����");
+			billText.setText("Продолжение чека");
 			recaptureButton.setVisibility(View.VISIBLE);
 			sendButton.setVisibility(View.VISIBLE);
 			if (previousBitmap!=null){
