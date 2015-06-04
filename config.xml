@@ -104,7 +104,7 @@
     <access origin="*" />
         <content src="index.html" /> 
     <plugins> 
-        <plugin name="AppBlade" value="com.checkomatic.AppBladePlugin"/>
+        <plugin name="AppBlade" value="AppBladePlugin"/>
     </plugins>
     
 </widget>
