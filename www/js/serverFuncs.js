@@ -325,6 +325,7 @@ function uploadPhoto() {
     	            data: [],       
     	            success: function(response, textStatus, jqXHR) {
     	               if (debugMode==true)console.log(jqXHR.responseText);
+    	         //      alert(jqXHR.responseText);
     	           		var json = jQuery.parseJSON(jqXHR.responseText);
     	           		/*for (var k in json) {
     	           		  var transaction = json[k];

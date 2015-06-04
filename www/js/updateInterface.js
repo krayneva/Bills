@@ -571,6 +571,7 @@ function updateTransactionInfoPage(){
 						 updateShopList(window.localStorage.getItem('ShopListID'), items);
 						 window.localStorage.setItem("ShopListAlreadyBought"+res.rows.item(currentShopList).id,JSON.stringify(items));
 						 updateShopListsPage(true);
+						 return false;
 					 });
 			
 			 }

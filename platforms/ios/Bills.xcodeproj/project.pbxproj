@@ -30,14 +30,10 @@
 		30B4F30219D5E07200D9F7D8 /* Default-Landscape-736h.png in Resources */ = {isa = PBXBuildFile; fileRef = 30B4F2FF19D5E07200D9F7D8 /* Default-Landscape-736h.png */; };
 		30C1856619D5FC0A00212699 /* icon-60@3x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30C1856519D5FC0A00212699 /* icon-60@3x.png */; };
 		30FC414916E50CA1004E6F35 /* icon-72@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 30FC414816E50CA1004E6F35 /* icon-72@2x.png */; };
-		3591DE31BB9F4AA68FEEF2E4 /* AppBladeKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 609423BF20A24A15AA61E8F9 /* AppBladeKeys.plist */; };
 		478A2C8E945B467BA4719C99 /* CDVFileTransfer.m in Sources */ = {isa = PBXBuildFile; fileRef = 8CC0296FA8D4494AAAEF322B /* CDVFileTransfer.m */; };
-		4BA83800DE5B4ED9AEDEB0C4 /* LibAppBladeUniversal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 12CAEEAD0E92470A8DA13253 /* LibAppBladeUniversal.a */; };
 		5422AC61641B4990BF8B6E30 /* ImageIO.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 54108D55FDCC4D3C856B7CE9 /* ImageIO.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
 		549F14C545504C57AFFD4BC6 /* CDVConnection.m in Sources */ = {isa = PBXBuildFile; fileRef = 56F3779B98174DEA8815EF44 /* CDVConnection.m */; };
 		5B1594DD16A7569C00FEF299 /* AssetsLibrary.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */; };
-		6129482E0C9A4D419DFEAC53 /* AppBladePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 56944BC47C03404EB901439F /* AppBladePlugin.m */; };
-		6B2D1D23ACEA49DFBABD6A8A /* ResourceRules.plist in Resources */ = {isa = PBXBuildFile; fileRef = BBD9AAFABF3C447E83546782 /* ResourceRules.plist */; };
 		7357A6366A9F4D23B38EC552 /* CustomCamera.m in Sources */ = {isa = PBXBuildFile; fileRef = 5AC3126885D64FDDA937A17D /* CustomCamera.m */; };
 		7D0E0D0B603A4C71A0D34EF6 /* CDVJpegHeaderWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 5A64CE5BA19940029969454E /* CDVJpegHeaderWriter.m */; };
 		7E7966DE1810823500FA85AD /* icon-40.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966D41810823500FA85AD /* icon-40.png */; };
@@ -51,7 +47,6 @@
 		7E7966E61810823500FA85AD /* icon-small.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DC1810823500FA85AD /* icon-small.png */; };
 		7E7966E71810823500FA85AD /* icon-small@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 7E7966DD1810823500FA85AD /* icon-small@2x.png */; };
 		8D8BA6043CD0445EBEDF71FA /* CustomCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9E4D8A4A6F459E863A5105 /* CustomCameraViewController.m */; };
-		A56C4E6130934882BD1BB743 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E3B3C056B674D0487046AFD /* Security.framework */; };
 		AFF39D49ED774A2C858550AA /* AVFoundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 99644CEED168480E82D6AF41 /* AVFoundation.framework */; };
 		BC26C6B5D8B04ACB973A7347 /* CDVReachability.m in Sources */ = {isa = PBXBuildFile; fileRef = AB8C7C52C1D6473AB208FF18 /* CDVReachability.m */; };
 		C0092CC570414489B21C7ABD /* CDVDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = 7AD4B26E5231484F80E95C82 /* CDVDevice.m */; };
@@ -62,6 +57,9 @@
 		F69470C0990A440D8F6944B2 /* CDVAssetLibraryFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 205D23B257EB46ABB8D90C4E /* CDVAssetLibraryFilesystem.m */; };
 		BD74EACCA56848E790F7F4AC /* IonicKeyboard.m in Sources */ = {isa = PBXBuildFile; fileRef = 0026205189CE427A93048BEE /* IonicKeyboard.m */; };
 		CA64035FC2B84058AF9FFEE2 /* UIWebViewExtension.m in Sources */ = {isa = PBXBuildFile; fileRef = FD95B564A7674A72AF75F837 /* UIWebViewExtension.m */; };
+		FC1946315BF9484889307EFA /* LibAppBladeUniversal.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 281A2DC4DD7D45309C384235 /* LibAppBladeUniversal.a */; };
+		853DA9CBA5604489A82F1906 /* AppBladeKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 7A8FA91C8AA44223B9CFFE3D /* AppBladeKeys.plist */; };
+		9AC055AC17F84990904AE1FC /* ResourceRules.plist in Resources */ = {isa = PBXBuildFile; fileRef = 1EDF22651EA545DAAE84E3A9 /* ResourceRules.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -165,6 +163,9 @@
 		FD95B564A7674A72AF75F837 /* UIWebViewExtension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "UIWebViewExtension.m"; path = "com.ionic.keyboard/UIWebViewExtension.m"; sourceTree = "<group>"; fileEncoding = 4; };
 		682A282AB26147E1BF812832 /* IonicKeyboard.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "IonicKeyboard.h"; path = "com.ionic.keyboard/IonicKeyboard.h"; sourceTree = "<group>"; fileEncoding = 4; };
 		BA842F5E6D6649759382CAAA /* UIWebViewExtension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "UIWebViewExtension.h"; path = "com.ionic.keyboard/UIWebViewExtension.h"; sourceTree = "<group>"; fileEncoding = 4; };
+		281A2DC4DD7D45309C384235 /* LibAppBladeUniversal.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = "LibAppBladeUniversal.a"; path = "Bills\Plugins\com.appblade.cordova.plugin\LibAppBladeUniversal.a"; sourceTree = "<group>"; fileEncoding = 4; };
+		7A8FA91C8AA44223B9CFFE3D /* AppBladeKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "AppBladeKeys.plist"; path = "Resources\AppBladeKeys.plist"; sourceTree = "<group>"; fileEncoding = 4; };
+		1EDF22651EA545DAAE84E3A9 /* ResourceRules.plist */ = {isa = PBXFileReference; lastKnownFileType = unknown; name = "ResourceRules.plist"; path = "Resources\ResourceRules.plist"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -176,12 +177,11 @@
 				301BF552109A68D80062928A /* libCordova.a in Frameworks */,
 				288765FD0DF74451002DB57D /* CoreGraphics.framework in Frameworks */,
 				305D5FD1115AB8F900A74A75 /* MobileCoreServices.framework in Frameworks */,
-				4BA83800DE5B4ED9AEDEB0C4 /* LibAppBladeUniversal.a in Frameworks */,
-				A56C4E6130934882BD1BB743 /* Security.framework in Frameworks */,
 				AFF39D49ED774A2C858550AA /* AVFoundation.framework in Frameworks */,
 				5422AC61641B4990BF8B6E30 /* ImageIO.framework in Frameworks */,
 				E6F4FB025D5043C19C4DE7C1 /* CoreLocation.framework in Frameworks */,
 				14DA48A0095D4065BB405FA0 /* SystemConfiguration.framework in Frameworks */,
+				FC1946315BF9484889307EFA /* LibAppBladeUniversal.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -245,6 +245,8 @@
 				8D1107310486CEB800E47090 /* Bills-Info.plist */,
 				609423BF20A24A15AA61E8F9 /* AppBladeKeys.plist */,
 				BBD9AAFABF3C447E83546782 /* ResourceRules.plist */,
+				7A8FA91C8AA44223B9CFFE3D /* AppBladeKeys.plist */,
+				1EDF22651EA545DAAE84E3A9 /* ResourceRules.plist */,
 			);
 			name = Resources;
 			path = Bills/Resources;
@@ -262,6 +264,7 @@
 				54108D55FDCC4D3C856B7CE9 /* ImageIO.framework */,
 				AF7B6E9130034DEFB1FCF36D /* CoreLocation.framework */,
 				F2B8962A130C441AA60DA6B2 /* SystemConfiguration.framework */,
+				281A2DC4DD7D45309C384235 /* LibAppBladeUniversal.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -467,8 +470,8 @@
 				7E7966E11810823500FA85AD /* icon-50@2x.png in Resources */,
 				7E7966E51810823500FA85AD /* icon-76@2x.png in Resources */,
 				30FC414916E50CA1004E6F35 /* icon-72@2x.png in Resources */,
-				3591DE31BB9F4AA68FEEF2E4 /* AppBladeKeys.plist in Resources */,
-				6B2D1D23ACEA49DFBABD6A8A /* ResourceRules.plist in Resources */,
+				853DA9CBA5604489A82F1906 /* AppBladeKeys.plist in Resources */,
+				9AC055AC17F84990904AE1FC /* ResourceRules.plist in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -500,7 +503,6 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				1D3623260D0F684500981E51 /* AppDelegate.m in Sources */,
 				302D95F114D2391D003F00A1 /* MainViewController.m in Sources */,
-				6129482E0C9A4D419DFEAC53 /* AppBladePlugin.m in Sources */,
 				7357A6366A9F4D23B38EC552 /* CustomCamera.m in Sources */,
 				8D8BA6043CD0445EBEDF71FA /* CustomCameraViewController.m in Sources */,
 				163A4F2805D04E27B3CABF95 /* CDVCamera.m in Sources */,

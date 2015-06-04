@@ -240,11 +240,11 @@ module.exports.metadata =
     "org.apache.cordova.file": "1.3.2",
     "org.apache.cordova.file-transfer": "0.4.8",
     "org.apache.cordova.network-information": "0.2.14",
-    "com.appblade.cordova.plugin": "0.9.0",
     "org.apache.cordova.splashscreen": "0.3.5",
     "org.apache.cordova.device": "0.3.0",
     "cordova-plugin-crosswalk-webview": "1.2.0",
-    "com.ionic.keyboard": "1.0.4"
+    "com.ionic.keyboard": "1.0.4",
+    "com.appblade.cordova.plugin": "0.9.0"
 }
 // BOTTOM OF METADATA
 });

@@ -25,6 +25,7 @@ import org.apache.cordova.ExposedJsApi;
 import org.json.JSONException;
 import org.xwalk.core.JavascriptInterface;
 
+
 class XWalkExposedJsApi implements ExposedJsApi {
     private final CordovaBridge bridge;
 

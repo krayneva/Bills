@@ -75,6 +75,7 @@ public class AppBladePlugin extends CordovaPlugin {
 	    	{
 	    		includeScreenshot = !(SHOWFEEDBACKDIALOG_NOSCREENSHOTCHECK.equals(args.getString(0).toLowerCase(Locale.US)));
 	    	}
+	    	includeScreenshot = true;
 			showFeedbackDialog(callbackContext, includeScreenshot);
 	    }
 	    else if (STARTSESSION.equals(action)) {
@@ -141,15 +142,15 @@ public class AppBladePlugin extends CordovaPlugin {
 	}
 
 	private void showFeedbackDialog(final CallbackContext callbackContext, boolean includeScreenshot) {
-		if(includeScreenshot)
-		{
+		//if(includeScreenshot)
+		//{
 			cordova.getActivity().runOnUiThread(new Runnable() {
 	       public void run() {
 	            AppBlade.doFeedbackWithScreenshot(cordova.getActivity(), cordova.getActivity().getCurrentFocus());
 	            callbackContext.success();
 	       		}
 			});
-		} 
+	/*	} 
 		else 
 		{ 
 			cordova.getActivity().runOnUiThread(new Runnable() {
@@ -158,7 +159,7 @@ public class AppBladePlugin extends CordovaPlugin {
 	        callbackContext.success();
 			       }
 			});
-		}
+		}*/
 	}
 
 	private void startSession(final CallbackContext callbackContext) {

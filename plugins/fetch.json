@@ -33,7 +33,7 @@
     "com.appblade.cordova.plugin": {
         "source": {
             "type": "git",
-            "url": "https://github.com/AppBlade/SDK-Phonegap-Plugin.git",
+            "url": "https://github.com/AppBlade/SDK-PhoneGap-Plugin.git",
             "subdir": "."
         },
         "is_top_level": true,
