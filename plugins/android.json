@@ -86,9 +86,6 @@
         }
     },
     "installed_plugins": {
-        "com.appblade.cordova.plugin": {
-            "PACKAGE_NAME": "com.checkomatic"
-        },
         "com.performanceactive.plugins.camera": {
             "PACKAGE_NAME": "com.checkomatic"
         },
@@ -115,6 +112,9 @@
             "PACKAGE_NAME": "com.checkomatic"
         },
         "com.ionic.keyboard": {
+            "PACKAGE_NAME": "com.checkomatic"
+        },
+        "com.appblade.cordova.plugin": {
             "PACKAGE_NAME": "com.checkomatic"
         }
     },

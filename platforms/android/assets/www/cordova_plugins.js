@@ -240,7 +240,6 @@ module.exports = [
 module.exports.metadata = 
 // TOP OF METADATA
 {
-    "com.appblade.cordova.plugin": "0.9.0",
     "com.performanceactive.plugins.camera": "1.4",
     "org.apache.cordova.camera": "0.3.4",
     "org.apache.cordova.file": "1.3.2",
@@ -250,7 +249,8 @@ module.exports.metadata =
     "org.apache.cordova.device": "0.3.0",
     "cordova-plugin-crosswalk-webview": "1.2.0",
     "cordova-plugin-whitelist": "1.0.1-dev",
-    "com.ionic.keyboard": "1.0.4"
+    "com.ionic.keyboard": "1.0.4",
+    "com.appblade.cordova.plugin": "0.9.0"
 }
 // BOTTOM OF METADATA
 });
