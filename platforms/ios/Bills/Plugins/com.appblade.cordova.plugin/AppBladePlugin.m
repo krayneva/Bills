@@ -82,15 +82,15 @@ enum {
         NSString *noScreenShotCheck = (NSString *)[[command arguments] objectAtIndex:0];
         showScreenshot = [[noScreenShotCheck lowercaseString] isEqualToString:@"withscreenshot"];
     }
-    if(showScreenshot){
+  //  if(showScreenshot){
 			[[AppBlade sharedManager] showFeedbackDialogue:true];
 			CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Show Feedback via Plugin"];
 			[self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    }else{
+ /*   }else{
 			[[AppBlade sharedManager] showFeedbackDialogue:false];
 			CDVPluginResult* pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK messageAsString:@"Show Feedback via Plugin (no screenshot)"];
 			[self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
-    }
+    }*/
 }
 
 
