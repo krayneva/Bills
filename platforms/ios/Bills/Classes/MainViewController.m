@@ -27,6 +27,7 @@
 
 #import "MainViewController.h"
 
+
 @implementation MainViewController
 
 - (id)initWithNibName:(NSString*)nibNameOrNil bundle:(NSBundle*)nibBundleOrNil
@@ -50,6 +51,8 @@
         // Uncomment to override the CDVCommandQueue used
         // _commandQueue = [[MainCommandQueue alloc] initWithViewController:self];
     }
+    
+  
     return self;
 }
 
@@ -67,6 +70,15 @@
 {
     // View defaults to full size.  If you want to customize the view's size, or its subviews (e.g. webView),
     // you can do so here.
+    // View defaults to full size.  If you want to customize the view's size, or its subviews (e.g. webView),
+    // you can do so here.
+    //Lower screen 20px on ios 7
+  /*  if ([[[UIDevice currentDevice] systemVersion] floatValue] >= 7) {
+        CGRect viewBounds = [self.webView bounds];
+        viewBounds.origin.y = 18;
+        viewBounds.size.height = viewBounds.size.height - 18;
+        self.webView.frame = viewBounds;
+    }*/
     [[UIApplication sharedApplication] setStatusBarHidden:YES ];
     [super viewWillAppear:animated];
 }
@@ -90,6 +102,10 @@
     return [super shouldAutorotateToInterfaceOrientation:interfaceOrientation];
 }
 
+- (BOOL) prefersStatusBarHidden{
+    return YES;
+}
+
 /* Comment out the block below to over-ride */
 
 /*
@@ -105,14 +121,8 @@
 {
     // Black base color for background matches the native apps
     theWebView.backgroundColor = [UIColor blackColor];
-
     return [super webViewDidFinishLoad:theWebView];
 }
-
-- (BOOL) prefersStatusBarHidden{
-    return YES;
-}
-
 
 /* Comment out the block below to over-ride */
 
