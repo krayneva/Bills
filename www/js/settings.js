@@ -21,7 +21,7 @@ var USER_LOGIN_DEFAULT = "";
 var USER_PASSWORD_DEFAULT= "";
 var USER_TOKEN_DEFAULT = "";
 
-var SERVER_ADDRESS_DEFAULT = "https://billview.cloudapp.net/receipts/";
+var SERVER_ADDRESS_DEFAULT = "https://billview.cloudapp.net/rec/";
 //http://ryoga.esed.kodeks.ru/ReceiptsAPI/
 
 function removeSetting(setting){
