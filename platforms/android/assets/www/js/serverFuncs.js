@@ -25,7 +25,6 @@ function uploadPhoto() {
             for (var i = 0; i < result.rows.length;i++) {
              var row = result.rows.item(i);
              if (row.sent==0){
-            	 console.log("UPLOADING PHOTO "+row.id);
             	 $.mobile.loading("show",{
              		text: "Отправка чека "+row.id,
              		textVisible: true,
