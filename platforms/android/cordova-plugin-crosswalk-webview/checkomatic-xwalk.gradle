@@ -27,7 +27,7 @@ repositories {
 }
 
 if (cdvBuildMultipleApks == null) {
-    ext.cdvBuildMultipleApks = true
+    ext.cdvBuildMultipleApks = false
 }
 if (cdvMinSdkVersion == null) {
     ext.cdvMinSdkVersion = 14
