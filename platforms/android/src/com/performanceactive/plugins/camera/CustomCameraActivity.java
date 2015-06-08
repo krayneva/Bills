@@ -6,21 +6,18 @@ package com.performanceactive.plugins.camera;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.content.res.Configuration;
 import android.content.res.Resources;
 import android.graphics.Bitmap;
 import android.graphics.Bitmap.CompressFormat;
-import android.graphics.Bitmap.Config;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.DrawFilter;
 import android.graphics.Matrix;
 import android.graphics.Paint;
-import android.graphics.Picture;
 import android.graphics.Point;
-import android.graphics.Rect;
 import android.hardware.Camera;
 import android.hardware.Camera.AutoFocusCallback;
 import android.hardware.Camera.PictureCallback;
@@ -33,8 +30,7 @@ import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
-import android.provider.Settings;
-import android.util.DisplayMetrics;
+import android.preference.PreferenceManager;
 import android.util.Log;
 import android.view.Display;
 import android.view.Gravity;
@@ -44,16 +40,15 @@ import android.view.View.OnLongClickListener;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
-import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ProgressBar;
 import android.widget.TextView;
-import android.widget.Toast;
 import android.widget.ImageView.ScaleType;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -67,9 +62,6 @@ import java.util.List;
 import com.appblade.framework.AppBlade;
 
 import com.checkomatic.R;
-
-import static android.hardware.Camera.Parameters.FOCUS_MODE_AUTO;
-import static android.hardware.Camera.Parameters.FOCUS_MODE_CONTINUOUS_PICTURE;
 
 public class CustomCameraActivity extends Activity implements OnLongClickListener{
  
@@ -94,9 +86,16 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     public static String LATITUDE = "Latitude";
     public static String LONGITUDE = "Longitude";
     public static String ALTITUDE = "Altitude";
-    
+    public static String SCENE_MODE_SETTING_DEFAULT = "auto";
+    public static String FOCUS_MODE_SETTING_DEFAULT = "auto";
+    public static String ANTIBANDING_SETTING_DEFAULT = "off";
+    public static String WHITE_BALANCE_SETTING_DEFAULT = "auto";
+    public static String PICTURE_FORMAT_SETTING_DEFAULT = "256";
+    public static String COLOR_EFFECTS_SETTING_DEFAULT = "none";
+    public static String EXPOSURE_COMPENSATION_SETTING_DEFAULT = "0";
 
-    private Camera camera;
+
+    private static Camera camera;
     private RelativeLayout layout;
     private FrameLayout cameraPreviewView;
     private ImageView borderTopLeft;
@@ -104,7 +103,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     private ImageView borderBottomLeft;
     private ImageView borderBottomRight;
     private TextView billText;
-    private ImageButton captureButton, sendButton, recaptureButton, flashButton, exitButton; 
+    private ImageButton captureButton, sendButton, recaptureButton, flashButton, exitButton, settingsButton; 
     
     private RelativeLayout controlsLayout;
     private FrameLayout topView, leftView, rightView, bottomView;
@@ -125,6 +124,8 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     private static final int PANEL_COLOR = 0x99000000;
     
     
+    private static final int REQUEST_CODE_SETTINGS_ACTIVITY = 1; 
+    
     private ArrayList<String> bitmaps= new ArrayList<String>();
     private Bitmap previousBitmap;
     double latitude=-1, longitude=-1, altitude=-1 ;  
@@ -133,36 +134,42 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     @Override
     protected void onResume() {
         super.onResume();
-       
+
         try {
-            camera = Camera.open();
+
+            Camera.Parameters cameraSettings = camera.getParameters();
+
+            SCENE_MODE_SETTING_DEFAULT = camera.getParameters().getSupportedSceneModes().get(0);
+            FOCUS_MODE_SETTING_DEFAULT = camera.getParameters().getSupportedFocusModes().get(0);
+            ANTIBANDING_SETTING_DEFAULT = camera.getParameters().getSupportedAntibanding().get(0);
+            WHITE_BALANCE_SETTING_DEFAULT = camera.getParameters().getSupportedWhiteBalance().get(0);
+            PICTURE_FORMAT_SETTING_DEFAULT = camera.getParameters().getSupportedPictureFormats().get(0).toString();
+            COLOR_EFFECTS_SETTING_DEFAULT = camera.getParameters().getSupportedColorEffects().get(0);
+            EXPOSURE_COMPENSATION_SETTING_DEFAULT = ""+(camera.getParameters().getMaxExposureCompensation()-camera.getParameters().getMinExposureCompensation())/2;
+
+
+
             configureCamera();
             displayCameraPreview();
         } catch (Exception e) {
-            finishWithError("Camera is not accessible");
+           // finishWithError("Camera is not accessible");
+            finishWithError(e.getMessage());
         }
     }
 
     private void configureCamera() { 
         Camera.Parameters cameraSettings = camera.getParameters();
-
         cameraSettings.setJpegQuality(100);
-        List<String> supportedFocusModes = cameraSettings.getSupportedFocusModes();
-        if (supportedFocusModes.contains(FOCUS_MODE_CONTINUOUS_PICTURE)) {
-            cameraSettings.setFocusMode(FOCUS_MODE_CONTINUOUS_PICTURE);
-        } else if (supportedFocusModes.contains(FOCUS_MODE_AUTO)) {
-            cameraSettings.setFocusMode(FOCUS_MODE_AUTO);
-        }
-        
+
         
       //  android.hardware.Camera.Parameters.
         //(android.hardware.Camera.Parameters.FOCUS_MODE_MACRO)
-       if  (cameraSettings.getSupportedFocusModes().contains(android.hardware.Camera.Parameters.FOCUS_MODE_MACRO)){
+       /*if  (cameraSettings.getSupportedFocusModes().contains(android.hardware.Camera.Parameters.FOCUS_MODE_MACRO)){
         	 cameraSettings.setFocusMode(android.hardware.Camera.Parameters.FOCUS_MODE_MACRO);
-        	 Toast.makeText(this, "Focus Mode Macro is set!", Toast.LENGTH_LONG).show();
         }
-        
-        
+*/
+
+
         if (flashEnabled){
         	  cameraSettings.setFlashMode(android.hardware.Camera.Parameters.FLASH_MODE_ON);
         }
@@ -178,8 +185,42 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         } 
         Log.w("CustomCameraActivivty: ", " maxSize: "+maxSize.width+" "+maxSize.height);
         cameraSettings.setPictureSize(maxSize.width, maxSize.height);
+
+
+        // настраиваем в соответствии в выбором пользователя в cameraSettingsActivity
+
+/*        List<String> supportedFocusModes = cameraSettings.getSupportedFocusModes();
+        if (supportedFocusModes.contains(FOCUS_MODE_CONTINUOUS_PICTURE)) {
+            cameraSettings.setFocusMode(FOCUS_MODE_CONTINUOUS_PICTURE);
+        } else if (supportedFocusModes.contains(FOCUS_MODE_AUTO)) {
+            cameraSettings.setFocusMode(FOCUS_MODE_AUTO);
+        }*/
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+        String sceneMode = sp.getString(CameraSettingsActivity.SCENE_MODE_SETTING, SCENE_MODE_SETTING_DEFAULT);
+        String focusMode = sp.getString(CameraSettingsActivity.FOCUS_MODE_SETTING, FOCUS_MODE_SETTING_DEFAULT);
+        String antiBanding = sp.getString(CameraSettingsActivity.ANTIBANDING_SETTING, ANTIBANDING_SETTING_DEFAULT);
+        String whiteBalance = sp.getString(CameraSettingsActivity.WHITE_BALANCE_SETTING, WHITE_BALANCE_SETTING_DEFAULT);
+        String pictureFormat = sp.getString(CameraSettingsActivity.PICTURE_FORMAT_SETTING, PICTURE_FORMAT_SETTING_DEFAULT);
+        String colorEffect = sp.getString(CameraSettingsActivity.COLOR_EFFECTS_SETTING, COLOR_EFFECTS_SETTING_DEFAULT);
+        String exposureCompensation = sp.getString(CameraSettingsActivity.EXPOSURE_COMPENSATION_SETTING, EXPOSURE_COMPENSATION_SETTING_DEFAULT);
+
+
+        cameraSettings.setSceneMode(sceneMode);
+        cameraSettings.setFocusMode(focusMode);
+        cameraSettings.setAntibanding(antiBanding);
+        cameraSettings.setWhiteBalance(whiteBalance);
+        cameraSettings.setPictureFormat(Integer.parseInt(pictureFormat));
+       cameraSettings.setColorEffect(colorEffect);
+
+        cameraSettings.setExposureCompensation(Integer.parseInt(exposureCompensation));
+
+  //      Toast.makeText(this, "ExposureCompensation: "+cameraSettings.getExposureCompensation()+" step is "+cameraSettings.getExposureCompensationStep(), Toast.LENGTH_LONG).show();
+
+
+
+
         camera.setParameters(cameraSettings);
-        
+
         //Toast.makeText(this, "Density is: "+getResources().getDisplayMetrics().density, Toast.LENGTH_LONG).show();
     }
 
@@ -192,7 +233,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     @Override
     protected void onPause() {
         super.onPause();
-        releaseCamera();
+     //   releaseCamera();
     }
 
     private void releaseCamera() {
@@ -258,6 +299,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 	 	 	longitude = location.getLongitude();
 	 	 	altitude = location.getAltitude();
  		}
+        camera = Camera.open();
     }
     
     
@@ -379,12 +421,10 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
             	  setBitmap(flashButton, "flashOff256.png");
             	  configureCamera();
               }
-              else{
             	  flashEnabled = true;
             	  setBitmap(flashButton, "flashOn256.png");
             	  configureCamera();
               }
-            }
         });
         
        controlsLayout.addView(flashButton,params);   
@@ -477,8 +517,8 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 
     private LinearLayout createPanelLayout(){
     	panelLayout = new LinearLayout(this);
-    	
-    	int buttonSize =  dpToPixels(MARGIN_BIG);
+
+        int buttonSize = dpToPixels(MARGIN_BIG);
         if (isXLargeScreen()) {
         	buttonSize = dpToPixels(MARGIN_BIG);
         } else if (isLargeScreen()) {
@@ -491,17 +531,34 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     	
     	LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(buttonSize, buttonSize);
     	buttonParams.setMargins(20, 0, 20, 0);
+
+
+        //
+        settingsButton = new ImageButton(this);
+        setBitmap(settingsButton, "settings256.png");
+        settingsButton.setBackgroundColor(Color.TRANSPARENT);
+        settingsButton.setScaleType(ScaleType.CENTER_INSIDE);
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CustomCameraActivity.this, CameraSettingsActivity.class);
+
+                startActivityForResult(intent, REQUEST_CODE_SETTINGS_ACTIVITY);
+            }
+        });
+        panelLayout.addView(settingsButton, buttonParams);
     	
     	recaptureButton = new ImageButton(this);
         setBitmap(recaptureButton, "esc256.png");
       	recaptureButton.setBackgroundColor(Color.TRANSPARENT);
       	recaptureButton.setScaleType(ScaleType.CENTER_INSIDE);
         recaptureButton.setOnClickListener(new View.OnClickListener() {
-              @Override
-               public void onClick(View v) {
-              		recaptureLast();
-                  }
-              });
+            @Override
+            public void onClick(View v) {
+                recaptureLast();
+            }
+        });
               
               panelLayout.addView(recaptureButton, buttonParams);
     	
@@ -524,12 +581,12 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
                 takePictureWithAutoFocus();
             }
         });
-        
+
         panelLayout.addView(captureButton, buttonParams);
         sendButton = new ImageButton(this);
-    	setBitmap(sendButton, "send256.png");
-    	sendButton.setBackgroundColor(Color.TRANSPARENT);
-    	sendButton.setScaleType(ScaleType.CENTER_INSIDE);
+        setBitmap(sendButton, "send256.png");
+        sendButton.setBackgroundColor(Color.TRANSPARENT);
+        sendButton.setScaleType(ScaleType.CENTER_INSIDE);
     	
     /*	sendButton.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -545,6 +602,11 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
             }
         });
         panelLayout.addView(sendButton, buttonParams);
+        
+        
+        
+        
+
     	return panelLayout;
     }
     
@@ -868,8 +930,8 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         	progress.setVisibility(View.INVISIBLE);
         	   try {
         		   updateDynamicLayout();
-        		   releaseCamera();
-                   camera = Camera.open();
+        		   //releaseCamera();
+                   //camera = Camera.open();
                    configureCamera();
                    displayCameraPreview();
                	captureButton.setEnabled(true);
@@ -1166,5 +1228,26 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 	        finish();
 		}
 	}
-		
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        switch(resultCode){
+            case REQUEST_CODE_SETTINGS_ACTIVITY:
+                configureCamera();
+                break;
+            default:
+                break;
+        }
+    }
+
+    @Override
+    protected void onDestroy() {
+        releaseCamera();
+        super.onDestroy();
+    }
+
+    public static Camera getCamera(){
+        return camera;
+    }
 }

@@ -16,7 +16,7 @@ public class CustomCameraPreview extends SurfaceView implements SurfaceHolder.Ca
 
     private static final String TAG = CustomCameraPreview.class.getSimpleName();
 
-    private final Camera camera;
+    private Camera camera;
     
     public Size previewSize;
 
@@ -39,7 +39,16 @@ public class CustomCameraPreview extends SurfaceView implements SurfaceHolder.Ca
 
     @Override
     public void surfaceDestroyed(SurfaceHolder holder) {
-        // nothing to do here
+        this.getHolder().removeCallback(this);
+    /*    try {
+            if (camera != null) {
+                camera.stopPreview();
+                camera.release();
+            }
+        }
+        finally{
+            camera = null;
+        }*/
     }
 
     @Override
@@ -68,6 +77,7 @@ public class CustomCameraPreview extends SurfaceView implements SurfaceHolder.Ca
 
     public Size optimimalPreviewSize(int targetWidth, int targetHeight) {
         List<Size> sizes = camera.getParameters().getSupportedPreviewSizes();
+        
         float targetAspectRatio = (float) targetWidth / targetHeight;
         List<Size> sizesWithMatchingAspectRatios = filterByAspectRatio(targetAspectRatio, sizes);
         if (sizesWithMatchingAspectRatios.size() > 0) {
