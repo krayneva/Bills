@@ -259,6 +259,7 @@ div.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset.ui-focus>input{
   float: left;
   width: 100%;
   position: relative;
+  z-index: 20;
 }
 .topBar{
   width: 100%;
@@ -381,6 +382,7 @@ div.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset.ui-focus>input{
     padding: 3% 10%;
     position: absolute;
     right: 0;
+    z-index: 10;
 }
 .category{
   background: url("img/bg.png");
@@ -402,7 +404,9 @@ div.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset.ui-focus>input{
 .leftCol, .rightCol{
   width: 29%;
 }
-
+.category:first-child{
+  margin-bottom: 3em; 
+}
 .category{
   width: 100%;
 }
@@ -512,9 +516,9 @@ div.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset.ui-focus>input{
 }
 .topPanel_backButton,
 .topPanel_menuButton{
-  height: 3em;
+  height: 2em;
   float:left;
-  margin: 0 0.5em;
+  margin: 0.5em 1em;
 }
 .topPanel_menuButton{
   float:right;
@@ -848,7 +852,6 @@ label{
     height: auto!important;
     border: 0!important;
 }
-
 .shopList_needToBbuy>ul>li{
     color: #367272 !important;
 }
@@ -868,6 +871,11 @@ label{
     top: 0.7em;
     left: 0.5em;
     position: absolute;
+}
+.shopList_needToBbuy li .shopList_checkbox input{
+  width: 1.5em!important;
+  height: 1.5em!important;
+  border-radius: none!important;
 }
 .shopList_needToBbuy li>.shopList_itemName,
 .shopList_alreadyBuy li>.shopList_itemName{
