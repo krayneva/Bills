@@ -164,7 +164,7 @@ function updateTransactionPage(){
 		getTransactionsByCategoryID(categoryID).done(function(result){
 			
 			$('#expensesList').html('');
-			$('#expensesList').listview();
+			//$('#expensesList').listview();
 			var start = +new Date();  // log start timestamp
 			
 			

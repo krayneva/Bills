@@ -569,6 +569,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = Bills;
+				PROVISIONING_PROFILE = "a9e4f8cf-26ce-4a84-86b5-1c96ce5be960";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -606,6 +607,7 @@
 					"-ObjC",
 				);
 				PRODUCT_NAME = Bills;
+				PROVISIONING_PROFILE = "a9e4f8cf-26ce-4a84-86b5-1c96ce5be960";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Release;
