@@ -86,13 +86,24 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     public static String LATITUDE = "Latitude";
     public static String LONGITUDE = "Longitude";
     public static String ALTITUDE = "Altitude";
-    public static String SCENE_MODE_SETTING_DEFAULT = "auto";
-    public static String FOCUS_MODE_SETTING_DEFAULT = "auto";
-    public static String ANTIBANDING_SETTING_DEFAULT = "off";
-    public static String WHITE_BALANCE_SETTING_DEFAULT = "auto";
-    public static String PICTURE_FORMAT_SETTING_DEFAULT = "256";
-    public static String COLOR_EFFECTS_SETTING_DEFAULT = "none";
-    public static String EXPOSURE_COMPENSATION_SETTING_DEFAULT = "0";
+    public static String SCENE_MODE_SETTING_DEFAULT = "";
+    public static String FOCUS_MODE_SETTING_DEFAULT = "";
+    public static String ANTIBANDING_SETTING_DEFAULT = "";
+    public static String WHITE_BALANCE_SETTING_DEFAULT = "";
+    public static String PICTURE_FORMAT_SETTING_DEFAULT = "";
+    public static String COLOR_EFFECTS_SETTING_DEFAULT = "";
+    public static String EXPOSURE_COMPENSATION_SETTING_DEFAULT = "";
+
+
+    public static boolean sceneModeEnabled = false;
+    public static boolean focusModeEnabled = false;
+    public static boolean antibandingEnabled = false;
+    public static boolean whiteBalanceEnabled = false;
+    public static boolean pictureFormatEnabled = false;
+    public static boolean colorEffectsnabled = false;
+    public static boolean exposureCompemsationEnabled = false;
+
+
 
 
     private static Camera camera;
@@ -138,15 +149,35 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         try {
 
             Camera.Parameters cameraSettings = camera.getParameters();
+            if (camera.getParameters().getSupportedSceneModes().size()>0) {
+                SCENE_MODE_SETTING_DEFAULT = camera.getParameters().getSupportedSceneModes().get(0);
+                sceneModeEnabled = true;
+            }
+            if (camera.getParameters().getSupportedFocusModes().size()>0) {
+                FOCUS_MODE_SETTING_DEFAULT = camera.getParameters().getSupportedFocusModes().get(0);
+                focusModeEnabled = true;
+            }
 
-            SCENE_MODE_SETTING_DEFAULT = camera.getParameters().getSupportedSceneModes().get(0);
-            FOCUS_MODE_SETTING_DEFAULT = camera.getParameters().getSupportedFocusModes().get(0);
-            ANTIBANDING_SETTING_DEFAULT = camera.getParameters().getSupportedAntibanding().get(0);
-            WHITE_BALANCE_SETTING_DEFAULT = camera.getParameters().getSupportedWhiteBalance().get(0);
-            PICTURE_FORMAT_SETTING_DEFAULT = camera.getParameters().getSupportedPictureFormats().get(0).toString();
-            COLOR_EFFECTS_SETTING_DEFAULT = camera.getParameters().getSupportedColorEffects().get(0);
-            EXPOSURE_COMPENSATION_SETTING_DEFAULT = ""+(camera.getParameters().getMaxExposureCompensation()-camera.getParameters().getMinExposureCompensation())/2;
+            if (camera.getParameters().getSupportedAntibanding().size()>0){
+                ANTIBANDING_SETTING_DEFAULT = camera.getParameters().getSupportedAntibanding().get(0);
+                antibandingEnabled = true;
+            }
+            if ( camera.getParameters().getSupportedWhiteBalance().size()>0) {
+                WHITE_BALANCE_SETTING_DEFAULT = camera.getParameters().getSupportedWhiteBalance().get(0);
+                whiteBalanceEnabled = true;
+            }
 
+            if ( camera.getParameters().getSupportedPictureFormats().size()>0) {
+                PICTURE_FORMAT_SETTING_DEFAULT = camera.getParameters().getSupportedPictureFormats().get(0).toString();
+                pictureFormatEnabled = true;
+            }
+            if (camera.getParameters().getSupportedColorEffects().size()>0) {
+                COLOR_EFFECTS_SETTING_DEFAULT = camera.getParameters().getSupportedColorEffects().get(0);
+                colorEffectsnabled = true;
+            }
+
+            EXPOSURE_COMPENSATION_SETTING_DEFAULT = ""+camera.getParameters().getExposureCompensation();
+            exposureCompemsationEnabled = true;
 
 
             configureCamera();
@@ -205,20 +236,20 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         String exposureCompensation = sp.getString(CameraSettingsActivity.EXPOSURE_COMPENSATION_SETTING, EXPOSURE_COMPENSATION_SETTING_DEFAULT);
 
 
-        cameraSettings.setSceneMode(sceneMode);
-        cameraSettings.setFocusMode(focusMode);
-        cameraSettings.setAntibanding(antiBanding);
-        cameraSettings.setWhiteBalance(whiteBalance);
-        cameraSettings.setPictureFormat(Integer.parseInt(pictureFormat));
-       cameraSettings.setColorEffect(colorEffect);
 
+    try {
+        if (sceneModeEnabled) cameraSettings.setSceneMode(sceneMode);
+        if (focusModeEnabled) cameraSettings.setFocusMode(focusMode);
+        if (antibandingEnabled) cameraSettings.setAntibanding(antiBanding);
+        if (whiteBalanceEnabled) cameraSettings.setWhiteBalance(whiteBalance);
+        if (pictureFormatEnabled) cameraSettings.setPictureFormat(Integer.parseInt(pictureFormat));
+        if (colorEffectsnabled) cameraSettings.setColorEffect(colorEffect);
         cameraSettings.setExposureCompensation(Integer.parseInt(exposureCompensation));
+    }
+    catch(Exception e){
 
+    }
   //      Toast.makeText(this, "ExposureCompensation: "+cameraSettings.getExposureCompensation()+" step is "+cameraSettings.getExposureCompensationStep(), Toast.LENGTH_LONG).show();
-
-
-
-
         camera.setParameters(cameraSettings);
 
         //Toast.makeText(this, "Density is: "+getResources().getDisplayMetrics().density, Toast.LENGTH_LONG).show();
@@ -240,6 +271,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         if (camera != null) {
             camera.stopPreview();
             camera.release();
+            camera = null;
         }
     }
 
@@ -793,6 +825,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     }
 
     private void takePictureWithAutoFocus() {
+        disableButtons();
         if (getPackageManager().hasSystemFeature(PackageManager.FEATURE_CAMERA_AUTOFOCUS)) {
             camera.autoFocus(new AutoFocusCallback() {
                 @Override
@@ -806,6 +839,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     }
 
     private void takePicture() {
+        disableButtons();
         try {
             camera.takePicture(null, null, new PictureCallback() {
                 @Override
@@ -835,11 +869,9 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
                 Log.w("cameraImageHeight", ""+camera.getParameters().getPictureSize().height);
            
              
-             
 
-                jpegData = null;
                 capturedImage = correctCaptureImageOrientation(capturedImage);
-                
+
                 Log.w("capturedImageWidth", ""+capturedImage.getWidth());
                 Log.w("capturedImageHeight", ""+capturedImage.getHeight());
                 
@@ -871,6 +903,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
                 
                 Bitmap croppedBitmap = Bitmap.createBitmap(capturedImage, leftMarginCorrected , topMarginCorrected, impWidth,impHeight);
                 capturedImage.recycle();
+                jpegData = null;
                 System.gc();
                 
                 bitmaps.add(bitmaps.size()+filename); 
@@ -934,18 +967,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
                    //camera = Camera.open();
                    configureCamera();
                    displayCameraPreview();
-               	captureButton.setEnabled(true);
-            	sendButton.setEnabled(true);
-            	recaptureButton.setEnabled(true);
-    			flashButton.setEnabled(true);
-    			exitButton.setEnabled(true);
-    			if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
-    				captureButton.setAlpha(1f);
-    				sendButton.setAlpha(1f);
-    				recaptureButton.setAlpha(1f);
-    				flashButton.setAlpha(1f);
-    				exitButton.setAlpha(1f);
-    			}
+             enableButtons();
                } catch (Exception e) {
                    finishWithError("Camera is not accessible");
                }
@@ -961,12 +983,14 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         	recaptureButton.setEnabled(false);
 			flashButton.setEnabled(false);
 			exitButton.setEnabled(false);
+            settingsButton.setEnabled(false);
 			if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
 				captureButton.setAlpha(0.5f);
 				sendButton.setAlpha(0.5f);
 				recaptureButton.setAlpha(0.5f);
 				flashButton.setAlpha(0.5f);
 				exitButton.setAlpha(0.5f);
+                settingsButton.setAlpha(0.5f);
 			}
 			
         } 
@@ -1159,18 +1183,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 		@Override
 		protected void onPreExecute() {
 			super.onPreExecute();
-			captureButton.setOnClickListener(null);
-			sendButton.setOnClickListener(null); 
-			recaptureButton.setOnClickListener(null);
-			flashButton.setOnClickListener(null); 
-			exitButton.setOnClickListener(null);
-			if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
-				captureButton.setAlpha(0.5f);
-				sendButton.setAlpha(0.5f);
-				recaptureButton.setAlpha(0.5f);
-				flashButton.setAlpha(0.5f);
-				exitButton.setAlpha(0.5f);
-			}
+		    disableButtons();
 			
 				
 		}
@@ -1243,6 +1256,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 
     @Override
     protected void onDestroy() {
+       // Toast.makeText(this,"Destroying camera!", Toast.LENGTH_LONG).show();
         releaseCamera();
         super.onDestroy();
     }
@@ -1250,4 +1264,47 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     public static Camera getCamera(){
         return camera;
     }
+
+    private void disableButtons(){
+       /* captureButton.setOnClickListener(null);
+        sendButton.setOnClickListener(null);
+        recaptureButton.setOnClickListener(null);
+        flashButton.setOnClickListener(null);
+        exitButton.setOnClickListener(null);
+        settingsButton.setOnClickListener(null);
+        */
+        captureButton.setEnabled(false);
+        sendButton.setEnabled(false);
+        recaptureButton.setEnabled(false);
+        flashButton.setEnabled(false);
+        exitButton.setEnabled(false);
+        settingsButton.setEnabled(false);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
+            captureButton.setAlpha(0.5f);
+            sendButton.setAlpha(0.5f);
+            recaptureButton.setAlpha(0.5f);
+            flashButton.setAlpha(0.5f);
+            exitButton.setAlpha(0.5f);
+            settingsButton.setAlpha(0.5f);
+        }
+    }
+
+    private void enableButtons(){
+        captureButton.setEnabled(true);
+        sendButton.setEnabled(true);
+        recaptureButton.setEnabled(true);
+        flashButton.setEnabled(true);
+        exitButton.setEnabled(true);
+        settingsButton.setEnabled(true);
+
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB){
+            captureButton.setAlpha(1f);
+            sendButton.setAlpha(1f);
+            recaptureButton.setAlpha(1f);
+            flashButton.setAlpha(1f);
+            exitButton.setAlpha(1f);
+            settingsButton.setAlpha(1f);
+        }
+    }
+
 }

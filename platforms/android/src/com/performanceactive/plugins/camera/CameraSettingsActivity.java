@@ -56,34 +56,55 @@ private Camera camera;
 		// scene mode
 		sceneModeSpinner = (Spinner) findViewById(R.id.sceneModeSpinner);
 		ArrayList<String> sceneModes = (ArrayList<String>)cameraSettings.getSupportedSceneModes();
-		ArrayAdapter<String> sceneModesAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,sceneModes );
-		sceneModesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		sceneModeSpinner.setAdapter(sceneModesAdapter);
+		if (sceneModes.size()>0) {
+			ArrayAdapter<String> sceneModesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, sceneModes);
+			sceneModesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			sceneModeSpinner.setAdapter(sceneModesAdapter);
+		}
+		else{
+			sceneModeSpinner.setEnabled(false);
+		}
+
 
 
 		// focus Mode
 		focusModeSpinner = (Spinner) findViewById(R.id.focusModeSpinner);
 		ArrayList<String> focusModes = (ArrayList<String>)cameraSettings.getSupportedFocusModes();
-		ArrayAdapter<String> focusModesAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,focusModes );
-		focusModesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		focusModeSpinner.setAdapter(focusModesAdapter);
+		if (focusModes.size()>0) {
+			ArrayAdapter<String> focusModesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, focusModes);
+			focusModesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			focusModeSpinner.setAdapter(focusModesAdapter);
+		}
+		else{
+			focusModeSpinner.setEnabled(false);
+		}
 
 
 		// anti banding
 		//cameraSettings.getSupportedAntibanding();
 		antiBandingSpinner = (Spinner) findViewById(R.id.antiBandingSpinner);
 		ArrayList<String> antiBanding = (ArrayList<String>)cameraSettings.getSupportedAntibanding();
-		ArrayAdapter<String> antiBandingAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,antiBanding );
-		antiBandingAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		antiBandingSpinner.setAdapter(antiBandingAdapter);
+		if (antiBanding.size()>0) {
+			ArrayAdapter<String> antiBandingAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, antiBanding);
+			antiBandingAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			antiBandingSpinner.setAdapter(antiBandingAdapter);
+		}
+		else{
+			antiBandingSpinner.setEnabled(false);
+		}
 
 		// white balance
 		//cameraSettings.getSupportedWhiteBalance();
 		whiteBalanceSpinner = (Spinner) findViewById(R.id.whiteBalanceSpinner);
 		ArrayList<String> whiteBalance = (ArrayList<String>)cameraSettings.getSupportedWhiteBalance();
-		ArrayAdapter<String> whiteBalanceAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,whiteBalance );
-		whiteBalanceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		whiteBalanceSpinner.setAdapter(whiteBalanceAdapter);
+		if (whiteBalance.size()>0) {
+			ArrayAdapter<String> whiteBalanceAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, whiteBalance);
+			whiteBalanceAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			whiteBalanceSpinner.setAdapter(whiteBalanceAdapter);
+		}
+		else{
+			whiteBalanceSpinner.setEnabled(false);
+		}
 
 
 
@@ -91,17 +112,27 @@ private Camera camera;
 		//cameraSettings.getSupportedPictureFormats();
 		pictureFormatSpinner = (Spinner) findViewById(R.id.pictureFormatSpinner);
 		ArrayList<Integer> pictureFormat = (ArrayList<Integer>)cameraSettings.getSupportedPictureFormats();
-		ArrayAdapter<Integer> pictureFormatAdapter = new ArrayAdapter<Integer>(this,android.R.layout.simple_spinner_item,pictureFormat );
-		pictureFormatAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		pictureFormatSpinner.setAdapter(pictureFormatAdapter);
+		if (pictureFormat.size()>0) {
+			ArrayAdapter<Integer> pictureFormatAdapter = new ArrayAdapter<Integer>(this, android.R.layout.simple_spinner_item, pictureFormat);
+			pictureFormatAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			pictureFormatSpinner.setAdapter(pictureFormatAdapter);
+		}
+		else{
+			pictureFormatSpinner.setEnabled(false);
+		}
 
 		//color effects
 		//cameraSettings.getSupportedColorEffects();
 		colorEffectsSpinner = (Spinner) findViewById(R.id.colorEffectsSpinner);
 		ArrayList<String> colorEffects = (ArrayList<String>)cameraSettings.getSupportedColorEffects();
-		ArrayAdapter<String> colorEffectsAdapter = new ArrayAdapter<String>(this,android.R.layout.simple_spinner_item,colorEffects );
-		colorEffectsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
-		colorEffectsSpinner.setAdapter(colorEffectsAdapter);
+		if (colorEffects.size()>0) {
+			ArrayAdapter<String> colorEffectsAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, colorEffects);
+			colorEffectsAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			colorEffectsSpinner.setAdapter(colorEffectsAdapter);
+		}
+		else{
+			colorEffectsSpinner.setEnabled(false);
+		}
 
 
 
@@ -117,12 +148,12 @@ private Camera camera;
 
 
 
-		sceneModeSpinner.setSelection(sceneModes.indexOf(sceneModeValue));
-		focusModeSpinner.setSelection(focusModes.indexOf(focusModeValue));
-		antiBandingSpinner.setSelection(antiBanding.indexOf(antiBandingValue));
-		whiteBalanceSpinner.setSelection(whiteBalance.indexOf(whiteBalanceValue));
-		pictureFormatSpinner.setSelection(pictureFormat.indexOf(Integer.parseInt(pictureFormatValue)));
-		colorEffectsSpinner.setSelection(colorEffects.indexOf(colorEffectValue));
+		if (CustomCameraActivity.sceneModeEnabled)sceneModeSpinner.setSelection(sceneModes.indexOf(sceneModeValue));
+		if (CustomCameraActivity.focusModeEnabled)focusModeSpinner.setSelection(focusModes.indexOf(focusModeValue));
+		if (CustomCameraActivity.antibandingEnabled)antiBandingSpinner.setSelection(antiBanding.indexOf(antiBandingValue));
+		if (CustomCameraActivity.whiteBalanceEnabled)whiteBalanceSpinner.setSelection(whiteBalance.indexOf(whiteBalanceValue));
+		if (CustomCameraActivity.pictureFormatEnabled)pictureFormatSpinner.setSelection(pictureFormat.indexOf(Integer.parseInt(pictureFormatValue)));
+		if (CustomCameraActivity.colorEffectsnabled)colorEffectsSpinner.setSelection(colorEffects.indexOf(colorEffectValue));
 
 
 		exposureCompensationSeekBar = (SeekBar)findViewById(R.id.seekBarExposureCompensation);
@@ -180,12 +211,12 @@ private Camera camera;
 		*/
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		SharedPreferences.Editor editor = sp.edit();
-		editor.putString(SCENE_MODE_SETTING, sceneModeSpinner.getSelectedItem().toString());
-		editor.putString(FOCUS_MODE_SETTING, focusModeSpinner.getSelectedItem().toString());
-		editor.putString(ANTIBANDING_SETTING, antiBandingSpinner.getSelectedItem().toString());
-		editor.putString(WHITE_BALANCE_SETTING, whiteBalanceSpinner.getSelectedItem().toString());
-		editor.putString(PICTURE_FORMAT_SETTING, pictureFormatSpinner.getSelectedItem().toString());
-		editor.putString(COLOR_EFFECTS_SETTING, colorEffectsSpinner.getSelectedItem().toString());
+		if (CustomCameraActivity.sceneModeEnabled)editor.putString(SCENE_MODE_SETTING, sceneModeSpinner.getSelectedItem().toString());
+		if (CustomCameraActivity.focusModeEnabled)editor.putString(FOCUS_MODE_SETTING, focusModeSpinner.getSelectedItem().toString());
+		if (CustomCameraActivity.antibandingEnabled)editor.putString(ANTIBANDING_SETTING, antiBandingSpinner.getSelectedItem().toString());
+		if (CustomCameraActivity.whiteBalanceEnabled)editor.putString(WHITE_BALANCE_SETTING, whiteBalanceSpinner.getSelectedItem().toString());
+		if (CustomCameraActivity.pictureFormatEnabled)editor.putString(PICTURE_FORMAT_SETTING, pictureFormatSpinner.getSelectedItem().toString());
+		if (CustomCameraActivity.colorEffectsnabled)editor.putString(COLOR_EFFECTS_SETTING, colorEffectsSpinner.getSelectedItem().toString());
 
 		editor.commit();
 

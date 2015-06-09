@@ -6,7 +6,15 @@ int drawable border_bottom_right 0x7f020004
 int drawable icon 0x7f020005
 int drawable logo 0x7f020006
 int drawable screen 0x7f020007
-int id sceneModeSpinner 0x7f060000
+int id antiBandingSpinner 0x7f060003
+int id colorEffectsSpinner 0x7f060006
+int id focusModeSpinner 0x7f060002
+int id pictureFormatSpinner 0x7f060005
+int id sceneModeSpinner 0x7f060001
+int id seekBarExposureCompensation 0x7f060008
+int id textView 0x7f060000
+int id textViewExposureCompensation 0x7f060007
+int id whiteBalanceSpinner 0x7f060004
 int layout activity_camera_settings 0x7f030000
 int string activity_name 0x7f050002
 int string app_name 0x7f050000

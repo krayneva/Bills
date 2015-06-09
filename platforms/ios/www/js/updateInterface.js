@@ -264,7 +264,7 @@ function updateWidgets(){
 		  var widget = document.getElementById("widget".concat(w.Left,w.Top));
 		
 		 widget.style.display = "block";
-		 widget.style.visibility = "visible";
+		 //widget.style.visibility = "visible";
 		 //console.log("Setting categoryID for widget: "+w.VisualObjectId);
 		 widget.setAttribute("categoryID", w.VisualObjectId);
 		 var s = "showExpensesPage('"+ w.VisualObjectId+"')";
@@ -304,7 +304,7 @@ function updateWidgets(){
 		            		src = src.concat("auto396.png");
 		            		break;
 		            	case "ico_other":
-		            		src = src.concat("house396.png");
+		            		src = src.concat("other396.png");
 		            		break;
 		            	case "ico_clothing":
 		            		src = src.concat("clothing396.png");

@@ -304,7 +304,7 @@ function updateWidgets(){
 		            		src = src.concat("auto396.png");
 		            		break;
 		            	case "ico_other":
-		            		src = src.concat("house396.png");
+		            		src = src.concat("other396.png");
 		            		break;
 		            	case "ico_clothing":
 		            		src = src.concat("clothing396.png");
