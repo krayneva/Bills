@@ -168,9 +168,9 @@ CLLocationDegrees latitude=-1,longitude=-1, altitude=-1;
 
 -(void) updateUI{
     CGRect bounds = [[UIScreen mainScreen] bounds];
-    if (imagePaths.count>0){
-        
-        
+    if ((imagePaths.count>0)&&(imagePaths.count<5)){
+       _captureButton.enabled=true;
+        _captureButton.alpha = 1;
         [_photoCountTextView setText:@"Продолжение чека"];
         _previousPhoto.frame=CGRectMake(leftMargin,
                                         0,
@@ -179,7 +179,8 @@ CLLocationDegrees latitude=-1,longitude=-1, altitude=-1;
         
         
         UIImage *lastImage = [UIImage imageWithContentsOfFile:[imagePaths lastObject]];
-        CGRect rect = CGRectMake(0,lastImage.size.height-topMargin, lastImage.size.width, topMargin);
+         CGFloat aspectRatio = lastImage.size.width/(bounds.size.width-leftMargin*2);
+        CGRect rect = CGRectMake(0,lastImage.size.height-topMargin*aspectRatio, lastImage.size.width, topMargin*aspectRatio);
         
         // Create bitmap image from original image data,
         // using rectangle to specify desired crop area
@@ -198,11 +199,21 @@ CLLocationDegrees latitude=-1,longitude=-1, altitude=-1;
                                             buttonHeight
                                             );
     }
+    else if (imagePaths.count==5){
+        [_photoCountTextView setText:@"Достигнуто максимальное количество снимков"];
+        _captureButton.enabled=false;
+        _captureButton.alpha = 0.5;
+        _previousPhoto.alpha=0.6;
+    }
     else{
+        _captureButton.enabled=true;
         _recaptureButton.frame = CGRectMake(0,0,0,0);
         [_photoCountTextView setText:@"Фото чека"];
         _previousPhoto.frame=CGRectMake(0,0,0,0);
         _sendButton.frame=CGRectMake(0,0,0,0);
+        _captureButton.alpha = 1;
+        _previousPhoto.alpha=0.6;
+
     }
         
 }

@@ -45,7 +45,7 @@ static const CGFloat kBigButtonHeightPhone = 64;
 static const CGFloat kBorderImageWidthPhone = 50;
 static const CGFloat kBorderImageHeightPhone = 50;
 static const CGFloat kHorizontalInsetPhone = 15;
-static const CGFloat kVerticalInsetPhone = 25;
+static const CGFloat kVerticalInsetPhone = 50;
 static const CGFloat kBigButtonVerticalInsetPhone = 10;
 
 static const CGFloat kBigButtonWidthTablet = 75;

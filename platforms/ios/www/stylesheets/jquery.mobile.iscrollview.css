@@ -34,11 +34,7 @@
        
        Howver, raising the wrapper Z-index creates a serious problem on page transitions on
        iPhone, so I don't use it here. */ 
-  position: absolute;
-  top:10.6em;
-  bottom: 4.6em;
-   overflow: auto;
-  width: 100%
+
                     
 }
 
