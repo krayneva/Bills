@@ -26,28 +26,6 @@ function updateLoginPage(){
 	 	    }
 	 	  });
 	 	 
-	 /*
-	   $("#login").bind('focus', function(e){
-		  currentBottom = $("#pageAuth").height()-$("#login").offset().top-$("#login").height();
-		  if ((keyboardHeight!=0)&(($("#login").offset.top()+$("#login").height())>($("#pageAuth").height()-keyboardHeight-100)))
-		   		$("#pageAuth").css({'top': -keyboardHeight-100});
-	   });
-	   
-	   $("#login").bind('blur', function(e){
-		   $("#pageAuth").css({'top': 0});
-	 	 });
-
-	   
-	   $("#password").bind('focus', function(e){
-		  if ((keyboardHeight!=0)&(($("#password").offset.top()+$("#password").height())>($("#pageAuth").height()-keyboardHeight-100)))
-	   		$("#pageAuth").css({'top': -keyboardHeight-100});
-
-	   });
-	   
-	   $("#password").bind('blur', function(e){
-		   $("#pageAuth").css({'top': 0});
-	   });
-	*/
  	   
 
 	  $('#password').bind("keydown", function(e) {
@@ -56,7 +34,7 @@ function updateLoginPage(){
 		 	        $('#login_button').click();
 		 	    }
 		 	  });
-	  	$('#buildVersion').html("Версия сборки: "+buildVersion);
+  	  	$('#buildVersion').html("Версия сборки: "+buildVersion);
 	
 }
 
@@ -167,7 +145,8 @@ function updateTransactionPage(){
 			//$('#expensesList').listview();
 			var start = +new Date();  // log start timestamp
 			
-			
+                                                     var totalAmount = 0;
+                                                      var lastAmount = jQuery.parseJSON(result.rows.item(0).transactionJSON).Amount;
 		//	for (var t=0; t<5; t++){
 			  for (var i = 0; i <result.rows.length; i++) {
 		//		  for (var i = 0; i <2; i++) {
@@ -188,6 +167,8 @@ function updateTransactionPage(){
 						  for (var k=0; k<childArray.length; k++){
 							  if(childArray[k].id == "transactionPrice"){
 								  childArray[k].innerHTML = json.Amount+getCurrencyString(json.Currency);
+                                                     totalAmount=totalAmount+json.Amount;
+                                                     lastAmount = json.Amount;
 							  }
 	
 							var hours = date.getHours();
@@ -243,6 +224,8 @@ function updateTransactionPage(){
 				 
 			  }
 		//	}
+                                                     $('#totalAmount').html(Math.round(totalAmount*100)/100);
+                                                     $('#lastAmount').html(Math.round(lastAmount*100)/100);
 			var end =  +new Date();  // log end timestamp
 			var diff = (end - start)/(20*result.rows.length);
 			console.log("Time per row: "+diff);

@@ -1,97 +1,5 @@
 <!DOCTYPE html>
 
- 
-<script type="text/javascript">
-    var myScroll;
-    function loaded () {
-        myScroll = new IScroll('#wrapper', { mouseWheel: true });
-    }
-document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
-    </script>
-
-<style type="text/css">
-    * {
-        -webkit-box-sizing: border-box;
-        -moz-box-sizing: border-box;
-        box-sizing: border-box;
-    }
-html {
-    -ms-touch-action: none;
-}
-body,ul,li {
-    padding: 0;
-    margin: 0;
-    border: 0;
-}
-body {
-    font-size: 12px;
-    font-family: ubuntu, helvetica, arial;
-    overflow: hidden; /* this is important to prevent the whole page to bounce */
-}
-#header {
-    position: absolute;
-    z-index: 2;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 45px;
-    line-height: 45px;
-    background: #CD235C;
-    padding: 0;
-    color: #eee;
-    font-size: 20px;
-    text-align: center;
-    font-weight: bold;
-}
-
-#wrapper {
-    position: absolute;
-    z-index: 1;
-    top: 45px;
-    bottom: 48px;
-    left: 0;
-    width: 100%;
-    background: #ccc;
-    overflow: hidden;
-}
-#scroller {
-    position: absolute;
-    z-index: 1;
-    -webkit-tap-highlight-color: rgba(0,0,0,0);
-    width: 100%;
-    -webkit-transform: translateZ(0);
-    -moz-transform: translateZ(0);
-    -ms-transform: translateZ(0);
-    -o-transform: translateZ(0);
-    transform: translateZ(0);
-    -webkit-touch-callout: none;
-    -webkit-user-select: none;
-    -moz-user-select: none;
-    -ms-user-select: none;
-    user-select: none;simogj xhtt
-    -webkit-text-size-adjust: none;
-    -moz-text-size-adjust: none;
-    -ms-text-size-adjust: none;
-    -o-text-size-adjust: none;
-    text-size-adjust: none;
-}
-#scroller ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-    width: 100%;
-    text-align: left;
-}
-#scroller li {
-    padding: 0 10px;
-    height: 40px;
-    line-height: 40px;
-    border-bottom: 1px solid #ccc;
-    border-top: 1px solid #fff;
-    background-color: #fafafa;
-    font-size: 14px;
-}
-</style>
 </head>
 <body onload="loaded()">
     <div class="topPanel">
@@ -99,17 +7,15 @@ body {
         <div class="topPanel_title" id="categoryTitle">Развлечения</div>
         <span><img class="topPanel_menuButton" src="img/menu.png"/></span>
     </div>
-    <div data-role="navbar"  class="filter">
+    <div data-role="navbar"  class="filter" data-position="fixed">
         <div class="filter_item">Расходы<img src="img/filter_arrow.png" class="filter_arrow"/></div>
         <div class="filter_item">За день<img src="img/filter_arrow.png" class="filter_arrow"/></div>
         <div class="filter_item">За неделю<img src="img/filter_arrow.png" class="filter_arrow"/></div>
         <div class="filter_item">За месяц<img src="img/filter_arrow.png" class="filter_arrow"/></div>
     </div>
     
-    
-    
-    <div id="wrapper">
-        <div id="scroller">
+   <div >
+  <div class="expenses_edit">
             <ul>
                 <li>Pretty row 1</li>
                 <li>Pretty row 2</li>
@@ -433,8 +339,9 @@ body {
                 <li>Pretty row 80</li>
 
             </ul>
-        </div>
+</div>
     </div>
+
     
     
     <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-transition="none" class="foottopPanel" >
