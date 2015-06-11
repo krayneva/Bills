@@ -149,7 +149,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         try {
 
             Camera.Parameters cameraSettings = camera.getParameters();
-            if (camera.getParameters().getSupportedSceneModes().size()>0) {
+         /*   if (camera.getParameters().getSupportedSceneModes().size()>0) {
                 SCENE_MODE_SETTING_DEFAULT = camera.getParameters().getSupportedSceneModes().get(0);
                 sceneModeEnabled = true;
             }
@@ -172,6 +172,41 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
                 pictureFormatEnabled = true;
             }
             if (camera.getParameters().getSupportedColorEffects().size()>0) {
+                COLOR_EFFECTS_SETTING_DEFAULT = camera.getParameters().getSupportedColorEffects().get(0);
+                colorEffectsnabled = true;
+            }
+            */
+
+
+            if  ((camera.getParameters().getSupportedSceneModes()!=null)&&
+                    (camera.getParameters().getSupportedSceneModes().size()>0)) {
+                SCENE_MODE_SETTING_DEFAULT = camera.getParameters().getSupportedSceneModes().get(0);
+                sceneModeEnabled = true;
+            }
+            if ((camera.getParameters().getSupportedFocusModes()!=null)&&
+                (camera.getParameters().getSupportedFocusModes().size()>0)) {
+                FOCUS_MODE_SETTING_DEFAULT = camera.getParameters().getSupportedFocusModes().get(0);
+                focusModeEnabled = true;
+            }
+
+            if ((camera.getParameters().getSupportedAntibanding()!=null)&&
+                (camera.getParameters().getSupportedAntibanding().size()>0)){
+                ANTIBANDING_SETTING_DEFAULT = camera.getParameters().getSupportedAntibanding().get(0);
+                antibandingEnabled = true;
+            }
+            if (( camera.getParameters().getSupportedWhiteBalance()!=null) &&
+                ( camera.getParameters().getSupportedWhiteBalance().size()>0)) {
+                WHITE_BALANCE_SETTING_DEFAULT = camera.getParameters().getSupportedWhiteBalance().get(0);
+                whiteBalanceEnabled = true;
+            }
+
+            if (( camera.getParameters().getSupportedPictureFormats()!=null)
+                &&( camera.getParameters().getSupportedPictureFormats().size()>0)) {
+                PICTURE_FORMAT_SETTING_DEFAULT = camera.getParameters().getSupportedPictureFormats().get(0).toString();
+                pictureFormatEnabled = true;
+            }
+            if ((camera.getParameters().getSupportedColorEffects()!=null)&&
+                (camera.getParameters().getSupportedColorEffects().size()>0)) {
                 COLOR_EFFECTS_SETTING_DEFAULT = camera.getParameters().getSupportedColorEffects().get(0);
                 colorEffectsnabled = true;
             }
@@ -420,7 +455,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         
         billText = new TextView(this);
         params = new RelativeLayout.LayoutParams(LayoutParams.WRAP_CONTENT,LayoutParams.WRAP_CONTENT);
-        params.addRule(RelativeLayout.CENTER_IN_PARENT,RelativeLayout.TRUE);
+        params.addRule(RelativeLayout.CENTER_IN_PARENT, RelativeLayout.TRUE);
         billText.setLayoutParams(params);
         billText.setTextSize(15);
         controlsLayout.addView(billText);
@@ -431,10 +466,12 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         flashButton = new ImageButton(this);
         params = new RelativeLayout.LayoutParams(bSize/2,bSize/2);
         Log.w("margin",""+ margin);
-        params.rightMargin =bSize/4;
-        params.topMargin = bSize/4;
-        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT,RelativeLayout.TRUE);
-        params.addRule(RelativeLayout.ALIGN_PARENT_TOP,RelativeLayout.TRUE);
+        //params.rightMargin =bSize/4;
+        params.rightMargin = 10;
+        //params.topMargin = bSize/4;
+        params.topMargin = 10;
+        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT, RelativeLayout.TRUE);
+        params.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
         if (flashEnabled)
         	//setBitmap(flashButton, "flash_yellow.png");
         	setBitmap(flashButton, "flashOn256.png");
@@ -448,15 +485,15 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         flashButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-              if (flashEnabled){
-            	  flashEnabled = false;
-            	  setBitmap(flashButton, "flashOff256.png");
-            	  configureCamera();
-              }
-            	  flashEnabled = true;
-            	  setBitmap(flashButton, "flashOn256.png");
-            	  configureCamera();
-              }
+                if (flashEnabled) {
+                    flashEnabled = false;
+                    setBitmap(flashButton, "flashOff256.png");
+                    configureCamera();
+                }
+                flashEnabled = true;
+                setBitmap(flashButton, "flashOn256.png");
+                configureCamera();
+            }
         });
         
        controlsLayout.addView(flashButton,params);   
@@ -465,10 +502,12 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
        
        exitButton = new ImageButton(this);
        params = new RelativeLayout.LayoutParams(bSize/2,bSize/2);
-       params.leftMargin = bSize/4;
-       params.topMargin = bSize/4;
-       params.addRule(RelativeLayout.ALIGN_PARENT_LEFT,RelativeLayout.TRUE);
-       params.addRule(RelativeLayout.ALIGN_PARENT_TOP,RelativeLayout.TRUE);
+      // params.leftMargin = bSize/4;
+        params.leftMargin = 10;
+      // params.topMargin = bSize/4;
+        params.topMargin = 10;
+       params.addRule(RelativeLayout.ALIGN_PARENT_LEFT, RelativeLayout.TRUE);
+       params.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
        setBitmap(exitButton, "quit256.png");
 
        exitButton.setBackgroundColor(Color.TRANSPARENT);
@@ -478,23 +517,48 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
        exitButton.setOnClickListener(new View.OnClickListener() {
            @Override
            public void onClick(View v) {
-            finishWithError("Capture cancelled");
+               finishWithError("Capture cancelled");
            }
        });
        
-      controlsLayout.addView(exitButton,params);   
-       
-       
-       
-       
-       previousImage = new ImageView(this); 
+      controlsLayout.addView(exitButton,params);
+
+
+
+        settingsButton = new ImageButton(this);
+        params = new RelativeLayout.LayoutParams(bSize/2,bSize/2);
+        // params.leftMargin = bSize/4;
+        params.rightMargin = 10;
+        // params.topMargin = bSize/4;
+        params.topMargin = 10*2+bSize;
+        params.addRule(RelativeLayout.ALIGN_PARENT_RIGHT,RelativeLayout.TRUE);
+        params.addRule(RelativeLayout.ALIGN_PARENT_TOP, RelativeLayout.TRUE);
+        setBitmap(settingsButton, "settings256.png");
+
+        settingsButton.setBackgroundColor(Color.TRANSPARENT);
+        settingsButton.setScaleType(ScaleType.CENTER_INSIDE);
+
+
+        settingsButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(CustomCameraActivity.this, CameraSettingsActivity.class);
+                startActivityForResult(intent, REQUEST_CODE_SETTINGS_ACTIVITY);
+            }
+        });
+
+        controlsLayout.addView(settingsButton, params);
+
+
+        previousImage = new ImageView(this);
        params = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT,margin);
        params.addRule(RelativeLayout.ALIGN_PARENT_TOP,RelativeLayout.TRUE);
        params.addRule(RelativeLayout.CENTER_HORIZONTAL,RelativeLayout.TRUE);
        params.addRule(RelativeLayout.ABOVE, borderTopLeft.getId());
        params.leftMargin = margin;
        params.rightMargin = margin;
-     //  previousImage.setImageDrawable(resources.getDrawable(R.drawable.icon));
+
+       // previousImage.setScaleType(ScaleType.MATRIX);
        controlsLayout.addView(previousImage,params);   
         updateDynamicLayout();
 
@@ -516,34 +580,38 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 			previousImage.setVisibility(View.GONE);
 		}
 		else{
-			previousImage.setVisibility(View.VISIBLE);
-			billText.setText("Продолжение чека");
-			recaptureButton.setVisibility(View.VISIBLE);
-			sendButton.setVisibility(View.VISIBLE);
-			if (previousBitmap!=null){
-				previousBitmap.recycle();
-				System.gc();
-			}
-			FileInputStream fileInputStream = null;
-			try{
-				fileInputStream = new FileInputStream(Environment.getExternalStorageDirectory()+"/"+bitmaps.get(bitmaps.size()-1));
-				BitmapFactory.Options options = new BitmapFactory.Options();
-			    options.inJustDecodeBounds = false;
-	        	Bitmap b = BitmapFactory.decodeStream(fileInputStream, null,options);
-	        	fileInputStream.close();
-	        	previousBitmap = Bitmap.createBitmap(b, 0, b.getHeight()-currentMarginTop*2,b.getWidth(), currentMarginTop*2);
-				previousImage.setScaleType(ScaleType.FIT_END);
-				previousImage.setImageBitmap(previousBitmap);
-				b.recycle();
-				System.gc();
-			}
-			catch (Exception e){
-				e.printStackTrace();
-			}
-			
+          if (bitmaps.size()==5) {
+              disableCaptureButton();
+              billText.setText("Достигнуто макимальное количество снимков");
+          }
+          else {
+              billText.setText("Продолжение чека");
+          }
+              previousImage.setVisibility(View.VISIBLE);
+            previousImage.setAlpha(0.6f);
+              recaptureButton.setVisibility(View.VISIBLE);
+              sendButton.setVisibility(View.VISIBLE);
+              if (previousBitmap != null) {
+                  previousBitmap.recycle();
+                  System.gc();
+              }
+              FileInputStream fileInputStream = null;
+              try {
+                  fileInputStream = new FileInputStream(Environment.getExternalStorageDirectory() + "/" + bitmaps.get(bitmaps.size() - 1));
+                  BitmapFactory.Options options = new BitmapFactory.Options();
+                  options.inJustDecodeBounds = false;
+                  Bitmap b = BitmapFactory.decodeStream(fileInputStream, null, options);
+                  fileInputStream.close();
+                //  previousBitmap = Bitmap.createBitmap(b, 0, b.getHeight() - currentMarginTop * 2, b.getWidth(), currentMarginTop * 2);
+                  previousBitmap = Bitmap.createBitmap(b, 0, b.getHeight() - currentMarginTop, b.getWidth(), currentMarginTop);
+                  previousImage.setScaleType(ScaleType.FIT_END);
+                  previousImage.setImageBitmap(previousBitmap);
+                  b.recycle();
+                  System.gc();
+              } catch (Exception e) {
+                  e.printStackTrace();
+              }
 		}
-		
-		
 	}
     
 
@@ -566,7 +634,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 
 
         //
-        settingsButton = new ImageButton(this);
+       /* settingsButton = new ImageButton(this);
         setBitmap(settingsButton, "settings256.png");
         settingsButton.setBackgroundColor(Color.TRANSPARENT);
         settingsButton.setScaleType(ScaleType.CENTER_INSIDE);
@@ -580,7 +648,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
             }
         });
         panelLayout.addView(settingsButton, buttonParams);
-    	
+    	*/
     	recaptureButton = new ImageButton(this);
         setBitmap(recaptureButton, "esc256.png");
       	recaptureButton.setBackgroundColor(Color.TRANSPARENT);
@@ -962,12 +1030,13 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         	super.onPostExecute(result);
         	progress.setVisibility(View.INVISIBLE);
         	   try {
-        		   updateDynamicLayout();
+
         		   //releaseCamera();
                    //camera = Camera.open();
                    configureCamera();
                    displayCameraPreview();
-             enableButtons();
+                   enableButtons();
+                   updateDynamicLayout();
                } catch (Exception e) {
                    finishWithError("Camera is not accessible");
                }
@@ -1307,4 +1376,12 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         }
     }
 
+    private void disableCaptureButton(){
+        captureButton.setEnabled(false);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.HONEYCOMB) {
+            captureButton.setAlpha(0.5f);
+        }
+    }
+
 }
+

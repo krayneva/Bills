@@ -517,10 +517,7 @@ function updateTransactionInfoPage(){
 							if (listrow.childNodes[i].id=="itemQuantity"){
 					  			listrow.childNodes[i].innerHTML = quantity+(" ")+measure;
 							}
-					  		if (listrow.childNodes[i].id=="rowCheckBox"){
-					  			listrow.childNodes[i].setAttribute("id", "rowCheckBox"+i);
-					  			listrow.setAttribute("pos",k);
-							}
+
 				  			//alert("ID of child : "+listrow.childNodes[i].id+" type: "+listrow.childNodes[i].type);
 					  }
 					 
@@ -577,18 +574,7 @@ function updateTransactionInfoPage(){
 			 }
 			 
 		});
-		 $(":checkbox").change(function(event) {
-			  event.preventDefault();
-	            event.stopPropagation();
-			    if(this.checked) {
-			    	
-			    	alert("Checked!");
-			    }
-			    else{
-			    	alert("Unchecked!!");	
-			    }
-			    return false;
-			});
+
 		 
 		  $("#autocomplete").html('');
 		 // наполняем автокомплит

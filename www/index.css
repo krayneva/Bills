@@ -415,6 +415,7 @@ div.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset.ui-focus>input{
   font-weight: bold;
   padding: 5%;
   position: absolute;
+  visibility:hidden;
 }
 .icoCategory{
   width: 100%;

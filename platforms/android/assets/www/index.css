@@ -415,6 +415,7 @@ div.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset.ui-focus>input{
   font-weight: bold;
   padding: 5%;
   position: absolute;
+  visibility:hidden;
 }
 .icoCategory{
   width: 100%;
@@ -852,7 +853,6 @@ label{
     height: auto!important;
     border: 0!important;
 }
-
 .shopList_needToBbuy>ul>li{
     color: #367272 !important;
 }
@@ -872,6 +872,11 @@ label{
     top: 0.7em;
     left: 0.5em;
     position: absolute;
+}
+.shopList_needToBbuy li .shopList_checkbox input{
+  width: 1.5em!important;
+  height: 1.5em!important;
+  border-radius: none!important;
 }
 .shopList_needToBbuy li>.shopList_itemName,
 .shopList_alreadyBuy li>.shopList_itemName{
