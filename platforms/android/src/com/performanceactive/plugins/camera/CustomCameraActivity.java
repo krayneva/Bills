@@ -122,7 +122,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     private int currentMarginTop, currentMarginBottom, currentScale;
     private int scaledMarginTop, scaledMarginBottom;
     private ImageView previousImage;
-    private boolean flashEnabled = false;
+    private static boolean flashEnabled = false;
     private Resources resources;
     
     private CustomCameraPreview customCameraPreview;
@@ -141,13 +141,13 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     private Bitmap previousBitmap;
     double latitude=-1, longitude=-1, altitude=-1 ;  
     private ProgressBar progress;
-    
+    private static Context context;
     @Override
     protected void onResume() {
         super.onResume();
 
         try {
-
+        camera = getCamera();
             Camera.Parameters cameraSettings = camera.getParameters();
          /*   if (camera.getParameters().getSupportedSceneModes().size()>0) {
                 SCENE_MODE_SETTING_DEFAULT = camera.getParameters().getSupportedSceneModes().get(0);
@@ -223,7 +223,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         }
     }
 
-    private void configureCamera() { 
+    private static  void configureCamera() {
         Camera.Parameters cameraSettings = camera.getParameters();
         cameraSettings.setJpegQuality(100);
 
@@ -261,7 +261,8 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         } else if (supportedFocusModes.contains(FOCUS_MODE_AUTO)) {
             cameraSettings.setFocusMode(FOCUS_MODE_AUTO);
         }*/
-        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
+
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
         String sceneMode = sp.getString(CameraSettingsActivity.SCENE_MODE_SETTING, SCENE_MODE_SETTING_DEFAULT);
         String focusMode = sp.getString(CameraSettingsActivity.FOCUS_MODE_SETTING, FOCUS_MODE_SETTING_DEFAULT);
         String antiBanding = sp.getString(CameraSettingsActivity.ANTIBANDING_SETTING, ANTIBANDING_SETTING_DEFAULT);
@@ -302,18 +303,26 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
      //   releaseCamera();
     }
 
-    private void releaseCamera() {
-        if (camera != null) {
-            camera.stopPreview();
-            camera.release();
+    public static void releaseCamera() {
+        try {
+            if (camera != null) {
+                camera.stopPreview();
+                camera.setPreviewCallback(null);
+                camera.release();
+            }
+        }
+        finally{
             camera = null;
         }
     }
+
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         resources = getResources();
+        context = getBaseContext();
         getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         requestWindowFeature(Window.FEATURE_NO_TITLE);
         layout = new RelativeLayout(this);
@@ -560,7 +569,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 
        // previousImage.setScaleType(ScaleType.MATRIX);
        controlsLayout.addView(previousImage,params);   
-        updateDynamicLayout();
+       updateDynamicLayout();
 
         progress = new ProgressBar(this);
         progress.setVisibility(View.INVISIBLE);
@@ -699,7 +708,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         @Override
          public void onClick(View v) {
         		sendPicture();
-            }
+        }
         });
         panelLayout.addView(sendButton, buttonParams);
         
@@ -1133,8 +1142,8 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     private void finishWithError(String message) {
         Intent data = new Intent().putExtra(ERROR_MESSAGE, message);
         setResult(RESULT_ERROR, data);
-    	
-    	if (bitmaps!=null)
+
+        if (bitmaps!=null)
     		bitmaps.clear();
     	if (previousBitmap!=null)previousBitmap.recycle();	
     	System.gc();
@@ -1305,7 +1314,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 	        data.putExtra(IMAGE_URI, Uri.fromFile(result).toString());
 	        data.putExtra(LATITUDE, latitude);
 	        data.putExtra(LONGITUDE, longitude);
-	        data.putExtra(ALTITUDE, altitude);
+            data.putExtra(ALTITUDE, altitude);
 	        setResult(RESULT_OK, data);
 	        finish();
 		}
@@ -1326,13 +1335,24 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     @Override
     protected void onDestroy() {
        // Toast.makeText(this,"Destroying camera!", Toast.LENGTH_LONG).show();
-        releaseCamera();
+ //       releaseCamera();
         super.onDestroy();
     }
 
     public static Camera getCamera(){
+        try {
+            camera = Camera.open();
+            configureCamera();
+        }
+        catch(Exception e ){
+            releaseCamera();
+            camera = Camera.open();
+            e.printStackTrace();
+        }
         return camera;
     }
+
+
 
     private void disableButtons(){
        /* captureButton.setOnClickListener(null);
