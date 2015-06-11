@@ -1,112 +1,454 @@
 <!DOCTYPE html>
-<html data-jqm-ver="v10" lang="en">
+
  
-  <body>
-    <div class="pull-demo-page" data-role="page">
-      
-      <div data-id="header" data-position="fixed" data-role="header" data-tap-toggle="false" data-transition="none">
-        <h1>Pull</h1>
-        <div class="ui-btn-right" data-role="controlgroup" data-type="horizontal" style="margin-top:0;border-top:0;">
-          <a data-role="button" data-theme="b" href="pull.html" rel="external">1.0.1</a>
-          <a data-role="button" data-theme="a" href="pull_11.html" rel="external">1.1.2</a>
-          <a data-role="button" data-theme="a" href="pull_12.html" rel="external">1.2.1</a>
-          <a data-role="button" data-theme="a" href="pull_13.html" rel="external">1.3.1</a>
-          <a data-role="button" data-theme="a" href="pull_14.html" rel="external">1.4.0</a>
-        </div>
-      </div>
-      
-      <div data-iscroll="" data-role="content">
-        
-        <div class="iscroll-pulldown">
-          <span class="iscroll-pull-icon"></span><span class="iscroll-pull-label"></span>
-        </div>
-        
-        <ul data-role="listview" >
-        <li>Item 1 commodi cumque accusantium consequuntur</li>
-        <li>Item 2 pariatur consequatur esse et</li>
-        <li>Item 3 voluptatem cupiditate eos occaecati</li>
-        <li>Item 4 ut eum itaque alias</li>
-        <li>Item 5 ut est tenetur inventore</li>
-        <li>Item 6 autem sit et consectetur</li>
-        <li>Item 7 ut consequuntur vel praesentium</li>
-        <li>Item 8 velit illo aut harum</li>
-        <li>Item 9 rerum laborum enim consectetur</li>
-        <li>Item 10 aut qui voluptas repellendus</li>
-        <li>Item 11 rerum minus est quos</li>
-        <li>Item 12 eos reiciendis voluptas ea</li>
-        <li>Item 13 expedita non aut qui</li>
-        <li>Item 14 est quo ut eos</li>
-        <li>Item 15 iusto ad assumenda vel</li>
-        <li>Item 16 reprehenderit rerum incidunt rerum</li>
-        <li>Item 17 nobis in fuga perferendis</li>
-        <li>Item 18 qui id aliquid voluptas</li>
-        <li>Item 19 deleniti vitae ipsum modi</li>
-        <li>Item 20 id alias dolorem ut</li>
-		<li>Item 21 cum eaque error magnam</li>
-		<li>Item 22 fuga nam eos recusandae</li>
-		<li>Item 23 aut est ipsa beatae</li>
-		<li>Item 24 perspiciatis iure rerum voluptate</li>
-		<li>Item 25 reprehenderit necessitatibus omnis omnis</li>
-		<li>Item 26 dolor iste illo vel</li>
-		<li>Item 27 qui et a sequi</li>
-		<li>Item 28 aut suscipit est illum</li>
-		<li>Item 29 earum ut ducimus ipsam</li>
-		<li>Item 30 perspiciatis voluptatum rerum ratione</li>
-		<li>Item 31 asperiores error molestiae consectetur</li>
-		<li>Item 32 odio et non incidunt</li>
-		<li>Item 33 maiores quisquam necessitatibus consequatur</li>
-		<li>Item 34 non reiciendis eveniet autem</li>
-		<li>Item 35 quaerat eum voluptas velit</li>
-		<li>Item 36 voluptatum earum qui et</li>
-		<li>Item 37 sunt dolor ipsum rerum</li>
-		<li>Item 38 labore accusantium accusamus distinctio</li>
-		<li>Item 39 et nihil et quam</li>
-		<li>Item 40 aut maxime velit qui</li>
-		<li>Item 41 exercitationem sed impedit dolore</li>
-		<li>Item 42 rem necessitatibus fugiat consequatur</li>
-		<li>Item 43 id quia autem sequi</li>
-		<li>Item 44 qui ut voluptatem voluptates</li>
-		<li>Item 45 ex expedita totam accusamus</li>
-		<li>Item 46 voluptatibus delectus magni esse</li>
-		<li>Item 47 rerum explicabo dolorum adipisci</li>
-		<li>Item 48 aut optio sed voluptatem</li>
-		<li>Item 49 nostrum dolorum dicta quas</li>
-		<li>Item 50 omnis perspiciatis sit eum</li>
-		</ul>
-        
-        <div class="iscroll-pullup">
-          <span class="iscroll-pull-icon"></span><span class="iscroll-pull-label" data-iscroll-loading-text="Custom loading text" data-iscroll-pulled-text="Custom pulled text">Custom reset text</span>
-        </div>
-        
-        </div>
-      
-      <div data-id="footer" data-position="fixed" data-role="footer" data-tap-toggle="false" data-transition="none">
-        <div data-role="navbar">
-          <ul>
-            <li>
-              <a class="fastclick" data-href="index.html">List</a>
-            </li>
+<script type="text/javascript">
+    var myScroll;
+    function loaded () {
+        myScroll = new IScroll('#wrapper', { mouseWheel: true });
+    }
+document.addEventListener('touchmove', function (e) { e.preventDefault(); }, false);
+    </script>
 
-            <li>
-              <a class="fastclick" data-href="inset.html">Inset</a>
-            </li>
+<style type="text/css">
+    * {
+        -webkit-box-sizing: border-box;
+        -moz-box-sizing: border-box;
+        box-sizing: border-box;
+    }
+html {
+    -ms-touch-action: none;
+}
+body,ul,li {
+    padding: 0;
+    margin: 0;
+    border: 0;
+}
+body {
+    font-size: 12px;
+    font-family: ubuntu, helvetica, arial;
+    overflow: hidden; /* this is important to prevent the whole page to bounce */
+}
+#header {
+    position: absolute;
+    z-index: 2;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 45px;
+    line-height: 45px;
+    background: #CD235C;
+    padding: 0;
+    color: #eee;
+    font-size: 20px;
+    text-align: center;
+    font-weight: bold;
+}
 
-            <li>
-              <a class="fastclick ui-btn-active ui-state-persist" data-href="pull.html">Pull</a>
-            </li>
+#wrapper {
+    position: absolute;
+    z-index: 1;
+    top: 45px;
+    bottom: 48px;
+    left: 0;
+    width: 100%;
+    background: #ccc;
+    overflow: hidden;
+}
+#scroller {
+    position: absolute;
+    z-index: 1;
+    -webkit-tap-highlight-color: rgba(0,0,0,0);
+    width: 100%;
+    -webkit-transform: translateZ(0);
+    -moz-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    -o-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    -moz-user-select: none;
+    -ms-user-select: none;
+    user-select: none;
+    -webkit-text-size-adjust: none;
+    -moz-text-size-adjust: none;
+    -ms-text-size-adjust: none;
+    -o-text-size-adjust: none;
+    text-size-adjust: none;
+}
+#scroller ul {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    width: 100%;
+    text-align: left;
+}
+#scroller li {
+    padding: 0 10px;
+    height: 40px;
+    line-height: 40px;
+    border-bottom: 1px solid #ccc;
+    border-top: 1px solid #fff;
+    background-color: #fafafa;
+    font-size: 14px;
+}
+</style>
+</head>
+<body onload="loaded()">
+    <div class="topPanel">
+        <span> <a data-rel="back"><img class="topPanel_backButton" src="img/back.png" data-rel="back"/></a></span>
+        <div class="topPanel_title" id="categoryTitle">Развлечения</div>
+        <span><img class="topPanel_menuButton" src="img/menu.png"/></span>
+    </div>
+    <div data-role="navbar"  class="filter">
+        <div class="filter_item">Расходы<img src="img/filter_arrow.png" class="filter_arrow"/></div>
+        <div class="filter_item">За день<img src="img/filter_arrow.png" class="filter_arrow"/></div>
+        <div class="filter_item">За неделю<img src="img/filter_arrow.png" class="filter_arrow"/></div>
+        <div class="filter_item">За месяц<img src="img/filter_arrow.png" class="filter_arrow"/></div>
+    </div>
+    
+    
+    
+    <div id="wrapper">
+        <div id="scroller">
+            <ul>
+                <li>Pretty row 1</li>
+                <li>Pretty row 2</li>
+                <li>Pretty row 3</li>
+                <li>Pretty row 4</li>
+                <li>Pretty row 5</li>
+                <li>Pretty row 6</li>
+                <li>Pretty row 7</li>
+                <li>Pretty row 8</li>
+                <li>Pretty row 9</li>
+                <li>Pretty row 10</li>
+                <li>Pretty row 11</li>
+                <li>Pretty row 12</li>
+                <li>Pretty row 13</li>
+                <li>Pretty row 14</li>
+                <li>Pretty row 15</li>
+                <li>Pretty row 16</li>
+                <li>Pretty row 17</li>
+                <li>Pretty row 18</li>
+                <li>Pretty row 19</li>
+                <li>Pretty row 20</li>
+                <li>Pretty row 21</li>
+                <li>Pretty row 22</li>
+                <li>Pretty row 23</li>
+                <li>Pretty row 24</li>
+                <li>Pretty row 25</li>
+                <li>Pretty row 26</li>
+                <li>Pretty row 27</li>
+                <li>Pretty row 28</li>
+                <li>Pretty row 29</li>
+                <li>Pretty row 30</li>
+                <li>Pretty row 31</li>
+                <li>Pretty row 32</li>
+                <li>Pretty row 33</li>
+                <li>Pretty row 34</li>
+                <li>Pretty row 35</li>
+                <li>Pretty row 36</li>
+                <li>Pretty row 37</li>
+                <li>Pretty row 38</li>
+                <li>Pretty row 39</li>
+                <li>Pretty row 40</li>
+                <li>Pretty row 41</li>
+                <li>Pretty row 42</li>
+                <li>Pretty row 43</li>
+                <li>Pretty row 44</li>
+                <li>Pretty row 45</li>
+                <li>Pretty row 46</li>
+                <li>Pretty row 47</li>
+                <li>Pretty row 48</li>
+                <li>Pretty row 49</li>
+                <li>Pretty row 50</li>
+                <li>Pretty row 51</li>
+                <li>Pretty row 52</li>
+                <li>Pretty row 53</li>
+                <li>Pretty row 54</li>
+                <li>Pretty row 55</li>
+                <li>Pretty row 56</li>
+                <li>Pretty row 57</li>
+                <li>Pretty row 58</li>
+                <li>Pretty row 59</li>
+                <li>Pretty row 60</li>
+                <li>Pretty row 61</li>
+                <li>Pretty row 62</li>
+                <li>Pretty row 63</li>
+                <li>Pretty row 64</li>
+                <li>Pretty row 65</li>
+                <li>Pretty row 66</li>
+                <li>Pretty row 67</li>
+                <li>Pretty row 68</li>
+                <li>Pretty row 69</li>
+                <li>Pretty row 70</li>
+                <li>Pretty row 71</li>
+                <li>Pretty row 72</li>
+                <li>Pretty row 73</li>
+                <li>Pretty row 74</li>
+                <li>Pretty row 75</li>
+                <li>Pretty row 76</li>
+                <li>Pretty row 77</li>
+                <li>Pretty row 78</li>
+                <li>Pretty row 79</li>
+                <li>Pretty row 80</li>
+                <li>Pretty row 1</li>
+                <li>Pretty row 2</li>
+                <li>Pretty row 3</li>
+                <li>Pretty row 4</li>
+                <li>Pretty row 5</li>
+                <li>Pretty row 6</li>
+                <li>Pretty row 7</li>
+                <li>Pretty row 8</li>
+                <li>Pretty row 9</li>
+                <li>Pretty row 10</li>
+                <li>Pretty row 11</li>
+                <li>Pretty row 12</li>
+                <li>Pretty row 13</li>
+                <li>Pretty row 14</li>
+                <li>Pretty row 15</li>
+                <li>Pretty row 16</li>
+                <li>Pretty row 17</li>
+                <li>Pretty row 18</li>
+                <li>Pretty row 19</li>
+                <li>Pretty row 20</li>
+                <li>Pretty row 21</li>
+                <li>Pretty row 22</li>
+                <li>Pretty row 23</li>
+                <li>Pretty row 24</li>
+                <li>Pretty row 25</li>
+                <li>Pretty row 26</li>
+                <li>Pretty row 27</li>
+                <li>Pretty row 28</li>
+                <li>Pretty row 29</li>
+                <li>Pretty row 30</li>
+                <li>Pretty row 31</li>
+                <li>Pretty row 32</li>
+                <li>Pretty row 33</li>
+                <li>Pretty row 34</li>
+                <li>Pretty row 35</li>
+                <li>Pretty row 36</li>
+                <li>Pretty row 37</li>
+                <li>Pretty row 38</li>
+                <li>Pretty row 39</li>
+                <li>Pretty row 40</li>
+                <li>Pretty row 41</li>
+                <li>Pretty row 42</li>
+                <li>Pretty row 43</li>
+                <li>Pretty row 44</li>
+                <li>Pretty row 45</li>
+                <li>Pretty row 46</li>
+                <li>Pretty row 47</li>
+                <li>Pretty row 48</li>
+                <li>Pretty row 49</li>
+                <li>Pretty row 50</li>
+                <li>Pretty row 51</li>
+                <li>Pretty row 52</li>
+                <li>Pretty row 53</li>
+                <li>Pretty row 54</li>
+                <li>Pretty row 55</li>
+                <li>Pretty row 56</li>
+                <li>Pretty row 57</li>
+                <li>Pretty row 58</li>
+                <li>Pretty row 59</li>
+                <li>Pretty row 60</li>
+                <li>Pretty row 61</li>
+                <li>Pretty row 62</li>
+                <li>Pretty row 63</li>
+                <li>Pretty row 64</li>
+                <li>Pretty row 65</li>
+                <li>Pretty row 66</li>
+                <li>Pretty row 67</li>
+                <li>Pretty row 68</li>
+                <li>Pretty row 69</li>
+                <li>Pretty row 70</li>
+                <li>Pretty row 71</li>
+                <li>Pretty row 72</li>
+                <li>Pretty row 73</li>
+                <li>Pretty row 74</li>
+                <li>Pretty row 75</li>
+                <li>Pretty row 76</li>
+                <li>Pretty row 77</li>
+                <li>Pretty row 78</li>
+                <li>Pretty row 79</li>
+                <li>Pretty row 80</li>
+                <li>Pretty row 1</li>
+                <li>Pretty row 2</li>
+                <li>Pretty row 3</li>
+                <li>Pretty row 4</li>
+                <li>Pretty row 5</li>
+                <li>Pretty row 6</li>
+                <li>Pretty row 7</li>
+                <li>Pretty row 8</li>
+                <li>Pretty row 9</li>
+                <li>Pretty row 10</li>
+                <li>Pretty row 11</li>
+                <li>Pretty row 12</li>
+                <li>Pretty row 13</li>
+                <li>Pretty row 14</li>
+                <li>Pretty row 15</li>
+                <li>Pretty row 16</li>
+                <li>Pretty row 17</li>
+                <li>Pretty row 18</li>
+                <li>Pretty row 19</li>
+                <li>Pretty row 20</li>
+                <li>Pretty row 21</li>
+                <li>Pretty row 22</li>
+                <li>Pretty row 23</li>
+                <li>Pretty row 24</li>
+                <li>Pretty row 25</li>
+                <li>Pretty row 26</li>
+                <li>Pretty row 27</li>
+                <li>Pretty row 28</li>
+                <li>Pretty row 29</li>
+                <li>Pretty row 30</li>
+                <li>Pretty row 31</li>
+                <li>Pretty row 32</li>
+                <li>Pretty row 33</li>
+                <li>Pretty row 34</li>
+                <li>Pretty row 35</li>
+                <li>Pretty row 36</li>
+                <li>Pretty row 37</li>
+                <li>Pretty row 38</li>
+                <li>Pretty row 39</li>
+                <li>Pretty row 40</li>
+                <li>Pretty row 41</li>
+                <li>Pretty row 42</li>
+                <li>Pretty row 43</li>
+                <li>Pretty row 44</li>
+                <li>Pretty row 45</li>
+                <li>Pretty row 46</li>
+                <li>Pretty row 47</li>
+                <li>Pretty row 48</li>
+                <li>Pretty row 49</li>
+                <li>Pretty row 50</li>
+                <li>Pretty row 51</li>
+                <li>Pretty row 52</li>
+                <li>Pretty row 53</li>
+                <li>Pretty row 54</li>
+                <li>Pretty row 55</li>
+                <li>Pretty row 56</li>
+                <li>Pretty row 57</li>
+                <li>Pretty row 58</li>
+                <li>Pretty row 59</li>
+                <li>Pretty row 60</li>
+                <li>Pretty row 61</li>
+                <li>Pretty row 62</li>
+                <li>Pretty row 63</li>
+                <li>Pretty row 64</li>
+                <li>Pretty row 65</li>
+                <li>Pretty row 66</li>
+                <li>Pretty row 67</li>
+                <li>Pretty row 68</li>
+                <li>Pretty row 69</li>
+                <li>Pretty row 70</li>
+                <li>Pretty row 71</li>
+                <li>Pretty row 72</li>
+                <li>Pretty row 73</li>
+                <li>Pretty row 74</li>
+                <li>Pretty row 75</li>
+                <li>Pretty row 76</li>
+                <li>Pretty row 77</li>
+                <li>Pretty row 78</li>
+                <li>Pretty row 79</li>
+                <li>Pretty row 80</li>
+                <li>Pretty row 1</li>
+                <li>Pretty row 2</li>
+                <li>Pretty row 3</li>
+                <li>Pretty row 4</li>
+                <li>Pretty row 5</li>
+                <li>Pretty row 6</li>
+                <li>Pretty row 7</li>
+                <li>Pretty row 8</li>
+                <li>Pretty row 9</li>
+                <li>Pretty row 10</li>
+                <li>Pretty row 11</li>
+                <li>Pretty row 12</li>
+                <li>Pretty row 13</li>
+                <li>Pretty row 14</li>
+                <li>Pretty row 15</li>
+                <li>Pretty row 16</li>
+                <li>Pretty row 17</li>
+                <li>Pretty row 18</li>
+                <li>Pretty row 19</li>
+                <li>Pretty row 20</li>
+                <li>Pretty row 21</li>
+                <li>Pretty row 22</li>
+                <li>Pretty row 23</li>
+                <li>Pretty row 24</li>
+                <li>Pretty row 25</li>
+                <li>Pretty row 26</li>
+                <li>Pretty row 27</li>
+                <li>Pretty row 28</li>
+                <li>Pretty row 29</li>
+                <li>Pretty row 30</li>
+                <li>Pretty row 31</li>
+                <li>Pretty row 32</li>
+                <li>Pretty row 33</li>
+                <li>Pretty row 34</li>
+                <li>Pretty row 35</li>
+                <li>Pretty row 36</li>
+                <li>Pretty row 37</li>
+                <li>Pretty row 38</li>
+                <li>Pretty row 39</li>
+                <li>Pretty row 40</li>
+                <li>Pretty row 41</li>
+                <li>Pretty row 42</li>
+                <li>Pretty row 43</li>
+                <li>Pretty row 44</li>
+                <li>Pretty row 45</li>
+                <li>Pretty row 46</li>
+                <li>Pretty row 47</li>
+                <li>Pretty row 48</li>
+                <li>Pretty row 49</li>
+                <li>Pretty row 50</li>
+                <li>Pretty row 51</li>
+                <li>Pretty row 52</li>
+                <li>Pretty row 53</li>
+                <li>Pretty row 54</li>
+                <li>Pretty row 55</li>
+                <li>Pretty row 56</li>
+                <li>Pretty row 57</li>
+                <li>Pretty row 58</li>
+                <li>Pretty row 59</li>
+                <li>Pretty row 60</li>
+                <li>Pretty row 61</li>
+                <li>Pretty row 62</li>
+                <li>Pretty row 63</li>
+                <li>Pretty row 64</li>
+                <li>Pretty row 65</li>
+                <li>Pretty row 66</li>
+                <li>Pretty row 67</li>
+                <li>Pretty row 68</li>
+                <li>Pretty row 69</li>
+                <li>Pretty row 70</li>
+                <li>Pretty row 71</li>
+                <li>Pretty row 72</li>
+                <li>Pretty row 73</li>
+                <li>Pretty row 74</li>
+                <li>Pretty row 75</li>
+                <li>Pretty row 76</li>
+                <li>Pretty row 77</li>
+                <li>Pretty row 78</li>
+                <li>Pretty row 79</li>
+                <li>Pretty row 80</li>
 
-            <li>
-              <a class="fastclick" data-href="shortpull.html">Short</a>
-            </li>
-
-            <li>
-              <a class="fastclick" data-href="form.html">Form</a>
-            </li>
-
-          </ul>
+            </ul>
         </div>
-      </div>
-      
-      </div>
-  </body>
-</html>
+    </div>
+    
+    
+    <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-transition="none" class="foottopPanel" >
+        <div class="foottopPanel"  >
+            <div class="footer_result">
+                <div class="footer_ico_percentage"><img src="img/ico_empty.png" onclick="requestAndUpdateTransactionPage()"/></div>
+                <div class="footerText">
+                    Всего: <span>12.000</span>
+                    <br/>
+                    Последний: <span>4.000</span>
+                </div>
+                <div class="footer_ico_add" onclick="showTransactionPage()"><img src="img/add_transaction.png"/></div>
+            </div>
+        </div>
+
+    
+</body>
