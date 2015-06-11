@@ -8,7 +8,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Scene Mode"
+        android:text="Режим съемки"
         android:id="@+id/textView" />
 
     <Spinner
@@ -20,7 +20,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Focus Mode"/>
+        android:text="Режим фокусировки"/>
 
 
     <Spinner
@@ -33,7 +33,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="AntiBanding"/>
+        android:text="Стабилизация"/>
 
 
     <Spinner
@@ -47,7 +47,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="White Balance"/>
+        android:text="Баланс белого"/>
 
 
     <Spinner
@@ -59,7 +59,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Picture format"/>
+        android:text="Формат изображения"/>
 
 
     <Spinner
@@ -73,7 +73,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Color Effects"/>
+        android:text="Цветовые эффекты"/>
 
 
     <Spinner
@@ -87,7 +87,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:id="@+id/textViewExposureCompensation"
-        android:text="Exposure compensation"/>
+        android:text="Значение экспозиции"/>
 
     <SeekBar
         android:layout_width="match_parent"
