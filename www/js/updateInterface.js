@@ -247,7 +247,7 @@ function updateWidgets(){
 		  var widget = document.getElementById("widget".concat(w.Left,w.Top));
 		
 		 widget.style.display = "block";
-		 //widget.style.visibility = "visible";
+		 widget.style.visibility = "visible";
 		 //console.log("Setting categoryID for widget: "+w.VisualObjectId);
 		 widget.setAttribute("categoryID", w.VisualObjectId);
 		 var s = "showExpensesPage('"+ w.VisualObjectId+"')";
