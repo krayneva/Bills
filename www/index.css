@@ -686,7 +686,20 @@ label{
 }
 .expenses >ul,
 .expenses >ul>li{
-	border: 0 !important;
+	border: 0;
+}
+ul.expensesList{
+  padding: 0!important;
+  list-style: none;
+  margin: 0!important;
+}
+li.expenses_item{
+  padding: 0 0 0.5em 0!important;
+  border-style: solid;
+  border-color: gray;
+  border-width: 0 0 1px 0!important;
+  margin: 0!important;
+
 }
 .expenses_item {
     color: #59a6b2  !important;
@@ -698,13 +711,12 @@ label{
 }
 .expenses_info {
   position: relative;
-  width: 5em;
+  width: 7em;
   line-height: 2em;
-  padding-left: 1em;
 }
 .expenses_description{  
   min-height: 4.5em;
-  padding: 1em 0 !important;
+  padding: 1em!important;
   
 }
 .expenses_title {
@@ -723,7 +735,7 @@ label{
     margin: 0.4em 0.2em;
 }
 .expenses_date {
-    width: 100%;
+    width: 5.5em;
     background: #ecf1f1;
     color: #8eabae;
     padding: 0 0.5em 0 1em;
@@ -731,13 +743,13 @@ label{
     font-size: 1.2em;
 }
 .expenses_time {
-  width: 100%;
+  padding-left: 1em;
   font-size: 1.2em;
-  padding-top: 1.7em;
+  padding-top: 0.5em;
   color: #8eabae;
 }
 .expenses_price {
-    width: 100%;
+    padding-left: 1em;
     color: red;
     font-size: 1.4em;
     line-height: 1;
