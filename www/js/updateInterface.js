@@ -1,14 +1,17 @@
 function updateLoginPage(){
 	
-	(getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT)).done(function(res){
+/*	(getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT)).done(function(res){
 			document.getElementById('login').value = res;
 		});
 	getSetting(SETTING_USER_PASSWORD, USER_PASSWORD_DEFAULT).done(function(res){
 		document.getElementById('password').value= res;
 	});
-
-	
-	
+*/
+	//var login =  window.localStorage.getItem(SETTING_USER_LOGIN);
+	var login =  getSettingFromStorage(SETTING_USER_LOGIN,"");
+	document.getElementById('login').value = login;
+	var password = getSettingFromStorage(SETTING_USER_PASSWORD,"");
+	document.getElementById('password').value= password;
     
 	 if ( $("#login").length==0)$('#login').focus();
 	 else

@@ -52,7 +52,16 @@ function saveSettings(){
 function saveConnectionSettings(){
 	var serverAddress = document.getElementById("serverAddress").value;
 	if (serverAddress =="") serverAddress = SERVER_ADDRESS_DEFAULT;
-	putSetting(SETTING_SERVER_ADDRESS, serverAddress);
+	//putSetting(SETTING_SERVER_ADDRESS, serverAddress);
+	window.localStorage.setItem(SETTING_SERVER_ADDRESS, serverAddress);
+	
+}
+
+function getSettingFromStorage(setting,defaultValue){
+	var res = window.localStorage.getItem(setting);
+	if (res!=undefined)
+		return res;
+	else return defaultValue;
 	
 }
 

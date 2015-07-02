@@ -194,9 +194,11 @@ function uploadPhoto() {
     function requestUserToken(login, password){
     	var deferred = $.Deferred();
     	authCount = authCount+1;
-    	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
-    		var serverAddress = res;
-    	//	alert("GetUserToken serverAddress: "+serverAddress+getTokenURL);
+    	//getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
+    	//var serverAddress = res;
+    	var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
+    //	alert("GetUserToken serverAddress: "+serverAddress+getTokenURL);
+    	
         	$.mobile.loading("show",{
         		text: "Авторизация",
         		textVisible: true,
@@ -210,9 +212,10 @@ function uploadPhoto() {
                    data:'grant_type=password&username='+login+'&password='+password,
                    		
                    success: function(response, textStatus, jqXHR) {
-                	//     alert("GET uSER TOKEN:" +jqXHR.responseText);
-                        var obj = jQuery.parseJSON(jqXHR.responseText);
+                	// lert("GET uSER TOKEN:" +jqXHR.responseText);
+                       var obj = jQuery.parseJSON(jqXHR.responseText);
                        var userToken = obj.access_token;
+                   		openDB(login);
                        putSetting(SETTING_USER_LOGIN, login);
                        putSetting(SETTING_USER_PASSWORD, password);
                        putSetting(SETTING_USER_TOKEN, userToken);
@@ -235,7 +238,7 @@ function uploadPhoto() {
                 	   });
                    } 
                    });  
-    	});
+    	//});
     	return deferred;
     }
 
@@ -365,7 +368,6 @@ function uploadPhoto() {
     		});
     	});
     	return deferred;
-    	
     }
     
 
