@@ -90,19 +90,40 @@
 
         
         <li class="expenses_item" style="display: none;" id="transactionRow">
-		<div class="expenses_info" id = "transactionInfoDiv">
-			<div class="expenses_date" id="transactionDate"></div>
-			<div class="expenses_time" id="transactionTime"></div>
-			<div class="expenses_price" id="transactionPrice"></div>
-		</div>
-		<div class="expenses_description" id = "transactionDescriptionDiv" >
-			<div class="expenses_title" id="transactionName"></div>
-		</div>
-		<div class="expenses_button" id = "transactionButtonsDiv">
-			<img src="img/check.png" class="expenses_buttonChek" id = "expensesButtonCheck"/> 
-			<img src="img/info.png" class="expenses_buttonInfo" id = "expensesButtonInfo" />
-		</div>
-		<hr />
+        <table>
+            <tr>
+              <td class="expenses_info" id="transactionInfoDiv">
+                <div class="expenses_date" id="transactionDate"></div>
+                <div class="expenses_time" id="transactionTime"></div>
+                <div class="expenses_price" id="transactionPrice"></div>
+              </td>
+              <td class="expenses_description" id="transactionDescriptionDiv">
+                <div class="expenses_title" id="transactionName"></div>
+              </td>
+              <td class="expenses_button" id="transactionButtonsDiv">
+                <img src="img/check.png" class="expenses_buttonChek" id="expensesButtonCheck"/>
+              </td>
+              <td class="expenses_button" id="transactionButtonsDiv">
+                <img src="img/info.png" class="expenses_buttonInfo" id="expensesButtonInfo" />
+              </td>
+            </tr>
+          </table>
+		
+<!--
+<div class="expenses_info" id = "transactionInfoDiv">
+      <div class="expenses_date" id="transactionDate"></div>
+      <div class="expenses_time" id="transactionTime"></div>
+      <div class="expenses_price" id="transactionPrice"></div>
+    </div>
+    <div class="expenses_description" id = "transactionDescriptionDiv" >
+      <div class="expenses_title" id="transactionName"></div>
+    </div>
+    <div class="expenses_button" id = "transactionButtonsDiv">
+      <img src="img/check.png" class="expenses_buttonChek" id = "expensesButtonCheck"/> 
+      <img src="img/info.png" class="expenses_buttonInfo" id = "expensesButtonInfo" />
+    </div>
+    <hr />
+-->
 	</li>
 	
 </div>

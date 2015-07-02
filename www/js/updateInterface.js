@@ -501,7 +501,10 @@ function updateTransactionInfoPage(){
 					  			listrow.setAttribute("pos",k);	
 							}
 							if (listrow.childNodes[i].id=="itemQuantity"){
-					  			listrow.childNodes[i].innerHTML = quantity+(" ")+measure;
+					  			listrow.childNodes[i].innerHTML = quantity;
+							}
+							if (listrow.childNodes[i].id=="itemUnit"){
+					  			listrow.childNodes[i].innerHTML = measure;
 							}
 
 				  			//alert("ID of child : "+listrow.childNodes[i].id+" type: "+listrow.childNodes[i].type);
@@ -521,7 +524,10 @@ function updateTransactionInfoPage(){
 					  			listrowBought.childNodes[i].innerHTML = value;
 							}
 							if (listrowBought.childNodes[i].id=="itemQuantity"){
-					  			listrowBought.childNodes[i].innerHTML = quantity+(" ")+measure;
+					  			listrowBought.childNodes[i].innerHTML = quantity;
+							}
+							if (listrow.childNodes[i].id=="itemUnit"){
+					  			listrow.childNodes[i].innerHTML = measure;
 							}
 				  			//alert("ID of child : "+listrow.childNodes[i].id+" type: "+listrow.childNodes[i].type);
 					  }
