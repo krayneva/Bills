@@ -5,14 +5,21 @@
 	             return;
 	           } 
 			 console.log("db now is "+db);
+			 var dbName = login.replace('@','').replace('.','');
 			 if (db==0) {
-				 var dbName = login.replace('@','').replace('.','');
-				 //alert(dbName);
-			      db = window.openDatabase("Checomatic"+login, "1.0", "Checkomatic"+login, 200000);
-
+			      db = window.openDatabase("Checomatic_"+dbName, "1.0", "Checkomatic_"+dbName, 200000);
+				  db.transaction(populateDB, onError, onSuccess);
+			      putSetting(SETTING_DB_NAME, dbName);
 			    }
+			 else{
+				 var usingName = getSetting(SETTING_DB_NAME);
+				 if (usingName!= dbName){
+				      db = window.openDatabase("Checomatic_"+dbName, "1.0", "Checkomatic_"+dbName, 200000);
+					  db.transaction(populateDB, onError, onSuccess);
+				      putSetting(SETTING_DB_NAME, dbName);
+				 }
+			 }
 			// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
-			 db.transaction(populateDB, onError, onSuccess);
 		 } catch(e) { 
 			 onError("Error in database "+e);
 		 } 
@@ -25,7 +32,7 @@
      * @param tx
      */
     function populateDB(tx) {
-     //    tx.executeSql('DROP TABLE IF EXISTS Bills');
+     // tx.executeSql('DROP TABLE IF EXISTS Bills');
     //	tx.executeSql('DROP TABLE IF EXISTS UserEnvironment');
     //	tx.executeSql('DROP TABLE IF EXISTS Transactions');
     //	 tx.executeSql('DROP TABLE IF EXISTS ShopLists');
@@ -48,7 +55,8 @@
   		+SETTING_USER_LOGIN+','
   		+SETTING_USER_PASSWORD+','
   		+SETTING_USER_TOKEN+','
-  		+SETTING_SERVER_ADDRESS
+  		+SETTING_SERVER_ADDRESS+','
+  		+SETTING_DB_NAME
          +')');
  
          
@@ -60,13 +68,15 @@
 		        		  		+SETTING_USER_LOGIN+','
 		        		  		+SETTING_USER_PASSWORD+','
 		        		  		+SETTING_USER_TOKEN+','
-		        		  		+SETTING_SERVER_ADDRESS
+		        		  		+SETTING_SERVER_ADDRESS+','
+		        		  		+SETTING_DB_NAME
 		        		         +') values '
 		        		         +'("'
 		        		  		+USER_LOGIN_DEFAULT+'","'
 		        		  		+USER_PASSWORD_DEFAULT+'","'
 		        		  		+USER_TOKEN_DEFAULT+'","'
-		        		  		+SERVER_ADDRESS_DEFAULT+'"'
+		        		  		+SERVER_ADDRESS_DEFAULT+'","'
+		        		  		+DB_NAME_DEFAULT+'"'
 		        		         +')'
 		        		 );
 		        		 

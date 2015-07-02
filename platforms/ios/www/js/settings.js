@@ -7,6 +7,7 @@ var SETTING_USER_LOGIN = "userLogin";
 var SETTING_USER_PASSWORD = "userPassword";
 var SETTING_USER_TOKEN = "userToken";
 var SETTING_SERVER_ADDRESS = "ServerAddress";
+var SETTING_DB_NAME = "DBName";
 
 var BILL_ID_KEY = "BillIdKey";
 var CATEGORY_ID_KEY = "CategoryIdKey";
@@ -20,7 +21,7 @@ var OUTPUT_WIDTH_DEFAULT = "0";
 var USER_LOGIN_DEFAULT = "";
 var USER_PASSWORD_DEFAULT= "";
 var USER_TOKEN_DEFAULT = "";
-
+var DB_NAME_DEFAULT = "";
 var SERVER_ADDRESS_DEFAULT = "https://billview.cloudapp.net/rec/";
 //http://ryoga.esed.kodeks.ru/ReceiptsAPI/
 
