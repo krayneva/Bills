@@ -240,7 +240,7 @@ function refershBillSendStatus(rowID){
 	function getUserTokenAndShowMainPage(login, password){
 		requestUserToken(login,password).done(function(res){
 			if (res!=""){
-			/*	getGoodItemsCount().done(function(res){
+				getGoodItemsCount().done(function(res){
 					if (res==0){
 						requestShopLists().done(function(){
 							requestGoodItems().done(function(){
@@ -250,10 +250,10 @@ function refershBillSendStatus(rowID){
 						});
 					});
 					}
-					else{*/
+					else{
 						showMainPage();						
-				//	}
-		//		});
+					}
+				});
 			}
 		});
 	}
