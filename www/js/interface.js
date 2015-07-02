@@ -240,13 +240,20 @@ function refershBillSendStatus(rowID){
 	function getUserTokenAndShowMainPage(login, password){
 		requestUserToken(login,password).done(function(res){
 			if (res!=""){
-				requestShopLists().done(function(){
-					requestGoodItems().done(function(){
-						requestGoodMeasures().done(function(){
-							showMainPage();						 
+			/*	getGoodItemsCount().done(function(res){
+					if (res==0){
+						requestShopLists().done(function(){
+							requestGoodItems().done(function(){
+								requestGoodMeasures().done(function(){
+									showMainPage();
+							});
 						});
 					});
-				});
+					}
+					else{*/
+						showMainPage();						
+				//	}
+		//		});
 			}
 		});
 	}

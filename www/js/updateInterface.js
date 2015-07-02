@@ -1,14 +1,17 @@
 function updateLoginPage(){
 	
-	(getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT)).done(function(res){
+/*	(getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT)).done(function(res){
 			document.getElementById('login').value = res;
 		});
 	getSetting(SETTING_USER_PASSWORD, USER_PASSWORD_DEFAULT).done(function(res){
 		document.getElementById('password').value= res;
 	});
-
-	
-	
+*/
+	//var login =  window.localStorage.getItem(SETTING_USER_LOGIN);
+	var login =  getSettingFromStorage(SETTING_USER_LOGIN,"");
+	document.getElementById('login').value = login;
+	var password = getSettingFromStorage(SETTING_USER_PASSWORD,"");
+	document.getElementById('password').value= password;
     
 	 if ( $("#login").length==0)$('#login').focus();
 	 else
@@ -247,7 +250,7 @@ function updateWidgets(){
 		  var widget = document.getElementById("widget".concat(w.Left,w.Top));
 		
 		 widget.style.display = "block";
-		 //widget.style.visibility = "visible";
+		 widget.style.visibility = "visible";
 		 //console.log("Setting categoryID for widget: "+w.VisualObjectId);
 		 widget.setAttribute("categoryID", w.VisualObjectId);
 		 var s = "showExpensesPage('"+ w.VisualObjectId+"')";
@@ -498,7 +501,10 @@ function updateTransactionInfoPage(){
 					  			listrow.setAttribute("pos",k);	
 							}
 							if (listrow.childNodes[i].id=="itemQuantity"){
-					  			listrow.childNodes[i].innerHTML = quantity+(" ")+measure;
+					  			listrow.childNodes[i].innerHTML = quantity;
+							}
+							if (listrow.childNodes[i].id=="itemUnit"){
+					  			listrow.childNodes[i].innerHTML = measure;
 							}
 
 				  			//alert("ID of child : "+listrow.childNodes[i].id+" type: "+listrow.childNodes[i].type);
@@ -518,7 +524,10 @@ function updateTransactionInfoPage(){
 					  			listrowBought.childNodes[i].innerHTML = value;
 							}
 							if (listrowBought.childNodes[i].id=="itemQuantity"){
-					  			listrowBought.childNodes[i].innerHTML = quantity+(" ")+measure;
+					  			listrowBought.childNodes[i].innerHTML = quantity;
+							}
+							if (listrow.childNodes[i].id=="itemUnit"){
+					  			listrow.childNodes[i].innerHTML = measure;
 							}
 				  			//alert("ID of child : "+listrow.childNodes[i].id+" type: "+listrow.childNodes[i].type);
 					  }

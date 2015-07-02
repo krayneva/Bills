@@ -397,18 +397,23 @@ div.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset.ui-focus>input{
   float: left;
 }
 .centerCol{
-  width: 40%;
+  width: 37%;
   margin-left: 1%;
   margin-right: 1%;
 }
 .leftCol, .rightCol{
-  width: 29%;
+  width: 30.5%;
 }
 .category:first-child{
-  margin-bottom: 3em; 
+  margin-bottom: 2em; 
+}
+.centerCol .category:first-child{
+  margin-bottom: 1em; 
 }
 .category{
   width: 100%;
+  height: 100%;
+  min-height: 100%;
 }
 .interest{
   color:#445d61;
@@ -419,6 +424,8 @@ div.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset.ui-focus>input{
 }
 .icoCategory{
   width: 100%;
+  height: 100%;
+  min-height: 100%;
 }
 .categoryMenu{
   border-radius: 0 5px;
@@ -679,36 +686,37 @@ label{
 }
 .expenses >ul,
 .expenses >ul>li{
-	border: 0 !important;
+	border: 0;
+}
+ul.expensesList{
+  padding: 0!important;
+  list-style: none;
+  margin: 0!important;
+}
+li.expenses_item{
+  padding: 0 0 0.5em 0!important;
+  border-style: solid;
+  border-color: gray;
+  border-width: 0 0 1px 0!important;
+  margin: 0!important;
+
 }
 .expenses_item {
-    position: relative;
     color: #59a6b2  !important;
     width:100% !important;
 }
-.expenses_item > hr {
-    position: absolute;
-    bottom: 0;
-    left: 1em;
-    right: 1em;
-    height: 0;
-    border-bottom: 0;
-    border-color: #59a6b2;
-    margin: 0;
+
+.expenses_item table{
+  width: 100%;
 }
 .expenses_info {
-    width: 5em;
-    float: left;
-    top: 0;
-    left: 0;
-    position: absolute;
-    line-height: 2em;
-    padding-left: 1em;
+  position: relative;
+  width: 7em;
+  line-height: 2em;
 }
 .expenses_description{  
-  margin: 0 10em 0 9em !important;
   min-height: 4.5em;
-  padding: 1em 0 !important;
+  padding: 1em!important;
   
 }
 .expenses_title {
@@ -719,33 +727,29 @@ label{
     font-size: 1.2em;
 }
 .expenses_button {
-    width: 9em;
-    float: left;
-    bottom: 0;
-    right: 0;
-    position: absolute;
+    width: 4em;
 }
 .expenses_buttonChek,
 .expenses_buttonInfo {
-    width: 40%;
+    width: 90%;
     margin: 0.4em 0.2em;
 }
 .expenses_date {
-    width: 100%;
+    width: 5.5em;
     background: #ecf1f1;
     color: #8eabae;
     padding: 0 0.5em 0 1em;
-    position: absolute;
-    left: 0;
     font-weight: bold;
     font-size: 1.2em;
 }
 .expenses_time {
-    font-size: 1.2em;
-    padding-top: 1.7em;
-    color: #8eabae;
+  padding-left: 1em;
+  font-size: 1.2em;
+  padding-top: 0.5em;
+  color: #8eabae;
 }
 .expenses_price {
+    padding-left: 1em;
     color: red;
     font-size: 1.4em;
     line-height: 1;
@@ -866,31 +870,21 @@ label{
     text-decoration:line-through !important;
     height: auto!important;
 }
-.shopList_needToBbuy li .shopList_checkbox{
-    width: 1em;
-    padding: 0;
-    display: block;
-    float: left;
-    top: 0.7em;
-    left: 0.5em;
-    position: absolute;
-}
-.shopList_needToBbuy li .shopList_checkbox input{
-  width: 1.5em!important;
-  height: 1.5em!important;
-  border-radius: none!important;
-}
 .shopList_needToBbuy li>.shopList_itemName,
 .shopList_alreadyBuy li>.shopList_itemName{
     display: block;
-    margin: 0.5em 6em 0.4em 3.5em;
+    float: left;
+    margin: 0.5em 2% 0.4em 1%;
+    width: 75%;
 }
 .shopList_needToBbuy li>.shopList_itemQuantity,
-.shopList_alreadyBuy li>.shopList_itemQuantity{
-    top: 0.5em;
-    right: 2em;
-    width: 3em;
-    position: absolute;
+.shopList_alreadyBuy li>.shopList_itemQuantity,
+.shopList_needToBbuy li>.shopList_itemUnit,
+.shopList_alreadyBuy li>.shopList_itemUnit{
+    display: block;
+    float: left;
+    margin: 0.5em 1% 0.4em 0;
+    width: 10%
 }
 .shopList_filter_darkRed>div{
   background:rgba(186, 33, 17, 1);

@@ -1,11 +1,15 @@
-	function openDB(){
+	function openDB(login){
 		try { 
 			 if (!window.openDatabase) {
 	             alert('Databases are not supported in this browser.');
 	             return;
 	           } 
-			 if (!db) {
-			      db = window.openDatabase("BillsDatabase", "1.0", "PhoneGap Training", 200000);
+			 console.log("db now is "+db);
+			 if (db==0) {
+				 var dbName = login.replace('@','').replace('.','');
+				 //alert(dbName);
+			      db = window.openDatabase("Checomatic"+login, "1.0", "Checkomatic"+login, 200000);
+
 			    }
 			// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			 db.transaction(populateDB, onError, onSuccess);
@@ -187,18 +191,22 @@
     
     
     function putSetting(setting, value){
-    	 console.log("SQL: "+'UPDATE Settings set '+setting+'="'+value+'" where id=1');
+    	console.log("SQL: "+'UPDATE Settings set '+setting+'="'+value+'" where id=1');
+    	if (setting==SETTING_USER_LOGIN)
+    		window.localStorage.setItem(SETTING_USER_LOGIN,value);
+    	if (setting==SETTING_USER_PASSWORD)
+    		window.localStorage.setItem(SETTING_USER_PASSWORD,value);
+
        db.transaction(
       		function(transaction) { 
           		transaction.executeSql(
            		'UPDATE Settings set '+setting+'="'+value+'"');} ,
            		 onError, onSuccess);
-      
     }
 
     
     function getSetting(setting, defValue){
-  // 	console.log("SQL: "+'SELECT '+setting+' FROM Settings where id=1;');
+   	console.log("SQL: "+'SELECT '+setting+' FROM Settings where id=1;');
     var res = "";
    var deferred = $.Deferred();
 	db.transaction(
@@ -792,6 +800,21 @@
     	return deferred;
     }
     
+    
+    function getGoodItemsCount(){
+     	var deferred = $.Deferred();
+    	db.transaction(
+      		    function(transaction) {
+      		        transaction.executeSql("select count(*) as count from Goods ", [],
+      		        		function(transaction, result) {
+	      		        	var count = result.rows.item(0).count;
+	      		        	deferred.resolve(count);
+        		    }, function onError(error){
+        		    	console.log("Error trying to get count of goods!");
+        		    });
+      		 });    	
+	return deferred;
+    }
     
     function getMeasure(index){
     	var deferred = $.Deferred();
