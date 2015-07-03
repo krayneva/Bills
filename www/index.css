@@ -413,7 +413,6 @@ div.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset.ui-focus>input{
 .category{
   width: 100%;
 
-  
 }
 .interest{
   color:#445d61;
@@ -579,7 +578,7 @@ label{
 }
 
 .expenses{
-  position: relative;
+  position: absolute;
   top:10.6em;
   bottom: 4.6em;
   overflow: auto;
@@ -716,7 +715,7 @@ li.expenses_item{
 .expenses_description{  
   min-height: 4.5em;
   padding: 1em!important;
-  
+  height:100%;
 }
 .expenses_title {
     font-size: 1.4em;

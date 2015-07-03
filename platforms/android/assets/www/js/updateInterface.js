@@ -112,11 +112,8 @@ function updateMainPage(){
 function requestAndUpdateTransactionPage(){
 	var deferred = $.Deferred();
 	requestTransactions().done(function(){
-	//	alert("Requesting transactions!");
-		updateTransactionPage().done(function(){
-		//	$('#expensesList').listview('refresh');
-
-			 //$('#expensesList').trigger( "updatelayout");
+		 requestTransactionPageCount = requestTransactionPageCount+1;
+		 updateTransactionPage().done(function(){
 			deferred.resolve();
 		});
 	});
@@ -128,8 +125,13 @@ function requestAndUpdateTransactionPage(){
 function updateTransactionPage(){
 	var deferred = $.Deferred();
 	getTransactions().done(function(result){
-		if (result.rows.length==0){
+		if ((result.rows.length==0)&(requestTransactionPageCount==0)){
+			alert("rerequesting from update, count:"+requestTransactionPageCount);
 			requestAndUpdateTransactionPage();
+			return;
+		}
+		else{
+			deferred.resolve();
 			return;
 		}
 	});
@@ -140,95 +142,43 @@ function updateTransactionPage(){
 		  var json = jQuery.parseJSON(result);
 			$('#categoryTitle').html(json.Name);	
 		});
-//	requestTransactions().done(function(){
-		//getTransactions().done(function(result){
 		getTransactionsByCategoryID(categoryID).done(function(result){
-			
 			$('#expensesList').html('');
-			//$('#expensesList').listview();
 			var start = +new Date();  // log start timestamp
-			
-                                                     var totalAmount = 0;
-                                                      var lastAmount = jQuery.parseJSON(result.rows.item(0).transactionJSON).Amount;
-		//	for (var t=0; t<5; t++){
+            var totalAmount = 0;
+            var lastAmount = 0;
+            if (result.rowslength>0)
+            	lastAmount = jQuery.parseJSON(result.rows.item(0).transactionJSON).Amount;
+            var listHTML = "";
 			  for (var i = 0; i <result.rows.length; i++) {
-		//		  for (var i = 0; i <2; i++) {
 				  var row = result.rows.item(i);
-				  var listrow = document.getElementById("transactionRow").cloneNode(true);
-				  listrow.style.display = "list-item";
-				  var arr=listrow.childNodes;
+				  var html = $('#transactionRowTemplate').html();
+				  
 				  var jsonText = row.transactionJSON;
+				  console.log(jsonText);
 				  var json =  jQuery.parseJSON(jsonText);
 				  var date = new Date(json.TransactionDate);
 				  var currency = json.Currency;
-				  listrow.setAttribute("onclick","showTransactionInfo('"+json.Id+"')");
-				  for (var j=0;j<arr.length;j++){
-					 
-					  if(arr[j].id == "transactionInfoDiv"){
-						  
-						  var childArray=arr[j].childNodes;
-						  for (var k=0; k<childArray.length; k++){
-							  if(childArray[k].id == "transactionPrice"){
-								  childArray[k].innerHTML = json.Amount+getCurrencyString(json.Currency);
-                                                     totalAmount=totalAmount+json.Amount;
-                                                     lastAmount = json.Amount;
-							  }
-	
-							var hours = date.getHours();
-							var minutes = date.getMinutes();
-							  if(childArray[k].id == "transactionTime"){
-							//	  childArray[k].innerHTML = date.format("hh-MM");// date.getHours()+":"+date.getMinutes();
-								  childArray[k].innerHTML = (hours<10?'0':'')+hours+":"+(minutes<10?'0':'')+minutes;
-							  }
-							  var month = date.getMonth()+1;
-							  var day =  date.getDate();
-							  var year = date.getYear()+1900;
-							  if(childArray[k].id == "transactionDate"){
-								 // childArray[k].innerHTML = date.format("dd-mm");//date.getDay()+"."+date.getMonth();
-								  childArray[k].innerHTML =(day<10?'0':'')+day+"."+(month<10?'0':'')+month+"."+year;
-							  }
-						  }
-					  }
-					 
-					  else if(arr[j].id == "transactionDescriptionDiv"){
-						  var childArray=arr[j].childNodes;
-						  for (var k=0; k<childArray.length; k++){
-							  if(childArray[k].id == "transactionName"){
-								  childArray[k].innerHTML =json.Name;
-								  childArray[k].innerHTML ="Наименование транзакции "+i;
-							  }
-							 
-						  }
-					  }
-					  
-					  
-					  else if(arr[j].id == "transactionButtonsDiv"){
-						  var childArray=arr[j].childNodes;
-						  for (var k=0; k<childArray.length; k++){
-							  if(childArray[k].id == "expensesButtonInfo"){
-							//	  childArray[k].setAttribute("onclick","showTransactionInfo('"+json.Id+"')");
-							  }
-							 
-						  }
-					  }
-
-				  }
-				  $('#expensesList').append(listrow);
+				  var hours = date.getHours();
+				  var minutes = date.getMinutes();
+				  var month = date.getMonth()+1;
+				  var day =  date.getDate();
+				  var year = date.getYear()+1900;
+				  html = html.replace(/\{transactionDate\}/g,(day<10?'0':'')+day+"."+(month<10?'0':'')+month+"."+year);
+				  html = html.replace(/\{transactionTime\}/g,(hours<10?'0':'')+hours+":"+(minutes<10?'0':'')+minutes);
+				  html = html.replace(/\{transactionPrice\}/g,json.Amount+getCurrencyString(json.Currency));
+				  html = html.replace(/\{transactionName\}/g,json.Name==null?"":json.Name);
+				  html = html.replace(/\{transactionID\}/g,json.Id);
 				  
-				/*  $('#expensesList').append(listrow).promise().done(function () {
-					  $('#expensesList').listview("refresh");    
-				      });*/
-				 // $('#expensesList').listview('refresh');
-
+				  listHTML+=html;
 				 if (i==result.rows.length-1){
-					//    $('#expensesList').listview('refresh');
 					 deferred.resolve();
 				 }
 				 
 			  }
-		//	}
-                                                     $('#totalAmount').html(Math.round(totalAmount*100)/100);
-                                                     $('#lastAmount').html(Math.round(lastAmount*100)/100);
+		  $('#expensesList').html(listHTML);
+           $('#totalAmount').html(Math.round(totalAmount*100)/100);
+           $('#lastAmount').html(Math.round(lastAmount*100)/100);
 			var end =  +new Date();  // log end timestamp
 			var diff = (end - start)/(20*result.rows.length);
 			console.log("Time per row: "+diff);

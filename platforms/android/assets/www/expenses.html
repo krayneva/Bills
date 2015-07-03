@@ -65,51 +65,52 @@
        </div>
  -->
        
-
-       <div id="iscroll-wrapper" class="expenses" >
+       
+       <div id="iscroll-wrapper"  class="expenses">
        <ul data-role="listview" id="expensesList" >
 		</ul>
        </div>
        
-    
-
-
+       
+     
     <!-- <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-transition="none" class="foottopPanel" >-->
         <div class="foottopPanel"  >
             <div class="footer_result">
-                <div class="footer_ico_percentage"><img src="img/ico_empty.png" onclick="requestAndUpdateTransactionPage()"/></div>
+                <div class="footer_ico_percentage"><img src="img/ico_empty.png" onclick="requestAndUpdateTransactionPage()"/></div>                
                 <div class="footerText">
                     Всего: <span id="totalAmount"></span>
                     <br/>
                     Последний: <span id="lastAmount"></span>
                 </div>
                 <!--<div class="footer_ico_add" onclick="showTransactionPage()"><img src="img/add_transaction.png"/></div>-->
-            </div>
+            </div>            
       <!--  </div>-->
 
 
 
-
-        <li class="expenses_item" style="display: none;" id="transactionRow">
+        <div id ="transactionRowTemplate" style="display: none;">
+        <li class="expenses_item"  id="transactionRow">
         <table>
             <tr>
               <td class="expenses_info" id="transactionInfoDiv">
-                <div class="expenses_date" id="transactionDate"></div>
-                <div class="expenses_time" id="transactionTime"></div>
-                <div class="expenses_price" id="transactionPrice"></div>
+                <div class="expenses_date" id="transactionDate">{transactionDate}</div>
+                <div class="expenses_time" id="transactionTime">{transactionTime}</div>
+                <div class="expenses_price" id="transactionPrice">{transactionPrice}</div>
               </td>
               <td class="expenses_description" id="transactionDescriptionDiv">
-                <div class="expenses_title" id="transactionName"></div>
+                <div class="expenses_title" id="transactionName">{transactionName}</div>
+          
               </td>
               <td class="expenses_button" id="transactionButtonsDiv">
                 <img src="img/check.png" class="expenses_buttonChek" id="expensesButtonCheck"/>
               </td>
               <td class="expenses_button" id="transactionButtonsDiv">
-                <img src="img/info.png" class="expenses_buttonInfo" id="expensesButtonInfo" />
+                <img src="img/info.png" class="expenses_buttonInfo" id="expensesButtonInfo" onclick="showTransactionInfo('{transactionID}')" />
               </td>
             </tr>
           </table>
-		
+          </li>
+		</div>
 <!--
 <div class="expenses_info" id = "transactionInfoDiv">
       <div class="expenses_date" id="transactionDate"></div>
@@ -125,6 +126,6 @@
     </div>
     <hr />
 -->
-	</li>
+
 	
 </div>
