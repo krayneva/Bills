@@ -716,6 +716,7 @@ li.expenses_item{
   min-height: 4.5em;
   padding: 1em!important;
   height:100%;
+    background: #ffffff;
 }
 .expenses_title {
     font-size: 1.4em;
