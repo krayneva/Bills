@@ -7,6 +7,7 @@
 			 console.log("db now is "+db);
 			 var dbName = login.replace('@','').replace('.','');
 			 if (db==0) {
+				 requestTransactionPageCount = 0;
 			      db = window.openDatabase("Checomatic_"+dbName, "1.0", "Checkomatic_"+dbName, 200000);
 				  db.transaction(populateDB, onError, onSuccess);
 			      putSetting(SETTING_DB_NAME, dbName);
@@ -14,6 +15,7 @@
 			 else{
 				 var usingName = getSetting(SETTING_DB_NAME);
 				 if (usingName!= dbName){
+					 requestTransactionPageCount = 0;
 				      db = window.openDatabase("Checomatic_"+dbName, "1.0", "Checkomatic_"+dbName, 200000);
 					  db.transaction(populateDB, onError, onSuccess);
 				      putSetting(SETTING_DB_NAME, dbName);
@@ -571,7 +573,7 @@
     //	alert ("Product String: "+product);
     	// обрабатываем строку продукта
     	//var expr = new RegExp('[0-9]*[.,/\*]*[0-9]*', 'i');
-    	var expr = new RegExp('[0-9][.,\*]?[0-9]?');
+    	var expr = new RegExp('[0-9][.,\*]*[0-9]*');
     /*	var quantityPos = expr.search(product);
     	var quantity = expr.exec(product);
     	alert ("Quantity: "+quantity);

@@ -88,27 +88,29 @@
 
 
 
-        
-        <li class="expenses_item" style="display: none;" id="transactionRow">
+        <div id ="transactionRowTemplate" style="display: none;">
+        <li class="expenses_item"  id="transactionRow">
         <table>
             <tr>
               <td class="expenses_info" id="transactionInfoDiv">
-                <div class="expenses_date" id="transactionDate"></div>
-                <div class="expenses_time" id="transactionTime"></div>
-                <div class="expenses_price" id="transactionPrice"></div>
+                <div class="expenses_date" id="transactionDate">{transactionDate}</div>
+                <div class="expenses_time" id="transactionTime">{transactionTime}</div>
+                <div class="expenses_price" id="transactionPrice">{transactionPrice}</div>
               </td>
               <td class="expenses_description" id="transactionDescriptionDiv">
-                <div class="expenses_title" id="transactionName"></div>
+                <div class="expenses_title" id="transactionName">{transactionName}</div>
+          
               </td>
               <td class="expenses_button" id="transactionButtonsDiv">
                 <img src="img/check.png" class="expenses_buttonChek" id="expensesButtonCheck"/>
               </td>
               <td class="expenses_button" id="transactionButtonsDiv">
-                <img src="img/info.png" class="expenses_buttonInfo" id="expensesButtonInfo" />
+                <img src="img/info.png" class="expenses_buttonInfo" id="expensesButtonInfo" onclick="showTransactionInfo('{transactionID}')" />
               </td>
             </tr>
           </table>
-		
+          </li>
+		</div>
 <!--
 <div class="expenses_info" id = "transactionInfoDiv">
       <div class="expenses_date" id="transactionDate"></div>
@@ -124,6 +126,6 @@
     </div>
     <hr />
 -->
-	</li>
+
 	
 </div>

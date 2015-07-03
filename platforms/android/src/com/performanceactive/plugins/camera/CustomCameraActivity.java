@@ -1205,8 +1205,8 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 
        // int colorModeSetting = getIntent().getExtras().getInt(COLOR_MODE, 565);
         int colorModeSetting = getIntent().getExtras().getInt(TARGET_HEIGHT, 565);
-        Bitmap.Config config =  Bitmap.Config.RGB_565;
-
+        Bitmap.Config config =  Bitmap.Config.ARGB_4444;
+        					
         
      /*   if (colorModeSetting==4444){
            	config = Bitmap.Config.ARGB_4444;	
