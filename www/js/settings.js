@@ -12,7 +12,13 @@ var SETTING_DB_NAME = "DBName";
 var BILL_ID_KEY = "BillIdKey";
 var CATEGORY_ID_KEY = "CategoryIdKey";
 var TRANSACTION_ID_KEY = "TransactionIdKey";
+
+// registration fields
 var ACCEPT_RULES_KEY = "AcceptRulesKey";
+var IS_ROBOT_KEY = "IsRobotKey";
+var NICK_KEY = "NickKey";
+var EMAIL_KEY = "EmailKey";
+var PROMO_KEY = "PromoKey";
 
 // дефолтные значения
 var JPEG_QUALITY_DEFAULT = "100";

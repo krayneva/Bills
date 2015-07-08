@@ -200,7 +200,7 @@ function refershBillSendStatus(rowID){
 	
 	function showMainPage(){
 		currentPage = "pageMain";
-		$.mobile.pageContainer.pagecontainer( "change", "main.html" ,{transition:"none"});
+		$.mobile.pageContainer.pagecontainer( "change", 'main.html' ,{transition:"none"});
 	//	$.mobile.pageContainer.pagecontainer( "change", "pull.html" ,{transition:"none"});
 	}
 	
@@ -237,7 +237,7 @@ function refershBillSendStatus(rowID){
 	}
 	function showRulesPage(){
 		currentPage = "pageRules";
-		$.mobile.pageContainer.pagecontainer( "change", "rules.html" ,{transition:"none"});
+		$.mobile.pageContainer.pagecontainer( "change", 'rules.html' ,{transition:"none"});
 	}
 	
 	function showUserEnvironment(){
@@ -277,6 +277,8 @@ function refershBillSendStatus(rowID){
 	function acceptRulesAndGoToRegistrationPage(){
 		window.localStorage.setItem(ACCEPT_RULES_KEY,"true");
 		//navigator.app.backHistory();
+        // window.history.go(-1);
+        $("#backButton").click();
 	}
 	
 	function declineRulesAndGoToRegistrationPage(){
@@ -284,6 +286,8 @@ function refershBillSendStatus(rowID){
 		window.localStorage.setItem(ACCEPT_RULES_KEY,"false");
        // alert("trying to go back");
 		//navigator.app.backHistory();
+        //window.history.go(-1);
+         $("#backButton").click();
 	}
 	
 	function tryToRegisterUser(){
@@ -315,7 +319,8 @@ function refershBillSendStatus(rowID){
 			alert("Необходимо принять условия пользовательского приложения");
 		}
 		registerUser(email, nick, promo).done(function(){
-			navigator.app.backHistory();
+			//navigator.app.backHistory();
+            $("#backButton").click();
 		});
 			
 		

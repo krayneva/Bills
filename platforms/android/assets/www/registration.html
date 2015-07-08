@@ -4,6 +4,7 @@
 <div id="pageRegistration" data-role="page">
 	<div class="backgroundColor"></div>
 	<div class="backgroundImg2"></div>
+
 	<div class="login">
 		<div class="login_ico">
 			<img src="img/login.png" onclick="showConnectionSettingsPage();" />
@@ -22,7 +23,7 @@
 					<label> Вы робот? </label>
 				</td>
 				<td>
-					 <input type="checkbox" data-role="flipswitch" id="checkboxRobot" data-on-text="Нет" data-off-text="Да" >	
+					 <input type="checkbox" data-role="flipswitch" name="checkboxRobot" id="checkboxRobot" data-on-text="Нет" data-off-text="Да" >
 				</td>
 			</tr>	
 			<tr>
@@ -42,7 +43,9 @@
 		<br>
 
 		<div class="login_button" id="registerButton" onclick = "tryToRegisterUser()">Регистрация</div>
-	
+        <br>
+        <br>
+        <a data-rel="back"><div class="login_button" id="backButton">Назад</div></a>
 	</div>
 	<div class="build_version">
 		<span id="buildVersion"></span>

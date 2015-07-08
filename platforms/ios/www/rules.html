@@ -4,7 +4,7 @@
 <div id="pageRules" data-role="page">
 	<div class="background"></div>
 	<div class="topPanel">
-		<span> <a data-rel="back"><img class="topPanel_backButton"
+		<span> <a data-rel="back"><img id = "backButton"class="topPanel_backButton"
 				src="img/back.png" /></span></a>
 		<div class="topPanel_title">Пользовательское соглашение</div>
 	</div>
@@ -30,11 +30,11 @@
 
 		<table width = "100%">
 			<tr>
-				<td width = "50%"><a data-rel="back">
-					<div class="buttonRules" id="declineRules" onclick = "declineRulesAndGoToRegistrationPage()">Нет, спасибо</div></a>
+				<td width = "50%">
+					<div class="buttonRules" id="declineRules" onclick = "declineRulesAndGoToRegistrationPage()">Нет, спасибо</div>
 				</td>
-				<td width = "50%"><a data-rel="back">
-					<div class="buttonRules" id = "acceptRules" onclick = "acceptRulesAndGoToRegistrationPage()">Принимаю условия</div></a>
+				<td width = "50%">
+					<div class="buttonRules" id = "acceptRules" onclick = "acceptRulesAndGoToRegistrationPage()">Принимаю условия</div>
 				</td>
 			</tr>
 		</table>
