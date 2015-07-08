@@ -782,3 +782,10 @@ function uploadPhoto() {
     	
     	return deferred;
     }
+    
+    
+    function registerUser(email, nick, promo){
+    	var deferred = $.Deferred();
+    		setTimeout(deferred.resolve(), 1000);
+    	return deferred;
+    }

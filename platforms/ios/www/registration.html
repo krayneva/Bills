@@ -1,0 +1,49 @@
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<div id="pageRegistration" data-role="page">
+	<div class="backgroundColor"></div>
+	<div class="backgroundImg2"></div>
+	<div class="login">
+		<div class="login_ico">
+			<img src="img/login.png" onclick="showConnectionSettingsPage();" />
+		</div>
+		<div class="login_welcome">
+			<span>Регистрация</span></br> <img src="img/welcome.png" />
+		</div>
+		<div class="login_information">
+			<input type="email" data-clear-btn="true" id="email"  placeholder="Электронная почта">
+			<input type="text" data-clear-btn="true" id="nick"  placeholder="Как к Вам обращаться?">
+			<input type="text" data-clear-btn="true" id="promo"  placeholder="Промокод">
+	
+		<table width = "100%">
+			<tr>
+				<td>
+					<label> Вы робот? </label>
+				</td>
+				<td>
+					 <input type="checkbox" data-role="flipswitch" id="checkboxRobot" data-on-text="Нет" data-off-text="Да" >	
+				</td>
+			</tr>	
+			<tr>
+				<td>
+					<label onclick = "showRulesPage();" > Я принимаю условия<br>Пользовательского соглашения </label>
+				</td>
+				<td>
+					<input type="checkbox" name="checkboxRules" id="checkboxRules" data-iconpos="right" >	
+				</td>
+			</tr>			
+		</table>
+		
+		<!-- <input type="checkbox" name="checkboxRules" id="checkboxRules" data-iconpos="right" onclick = "showRulesPage();">
+        <label  onclick = "showRulesPage();">Я принимаю условия<br>Пользовательского соглашения</label>
+		 -->
+		</div>
+		<br>
+
+		<div class="login_button" id="registerButton" onclick = "tryToRegisterUser()">Регистрация</div>
+	
+	</div>
+	<div class="build_version">
+		<span id="buildVersion"></span>
+	</div>

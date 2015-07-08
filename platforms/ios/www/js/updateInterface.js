@@ -126,7 +126,6 @@ function updateTransactionPage(){
 	var deferred = $.Deferred();
 	getTransactions().done(function(result){
 		if ((result.rows.length==0)&(requestTransactionPageCount==0)){
-			alert("rerequesting from update, count:"+requestTransactionPageCount);
 			requestAndUpdateTransactionPage();
 			return;
 		}
@@ -275,8 +274,8 @@ function updateTransactionInfoPage(){
 	//	$('#receiptsDataListView').html('');
 	//	alert("Amount: "+json.Amount);
 
-		document.getElementById('ReceiptsListView').style.fontSize = "medium";
-		document.getElementById('tagsListView').style.fontSize = "medium";
+//		document.getElementById('ReceiptsListView').style.fontSize = "medium";
+//		document.getElementById('tagsListView').style.fontSize = "medium";
 		$('#category').append(json.Category);
 		
 		$('#subcategory').append(json.SubCategory);
@@ -287,12 +286,12 @@ function updateTransactionInfoPage(){
 		$('#amount').append(json.Amount);
 		
 		
-		for (var i=0; i<json.Tags.length; i++){
+	/*	for (var i=0; i<json.Tags.length; i++){
 		//	alert(json.Tags[i]);
 			$('#tagsListView').append("<li>"+json.Tags[i]+"</li>");
 		}
-		
-
+		*/
+/*
 		for (var i=0; i<json.receiptData.Items.length; i++){
 			  var receiptRow = document.getElementById("receiptDataTemplate").cloneNode(true);
 			  receiptRow.style.fontSize = "medium";
@@ -315,8 +314,24 @@ function updateTransactionInfoPage(){
 			  receiptRow.style.visibility = "visible";
 			  $('#receiptsDataListView').append(receiptRow);
 		}
-		
+		*/
+		var listHTML = "";
+		 for (var i=0; i<json.receiptData.Items.length; i++){
+			// var html = $('#tableRowTemplate').html();
+			 // из html почему-то не тянется((
+			var html="<tr><td>{goodName}</td><td>{goodCount}</td><td>{goodPrice}</td><td>{goodTotalPrice}</td><td>{goodTag}</td></tr>" ;
+			 html = html.replace(/\{goodName\}/g,json.receiptData.Items[i].ItemName);
+			 html = html.replace(/\{goodCount\}/g,json.receiptData.Items[i].Quantity);
+			 html = html.replace(/\{goodPrice\}/g,json.receiptData.Items[i].PricePerUnit);
+			 html = html.replace(/\{goodTotalPrice\}/g,json.receiptData.Items[i].Value);
+			 html = html.replace(/\{goodTag\}/g,json.receiptData.Items[i].Tag);
+			 listHTML+=html;
+		 }
+		 //listHTML = "<tbody>"+listHTML+"</tbody>";
 
+		  
+		  $('#tableTransactionInfo > tbody').append(listHTML);
+		  $("#tableTransactionInfo").table("refresh");
 	
 	});
 	

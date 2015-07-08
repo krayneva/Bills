@@ -8,7 +8,7 @@
             <span><img class="topPanel_menuButton" src="img/menu.png"/></span>
         </div>
        <div class="scrollablecontent">
-	      <ul data-role="listview" id="ReceiptsListView">
+<!-- 	      <ul data-role="listview" id="ReceiptsListView">
 		     <li id = "name"></li>
 		    <li id = "category">Категория: </li>
 		    <li id = "subcategory">Подкатегория: </li>
@@ -36,8 +36,8 @@
 		    </li>
 		    <li></li>
 		</ul>
-		
-	</div>	
+		 -->
+	
 		
 		<li id="receiptDataTemplate" style="display: none;">
 			<h2 id = "receiptHeader"></h2>
@@ -48,5 +48,35 @@
 		
 		
 		
+		
+		
+	<table data-role="table" id="tableTransactionInfo" data-mode="columntoggle" class="ui-responsive table-stroke" data-column-btn-text="Фильтр">
+     <thead>
+       <tr>
+         <th data-priority="2">Наименование</th>
+         <th>Кол-во</th>
+         <th data-priority="3">Цена</th>
+         <th data-priority="1">Стоимость</th>
+         <th data-priority="3">Тег</th>
+       </tr>
+     </thead>
+     <tbody>
+     </tbody>
+   </table>
+   
+ 
 
+   
+    <div id ="tableRowTemplate"  style="display: none;">
+	      <tr>
+	         <td>{goodName}</td>
+	         <td>{goodCount}</td>
+	         <td>{goodPrice}</td>
+	         <td>{goodTotalPrice}</td>
+	         <td>{goodTag}</td>
+	       </tr>
       </div>
+      </div>
+      </div>	
+      
+    

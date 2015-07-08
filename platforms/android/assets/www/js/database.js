@@ -8,7 +8,7 @@
 			 var dbName = login.replace('@','').replace('.','');
 			 if (db==0) {
 				 requestTransactionPageCount = 0;
-                  window.localStorage.removeItem("CurrentShopListNum");
+				 window.localStorage.removeItem("CurrentShopListNum");
 			      db = window.openDatabase("Checomatic_"+dbName, "1.0", "Checkomatic_"+dbName, 200000);
 				  db.transaction(populateDB, onError, onSuccess);
 			      putSetting(SETTING_DB_NAME, dbName);
@@ -16,7 +16,7 @@
 			 else{
 				 var usingName = getSetting(SETTING_DB_NAME);
 				 if (usingName!= dbName){
-                     window.localStorage.removeItem("CurrentShopListNum");
+					 window.localStorage.removeItem("CurrentShopListNum");
 					 requestTransactionPageCount = 0;
 				      db = window.openDatabase("Checomatic_"+dbName, "1.0", "Checkomatic_"+dbName, 200000);
 					  db.transaction(populateDB, onError, onSuccess);
