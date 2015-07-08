@@ -12,7 +12,7 @@ var SETTING_DB_NAME = "DBName";
 var BILL_ID_KEY = "BillIdKey";
 var CATEGORY_ID_KEY = "CategoryIdKey";
 var TRANSACTION_ID_KEY = "TransactionIdKey";
-
+var ACCEPT_RULES_KEY = "AcceptRulesKey";
 
 // дефолтные значения
 var JPEG_QUALITY_DEFAULT = "100";

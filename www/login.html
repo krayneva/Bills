@@ -1,33 +1,34 @@
-  <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1">
-  <div id="pageAuth" data-role="page" >
-  	<div class="backgroundColor"></div>
-	 <div class="backgroundImg2"></div>
+<div id="pageAuth" data-role="page">
+	<div class="backgroundColor"></div>
+	<div class="backgroundImg2"></div>
 	<div class="login">
 		<div class="login_ico">
-			<img src="img/login.png" onclick = "showConnectionSettingsPage();" />
+			<img src="img/login.png" onclick="showConnectionSettingsPage();" />
 		</div>
 		<div class="login_welcome">
 			<span>Добро пожаловать в</span></br> <img src="img/welcome.png" />
 		</div>
 		<div class="login_menu">
-			<img src="img/login_finger.png" onclick="getUserToken( document.getElementById('login').value,  document.getElementById('password').value);" />
+			<img src="img/login_finger.png"
+				onclick="getUserToken( document.getElementById('login').value,  document.getElementById('password').value);" />
 		</div>
 		<div class="login_information">
-			<label>Логин</label> <input type="text" id="login" /> <label>Пароль</label> <input
-				type="password" id="password"/>
+			<label>Логин</label> <input type="text" id="login" /> <label>Пароль</label>
+			<input type="password" id="password" />
 		</div>
 		<div class="login_social">
-			<span>Вход через соцсети</span></br> 
-			<img src="img/facebook115.png"  />
-			 <img src="img/vk115.png"  /> 
-			 <img src="img/twitter115.png" />
+			<span>Вход через соцсети</span></br> <img src="img/facebook115.png" /> <img
+				src="img/vk115.png" /> <img src="img/twitter115.png" />
 		</div>
 
-		<div class="login_button">Регистрация</div>
-				<br>
-		 <div  id = "login_button" class="login_button"  onclick="getUserTokenAndShowMainPage(document.getElementById('login').value,  document.getElementById('password').value);">Войти</div>
-	</div> 
+		<div class="login_button" onclick = "showRegistrationPage()">Регистрация</div>
+		<br>
+		<div id="login_button" class="login_button"
+			onclick="getUserTokenAndShowMainPage(document.getElementById('login').value,  document.getElementById('password').value);">Войти</div>
+	</div>
 	<div class="build_version">
-			<span id="buildVersion"></span> 
+		<span id="buildVersion"></span>
 	</div>

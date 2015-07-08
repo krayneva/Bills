@@ -716,10 +716,7 @@ li.expenses_item{
   min-height: 4.5em;
   padding: 1em!important;
   height:100%;
-<<<<<<< HEAD
     background: #ffffff;
-=======
->>>>>>> c4128c233590e72f57d62a07c394da9d358d3d26
 }
 .expenses_title {
     font-size: 1.4em;
@@ -791,7 +788,7 @@ li.expenses_item{
 }
 .scrollablecontent{
     left: 0;
-    top:3.6em;
+    top:5em;
     bottom: 0%;
     overflow: scroll;
     position: absolute;
@@ -958,6 +955,21 @@ li.expenses_item{
   text-shadow: none;
   border: none!important;
   font-size: 1.4em!important;
+}
+
+
+.buttonRules{
+	  background: #367272;
+  color: #fff;
+  border-radius: 0.3em;
+  font-size: 1.2em;
+  text-transform: uppercase;
+  padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  text-align: center;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+  margin: 1em 1em 1em 1em;
 }
 
 

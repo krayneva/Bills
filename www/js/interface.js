@@ -231,6 +231,14 @@ function refershBillSendStatus(rowID){
 		$.mobile.pageContainer.pagecontainer( "change", "createShopList.html" ,{transition:"none"});
 	}
 
+	function showRegistrationPage(){
+		currentPage = "pageRegistration";
+		$.mobile.pageContainer.pagecontainer( "change", "registration.html" ,{transition:"none"});
+	}
+	function showRulesPage(){
+		currentPage = "pageRules";
+		$.mobile.pageContainer.pagecontainer( "change", "rules.html" ,{transition:"none"});
+	}
 	
 	function showUserEnvironment(){
 		var environment = getUserEnvironment();
@@ -263,4 +271,50 @@ function refershBillSendStatus(rowID){
 		window.localStorage.setItem(TRANSACTION_ID_KEY, transactionID);
 		currentPage = "pageTransactionInfo";
 		$.mobile.pageContainer.pagecontainer( "change", "transactionInfo.html",{transition:"none"});
+	}
+	
+	
+	function acceptRulesAndGoToRegistrationPage(){
+		window.localStorage.setItem(ACCEPT_RULES_KEY,"true");
+		navigator.app.backHistory();
+	}
+	
+	function declineRulesAndGoToRegistrationPage(){
+		window.localStorage.setItem(ACCEPT_RULES_KEY,"false");
+		navigator.app.backHistory();
+	}
+	
+	function tryToRegisterUser(){
+		 var email= $('#email').val();
+		 var nick = $('#nick').val();
+		 var promo = $('#promo').val();
+		 var benderCheck = $("#checkboxRobot").is(':checked')?true:false;
+		 var rulesCheck = $("#checkboxRules").is(':checked')?true:false;
+		 
+		if (
+			/*	(nick==undefined)||(nick=="")
+				(email==undefined)||(email=="")
+				(promo==undefined)||(promo=="")
+				*/
+				(nick=="")
+				||(email=="")
+				||(promo=="")
+		)
+		{
+			alert("Пожалуйста, заполните все необходимые поля");
+			return;
+		}
+		
+		if (benderCheck==false){
+			alert("Регистрация роботов будет доступна в следующей версии приложения");
+		}
+		
+		if (rulesCheck==false){
+			alert("Необходимо принять условия пользовательского приложения");
+		}
+		registerUser(email, nick, promo).done(function(){
+			navigator.app.backHistory();
+		});
+			
+		
 	}
