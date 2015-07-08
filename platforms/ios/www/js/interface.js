@@ -276,12 +276,14 @@ function refershBillSendStatus(rowID){
 	
 	function acceptRulesAndGoToRegistrationPage(){
 		window.localStorage.setItem(ACCEPT_RULES_KEY,"true");
-		navigator.app.backHistory();
+		//navigator.app.backHistory();
 	}
 	
 	function declineRulesAndGoToRegistrationPage(){
+       // alert("trying to decline");
 		window.localStorage.setItem(ACCEPT_RULES_KEY,"false");
-		navigator.app.backHistory();
+       // alert("trying to go back");
+		//navigator.app.backHistory();
 	}
 	
 	function tryToRegisterUser(){
