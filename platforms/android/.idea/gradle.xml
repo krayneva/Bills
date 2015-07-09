@@ -10,6 +10,8 @@
           <set>
             <option value="$PROJECT_DIR$" />
             <option value="$PROJECT_DIR$/CordovaLib" />
+            <option value="$PROJECT_DIR$/com.phonegap.plugins.facebookconnect" />
+            <option value="$PROJECT_DIR$/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib" />
           </set>
         </option>
       </GradleProjectSettings>

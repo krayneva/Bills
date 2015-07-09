@@ -74,6 +74,10 @@
     <gap:plugin name="com.performanceactive.plugins.camera" />
   	<gap:plugin name="com.appblade.cordova.plugin" />
 
+  	   <gap:plugin name="com.phonegap.plugins.facebookconnect" version="0.8.0">
+        <param name="APP_ID" value="1471431413171503" />
+        <param name="APP_NAME" value="Check-A-Matic" />
+    </gap:plugin>
 
     <icon src="icon.png" />
     <icon gap:platform="android" gap:qualifier="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />

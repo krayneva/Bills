@@ -789,3 +789,56 @@ function uploadPhoto() {
     		setTimeout(deferred.resolve(), 1000);
     	return deferred;
     }
+    
+    
+    function requestAndGetError(){
+    	var deferred = $.Deferred();
+    	$.mobile.loading("show",{
+    		text: "Загрузка  тест",
+    		textVisible: true,
+    		theme: 'e',
+    	});
+    	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
+    		var serverAddress = res;
+    		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
+    		var userToken = uToken;
+    	   $.ajax({
+    	          url: serverAddress+getTestErrorURL,
+    	            type: "get",
+                beforeSend: function (request)
+                {
+                request.setRequestHeader("Authorization", "Bearer "+userToken);
+                },
+    	            data: [],       
+    	            success: function(response, textStatus, jqXHR) {
+    	            	alert("success! response is "+response);
+    	            	alert("textStatus is "+textStatus);
+    	            	alert("jqXHR is "+jqXHR.reponseText);
+    	           		$.mobile.loading("hide");
+    	               deferred.resolve();
+    	            },
+    	            error: function(jqXHR, textStatus, errorThrown) {
+    	              	  /* onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){  	              		
+                        	   if (res==SERVER_ERROR_TRY_AGAIN){
+                        		   requestUserEnvironment();
+                        	   	   deferred.resolve();
+                        	   }
+                        	   else{
+                        		   $.mobile.loading("hide");
+                        		   deferred.resolve();
+                        	   }
+                    	   });*/
+    	            	
+    	            
+    	            	alert("error! error thrown is "+errorThrown);
+    	            	alert("textStatus is "+textStatus);
+    	            	/// вот здесь  текст огшибки от Сергея
+    	            	alert("jqXHR is "+jqXHR.responseText);
+    	            	   $.mobile.loading("hide");
+                		   deferred.resolve();
+    	            }
+    	        });
+    		});
+    	});
+    	return deferred;
+    }

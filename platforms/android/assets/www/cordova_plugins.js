@@ -235,6 +235,13 @@ module.exports = [
         "clobbers": [
             "cordova.plugins.Keyboard"
         ]
+    },
+    {
+        "file": "plugins/com.phonegap.plugins.facebookconnect/facebookConnectPlugin.js",
+        "id": "com.phonegap.plugins.facebookconnect.FacebookConnectPlugin",
+        "clobbers": [
+            "facebookConnectPlugin"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -250,7 +257,8 @@ module.exports.metadata =
     "cordova-plugin-crosswalk-webview": "1.2.0",
     "cordova-plugin-whitelist": "1.0.1-dev",
     "com.ionic.keyboard": "1.0.4",
-    "com.appblade.cordova.plugin": "0.9.0"
+    "com.appblade.cordova.plugin": "0.9.0",
+    "com.phonegap.plugins.facebookconnect": "0.11.0"
 }
 // BOTTOM OF METADATA
 });

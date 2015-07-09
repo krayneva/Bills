@@ -16,7 +16,9 @@ int id textView 0x7f060000
 int id textViewExposureCompensation 0x7f060007
 int id whiteBalanceSpinner 0x7f060004
 int layout activity_camera_settings 0x7f030000
-int string activity_name 0x7f050002
-int string app_name 0x7f050000
-int string launcher_name 0x7f050001
+int string activity_name 0x7f050004
+int string app_name 0x7f050002
+int string fb_app_id 0x7f050000
+int string fb_app_name 0x7f050001
+int string launcher_name 0x7f050003
 int xml config 0x7f040000
