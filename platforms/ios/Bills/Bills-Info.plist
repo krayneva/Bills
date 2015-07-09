@@ -195,5 +195,18 @@
     </array>
     <key>UIViewControllerBasedStatusBarAppearance</key>
     <false/>
+    <key>FacebookAppID</key>
+    <string>1471431413171503</string>
+    <key>FacebookDisplayName</key>
+    <string>Check-A-Matic</string>
+    <key>CFBundleURLTypes</key>
+    <array>
+      <dict>
+        <key>CFBundleURLSchemes</key>
+        <array>
+          <string>fb1471431413171503</string>
+        </array>
+      </dict>
+    </array>
   </dict>
 </plist>

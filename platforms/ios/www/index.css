@@ -579,7 +579,9 @@ label{
 
 .expenses{
   position: absolute;
-  top:10.6em;
+  /*top:10.6em;
+  */
+  top:5em;
   bottom: 4.6em;
   overflow: auto;
   width: 100%

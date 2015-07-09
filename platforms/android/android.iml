@@ -81,9 +81,10 @@
     </content>
     <orderEntry type="jdk" jdkName="Android API 21 Platform" jdkType="Android SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" exported="" name="xwalk_core_library_beta-13.42.319.11" level="project" />
+    <orderEntry type="library" exported="" name="xwalk_core_library_beta-13.42.319.12" level="project" />
     <orderEntry type="library" exported="" name="httpmime-4.1.2" level="project" />
     <orderEntry type="library" exported="" name="appblade framework" level="project" />
+    <orderEntry type="module" module-name="checkomatic-FacebookLib" exported="" />
     <orderEntry type="module" module-name="CordovaLib" exported="" />
   </component>
 </module>

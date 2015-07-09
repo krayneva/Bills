@@ -37,12 +37,10 @@ import android.widget.Toast;
 import org.apache.cordova.*;
 
 import com.appblade.framework.AppBlade;
+import com.facebook.AppEventsLogger;
 
 
-
- 
-
-public class Bills extends CordovaActivity 
+public class Bills extends CordovaActivity
 {
 	
 
@@ -64,11 +62,12 @@ protected void onResume() {
 	// TODO Auto-generated method stub
 	super.onResume();
 	//AppBlade.authorize(this);
+    AppEventsLogger.activateApp(this);
 }
     @Override
     protected void onStop() {
     	super.onStop();
-
+    AppEventsLogger.deactivateApp(this);
     }
     
 

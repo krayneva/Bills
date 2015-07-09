@@ -54,6 +54,9 @@
             "subdir": "."
         },
         "is_top_level": true,
-        "variables": {}
+        "variables": {
+            "APP_ID": "1471431413171503",
+            "APP_NAME": "Check-A-Matic"
+        }
     }
 }
