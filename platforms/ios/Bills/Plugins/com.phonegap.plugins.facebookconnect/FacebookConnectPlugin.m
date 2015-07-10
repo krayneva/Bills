@@ -195,8 +195,12 @@
 }
 
 - (void)logEvent:(CDVInvokedUrlCommand *)command {
+    printf("\n");
+    printf("LOG EVENT CALLED!");
+     printf("%d",[command.arguments count]);
+    
     if ([command.arguments count] == 0) {
-        // Not enough arguments
+        // Not enghbrbough arguments
         CDVPluginResult *res = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"Invalid arguments"];
         [self.commandDelegate sendPluginResult:res callbackId:command.callbackId];
         return;

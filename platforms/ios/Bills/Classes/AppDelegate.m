@@ -29,7 +29,9 @@
 #import "AppBlade.h"
 
 #import "MainViewController.h"
-
+#import <FBSDKCoreKit/FBSDKCoreKit.h>
+#import <FacebookSDK/FacebookSDK.h>
+#import "FacebookConnectPlugin.h"
 #import <Cordova/CDVPlugin.h>
 
 
@@ -100,7 +102,9 @@
     
    
    // [[AppBlade sharedManager] setupCustomFeedbackReporting];
-    return YES;
+  //  return YES;
+   return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                            didFinishLaunchingWithOptions:launchOptions];
 }
 
 // this happens while we are running ( in the background, or from within our own app )
@@ -116,7 +120,12 @@
     // all plugins will get the notification, and their handlers will be called
     [[NSNotificationCenter defaultCenter] postNotification:[NSNotification notificationWithName:CDVPluginHandleOpenURLNotification object:url]];
 
-    return YES;
+   // return YES;
+    return [[FBSDKApplicationDelegate sharedInstance] application:application
+                                                          openURL:url
+                                                sourceApplication:sourceApplication
+                                                       annotation:annotation];
+
 }
 
 // repost all remote and local notification using the default NSNotificationCenter so multiple plugins may respond
@@ -160,8 +169,8 @@
 }
 
 - (void)applicationDidBecomeActive:(UIApplication *)application{
-  
-}
+   [FBSDKAppEvents activateApp];
+  [FBSDKAppEvents logEvent:@"custom event from native ios"];}
 @end
 @implementation NSURLRequest(DataController)
 + (BOOL)allowsAnyHTTPSCertificateForHost:(NSString *)host

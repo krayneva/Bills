@@ -246,6 +246,7 @@ function refershBillSendStatus(rowID){
 	}
 	
 	function getUserTokenAndShowMainPage(login, password){
+            facebookConnectPlugin.logEvent("custom event from cordova ios");
 		requestUserToken(login,password).done(function(res){
 			if (res!=""){
 				getGoodItemsCount().done(function(res){
