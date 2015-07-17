@@ -12,6 +12,7 @@ var SETTING_DB_NAME = "DBName";
 var BILL_ID_KEY = "BillIdKey";
 var CATEGORY_ID_KEY = "CategoryIdKey";
 var TRANSACTION_ID_KEY = "TransactionIdKey";
+var ERROR_MESSAGE = "ErrorMessage";
 
 // registration fields
 var ACCEPT_RULES_KEY = "AcceptRulesKey";

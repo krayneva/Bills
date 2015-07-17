@@ -63,6 +63,8 @@ protected void onResume() {
 	super.onResume();
 	//AppBlade.authorize(this);
     AppEventsLogger.activateApp(this);
+    //��� ��� �������� � �����������
+   // AppEventsLogger.logEvent(String eventName, Bundle parameters);
 }
     @Override
     protected void onStop() {

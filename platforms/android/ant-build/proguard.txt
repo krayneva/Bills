@@ -5,8 +5,8 @@
 -keep class com.performanceactive.plugins.camera.CustomCameraActivity { <init>(...); }
 
 # view AndroidManifest.xml #generated:15
--keep class ru.krayneva.bills.Bills { <init>(...); }
+-keep class com.checkomatic.Bills { <init>(...); }
 
 # view AndroidManifest.xml #generated:14
--keep class ru.krayneva.bills.BillsApplication { <init>(...); }
+-keep class com.checkomatic.BillsApplication { <init>(...); }
 
