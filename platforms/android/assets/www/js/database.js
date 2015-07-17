@@ -174,7 +174,7 @@
     		function(transaction) { 
     		//	environment.replace ('"','""');
         		transaction.executeSql(
-        		"UPDATE UserEnvironment set environment='"+environment+"' where id=1"
+        		"UPDATE UserEnvironment set environment='"+environment+"'"
         		);},
         		 onError, onSuccess);
    }
@@ -186,7 +186,7 @@
     	var deferred = $.Deferred();
     	db.transaction(
   		    function(transaction) {
-  		        transaction.executeSql('SELECT * FROM UserEnvironment where id=1', [],
+  		        transaction.executeSql('SELECT * FROM UserEnvironment', [],
   		        		function(transaction, result) {
   		        	deferred.resolve( result.rows.item(0).environment);
     		    }, onError);
@@ -764,6 +764,15 @@
             		 onError, onSuccess);
  }
     
+
+    function deleteUserEnvironmentTable(){
+ 	   db.transaction(
+        		function(transaction) { 
+            		transaction.executeSql(
+            		'delete from UserEnvironment')} ,
+            		 onError, onSuccess);
+ }
+    
   function addGoodItem(tag, value,measure,color,soundTranscription,json){
 	  db.transaction(
 	    	   function(transaction) { 
@@ -840,5 +849,27 @@
     		    }, onError);
   		 });
     	return deferred;
+    }
+    
+    // обнуляем и инициализируем бд заново!
+    function updateDatabase(){
+    	//вычищаем таблицы
+    	clearBillsTable();
+    	deleteGoodItemsTable();
+    	deleteGoodMeasuresTable();
+    	deleteShopListsTable();
+    	deleteUserEnvironmentTable();
+    	window.localStorage.removeItem("CurrentShopListNum");
+    	getGoodItemsCount().done(function(res){
+				requestShopLists().done(function(){
+					requestGoodItems().done(function(){
+						requestGoodMeasures().done(function(){
+							requestUserEnvironment().done(function(){
+								updateMainPage();
+							});
+						});
+					});
+				});
+    	});
     }
     

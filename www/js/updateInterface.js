@@ -276,14 +276,15 @@ function updateTransactionInfoPage(){
 
 //		document.getElementById('ReceiptsListView').style.fontSize = "medium";
 //		document.getElementById('tagsListView').style.fontSize = "medium";
-		$('#category').append(json.Category);
-		
-		$('#subcategory').append(json.SubCategory);
-		$('#id').append(json.Id);
-		$('#createdAt').append(json.CreatedAt);
-		$('#currency').append(getCurrencyString(json.Currency));
-		$('#transactionDate').append(json.TransactionDate);
-		$('#amount').append(json.Amount);
+		$('#category').html("Категория: "+json.Category);
+		if (json.Name!=null)
+			$('#name').html("Наименование: "+json.Name);
+		$('#subcategory').html("Подкатегория: "+json.SubCategory);
+		$('#id').html("Идентификатор: "+json.Id);
+		$('#createdAt').html("Дата создания: "+json.CreatedAt);
+		$('#currency').html("Валюта "+ getCurrencyString(json.Currency));
+		$('#transactionDate').html("Дата транзакции: "+json.TransactionDate);
+		$('#amount').html("Итого "+json.Amount);
 		
 		
 	/*	for (var i=0; i<json.Tags.length; i++){
@@ -491,8 +492,8 @@ function updateTransactionInfoPage(){
 							if (listrowBought.childNodes[i].id=="itemQuantity"){
 					  			listrowBought.childNodes[i].innerHTML = quantity;
 							}
-							if (listrow.childNodes[i].id=="itemUnit"){
-					  			listrow.childNodes[i].innerHTML = measure;
+							if (listrowBought.childNodes[i].id=="itemUnit"){
+					  			listrowBought.childNodes[i].innerHTML = measure;
 							}
 				  			//alert("ID of child : "+listrow.childNodes[i].id+" type: "+listrow.childNodes[i].type);
 					  }
@@ -600,7 +601,7 @@ function updateTransactionInfoPage(){
 	
 	
 	function swiperightHandler(event){
-
+		
 		var row = $("#"+this.id);
 		 row.animate({left: $(window).width()},{duration:1000, 
 			 complete: function() {
@@ -672,7 +673,7 @@ function updateTransactionInfoPage(){
 					window.localStorage.setItem("CurrentShopListNum",number);
 					//	console.log("CurrentShopList: "+number+" count: "+count);
 						clearBoughtItems(window.localStorage.getItem('ShopListID'));
-						$( "#mypanel" ).panel( "close" );
+						$( "#mypanelShopList" ).panel( "close" );
 						updateShopListsPage(true);
 				 
 			 });
@@ -693,3 +694,5 @@ function updateTransactionInfoPage(){
 	function clearBoughtItems(listID){
 		window.localStorage.removeItem("ShopListAlreadyBought"+listID);
 	}
+	
+

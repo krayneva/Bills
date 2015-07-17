@@ -481,12 +481,12 @@ div.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset.ui-focus>input{
   max-width: 90%;
   margin-top: 5%;
 }
-/**/
+/*
 .background{
   bottom: 0;
   background-color: #fff;
   background-image: none;
-}
+}*/
 .body{
   position: absolute;
   top:4.6em;
@@ -659,6 +659,9 @@ label{
 .ui-panel-inner{
 	  background-color: #59a6b2;
 }
+
+.ui-panel { width: 27em; }
+
 .buttom2{
   height: 1.9em;
   padding: 0.2em 0;
@@ -975,3 +978,29 @@ li.expenses_item{
 }
 
 
+.errorDialog{
+	background: #fff;
+	  margin: 1em 1em 1em 1em;
+	    padding-top: 0.5em;
+  padding-bottom: 0.5em;
+  text-align: center;
+  padding-left: 0.5em;
+  padding-right: 0.5em;
+}
+
+
+.ui-dialog-background {
+opacity: 0.5;
+display: block !important;
+/*-webkit-transition: opacity 0.5s ease-in;*/
+}
+ 
+.ui-dialog-background.pop.in {
+opacity: 1;
+/*-webkit-transition: opacity 0.5s ease-in;*/
+}
+
+.ui-dialog {
+min-height: 100% !important;
+background: transparent !important;
+}

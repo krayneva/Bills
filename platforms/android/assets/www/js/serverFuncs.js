@@ -553,6 +553,56 @@ function uploadPhoto() {
     }
     
     
+    function sendRegistration(email, nick , promo){
+    	$.mobile.loading("show",{
+    		text: "Регистрация",
+    		textVisible: true,
+    		theme: 'e'
+    	});
+    	var deferred = $.Deferred();
+    	
+    	var jsonData = new Object();
+    	jsonData.Email = email;
+    	jsonData.HowToReferTo = nick;
+    	jsonData.PromoCode = promo;
+    	
+    	
+    	
+		facebookConnectPlugin.logEvent("Registrarion event", jsonData);
+		
+
+    //	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
+    		var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
+	    	   $.ajax({
+	    	          url: serverAddress+getRegistrationURL,
+	    	          type: "post",
+
+	                beforeSend: function (request)
+	                {
+		            //    request.setRequestHeader("Authorization", "Bearer "+userToken);
+		                request.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+	                },
+	    	            data: jsonData,       
+	    	            success: function(response, textStatus, jqXHR) {
+	    	              if (debugMode==true) console.log(jqXHR.responseText);
+	    	           var json = jQuery.parseJSON(jqXHR.responseText);
+	    	           		alert("status: "+textStatus);
+	    	           		alert("response text: "+jqXHR.responseText);
+	    	           		//res = jqXHR.responseText.replace(/"/g,"");
+	    	           		$.mobile.loading("hide");
+	    	           		deferred.resolve(res);
+	    	            },
+	    	            error: function(jqXHR, textStatus, errorThrown) {
+	                        		   $.mobile.loading("hide");
+	                        		   showErrorDialog(jqXHR.responseText);
+	                        		   deferred.resolve();
+	    	            }
+	    	        });
+	   //		});
+
+    	return deferred;	
+    }
+    
  
     
     /**
@@ -696,13 +746,15 @@ function uploadPhoto() {
     	var deferred = $.Deferred();
     	if (authCount==2){
 	    	    $.mobile.loading("hide");
-	    	    alert("Ошибка авторизации");
+	    	  // alert("Ошибка авторизации");
+	    	    showErrorDialog(jqXHR.responseText);
 	    	    getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
 	        		var log = login;
 	        		getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
 	        		var pass = password;
-	        		alert("Логин: "+log);
+	        		/*alert("Логин: "+log);
 	        		alert("Пароль: "+pass);
+	        		*/
 	        		 deferred.resolve(SERVER_ERROR_NO_AUTH);
 	        		return deferred;
 	        		});
@@ -731,7 +783,8 @@ function uploadPhoto() {
     	if (networkState==Connection.NONE){
     		$.mobile.loading("hide");
     		deferred.resolve(SERVER_ERROR_NO_INTERNET);
-    		alert("Проверьте подключение к интернету");
+    		//alert("Проверьте подключение к интернету");
+    		showErroDialog("Проверьте подключение к интернету");
     		authCount = 0;
     		return deferred;
     	}
@@ -744,7 +797,8 @@ function uploadPhoto() {
 	    	    .fail( function(){ isReachable = false; 
 	    	    deferred.resolve(SERVER_ERROR_NO_CONNECTION_TO_HOST);
 	    	    $.mobile.loading("hide");
-	    	    alert("Нет связи с сервером");
+	    	   // alert("Нет связи с сервером");
+	    	    showErrorDialog("Нет связи с сервером");
 	    	    authCount = 0;
 	    	    return deferred;
 	    	    } );
@@ -784,12 +838,12 @@ function uploadPhoto() {
     }
     
     
-    function registerUser(email, nick, promo){
+  /*  function registerUser(email, nick, promo){
     	var deferred = $.Deferred();
     		setTimeout(deferred.resolve(), 1000);
     	return deferred;
     }
-    
+    */
     
     function requestAndGetError(){
     	var deferred = $.Deferred();
@@ -818,23 +872,15 @@ function uploadPhoto() {
     	               deferred.resolve();
     	            },
     	            error: function(jqXHR, textStatus, errorThrown) {
-    	              	  /* onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){  	              		
-                        	   if (res==SERVER_ERROR_TRY_AGAIN){
-                        		   requestUserEnvironment();
-                        	   	   deferred.resolve();
-                        	   }
-                        	   else{
-                        		   $.mobile.loading("hide");
-                        		   deferred.resolve();
-                        	   }
-                    	   });*/
-    	            	
+
     	            
-    	            	alert("error! error thrown is "+errorThrown);
+    	            /*	alert("error! error thrown is "+errorThrown);
     	            	alert("textStatus is "+textStatus);
     	            	/// вот здесь  текст огшибки от Сергея
     	            	alert("jqXHR is "+jqXHR.responseText);
+    	            	*/
     	            	   $.mobile.loading("hide");
+    	            	   showErrorDialog(jqXHR.responseText);
                 		   deferred.resolve();
     	            }
     	        });

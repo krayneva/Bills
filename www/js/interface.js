@@ -214,6 +214,7 @@ function refershBillSendStatus(rowID){
 		currentPage = "pageExpenses";
 		$.mobile.pageContainer.pagecontainer( "change", "expenses.html" ,{transition:"none"});
     //    $.mobile.pageContainer.pagecontainer( "change", "pull.html" ,{transition:"none"});
+	//	window.localStorage.setItem(TRANSACTION_ID_KEY, transactionID);
 	}
 	
 	function showTransactionPage(){
@@ -233,11 +234,24 @@ function refershBillSendStatus(rowID){
 
 	function showRegistrationPage(){
 		currentPage = "pageRegistration";
-		$.mobile.pageContainer.pagecontainer( "change", "registration.html" ,{transition:"none"});
+		//$.mobile.pageContainer.pagecontainer( "change", "registration.html" ,{transition:"none"});
+		$.mobile.pageContainer.pagecontainer( "change", "registration_new.html" ,{transition:"none"});
 	}
 	function showRulesPage(){
 		currentPage = "pageRules";
-		$.mobile.pageContainer.pagecontainer( "change", 'rules.html' ,{transition:"none"});
+		//$.mobile.pageContainer.pagecontainer( "change", 'rules.html' ,{transition:"none"});
+		$.mobile.pageContainer.pagecontainer( "change", 'rules_new.html' ,{transition:"none"});
+	}
+	
+	function showErrorDialog(message){
+		currentPage = "pageError";
+		window.localStorage.setItem(ERROR_MESSAGE, message);
+		message = messaget.replace ('"','');
+		$.mobile.pageContainer.pagecontainer( "change", "dialog.html" ,{transition:"none",role: "dialog"});
+	//	$.mobile.changePage( "dialog.html", { role: "dialog" } );
+	//	$.mobile.pageContainer.pagecontainer( "change", "dialog.html" ,{role: 'dialog'});
+	
+	//	$("#message").html("Поменяли текст ошибки!!");
 	}
 	
 	function showUserEnvironment(){
@@ -246,7 +260,12 @@ function refershBillSendStatus(rowID){
 	}
 	
 	function getUserTokenAndShowMainPage(login, password){
-            facebookConnectPlugin.logEvent("custom event from cordova ios");
+		var json = new Object();
+		json.login = login;
+		//json.password = password;
+		
+		facebookConnectPlugin.logEvent("Login event", json);
+		
 		requestUserToken(login,password).done(function(res){
 			if (res!=""){
 				getGoodItemsCount().done(function(res){
