@@ -14,6 +14,9 @@ var CATEGORY_ID_KEY = "CategoryIdKey";
 var TRANSACTION_ID_KEY = "TransactionIdKey";
 var ERROR_MESSAGE = "ErrorMessage";
 
+var DIALOG_MESSAGE = "DialogMessage";
+var DIALOG_HEADER = "DialogHeader";
+
 // registration fields
 var ACCEPT_RULES_KEY = "AcceptRulesKey";
 var IS_ROBOT_KEY = "IsRobotKey";

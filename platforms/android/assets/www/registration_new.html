@@ -6,17 +6,18 @@
 	            <h1>Регистрация</h1>
 	        </div>
 	        <div data-role="content">
-	        	<form id="registerPage">
-	        		<input class="ui-input-reg" type="email" name="email" placeholder="Электронная почта" autocomplete="off" required>
-	        		<input class="ui-input-reg" type="text" name="name" placeholder="Как к Вам обращаться" autocomplete="off" required>
-	        		<input class="ui-input-reg" type="text" name="code" placeholder="Промокод">
-	        		<label class="ui-label">
-	        			<input type="checkbox">
+	        	<div id="registerPage">
+	        		<input id="email" class="ui-input-reg" type="email" name="email" placeholder="Электронная почта" autocomplete="off" required>
+	        		<input id ="nick" class="ui-input-reg" type="text" name="name" placeholder="Как к Вам обращаться" autocomplete="off" required>
+	        		<input id = "promo" class="ui-input-reg" type="text" name="code" placeholder="Промокод" >
+	        		<label class="ui-label"  onclick = "showRulesPage();">
+	        			<input type="checkbox" id ="checkboxRules">
 	        			Я принимаю условия<br/>
 	        			<a href="#" title="">Пользовательского соглашения</a>
 	        		</label>
-	        		<button>Регистрация</button>
-	        	</form>
+	        		<button id = "#registerButton" onclick = 'tryToRegisterUser();' >Регистрация</button>
+	        	    <button  onclick = "navigator.app.backHistory();">Назад</button>
+	        	</div>
 	        </div>
 	    </div>
     </div>

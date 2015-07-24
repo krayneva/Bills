@@ -566,10 +566,9 @@ function uploadPhoto() {
     	jsonData.HowToReferTo = nick;
     	jsonData.PromoCode = promo;
     	
-    	
+    	var jsonText = JSON.stringify(jsonData);
     	
 		facebookConnectPlugin.logEvent("Registrarion event", jsonData);
-		
 
     //	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
     		var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
@@ -582,20 +581,22 @@ function uploadPhoto() {
 		            //    request.setRequestHeader("Authorization", "Bearer "+userToken);
 		                request.setRequestHeader("Content-Type", "application/json; charset=utf-8");
 	                },
-	    	            data: jsonData,       
+	    	            data: jsonText,       
 	    	            success: function(response, textStatus, jqXHR) {
-	    	              if (debugMode==true) console.log(jqXHR.responseText);
-	    	           var json = jQuery.parseJSON(jqXHR.responseText);
-	    	           		alert("status: "+textStatus);
-	    	           		alert("response text: "+jqXHR.responseText);
+	    	           //   if (debugMode==true) console.log(jqXHR.responseText);
+	    	         //  var json = jQuery.parseJSON(jqXHR.responseText);
+                		//	alert("response text: "+jqXHR.responseText);
+                		//	alert("http status is "+jqXHR.status);
 	    	           		//res = jqXHR.responseText.replace(/"/g,"");
-	    	           		$.mobile.loading("hide");
-	    	           		deferred.resolve(res);
+	    	            	$.mobile.loading("hide");
+	    	            	window.localStorage.setItem(SETTING_USER_LOGIN,email);
+	    	         	    showDialog("Регистрация успешно завершена","Благодарим Вас за регистрацию. На Ваш адрес электронный почты мы отправили пароль, используйте его для входа в систему.");
+	    	           		deferred.resolve("success");
 	    	            },
 	    	            error: function(jqXHR, textStatus, errorThrown) {
 	                        		   $.mobile.loading("hide");
 	                        		   showErrorDialog(jqXHR.responseText);
-	                        		   deferred.resolve();
+	                        		   deferred.resolve("fail");
 	    	            }
 	    	        });
 	   //		});

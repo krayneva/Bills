@@ -2,6 +2,7 @@ package com.performanceactive.plugins.camera;
 import android.app.Activity;
 import android.content.Intent;
 import android.content.SharedPreferences;
+import android.graphics.Bitmap;
 import android.hardware.Camera;
 import android.os.Bundle;
 import android.preference.EditTextPreference;
@@ -28,10 +29,12 @@ private Camera camera;
 	public static String PICTURE_FORMAT_SETTING = "PictureFormat";
 	public static String COLOR_EFFECTS_SETTING = "ColorEffects";
 	public static String EXPOSURE_COMPENSATION_SETTING = "ExposureCompensation";
+	public static String COLOR_MODE_SETTING = "ColorModeSetting";
+	
 
 
 	private Spinner sceneModeSpinner, focusModeSpinner, whiteBalanceSpinner,
-			antiBandingSpinner, pictureFormatSpinner,colorEffectsSpinner;
+			antiBandingSpinner, pictureFormatSpinner,colorEffectsSpinner, colorModeSpinner;
 	SeekBar exposureCompensationSeekBar;
 	
 	@Override
@@ -134,6 +137,20 @@ private Camera camera;
 			colorEffectsSpinner.setEnabled(false);
 		}
 
+		colorModeSpinner = (Spinner) findViewById(R.id.colorModeSpinner);
+		ArrayList<String> colorModes =  new ArrayList<String>();
+		for (int i=0; i<Bitmap.Config.values().length; i++){
+			colorModes.add(Bitmap.Config.values()[i].toString()); 
+		}
+	//	if (CustomCameraActivity.colorEffectsnabled) {
+			ArrayAdapter<String> colorModesAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, colorModes);
+			colorModesAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+			colorModeSpinner.setAdapter(colorModesAdapter);
+		/*}
+		else{
+			colorEffectsSpinner.setEnabled(false);
+		}*/
+
 
 
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
@@ -143,6 +160,7 @@ private Camera camera;
 		String whiteBalanceValue = sp.getString(CameraSettingsActivity.WHITE_BALANCE_SETTING, CustomCameraActivity.WHITE_BALANCE_SETTING_DEFAULT);
 		String pictureFormatValue = sp.getString(CameraSettingsActivity.PICTURE_FORMAT_SETTING, CustomCameraActivity.PICTURE_FORMAT_SETTING_DEFAULT);
 		String colorEffectValue = sp.getString(CameraSettingsActivity.COLOR_EFFECTS_SETTING, CustomCameraActivity.COLOR_EFFECTS_SETTING_DEFAULT);
+		String colorModeValue = sp.getString(CameraSettingsActivity.COLOR_MODE_SETTING, CustomCameraActivity.COLOR_MODE_SETTING_DEFAULT);
 		String exposureCompensationValue = sp.getString(CameraSettingsActivity.EXPOSURE_COMPENSATION_SETTING, CustomCameraActivity.EXPOSURE_COMPENSATION_SETTING_DEFAULT);
 
 
@@ -154,6 +172,7 @@ private Camera camera;
 		if (CustomCameraActivity.whiteBalanceEnabled)whiteBalanceSpinner.setSelection(whiteBalance.indexOf(whiteBalanceValue));
 		if (CustomCameraActivity.pictureFormatEnabled)pictureFormatSpinner.setSelection(pictureFormat.indexOf(Integer.parseInt(pictureFormatValue)));
 		if (CustomCameraActivity.colorEffectsnabled)colorEffectsSpinner.setSelection(colorEffects.indexOf(colorEffectValue));
+		colorModeSpinner.setSelection(colorModes.indexOf(colorModeValue));
 
 
 		exposureCompensationSeekBar = (SeekBar)findViewById(R.id.seekBarExposureCompensation);
@@ -217,6 +236,7 @@ private Camera camera;
 		if (CustomCameraActivity.whiteBalanceEnabled)editor.putString(WHITE_BALANCE_SETTING, whiteBalanceSpinner.getSelectedItem().toString());
 		if (CustomCameraActivity.pictureFormatEnabled)editor.putString(PICTURE_FORMAT_SETTING, pictureFormatSpinner.getSelectedItem().toString());
 		if (CustomCameraActivity.colorEffectsnabled)editor.putString(COLOR_EFFECTS_SETTING, colorEffectsSpinner.getSelectedItem().toString());
+		editor.putString(COLOR_MODE_SETTING, colorModeSpinner.getSelectedItem().toString());
 
 		editor.commit();
 

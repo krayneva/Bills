@@ -81,6 +81,18 @@
         android:layout_width="fill_parent"
         android:layout_height="wrap_content" />
 
+    
+   <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="Цветовая информация"/>
+
+
+    <Spinner
+        android:id="@+id/colorModeSpinner"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content" />
 
     <TextView
         android:layout_width="wrap_content"

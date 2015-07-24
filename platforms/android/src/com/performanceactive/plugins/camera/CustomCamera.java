@@ -64,12 +64,14 @@ public class CustomCamera extends CordovaPlugin {
 				result.put(LONGITUDE, intent.getExtras().getDouble(LONGITUDE));
 				result.put(ALTITUDE, intent.getExtras().getDouble(ALTITUDE));
 			} catch (JSONException e) {
+
 				e.printStackTrace();
 	            callbackContext.error("Failed to form json");
 			}
-	    //    PluginResult pluginResult = new PluginResult(PluginResult.Status.OK,result);
-	     //   callbackContext.sendPluginResult(pluginResult);
-	    	callbackContext.success(result);
+	    
+	    	    PluginResult pluginResult = new PluginResult(PluginResult.Status.OK,result);
+	       callbackContext.sendPluginResult(pluginResult);
+	    //	callbackContext.success(result);
 	    } else if (resultCode == RESULT_ERROR) {
 	        String errorMessage = intent.getExtras().getString(ERROR_MESSAGE);
 	        if (errorMessage != null) {

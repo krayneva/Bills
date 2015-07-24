@@ -95,6 +95,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     public static String PICTURE_FORMAT_SETTING_DEFAULT = "";
     public static String COLOR_EFFECTS_SETTING_DEFAULT = "";
     public static String EXPOSURE_COMPENSATION_SETTING_DEFAULT = "";
+    public static String COLOR_MODE_SETTING_DEFAULT = Bitmap.Config.ARGB_8888.toString();
 
 
     public static boolean sceneModeEnabled = false;
@@ -272,7 +273,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         String pictureFormat = sp.getString(CameraSettingsActivity.PICTURE_FORMAT_SETTING, PICTURE_FORMAT_SETTING_DEFAULT);
         String colorEffect = sp.getString(CameraSettingsActivity.COLOR_EFFECTS_SETTING, COLOR_EFFECTS_SETTING_DEFAULT);
         String exposureCompensation = sp.getString(CameraSettingsActivity.EXPOSURE_COMPENSATION_SETTING, EXPOSURE_COMPENSATION_SETTING_DEFAULT);
-
+        
 
 
     try {
@@ -1001,7 +1002,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 	                    targetWidth = Math.round(targetHeight / aspectRatio);
 	                }
 
-	                
+	            
 	                Bitmap scaledBitmap = Bitmap.createScaledBitmap(croppedBitmap, targetWidth, targetHeight, true);
 	                
 	                croppedBitmap.recycle();
@@ -1018,6 +1019,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
                 	//int scaledHeight = croppedBitmap.getScaledHeight(canvas);
               	  //	canvas.drawBitmap(croppedBitmap,new Matrix(), null);
               	 // 	canvas.save();
+                	
                 	  croppedBitmap.compress(CompressFormat.JPEG, 100, output );
                 	  croppedBitmap.recycle(); 
                 	  croppedBitmap = null;
@@ -1205,24 +1207,18 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 
           
 
-       // int colorModeSetting = getIntent().getExtras().getInt(COLOR_MODE, 565);
         int colorModeSetting = getIntent().getExtras().getInt(TARGET_HEIGHT, 565);
-        //Bitmap.Config config =  Bitmap.Config.ARGB_4444;
-        //Bitmap.Config config =  Bitmap.Config.ALPHA_8;					
         Bitmap.Config config =  Bitmap.Config.RGB_565;
-        
-     /*   if (colorModeSetting==4444){
-           	config = Bitmap.Config.ARGB_4444;	
-        }
-        else if (colorModeSetting==8888){
-        	config = Bitmap.Config.ARGB_8888;
-        }
-        else if (colorModeSetting==8){
-        	config = Bitmap.Config.ALPHA_8;
-        }
-	
-       */ 
-        
+        SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+      String colorMode =   sp.getString(CameraSettingsActivity.COLOR_MODE_SETTING,COLOR_MODE_SETTING_DEFAULT);
+      
+      for (int i=0; i<Bitmap.Config.values().length; i++){
+    	  if (Bitmap.Config.values()[i].equals(colorMode)){
+    		  config = Bitmap.Config.values()[i];
+    		  break;
+    	  }
+    		  
+      }
 
        resultBitmap = Bitmap.createBitmap(options.outWidth, bitmaps.size()*options.outHeight, config);
        // resultBitmap = Bitmap.createBitmap(metrics,options.outWidth, bitmaps.size()*options.outHeight, config);
