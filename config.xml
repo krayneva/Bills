@@ -32,6 +32,18 @@
 	<feature name="AppBlade">
     <param name="android-package" value="com.appblade.cordova.plugin" />
 	</feature>
+    
+    <feature name="FacebookConnectPlugin">
+        <param name="ios-package" value="FacebookConnectPlugin" />
+        <param name="onload" value="true" />
+    </feature>
+    <plugin name="FacebookConnectPlugin" value="FacebookConnectPlugin" />
+    <access origin="https://m.facebook.com" />
+    <access origin="https://graph.facebook.com" />
+    <access origin="https://api.facebook.com" />
+    <access origin="https://*.fbcdn.net" />
+    <access origin="https://*.akamaihd.net" />
+
 
     <preference name="permissions" value="none" />
     <preference name="phonegap-version" value="3.5.0" />
@@ -74,10 +86,7 @@
     <gap:plugin name="com.performanceactive.plugins.camera" />
   	<gap:plugin name="com.appblade.cordova.plugin" />
 
-  	   <gap:plugin name="com.phonegap.plugins.facebookconnect" version="0.8.0">
-        <param name="APP_ID" value="1471431413171503" />
-        <param name="APP_NAME" value="Check-A-Matic" />
-    </gap:plugin>
+  	  
 
     <icon src="icon.png" />
     <icon gap:platform="android" gap:qualifier="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />

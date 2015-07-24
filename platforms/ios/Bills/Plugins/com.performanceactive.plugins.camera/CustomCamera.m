@@ -614,7 +614,7 @@ CLLocationDegrees latitude=-1,longitude=-1, altitude=-1;
     UIGraphicsEndImageContext();
     NSData *finalImageData = UIImageJPEGRepresentation(finalImage, 1);
     NSError* err = nil;
-    
+
     [finalImageData writeToFile:finalImagePath  options:NSAtomicWrite error:&err];
 }
 
