@@ -317,6 +317,7 @@ function updateTransactionInfoPage(){
 		}
 		*/
 		var listHTML = "";
+		  $('#tableTransactionInfo > tbody').html("");
 		 for (var i=0; i<json.receiptData.Items.length; i++){
 			// var html = $('#tableRowTemplate').html();
 			 // из html почему-то не тянется((

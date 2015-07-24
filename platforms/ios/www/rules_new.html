@@ -2,7 +2,7 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <div data-role="page" class="ui-mobile-viewport-term" id="pageRules">
        <div data-role="header" class="ui-header-w">
-            <a href="#" class="ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all">No text</a>
+            <a id="backButton"  data-rel="back" class="ui-btn ui-icon-delete ui-btn-icon-notext ui-corner-all">No text</a>
         </div>
         <div data-role="content" class="term-content">
 	        <h1>Пользовательское соглашение</h1>
@@ -13,5 +13,17 @@
 	        	<li>При необходимости портал будет направлять пользователям по электронной почте сообщения, касающиеся использования портала. Однако портал никогда не будет запрашивать в таких письмах подтверждения сведений, содержащих личную информацию или сведения, связанные с доступом к учетной записи пользователя.</li>
 	        	<li>Перед началом пользования порталом пользователи обязаны прочесть и принять настоящие правила. В случае полного или частичного несогласия с настоящими правилами пользователь должен прекратить процесс своей регистрации. Факт регистрации лица в качестве пользователя является подтверждением согласия пользователя соблюдать настоящие правила.</li>
 	        </ol>
+	        
+	        	<table width = "100%">
+			<tr>
+				<td width = "50%">
+					<button id="declineRules" onclick = "declineRulesAndGoToRegistrationPage();">Нет, спасибо</button>
+				</td>
+				<td width = "50%">
+					<button id = "acceptRules" onclick = "acceptRulesAndGoToRegistrationPage();">Принимаю условия</button>
+
+				</td>
+			</tr>
+		</table>
         </div>
     </div>

@@ -243,16 +243,23 @@ function refershBillSendStatus(rowID){
 		$.mobile.pageContainer.pagecontainer( "change", 'rules_new.html' ,{transition:"none"});
 	}
 	
-	function showErrorDialog(message){
-		currentPage = "pageError";
-		window.localStorage.setItem(ERROR_MESSAGE, message);
-		message = messaget.replace ('"','');
-		$.mobile.pageContainer.pagecontainer( "change", "dialog.html" ,{transition:"none",role: "dialog"});
-	//	$.mobile.changePage( "dialog.html", { role: "dialog" } );
-	//	$.mobile.pageContainer.pagecontainer( "change", "dialog.html" ,{role: 'dialog'});
 	
-	//	$("#message").html("Поменяли текст ошибки!!");
+	
+	function showErrorDialog(message){
+		showDialog("Ошибка",message);
 	}
+	
+	
+	function showDialog(header,message){
+		currentPage = "pageError";
+		window.localStorage.setItem(DIALOG_HEADER, header);
+		window.localStorage.setItem(DIALOG_MESSAGE, message);
+		message = message.replace ('"','');
+		$.mobile.pageContainer.pagecontainer( "change", "dialog.html" ,{transition:"none",role: "dialog"});
+
+	}
+
+	
 	
 	function showUserEnvironment(){
 		var environment = getUserEnvironment();
@@ -314,7 +321,6 @@ function refershBillSendStatus(rowID){
 		 var email= $('#email').val();
 		 var nick = $('#nick').val();
 		 var promo = $('#promo').val();
-		 var benderCheck = $("#checkboxRobot").is(':checked')?true:false;
 		 var rulesCheck = $("#checkboxRules").is(':checked')?true:false;
 		 
 		if (
@@ -324,23 +330,25 @@ function refershBillSendStatus(rowID){
 				*/
 				(nick=="")
 				||(email=="")
-				||(promo=="")
+			//	||(promo=="")
 		)
 		{
-			alert("Пожалуйста, заполните все необходимые поля");
+			//alert("Пожалуйста, заполните все необходимые поля");
+			 showErrorDialog("Пожалуйста, заполните все необходимые поля");
 			return;
 		}
 		
-		if (benderCheck==false){
-			alert("Регистрация роботов будет доступна в следующей версии приложения");
-		}
+		
 		
 		if (rulesCheck==false){
-			alert("Необходимо принять условия пользовательского приложения");
+		//	alert("Необходимо принять условия пользовательского приложения");
+			  showErrorDialog("Необходимо принять условия пользовательского соглашения");
+			  return;
 		}
-		registerUser(email, nick, promo).done(function(){
-			//navigator.app.backHistory();
-            $("#backButton").click();
+		sendRegistration(email, nick, promo).done(function(res){
+			if (res=="success"){
+				navigator.app.backHistory();
+			}
 		});
 			
 		

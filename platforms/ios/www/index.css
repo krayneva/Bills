@@ -481,12 +481,12 @@ div.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset.ui-focus>input{
   max-width: 90%;
   margin-top: 5%;
 }
-/*
+/**/
 .background{
   bottom: 0;
   background-color: #fff;
   background-image: none;
-}*/
+}
 .body{
   position: absolute;
   top:4.6em;
@@ -979,13 +979,16 @@ li.expenses_item{
 
 
 .errorDialog{
-	background: #fff;
-	  margin: 1em 1em 1em 1em;
-	    padding-top: 0.5em;
+	background: #fff !important;
+
+
+  margin: 1em 1em 1em 1em;
+  padding-top: 0.5em;
   padding-bottom: 0.5em;
   text-align: center;
   padding-left: 0.5em;
   padding-right: 0.5em;
+  align: center;
 }
 
 
@@ -1001,6 +1004,6 @@ opacity: 1;
 }
 
 .ui-dialog {
-min-height: 100% !important;
-background: transparent !important;
+	background: transparent !important;
 }
+
