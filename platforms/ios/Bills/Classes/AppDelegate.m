@@ -30,7 +30,7 @@
 
 #import "MainViewController.h"
 #import <FBSDKCoreKit/FBSDKCoreKit.h>
-#import <FacebookSDK/FacebookSDK.h>
+
 #import "FacebookConnectPlugin.h"
 #import <Cordova/CDVPlugin.h>
 

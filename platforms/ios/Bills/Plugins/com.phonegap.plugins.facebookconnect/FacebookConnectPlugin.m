@@ -9,6 +9,7 @@
 //
 
 #import "FacebookConnectPlugin.h"
+#import <FacebookSDK/FacebookSDK.h>
 
 @interface FacebookConnectPlugin ()
 

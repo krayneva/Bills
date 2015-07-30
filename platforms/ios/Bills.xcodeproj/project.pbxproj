@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		1424D240ADE24DD6AE04446F /* CDVLocalFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = F813CD83DACE42BD8CBA3609 /* CDVLocalFilesystem.m */; };
 		14DA48A0095D4065BB405FA0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2B8962A130C441AA60DA6B2 /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -51,9 +52,9 @@
 		8C2095CD1B208363007E6B00 /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E3B3C056B674D0487046AFD /* Security.framework */; };
 		8C2095D01B2085DA007E6B00 /* AppBladePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 56944BC47C03404EB901439F /* AppBladePlugin.m */; };
 		8C2095D21B20869B007E6B00 /* AppBladeKeys.plist in Resources */ = {isa = PBXBuildFile; fileRef = 8C2095D11B20869B007E6B00 /* AppBladeKeys.plist */; };
-		8CBE51661B4FCEFB00E16289 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CBE51651B4FCEFB00E16289 /* FacebookSDK.framework */; };
 		8CBE51701B4FD27800E16289 /* libz.1.2.5.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CBE516F1B4FD27800E16289 /* libz.1.2.5.dylib */; };
 		8CBE51711B4FD28D00E16289 /* FBSDKCoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CBE515E1B4FCB8A00E16289 /* FBSDKCoreKit.framework */; };
+		8CC79E961B596A0200BC4DD2 /* FacebookSDK.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CC79E951B596A0200BC4DD2 /* FacebookSDK.framework */; };
 		8CEE55F31B32F4A7004435F4 /* libCordova.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 301BF535109A57CC0062928A /* libCordova.a */; };
 		8CEE55F51B32F4E2004435F4 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 8CEE55F41B32F4E2004435F4 /* libsqlite3.dylib */; };
 		8D8BA6043CD0445EBEDF71FA /* CustomCameraViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D9E4D8A4A6F459E863A5105 /* CustomCameraViewController.m */; };
@@ -97,7 +98,6 @@
 		1D3623250D0F684500981E51 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
 		1D6058910D05DD3D006BFB54 /* Bills.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bills.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		205D23B257EB46ABB8D90C4E /* CDVAssetLibraryFilesystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVAssetLibraryFilesystem.m; path = org.apache.cordova.file/CDVAssetLibraryFilesystem.m; sourceTree = "<group>"; };
-		281A2DC4DD7D45309C384235 /* LibAppBladeUniversal.a */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = archive.ar; name = LibAppBladeUniversal.a; path = BillsPluginscom.appblade.cordova.pluginLibAppBladeUniversal.a; sourceTree = "<group>"; };
 		2853CE39E1F44D3CAD837C28 /* AppBladePlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppBladePlugin.h; path = com.appblade.cordova.plugin/AppBladePlugin.h; sourceTree = "<group>"; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		29B97316FDCFA39411CA2CEA /* main.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -151,14 +151,13 @@
 		7E7966DD1810823500FA85AD /* icon-small@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "icon-small@2x.png"; sourceTree = "<group>"; };
 		8184053A8109472694F1C355 /* CDVReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVReachability.h; path = "org.apache.cordova.network-information/CDVReachability.h"; sourceTree = "<group>"; };
 		86F9055713F64B82AE209A7C /* Accounts.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
-		8C2095C91B2082E3007E6B00 /* libAppBladeUniversal.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppBladeUniversal.a; path = Bills/libAppBladeUniversal.a; sourceTree = "<group>"; };
 		8C2095CB1B20835B007E6B00 /* libAppBladeUniversal.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppBladeUniversal.a; path = iOS/libAppBladeUniversal.a; sourceTree = "<group>"; };
 		8C2095D11B20869B007E6B00 /* AppBladeKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = AppBladeKeys.plist; path = Bills/Resources/AppBladeKeys.plist; sourceTree = "<group>"; };
 		8CBE515E1B4FCB8A00E16289 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../../Documents/FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
-		8CBE51651B4FCEFB00E16289 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = "../../../Downloads/phonegap-facebook-plugin-master/platforms/ios/FacebookSDK.framework"; sourceTree = "<group>"; };
 		8CBE51671B4FCF7000E16289 /* FacebookSDKStrings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FacebookSDKStrings.bundle; path = ../../../Documents/FacebookSDK/FacebookSDKStrings.bundle; sourceTree = "<group>"; };
 		8CBE516F1B4FD27800E16289 /* libz.1.2.5.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libz.1.2.5.dylib; path = usr/lib/libz.1.2.5.dylib; sourceTree = SDKROOT; };
 		8CC0296FA8D4494AAAEF322B /* CDVFileTransfer.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVFileTransfer.m; path = "org.apache.cordova.file-transfer/CDVFileTransfer.m"; sourceTree = "<group>"; };
+		8CC79E951B596A0200BC4DD2 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = "../../../Downloads/phonegap-facebook-plugin-master/platforms/ios/FacebookSDK.framework"; sourceTree = "<group>"; };
 		8CEE55F41B32F4E2004435F4 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		8D1107310486CEB800E47090 /* Bills-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; name = "Bills-Info.plist"; path = "../Bills-Info.plist"; plistStructureDefinitionIdentifier = "com.apple.xcode.plist.structure-definition.iphone.info-plist"; sourceTree = "<group>"; };
 		8E3B3C056B674D0487046AFD /* Security.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -191,8 +190,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				8CC79E961B596A0200BC4DD2 /* FacebookSDK.framework in Frameworks */,
 				8CBE51701B4FD27800E16289 /* libz.1.2.5.dylib in Frameworks */,
-				8CBE51661B4FCEFB00E16289 /* FacebookSDK.framework in Frameworks */,
 				8CEE55F51B32F4E2004435F4 /* libsqlite3.dylib in Frameworks */,
 				8CEE55F31B32F4A7004435F4 /* libCordova.a in Frameworks */,
 				8C2095CD1B208363007E6B00 /* Security.framework in Frameworks */,
@@ -279,13 +278,12 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				8CC79E951B596A0200BC4DD2 /* FacebookSDK.framework */,
 				8CBE516F1B4FD27800E16289 /* libz.1.2.5.dylib */,
 				8CBE51671B4FCF7000E16289 /* FacebookSDKStrings.bundle */,
-				8CBE51651B4FCEFB00E16289 /* FacebookSDK.framework */,
 				8CBE515E1B4FCB8A00E16289 /* FBSDKCoreKit.framework */,
 				8CEE55F41B32F4E2004435F4 /* libsqlite3.dylib */,
 				8C2095CB1B20835B007E6B00 /* libAppBladeUniversal.a */,
-				8C2095C91B2082E3007E6B00 /* libAppBladeUniversal.a */,
 				5B1594DC16A7569C00FEF299 /* AssetsLibrary.framework */,
 				288765FC0DF74451002DB57D /* CoreGraphics.framework */,
 				305D5FD0115AB8F900A74A75 /* MobileCoreServices.framework */,
@@ -295,7 +293,6 @@
 				54108D55FDCC4D3C856B7CE9 /* ImageIO.framework */,
 				AF7B6E9130034DEFB1FCF36D /* CoreLocation.framework */,
 				F2B8962A130C441AA60DA6B2 /* SystemConfiguration.framework */,
-				281A2DC4DD7D45309C384235 /* LibAppBladeUniversal.a */,
 				E80E6E52A47A4D07B3B8A27E /* Social.framework */,
 				86F9055713F64B82AE209A7C /* Accounts.framework */,
 			);
@@ -428,7 +425,7 @@
 		29B97313FDCFA39411CA2CEA /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 510;
+				LastUpgradeCheck = 630;
 				TargetAttributes = {
 					1D6058900D05DD3D006BFB54 = {
 						DevelopmentTeam = 88DEJM85SK;
@@ -571,7 +568,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Irina Krayneva (GB8RX7AHPD)";
 				COPY_PHASE_STRIP = NO;
@@ -619,7 +615,6 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
-				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = YES;
 				CODE_SIGN_IDENTITY = "iPhone Developer: Irina Krayneva (GB8RX7AHPD)";
 				COPY_PHASE_STRIP = YES;
@@ -687,7 +682,7 @@
 					"\"$(BUILT_PRODUCTS_DIR)\"",
 				);
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				ONLY_ACTIVE_ARCH = NO;
+				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = (
 					"-weak_framework",
 					CoreFoundation,
@@ -704,7 +699,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				USER_HEADER_SEARCH_PATHS = "";
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Debug;
 		};
@@ -751,7 +746,7 @@
 				SDKROOT = iphoneos;
 				SKIP_INSTALL = NO;
 				USER_HEADER_SEARCH_PATHS = "";
-				VALID_ARCHS = "armv7 armv7s";
+				VALID_ARCHS = "armv7 armv7s arm64";
 			};
 			name = Release;
 		};
