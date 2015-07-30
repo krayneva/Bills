@@ -30,11 +30,14 @@ private Camera camera;
 	public static String COLOR_EFFECTS_SETTING = "ColorEffects";
 	public static String EXPOSURE_COMPENSATION_SETTING = "ExposureCompensation";
 	public static String COLOR_MODE_SETTING = "ColorModeSetting";
+	public static String PICTURE_SIZE_SETTING = "PictureSizeSetting";
 	
 
 
 	private Spinner sceneModeSpinner, focusModeSpinner, whiteBalanceSpinner,
-			antiBandingSpinner, pictureFormatSpinner,colorEffectsSpinner, colorModeSpinner;
+			antiBandingSpinner, pictureFormatSpinner,colorEffectsSpinner, colorModeSpinner,
+			pictureSizeSpinner;
+	
 	SeekBar exposureCompensationSeekBar;
 	
 	@Override
@@ -51,7 +54,7 @@ private Camera camera;
 
 		setContentView(R.layout.activity_camera_settings);
 	//	camera = Camera.open();
-		camera = CustomCameraActivity.getCamera();
+		camera = CustomCameraActivity.getCamera(getApplicationContext());
 		Camera.Parameters cameraSettings = camera.getParameters();
 
 
@@ -151,7 +154,16 @@ private Camera camera;
 			colorEffectsSpinner.setEnabled(false);
 		}*/
 
-
+		pictureSizeSpinner = (Spinner) findViewById(R.id.pictureSizeSpinner);
+		ArrayList<String> pictureSizes =  new ArrayList<String>();
+		for (int i=0; i<cameraSettings.getSupportedPictureSizes().size(); i++){
+			int width = cameraSettings.getSupportedPictureSizes().get(i).width;
+			int height = cameraSettings.getSupportedPictureSizes().get(i).height;
+			pictureSizes.add(width+"x"+height); 
+		}
+		ArrayAdapter<String> pictureSizeAdapter = new ArrayAdapter<String>(this, android.R.layout.simple_spinner_item, pictureSizes);
+		pictureSizeAdapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item);
+		pictureSizeSpinner.setAdapter(pictureSizeAdapter);
 
 		SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(getBaseContext());
 		String sceneModeValue = sp.getString(CameraSettingsActivity.SCENE_MODE_SETTING, CustomCameraActivity.SCENE_MODE_SETTING_DEFAULT);
@@ -162,6 +174,7 @@ private Camera camera;
 		String colorEffectValue = sp.getString(CameraSettingsActivity.COLOR_EFFECTS_SETTING, CustomCameraActivity.COLOR_EFFECTS_SETTING_DEFAULT);
 		String colorModeValue = sp.getString(CameraSettingsActivity.COLOR_MODE_SETTING, CustomCameraActivity.COLOR_MODE_SETTING_DEFAULT);
 		String exposureCompensationValue = sp.getString(CameraSettingsActivity.EXPOSURE_COMPENSATION_SETTING, CustomCameraActivity.EXPOSURE_COMPENSATION_SETTING_DEFAULT);
+		String pictureSizeValue = sp.getString(CameraSettingsActivity.PICTURE_SIZE_SETTING, CustomCameraActivity.PICTURE_SIZE_SETTING_DEFAULT);
 
 
 
@@ -173,7 +186,7 @@ private Camera camera;
 		if (CustomCameraActivity.pictureFormatEnabled)pictureFormatSpinner.setSelection(pictureFormat.indexOf(Integer.parseInt(pictureFormatValue)));
 		if (CustomCameraActivity.colorEffectsnabled)colorEffectsSpinner.setSelection(colorEffects.indexOf(colorEffectValue));
 		colorModeSpinner.setSelection(colorModes.indexOf(colorModeValue));
-
+		pictureSizeSpinner.setSelection(pictureSizes.indexOf(pictureSizeValue));
 
 		exposureCompensationSeekBar = (SeekBar)findViewById(R.id.seekBarExposureCompensation);
 		exposureCompensationSeekBar.setMax((int) (cameraSettings.getMaxExposureCompensation() - cameraSettings.getMinExposureCompensation()));
@@ -181,7 +194,7 @@ private Camera camera;
 		exposureCompensationSeekBar.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
 			@Override
 			public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-				camera = CustomCameraActivity.getCamera();
+				camera = CustomCameraActivity.getCamera(getApplicationContext());
 				Camera.Parameters cameraSettings = camera.getParameters();
 				cameraSettings.setExposureCompensation((int) (i + cameraSettings.getMinExposureCompensation()));
 				TextView exposureCompensationTextView = (TextView) findViewById(R.id.textViewExposureCompensation);
@@ -237,6 +250,7 @@ private Camera camera;
 		if (CustomCameraActivity.pictureFormatEnabled)editor.putString(PICTURE_FORMAT_SETTING, pictureFormatSpinner.getSelectedItem().toString());
 		if (CustomCameraActivity.colorEffectsnabled)editor.putString(COLOR_EFFECTS_SETTING, colorEffectsSpinner.getSelectedItem().toString());
 		editor.putString(COLOR_MODE_SETTING, colorModeSpinner.getSelectedItem().toString());
+		editor.putString(PICTURE_SIZE_SETTING, pictureSizeSpinner.getSelectedItem().toString());
 
 		editor.commit();
 

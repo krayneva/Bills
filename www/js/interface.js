@@ -242,7 +242,10 @@ function refershBillSendStatus(rowID){
 		//$.mobile.pageContainer.pagecontainer( "change", 'rules.html' ,{transition:"none"});
 		$.mobile.pageContainer.pagecontainer( "change", 'rules_new.html' ,{transition:"none"});
 	}
-	
+	function showHabitsPage(){
+		currentPage = "pageHabits";
+		$.mobile.pageContainer.pagecontainer( "change", 'habits.html' ,{transition:"none"});
+	}
 	
 	
 	function showErrorDialog(message){

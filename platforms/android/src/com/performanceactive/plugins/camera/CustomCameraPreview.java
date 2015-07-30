@@ -19,10 +19,12 @@ public class CustomCameraPreview extends SurfaceView implements SurfaceHolder.Ca
     private Camera camera;
     
     public Size previewSize;
+    private Context context; 
 
     public CustomCameraPreview(Context context, Camera camera) {
         super(context);
         this.camera = camera;
+        this.context = context;
         getHolder().addCallback(this);
     }
 
@@ -30,7 +32,7 @@ public class CustomCameraPreview extends SurfaceView implements SurfaceHolder.Ca
     public void surfaceCreated(SurfaceHolder holder) {
         try {
             // TODO: show activity indicator here, it can take almost 1 second to show the preview
-            camera = CustomCameraActivity.getCamera();
+            camera = CustomCameraActivity.getCamera(context);
             camera.setPreviewDisplay(holder);
             camera.startPreview();
         } catch (IOException e) {
