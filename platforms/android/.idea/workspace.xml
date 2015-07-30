@@ -33,9 +33,10 @@
         <entry file="file://$PROJECT_DIR$/src/com/performanceactive/plugins/camera/CameraSettingsActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="164" column="0" selection-start-line="164" selection-start-column="0" selection-end-line="164" selection-end-column="0" />
+              <caret line="183" column="0" selection-start-line="183" selection-start-column="0" selection-end-line="183" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="false" />
+                <marker date="1438077559723" expanded="false" signature="53:163" placeholder="..." />
               </folding>
             </state>
           </provider>
@@ -45,36 +46,71 @@
         <entry file="file://$PROJECT_DIR$/src/com/performanceactive/plugins/camera/CustomCameraActivity.java">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="760" column="0" selection-start-line="760" selection-start-column="0" selection-end-line="760" selection-end-column="0" />
+              <caret line="761" column="0" selection-start-line="761" selection-start-column="0" selection-end-line="761" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="false" />
-                <element signature="e#14454#14455#0" expanded="false" />
-                <element signature="e#14512#14513#0" expanded="false" />
-                <element signature="e#21321#21322#0" expanded="false" />
-                <element signature="e#21387#21388#0" expanded="false" />
-                <element signature="e#26846#26847#0" expanded="false" />
-                <element signature="e#26893#26894#0" expanded="false" />
-                <element signature="e#27621#27622#0" expanded="false" />
-                <element signature="e#27679#27680#0" expanded="false" />
-                <element signature="e#28350#28351#0" expanded="false" />
-                <element signature="e#28385#28386#0" expanded="false" />
-                <element signature="e#37007#37008#0" expanded="false" />
-                <element signature="e#37060#37061#0" expanded="false" />
+                <element signature="e#14552#14553#0" expanded="false" />
+                <element signature="e#14610#14611#0" expanded="false" />
+                <element signature="e#21419#21420#0" expanded="false" />
+                <element signature="e#21485#21486#0" expanded="false" />
+                <element signature="e#26944#26945#0" expanded="false" />
+                <element signature="e#26991#26992#0" expanded="false" />
+                <element signature="e#27719#27720#0" expanded="false" />
+                <element signature="e#27777#27778#0" expanded="false" />
+                <element signature="e#28448#28449#0" expanded="false" />
+                <element signature="e#28483#28484#0" expanded="false" />
+                <element signature="e#37105#37106#0" expanded="false" />
+                <element signature="e#37158#37159#0" expanded="false" />
+                <marker date="1438077524073" expanded="true" signature="49224:50248" placeholder="{...}" />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="color_picker_advanced_component.xml" pinned="false" current-in-tab="true">
+      <file leaf-file-name="color_picker_advanced_component.xml" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/build/intermediates/exploded-aar/org.xwalk/xwalk_core_library_beta/13.42.319.12/res/layout-v17/color_picker_advanced_component.xml">
+          <provider editor-type-id="android-designer">
+            <state />
+          </provider>
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.33632287">
+            <state vertical-scroll-proportion="0.0">
               <caret line="13" column="44" selection-start-line="13" selection-start-column="44" selection-end-line="13" selection-end-column="44" />
               <folding />
             </state>
           </provider>
-          <provider editor-type-id="android-designer">
-            <state />
+        </entry>
+      </file>
+      <file leaf-file-name="manifestMerger7471448542910503042.xml" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/manifests/tmp/manifestMerger7471448542910503042.xml">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-1.36">
+              <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="XWalkCordovaCookieManager.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/org/crosswalk/engine/XWalkCordovaCookieManager.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.44">
+              <caret line="25" column="32" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="32" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="XWalkCordovaResourceClient.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/org/crosswalk/engine/XWalkCordovaResourceClient.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.4923077">
+              <caret line="34" column="27" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="27" />
+              <folding>
+                <element signature="imports" expanded="true" />
+              </folding>
+            </state>
           </provider>
         </entry>
       </file>
@@ -122,28 +158,6 @@
                 <element signature="imports" expanded="false" />
                 <element signature="e#2877#2883#0" expanded="false" />
               </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="CustomCamera.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/com/performanceactive/plugins/camera/CustomCamera.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="35" column="52" selection-start-line="35" selection-start-column="50" selection-end-line="35" selection-end-column="52" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Bitmap.class" pinned="false" current-in-tab="false">
-        <entry file="jar://D:/Android/android-sdk/platforms/android-21/android.jar!/android/graphics/Bitmap.class">
-          <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="81" column="25" selection-start-line="81" selection-start-column="25" selection-end-line="81" selection-end-column="25" />
-              <folding />
             </state>
           </provider>
         </entry>
@@ -331,14 +345,6 @@
                 <option name="description" value="Runs all device checks on currently connected devices." />
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="connectedCheck" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="createXwalkCommandLineFileDebug" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="createXwalkCommandLineFileRelease" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="description" value="Runs all device checks using Device Providers and Test Servers." />
@@ -538,11 +544,6 @@
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="prepareDebugTestDependencies" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
-                <option name="description" value="Prepare org.xwalk:xwalk_core_library_beta:13.42.319.12" />
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="prepareOrgXwalkXwalk_core_library_beta134231912Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
@@ -1454,7 +1455,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="$PROJECT_DIR$" value="7177987794225" />
+        <entry key="$PROJECT_DIR$" value="7181125526973" />
       </map>
     </option>
     <option name="projectBuildClasspath">
@@ -1469,7 +1470,6 @@
                       <ExternalModuleBuildClasspathPojo>
                         <option name="entries">
                           <list>
-                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.xwalk/xwalk_core_library_beta/13.42.319.12/b46c7c4a64a185acd0fecbb9b0cd535000bc7352/xwalk_core_library_beta-13.42.319.12.aar" />
                             <option value="$MODULE_DIR$/libs/appblade framework.jar" />
                             <option value="$MODULE_DIR$/libs/httpmime-4.1.2.jar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/gradle/1.0.0/cc834d833ada2ae95c63eedfc87efcd2d842f3d6/gradle-1.0.0-sources.jar" />
@@ -1547,7 +1547,6 @@
                       <ExternalModuleBuildClasspathPojo>
                         <option name="entries">
                           <list>
-                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.xwalk/xwalk_core_library_beta/13.42.319.12/b46c7c4a64a185acd0fecbb9b0cd535000bc7352/xwalk_core_library_beta-13.42.319.12.aar" />
                             <option value="$MODULE_DIR$/libs/appblade framework.jar" />
                             <option value="$MODULE_DIR$/libs/httpmime-4.1.2.jar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/gradle/1.0.0/cc834d833ada2ae95c63eedfc87efcd2d842f3d6/gradle-1.0.0-sources.jar" />
@@ -1625,7 +1624,6 @@
                       <ExternalModuleBuildClasspathPojo>
                         <option name="entries">
                           <list>
-                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.xwalk/xwalk_core_library_beta/13.42.319.12/b46c7c4a64a185acd0fecbb9b0cd535000bc7352/xwalk_core_library_beta-13.42.319.12.aar" />
                             <option value="$MODULE_DIR$/libs/appblade framework.jar" />
                             <option value="$MODULE_DIR$/libs/httpmime-4.1.2.jar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/gradle/1.0.0/cc834d833ada2ae95c63eedfc87efcd2d842f3d6/gradle-1.0.0-sources.jar" />
@@ -1703,7 +1701,6 @@
                       <ExternalModuleBuildClasspathPojo>
                         <option name="entries">
                           <list>
-                            <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/org.xwalk/xwalk_core_library_beta/13.42.319.12/b46c7c4a64a185acd0fecbb9b0cd535000bc7352/xwalk_core_library_beta-13.42.319.12.aar" />
                             <option value="$MODULE_DIR$/libs/appblade framework.jar" />
                             <option value="$MODULE_DIR$/libs/httpmime-4.1.2.jar" />
                             <option value="$USER_HOME$/.gradle/caches/modules-2/files-2.1/com.android.tools.build/gradle/1.0.0/cc834d833ada2ae95c63eedfc87efcd2d842f3d6/gradle-1.0.0-sources.jar" />
@@ -1905,6 +1902,8 @@
         <option value="$PROJECT_DIR$/src/com/performanceactive/plugins/camera/CustomCameraPreview.java" />
         <option value="$PROJECT_DIR$/src/com/checkomatic/Bills.java" />
         <option value="$PROJECT_DIR$/src/com/performanceactive/plugins/camera/CustomCameraActivity.java" />
+        <option value="$PROJECT_DIR$/src/org/crosswalk/engine/XWalkCordovaCookieManager.java" />
+        <option value="$PROJECT_DIR$/src/org/crosswalk/engine/XWalkCordovaResourceClient.java" />
       </list>
     </option>
   </component>
@@ -1940,8 +1939,6 @@
     </navigator>
     <panes>
       <pane id="Scope" />
-      <pane id="Scratches" />
-      <pane id="PackagesPane" />
       <pane id="AndroidView">
         <subPane>
           <PATH>
@@ -1952,6 +1949,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scratches" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -1970,13 +1968,68 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="org" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="engine" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="org" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="android" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="src" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
         </subPane>
       </pane>
+      <pane id="PackagesPane" />
     </panes>
   </component>
   <component name="PropertiesComponent">
     <property name="recentsLimit" value="5" />
-    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="C4F12C004F07A6E" />
+    <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_SERIALS" value="HT264W110334" />
     <property name="ANDROID_EXTENDED_DEVICE_CHOOSER_AVD" value="dd" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/../.." />
     <property name="FullScreen" value="false" />
@@ -2183,28 +2236,28 @@
     <layout>
       <window_info id="Palette&#9;" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928804" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928804" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.60144925" sideWeight="0.14886731" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2294686" sideWeight="0.16343042" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.5177725" sideWeight="0.5048544" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850242" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.60144925" sideWeight="0.8511327" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850242" sideWeight="0.49676377" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2294686" sideWeight="0.8365696" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Application Servers" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850242" sideWeight="0.49676377" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.37135923" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32850242" sideWeight="0.4935275" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
+      <window_info id="Preview" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32928804" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32938388" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -2222,42 +2275,19 @@
     <option name="myLimit" value="2678400000" />
   </component>
   <component name="XDebuggerManager">
-    <breakpoint-manager />
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/src/org/crosswalk/engine/XWalkCordovaCookieManager.java</url>
+          <line>20</line>
+          <properties />
+        </line-breakpoint>
+      </breakpoints>
+      <option name="time" value="1" />
+    </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/build.gradle">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="251" column="37" selection-start-line="251" selection-start-column="33" selection-end-line="251" selection-end-column="37" />
-          <folding>
-            <element signature="n#!!doc" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/checkomatic/Bills.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="45" column="0" selection-start-line="45" selection-start-column="0" selection-end-line="45" selection-end-column="0" />
-          <folding>
-            <element signature="e#0#2432#0" expanded="false" />
-            <element signature="imports" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/com/performanceactive/plugins/camera/CustomCameraPreview.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="32" column="45" selection-start-line="32" selection-start-column="45" selection-end-line="32" selection-end-column="45" />
-          <folding>
-            <element signature="imports" expanded="false" />
-            <element signature="e#2877#2883#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/com/performanceactive/plugins/camera/CustomCamera.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -2282,6 +2312,7 @@
           <caret line="164" column="0" selection-start-line="164" selection-start-column="0" selection-end-line="164" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="false" />
+            <marker date="1438077559723" expanded="false" signature="53:163" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -2292,18 +2323,19 @@
           <caret line="199" column="80" selection-start-line="199" selection-start-column="80" selection-end-line="199" selection-end-column="80" />
           <folding>
             <element signature="imports" expanded="false" />
-            <element signature="e#14454#14455#0" expanded="false" />
-            <element signature="e#14512#14513#0" expanded="false" />
-            <element signature="e#21321#21322#0" expanded="false" />
-            <element signature="e#21387#21388#0" expanded="false" />
-            <element signature="e#26846#26847#0" expanded="false" />
-            <element signature="e#26893#26894#0" expanded="false" />
-            <element signature="e#27621#27622#0" expanded="false" />
-            <element signature="e#27679#27680#0" expanded="false" />
-            <element signature="e#28350#28351#0" expanded="false" />
-            <element signature="e#28385#28386#0" expanded="false" />
-            <element signature="e#37007#37008#0" expanded="false" />
-            <element signature="e#37060#37061#0" expanded="false" />
+            <element signature="e#14552#14553#0" expanded="false" />
+            <element signature="e#14610#14611#0" expanded="false" />
+            <element signature="e#21419#21420#0" expanded="false" />
+            <element signature="e#21485#21486#0" expanded="false" />
+            <element signature="e#26944#26945#0" expanded="false" />
+            <element signature="e#26991#26992#0" expanded="false" />
+            <element signature="e#27719#27720#0" expanded="false" />
+            <element signature="e#27777#27778#0" expanded="false" />
+            <element signature="e#28448#28449#0" expanded="false" />
+            <element signature="e#28483#28484#0" expanded="false" />
+            <element signature="e#37105#37106#0" expanded="false" />
+            <element signature="e#37158#37159#0" expanded="false" />
+            <marker date="1438077524073" expanded="true" signature="49224:50248" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -2372,6 +2404,7 @@
           <caret line="164" column="0" selection-start-line="164" selection-start-column="0" selection-end-line="164" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="false" />
+            <marker date="1438077559723" expanded="false" signature="53:163" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -2382,18 +2415,19 @@
           <caret line="199" column="80" selection-start-line="199" selection-start-column="80" selection-end-line="199" selection-end-column="80" />
           <folding>
             <element signature="imports" expanded="false" />
-            <element signature="e#14454#14455#0" expanded="false" />
-            <element signature="e#14512#14513#0" expanded="false" />
-            <element signature="e#21321#21322#0" expanded="false" />
-            <element signature="e#21387#21388#0" expanded="false" />
-            <element signature="e#26846#26847#0" expanded="false" />
-            <element signature="e#26893#26894#0" expanded="false" />
-            <element signature="e#27621#27622#0" expanded="false" />
-            <element signature="e#27679#27680#0" expanded="false" />
-            <element signature="e#28350#28351#0" expanded="false" />
-            <element signature="e#28385#28386#0" expanded="false" />
-            <element signature="e#37007#37008#0" expanded="false" />
-            <element signature="e#37060#37061#0" expanded="false" />
+            <element signature="e#14552#14553#0" expanded="false" />
+            <element signature="e#14610#14611#0" expanded="false" />
+            <element signature="e#21419#21420#0" expanded="false" />
+            <element signature="e#21485#21486#0" expanded="false" />
+            <element signature="e#26944#26945#0" expanded="false" />
+            <element signature="e#26991#26992#0" expanded="false" />
+            <element signature="e#27719#27720#0" expanded="false" />
+            <element signature="e#27777#27778#0" expanded="false" />
+            <element signature="e#28448#28449#0" expanded="false" />
+            <element signature="e#28483#28484#0" expanded="false" />
+            <element signature="e#37105#37106#0" expanded="false" />
+            <element signature="e#37158#37159#0" expanded="false" />
+            <marker date="1438077524073" expanded="true" signature="49224:50248" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -2462,6 +2496,7 @@
           <caret line="164" column="0" selection-start-line="164" selection-start-column="0" selection-end-line="164" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="false" />
+            <marker date="1438077559723" expanded="false" signature="53:163" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -2472,18 +2507,19 @@
           <caret line="522" column="43" selection-start-line="522" selection-start-column="43" selection-end-line="522" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="false" />
-            <element signature="e#14454#14455#0" expanded="false" />
-            <element signature="e#14512#14513#0" expanded="false" />
-            <element signature="e#21321#21322#0" expanded="false" />
-            <element signature="e#21387#21388#0" expanded="false" />
-            <element signature="e#26846#26847#0" expanded="false" />
-            <element signature="e#26893#26894#0" expanded="false" />
-            <element signature="e#27621#27622#0" expanded="false" />
-            <element signature="e#27679#27680#0" expanded="false" />
-            <element signature="e#28350#28351#0" expanded="false" />
-            <element signature="e#28385#28386#0" expanded="false" />
-            <element signature="e#37007#37008#0" expanded="false" />
-            <element signature="e#37060#37061#0" expanded="false" />
+            <element signature="e#14552#14553#0" expanded="false" />
+            <element signature="e#14610#14611#0" expanded="false" />
+            <element signature="e#21419#21420#0" expanded="false" />
+            <element signature="e#21485#21486#0" expanded="false" />
+            <element signature="e#26944#26945#0" expanded="false" />
+            <element signature="e#26991#26992#0" expanded="false" />
+            <element signature="e#27719#27720#0" expanded="false" />
+            <element signature="e#27777#27778#0" expanded="false" />
+            <element signature="e#28448#28449#0" expanded="false" />
+            <element signature="e#28483#28484#0" expanded="false" />
+            <element signature="e#37105#37106#0" expanded="false" />
+            <element signature="e#37158#37159#0" expanded="false" />
+            <marker date="1438077524073" expanded="true" signature="49224:50248" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -2552,6 +2588,7 @@
           <caret line="164" column="0" selection-start-line="164" selection-start-column="0" selection-end-line="164" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="false" />
+            <marker date="1438077559723" expanded="false" signature="53:163" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -2562,18 +2599,19 @@
           <caret line="522" column="43" selection-start-line="522" selection-start-column="43" selection-end-line="522" selection-end-column="43" />
           <folding>
             <element signature="imports" expanded="false" />
-            <element signature="e#14454#14455#0" expanded="false" />
-            <element signature="e#14512#14513#0" expanded="false" />
-            <element signature="e#21321#21322#0" expanded="false" />
-            <element signature="e#21387#21388#0" expanded="false" />
-            <element signature="e#26846#26847#0" expanded="false" />
-            <element signature="e#26893#26894#0" expanded="false" />
-            <element signature="e#27621#27622#0" expanded="false" />
-            <element signature="e#27679#27680#0" expanded="false" />
-            <element signature="e#28350#28351#0" expanded="false" />
-            <element signature="e#28385#28386#0" expanded="false" />
-            <element signature="e#37007#37008#0" expanded="false" />
-            <element signature="e#37060#37061#0" expanded="false" />
+            <element signature="e#14552#14553#0" expanded="false" />
+            <element signature="e#14610#14611#0" expanded="false" />
+            <element signature="e#21419#21420#0" expanded="false" />
+            <element signature="e#21485#21486#0" expanded="false" />
+            <element signature="e#26944#26945#0" expanded="false" />
+            <element signature="e#26991#26992#0" expanded="false" />
+            <element signature="e#27719#27720#0" expanded="false" />
+            <element signature="e#27777#27778#0" expanded="false" />
+            <element signature="e#28448#28449#0" expanded="false" />
+            <element signature="e#28483#28484#0" expanded="false" />
+            <element signature="e#37105#37106#0" expanded="false" />
+            <element signature="e#37158#37159#0" expanded="false" />
+            <marker date="1438077524073" expanded="true" signature="49224:50248" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -2642,6 +2680,7 @@
           <caret line="164" column="0" selection-start-line="164" selection-start-column="0" selection-end-line="164" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="false" />
+            <marker date="1438077559723" expanded="false" signature="53:163" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -2652,18 +2691,19 @@
           <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="false" />
-            <element signature="e#14454#14455#0" expanded="false" />
-            <element signature="e#14512#14513#0" expanded="false" />
-            <element signature="e#21321#21322#0" expanded="false" />
-            <element signature="e#21387#21388#0" expanded="false" />
-            <element signature="e#26846#26847#0" expanded="false" />
-            <element signature="e#26893#26894#0" expanded="false" />
-            <element signature="e#27621#27622#0" expanded="false" />
-            <element signature="e#27679#27680#0" expanded="false" />
-            <element signature="e#28350#28351#0" expanded="false" />
-            <element signature="e#28385#28386#0" expanded="false" />
-            <element signature="e#37007#37008#0" expanded="false" />
-            <element signature="e#37060#37061#0" expanded="false" />
+            <element signature="e#14552#14553#0" expanded="false" />
+            <element signature="e#14610#14611#0" expanded="false" />
+            <element signature="e#21419#21420#0" expanded="false" />
+            <element signature="e#21485#21486#0" expanded="false" />
+            <element signature="e#26944#26945#0" expanded="false" />
+            <element signature="e#26991#26992#0" expanded="false" />
+            <element signature="e#27719#27720#0" expanded="false" />
+            <element signature="e#27777#27778#0" expanded="false" />
+            <element signature="e#28448#28449#0" expanded="false" />
+            <element signature="e#28483#28484#0" expanded="false" />
+            <element signature="e#37105#37106#0" expanded="false" />
+            <element signature="e#37158#37159#0" expanded="false" />
+            <marker date="1438077524073" expanded="true" signature="49224:50248" placeholder="{...}" />
           </folding>
         </state>
       </provider>
@@ -2708,7 +2748,7 @@
     <entry file="file://$PROJECT_DIR$/src/com/performanceactive/plugins/camera/CustomCamera.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="35" column="52" selection-start-line="35" selection-start-column="50" selection-end-line="35" selection-end-column="52" />
+          <caret line="37" column="9" selection-start-line="35" selection-start-column="50" selection-end-line="35" selection-end-column="52" />
           <folding>
             <element signature="imports" expanded="false" />
           </folding>
@@ -2718,9 +2758,10 @@
     <entry file="file://$PROJECT_DIR$/src/com/performanceactive/plugins/camera/CameraSettingsActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="164" column="0" selection-start-line="164" selection-start-column="0" selection-end-line="164" selection-end-column="0" />
+          <caret line="183" column="0" selection-start-line="183" selection-start-column="0" selection-end-line="183" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="false" />
+            <marker date="1438077559723" expanded="false" signature="53:163" placeholder="..." />
           </folding>
         </state>
       </provider>
@@ -2768,34 +2809,63 @@
     <entry file="file://$PROJECT_DIR$/src/com/performanceactive/plugins/camera/CustomCameraActivity.java">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="760" column="0" selection-start-line="760" selection-start-column="0" selection-end-line="760" selection-end-column="0" />
+          <caret line="761" column="0" selection-start-line="761" selection-start-column="0" selection-end-line="761" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="false" />
-            <element signature="e#14454#14455#0" expanded="false" />
-            <element signature="e#14512#14513#0" expanded="false" />
-            <element signature="e#21321#21322#0" expanded="false" />
-            <element signature="e#21387#21388#0" expanded="false" />
-            <element signature="e#26846#26847#0" expanded="false" />
-            <element signature="e#26893#26894#0" expanded="false" />
-            <element signature="e#27621#27622#0" expanded="false" />
-            <element signature="e#27679#27680#0" expanded="false" />
-            <element signature="e#28350#28351#0" expanded="false" />
-            <element signature="e#28385#28386#0" expanded="false" />
-            <element signature="e#37007#37008#0" expanded="false" />
-            <element signature="e#37060#37061#0" expanded="false" />
+            <element signature="e#14552#14553#0" expanded="false" />
+            <element signature="e#14610#14611#0" expanded="false" />
+            <element signature="e#21419#21420#0" expanded="false" />
+            <element signature="e#21485#21486#0" expanded="false" />
+            <element signature="e#26944#26945#0" expanded="false" />
+            <element signature="e#26991#26992#0" expanded="false" />
+            <element signature="e#27719#27720#0" expanded="false" />
+            <element signature="e#27777#27778#0" expanded="false" />
+            <element signature="e#28448#28449#0" expanded="false" />
+            <element signature="e#28483#28484#0" expanded="false" />
+            <element signature="e#37105#37106#0" expanded="false" />
+            <element signature="e#37158#37159#0" expanded="false" />
+            <marker date="1438077524073" expanded="true" signature="49224:50248" placeholder="{...}" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/build/intermediates/exploded-aar/org.xwalk/xwalk_core_library_beta/13.42.319.12/res/layout-v17/color_picker_advanced_component.xml">
+      <provider editor-type-id="android-designer">
+        <state />
+      </provider>
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.33632287">
+        <state vertical-scroll-proportion="0.0">
           <caret line="13" column="44" selection-start-line="13" selection-start-column="44" selection-end-line="13" selection-end-column="44" />
           <folding />
         </state>
       </provider>
-      <provider editor-type-id="android-designer">
-        <state />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/manifests/tmp/manifestMerger7471448542910503042.xml">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-1.36">
+          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/crosswalk/engine/XWalkCordovaCookieManager.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.44">
+          <caret line="25" column="32" selection-start-line="25" selection-start-column="14" selection-end-line="25" selection-end-column="32" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/org/crosswalk/engine/XWalkCordovaResourceClient.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.4923077">
+          <caret line="34" column="27" selection-start-line="34" selection-start-column="27" selection-end-line="34" selection-end-column="27" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
       </provider>
     </entry>
   </component>

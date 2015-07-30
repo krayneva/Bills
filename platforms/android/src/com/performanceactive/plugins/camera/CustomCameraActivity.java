@@ -96,6 +96,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     public static String COLOR_EFFECTS_SETTING_DEFAULT = "";
     public static String EXPOSURE_COMPENSATION_SETTING_DEFAULT = "";
     public static String COLOR_MODE_SETTING_DEFAULT = Bitmap.Config.ARGB_8888.toString();
+    public static String PICTURE_SIZE_SETTING_DEFAULT = "";
 
 
     public static boolean sceneModeEnabled = false;
@@ -150,8 +151,10 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         super.onResume();
 
         try {
-        camera = getCamera();
+        camera = getCamera(getApplicationContext());
             Camera.Parameters cameraSettings = camera.getParameters();
+
+            
          /*   if (camera.getParameters().getSupportedSceneModes().size()>0) {
                 SCENE_MODE_SETTING_DEFAULT = camera.getParameters().getSupportedSceneModes().get(0);
                 sceneModeEnabled = true;
@@ -215,10 +218,13 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
             }
 
             EXPOSURE_COMPENSATION_SETTING_DEFAULT = ""+camera.getParameters().getExposureCompensation();
+            Size s = camera.getParameters().getSupportedPictureSizes().get(0);
+            PICTURE_SIZE_SETTING_DEFAULT =  s.width+"x"+s.height;
             exposureCompemsationEnabled = true;
 
 
-            configureCamera();
+            configureCamera(getApplicationContext());
+            showCameraSettings();
             displayCameraPreview();
         } catch (Exception e) {
            // finishWithError("Camera is not accessible");
@@ -226,7 +232,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         }
     }
 
-    private static  void configureCamera() {
+    private static  void configureCamera(Context context) {
         Camera.Parameters cameraSettings = camera.getParameters();
         cameraSettings.setJpegQuality(100);
 
@@ -245,7 +251,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         else{
         	  cameraSettings.setFlashMode(android.hardware.Camera.Parameters.FLASH_MODE_OFF);
         }
-        List <Size> sizes = cameraSettings.getSupportedPictureSizes();
+     /*   List <Size> sizes = cameraSettings.getSupportedPictureSizes();
         Size maxSize = sizes.get(0);
         for (Size s:sizes){
         	if ((maxSize.width<s.width)||(maxSize.height<s.height))
@@ -255,6 +261,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         Log.w("CustomCameraActivivty: ", " maxSize: "+maxSize.width+" "+maxSize.height);
         cameraSettings.setPictureSize(maxSize.width, maxSize.height);
 
+*/
 
         // настраиваем в соответствии в выбором пользователя в cameraSettingsActivity
 
@@ -273,19 +280,67 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         String pictureFormat = sp.getString(CameraSettingsActivity.PICTURE_FORMAT_SETTING, PICTURE_FORMAT_SETTING_DEFAULT);
         String colorEffect = sp.getString(CameraSettingsActivity.COLOR_EFFECTS_SETTING, COLOR_EFFECTS_SETTING_DEFAULT);
         String exposureCompensation = sp.getString(CameraSettingsActivity.EXPOSURE_COMPENSATION_SETTING, EXPOSURE_COMPENSATION_SETTING_DEFAULT);
-        
+        String pictureSize= sp.getString(CameraSettingsActivity.PICTURE_SIZE_SETTING, PICTURE_SIZE_SETTING_DEFAULT);
 
 
     try {
         if (sceneModeEnabled) cameraSettings.setSceneMode(sceneMode);
+    }
+    catch(Exception e){
+    	Toast.makeText(context, "scene mode is not set", Toast.LENGTH_LONG).show();
+
+    }
+    try{
         if (focusModeEnabled) cameraSettings.setFocusMode(focusMode);
+    }
+    catch(Exception e){
+    	Toast.makeText(context, "focus mode is not set", Toast.LENGTH_LONG).show();
+
+    }
+    try{
         if (antibandingEnabled) cameraSettings.setAntibanding(antiBanding);
+    }
+    catch(Exception e){
+    	Toast.makeText(context, "antibanding is not set", Toast.LENGTH_LONG).show();
+
+    }
+    try{
         if (whiteBalanceEnabled) cameraSettings.setWhiteBalance(whiteBalance);
+    }   
+    catch(Exception e){
+    	Toast.makeText(context, " white balance is not set", Toast.LENGTH_LONG).show();
+
+    }
+    try{
         if (pictureFormatEnabled) cameraSettings.setPictureFormat(Integer.parseInt(pictureFormat));
+    }
+    catch(Exception e){
+    	Toast.makeText(context, "picture format is not set", Toast.LENGTH_LONG).show();
+
+    }
+    try{
         if (colorEffectsnabled) cameraSettings.setColorEffect(colorEffect);
+    }
+    catch(Exception e){
+    	Toast.makeText(context, "coloreffects is not set", Toast.LENGTH_LONG).show();
+
+    }
+    try{
         cameraSettings.setExposureCompensation(Integer.parseInt(exposureCompensation));
     }
     catch(Exception e){
+    	Toast.makeText(context, "exposure compensation is not set", Toast.LENGTH_LONG).show();
+
+    }
+    try{
+        int pos = pictureSize.indexOf("x");
+        int width = Integer.parseInt(pictureSize.substring(0,pos));
+        int height = Integer.parseInt(pictureSize.substring(pos+1));
+     	Toast.makeText(context, "width "+width+" height "+height, Toast.LENGTH_LONG).show();
+        cameraSettings.setPictureSize(width, height);
+    }
+    catch(Exception e){
+    	Toast.makeText(context, "picture size is not set", Toast.LENGTH_LONG).show();
 
     }
   //      Toast.makeText(this, "ExposureCompensation: "+cameraSettings.getExposureCompensation()+" step is "+cameraSettings.getExposureCompensationStep(), Toast.LENGTH_LONG).show();
@@ -500,11 +555,13 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
                 if (flashEnabled) {
                     flashEnabled = false;
                     setBitmap(flashButton, "flashOff256.png");
-                    configureCamera();
+                    configureCamera(getApplicationContext());
+                    showCameraSettings();
                 }
                 flashEnabled = true;
                 setBitmap(flashButton, "flashOn256.png");
-                configureCamera();
+                configureCamera(getApplicationContext());
+                showCameraSettings();
             }
         });
         
@@ -919,6 +976,8 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     }
 
     private void takePicture() {
+    	Toast.makeText(getApplicationContext(),"width: "+camera.getParameters().getPictureSize().width+
+    			" height "+camera.getParameters().getPictureSize().height, Toast.LENGTH_LONG).show();
         disableButtons();
         try {
             camera.takePicture(null, null, new PictureCallback() {
@@ -1046,7 +1105,8 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 
         		   //releaseCamera();
                    //camera = Camera.open();
-                   configureCamera();
+                   configureCamera(getApplicationContext());
+                   showCameraSettings();
                    displayCameraPreview();
                    enableButtons();
                    updateDynamicLayout();
@@ -1326,7 +1386,9 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         super.onActivityResult(requestCode, resultCode, data);
         switch(resultCode){
             case REQUEST_CODE_SETTINGS_ACTIVITY:
-                configureCamera();
+                getCamera(this);
+                configureCamera(this);
+                showCameraSettings();
                 break;
             default:
                 break;
@@ -1340,14 +1402,16 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         super.onDestroy();
     }
 
-    public static Camera getCamera(){
+    public static Camera getCamera(Context context){
         try {
             camera = Camera.open();
-            configureCamera();
+            configureCamera(context);
+         
         }
         catch(Exception e ){
             releaseCamera();
             camera = Camera.open();
+            configureCamera(context);
             e.printStackTrace();
         }
         return camera;
@@ -1404,5 +1468,16 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         }
     }
 
+    
+    
+    private void showCameraSettings(){
+    	SharedPreferences sp = PreferenceManager.getDefaultSharedPreferences(context);
+        String pictureSize= sp.getString(CameraSettingsActivity.PICTURE_SIZE_SETTING, PICTURE_SIZE_SETTING_DEFAULT);
+        String colorMode =   sp.getString(CameraSettingsActivity.COLOR_MODE_SETTING,COLOR_MODE_SETTING_DEFAULT);
+	    int pos = pictureSize.indexOf("x");
+	    int width = Integer.parseInt(pictureSize.substring(0,pos));
+	    int height = Integer.parseInt(pictureSize.substring(pos+1));
+	    Toast.makeText(this, "width: "+width + ", height: "+height+", color mode: "+colorMode, Toast.LENGTH_LONG).show();
+    }
 }
 
