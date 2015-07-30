@@ -111,13 +111,7 @@ div.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset.ui-focus{
   min-height:auto!important;
   height: auto!important;
 }
-div.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset>input,
-div.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset.ui-focus>input{
-  height: 2em!important;
-  min-height:2em!important;
-  max-height: 2em!important;  
-  
-}
+
 *.ui-body-inherit{
   border-color: #367272!important;
 }
