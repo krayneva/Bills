@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>E0F006CE-9AC6-4AD3-B705-46AA2A94D593</string>
 	<key>IDESourceControlProjectName</key>
-	<string>Bills</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>438CEDCC7F9A242E896243DEEF5DCCFBD6AC8A4D</key>
 		<string>https://github.com/krayneva/Bills.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>platforms/ios/Bills.xcodeproj</string>
+	<string>platforms/ios/Bills.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>438CEDCC7F9A242E896243DEEF5DCCFBD6AC8A4D</key>
