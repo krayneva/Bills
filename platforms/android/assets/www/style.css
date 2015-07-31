@@ -126,8 +126,8 @@ body {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f69b96', endColorstr='#dd8580',GradientType=0 ); /* IE6-9 */
 	color: #fff;
 }
-.ui-page {
-	padding-top: 0px;
+.ui-page.pageWithHeader{
+	padding-top: 75px;
 	height: 100%;
 	box-sizing: border-box;
 }
@@ -202,10 +202,13 @@ body {
 	left: 0;
 	width: 100%;
 }
-.ui-header-w > a {
+.ui-header-w > button {
 	position: absolute;
 	top: 0 !important;
 	z-index: 10;
+	border: none !important;
+	background-color: transparent !important;
+	border-radius: 0 !important;
 }
 .buttons-container {
 	width: 100%;
@@ -218,23 +221,25 @@ body {
 	left: auto !important;
 }
 .ui-btn-star,
-.buttons-container span {
+.buttons-container button {
 	display: inline-block;
 	vertical-align: middle;
-	width: 80px;
-	height: 100%;
+	width: 80px !important;
+	height: 100% !important;
 	margin: 0;
-	background-image: url("images/hovered-button.jpg");
-	background-position: 100px 0;
+	background-color: transparent !important;
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
+	border: none !important;
+	border-radius: 0 !important;
 }
-.buttons-container span.active-icon-tab,
-.buttons-container span:hover {
+.buttons-container button.active-icon-tab,
+.buttons-container button:hover {
 	background-position: 0 0;
+	background-image: url("images/hovered-button.jpg") !important;
 }
 .ui-btn-star:after,
-.buttons-container span:after {
+.buttons-container button:after {
 	width: 100%;
 	height: 100%;
 	top: 0;
@@ -304,7 +309,7 @@ button.ui-btn {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#27aabd', endColorstr='#0090a6',GradientType=0 ); /* IE6-9 */
 
 }
-.ui-header-w > a:first-of-type {
+.ui-header-w .ui-icon-back {
 	height: 100% !important;
 	top: 0 !important;
 	left: 0 !important;
@@ -712,6 +717,7 @@ label.error {
 	width: 100%;
 	height: 100%;
 }
+
 @media (max-width: 640px) and (min-width: 400px){
 	* {
 		font-size: 12px;
@@ -723,9 +729,8 @@ label.error {
 	.ui-label {
 		padding-left: 30px;
 	}
-	}
-	.ui-page {
-		padding-top: 0px;
+	.ui-page.pageWithHeader {
+		padding-top: 50px;
 	}
 	.ui-header-w,
 	.ui-collapsible-heading,
@@ -734,7 +739,7 @@ label.error {
 		height: 50px !important;
 		line-height: 50px !important;
 	}
-	.ui-header-w > a:first-of-type {
+	.ui-header-w > .ui-icon-back {
 		width: 50px !important;
 		background-size: 60%;
 	}
@@ -745,9 +750,9 @@ label.error {
 	.ui-icon-expanded:after {
 		background-position: 0 -50px;
 	}
-	.ui-btn-star, .buttons-container span {
-		height: 50px;
-		width: 60px;
+	.ui-btn-star, .buttons-container button {
+		height: 50px !important;
+		width: 60px !important;
 	}
 	.ui-icon-info:after {
 		background-size: 30%;
@@ -805,8 +810,8 @@ label.error {
 	*{
 	font-size: 9px;
 	}
-	.ui-page {
-		padding-top: 0px;
+	.ui-page.pageWithHeader{
+		padding-top: 40px;
 	}
 	.ui-header-w,
 	.ui-collapsible-heading,
@@ -815,7 +820,7 @@ label.error {
 		height: 40px !important;
 		line-height: 40px !important;
 	}
-	.ui-header-w > a:first-of-type {
+	.ui-header-w > .ui-icon-back {
 		width: 40px !important;
 		background-size: 60%;
 	}
@@ -826,9 +831,9 @@ label.error {
 	.ui-icon-expanded:after {
 		background-position: 0 -40px;
 	}
-	.ui-btn-star, .buttons-container span {
-		height: 40px;
-		width: 50px;
+	.ui-btn-star, .buttons-container button {
+		height: 40px !important;
+		width: 50px !important;
 	}
 	.ui-icon-info:after {
 		background-size: 30%;
