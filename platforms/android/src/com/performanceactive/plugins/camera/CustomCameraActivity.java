@@ -80,8 +80,9 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     public static String ERROR_MESSAGE = "ErrorMessage";
     public static int RESULT_ERROR = 2;
     public static int MAX_IMAGE_WIDTH = 4*1024;
-    
-    
+
+
+    public static final int MAX_IMAGE_WEIGHT = 1024*1024*6 +100;
     
 
     public static String IMAGE_URI = "ImageUri";
@@ -218,8 +219,26 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
             }
 
             EXPOSURE_COMPENSATION_SETTING_DEFAULT = ""+camera.getParameters().getExposureCompensation();
-            Size s = camera.getParameters().getSupportedPictureSizes().get(0);
-            PICTURE_SIZE_SETTING_DEFAULT =  s.width+"x"+s.height;
+
+            Size perfectSize = camera.getParameters().getSupportedPictureSizes().get(0);
+
+            
+            for (int i=0; i<camera.getParameters().getSupportedPictureSizes().size();i++){
+            	Size s = camera.getParameters().getSupportedPictureSizes().get(i);
+
+            	if ((s.width*s.height)<MAX_IMAGE_WEGHT){
+
+            		if ((s.width>perfectSize.width)||(s.height>perfectSize.height)){
+            			perfectSize = s;
+            		}
+            		else if ((perfectSize.width*perfectSize.height)>MAX_IMAGE_WEIGHT){	
+            			perfectSize = s;
+            		}
+            	}
+            }
+            
+            
+            PICTURE_SIZE_SETTING_DEFAULT =  perfectSize.width+"x"+perfectSize.height;
             exposureCompemsationEnabled = true;
 
 
@@ -287,49 +306,49 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         if (sceneModeEnabled) cameraSettings.setSceneMode(sceneMode);
     }
     catch(Exception e){
-    	Toast.makeText(context, "scene mode is not set", Toast.LENGTH_LONG).show();
+    //	Toast.makeText(context, "scene mode is not set", Toast.LENGTH_LONG).show();
 
     }
     try{
         if (focusModeEnabled) cameraSettings.setFocusMode(focusMode);
     }
     catch(Exception e){
-    	Toast.makeText(context, "focus mode is not set", Toast.LENGTH_LONG).show();
+    //	Toast.makeText(context, "focus mode is not set", Toast.LENGTH_LONG).show();
 
     }
     try{
         if (antibandingEnabled) cameraSettings.setAntibanding(antiBanding);
     }
     catch(Exception e){
-    	Toast.makeText(context, "antibanding is not set", Toast.LENGTH_LONG).show();
+    //	Toast.makeText(context, "antibanding is not set", Toast.LENGTH_LONG).show();
 
     }
     try{
         if (whiteBalanceEnabled) cameraSettings.setWhiteBalance(whiteBalance);
     }   
     catch(Exception e){
-    	Toast.makeText(context, " white balance is not set", Toast.LENGTH_LONG).show();
+   // 	Toast.makeText(context, " white balance is not set", Toast.LENGTH_LONG).show();
 
     }
     try{
         if (pictureFormatEnabled) cameraSettings.setPictureFormat(Integer.parseInt(pictureFormat));
     }
     catch(Exception e){
-    	Toast.makeText(context, "picture format is not set", Toast.LENGTH_LONG).show();
+    //	Toast.makeText(context, "picture format is not set", Toast.LENGTH_LONG).show();
 
     }
     try{
         if (colorEffectsnabled) cameraSettings.setColorEffect(colorEffect);
     }
     catch(Exception e){
-    	Toast.makeText(context, "coloreffects is not set", Toast.LENGTH_LONG).show();
+   // 	Toast.makeText(context, "coloreffects is not set", Toast.LENGTH_LONG).show();
 
     }
     try{
         cameraSettings.setExposureCompensation(Integer.parseInt(exposureCompensation));
     }
     catch(Exception e){
-    	Toast.makeText(context, "exposure compensation is not set", Toast.LENGTH_LONG).show();
+    //	Toast.makeText(context, "exposure compensation is not set", Toast.LENGTH_LONG).show();
 
     }
     try{
@@ -340,7 +359,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         cameraSettings.setPictureSize(width, height);
     }
     catch(Exception e){
-    	Toast.makeText(context, "picture size is not set", Toast.LENGTH_LONG).show();
+   // 	Toast.makeText(context, "picture size is not set", Toast.LENGTH_LONG).show();
 
     }
   //      Toast.makeText(this, "ExposureCompensation: "+cameraSettings.getExposureCompensation()+" step is "+cameraSettings.getExposureCompensationStep(), Toast.LENGTH_LONG).show();
@@ -976,8 +995,8 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     }
 
     private void takePicture() {
-    	Toast.makeText(getApplicationContext(),"width: "+camera.getParameters().getPictureSize().width+
-    			" height "+camera.getParameters().getPictureSize().height, Toast.LENGTH_LONG).show();
+    //	Toast.makeText(getApplicationContext(),"width: "+camera.getParameters().getPictureSize().width+
+    //			" height "+camera.getParameters().getPictureSize().height, Toast.LENGTH_LONG).show();
         disableButtons();
         try {
             camera.takePicture(null, null, new PictureCallback() {
@@ -1073,12 +1092,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
                     System.gc(); 
                 }  
                 else{
-                	//croppedBitmap = Bitmap.createScaledBitmap(croppedBitmap, 100, 100,false);
-           
-                	//int scaledHeight = croppedBitmap.getScaledHeight(canvas);
-              	  //	canvas.drawBitmap(croppedBitmap,new Matrix(), null);
-              	 // 	canvas.save();
-                	
+
                 	  croppedBitmap.compress(CompressFormat.JPEG, 100, output );
                 	  croppedBitmap.recycle(); 
                 	  croppedBitmap = null;
@@ -1139,42 +1153,11 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     }
 
     private Bitmap getScaledBitmap(byte[] jpegData) {
-        int targetWidth = getIntent().getIntExtra(TARGET_WIDTH, -1);
-        int targetHeight =-1;
-       /* if (targetWidth <= 0 && targetHeight <= 0) {
-            return BitmapFactory.decodeByteArray(jpegData, 0, jpegData.length);
-        }
-        */
-        if (targetWidth <= 0 && targetHeight <= 0) {
-            targetWidth = MAX_IMAGE_WIDTH;
-        }
         // get dimensions of image without scaling
         BitmapFactory.Options options = new BitmapFactory.Options();
-      //  options.inJustDecodeBounds = true;
-      //  Bitmap b = BitmapFactory.decodeByteArray(jpegData, 0, jpegData.length, options);
-
         // decode image as close to requested scale as possible
         options.inJustDecodeBounds = false;  
-      //  options.inSampleSize = calculateInSampleSize(options, targetWidth, targetHeight);
         Bitmap bitmap = BitmapFactory.decodeByteArray(jpegData, 0, jpegData.length, options);
-        
-        // set missing width/height based on aspect ratio
-      /*  float aspectRatio = ((float)options.outHeight) / options.outWidth;
-        if (targetWidth > 0 && targetHeight <= 0) {
-            targetHeight = Math.round(targetWidth * aspectRatio);
-        } else if (targetWidth <= 0 && targetHeight > 0) {
-            targetWidth = Math.round(targetHeight / aspectRatio);
-        }
-
-        // make sure we also
-        Matrix matrix = new Matrix();
-        matrix.postRotate(90);
-
-        Bitmap bm = Bitmap.createScaledBitmap(bitmap, targetWidth, targetHeight, true);
-        bitmap.recycle();
-        b = null;
-        System.gc();
-        return bm;*/
         System.gc();
 
         return bitmap;
@@ -1477,7 +1460,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 	    int pos = pictureSize.indexOf("x");
 	    int width = Integer.parseInt(pictureSize.substring(0,pos));
 	    int height = Integer.parseInt(pictureSize.substring(pos+1));
-	    Toast.makeText(this, "width: "+width + ", height: "+height+", color mode: "+colorMode, Toast.LENGTH_LONG).show();
+	//    Toast.makeText(this, "width: "+width + ", height: "+height+", color mode: "+colorMode, Toast.LENGTH_LONG).show();
     }
 }
 
