@@ -226,7 +226,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
             for (int i=0; i<camera.getParameters().getSupportedPictureSizes().size();i++){
             	Size s = camera.getParameters().getSupportedPictureSizes().get(i);
 
-            	if ((s.width*s.height)<MAX_IMAGE_WEGHT){
+            	if ((s.width*s.height)<MAX_IMAGE_WEIGHT){
 
             		if ((s.width>perfectSize.width)||(s.height>perfectSize.height)){
             			perfectSize = s;
@@ -355,7 +355,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         int pos = pictureSize.indexOf("x");
         int width = Integer.parseInt(pictureSize.substring(0,pos));
         int height = Integer.parseInt(pictureSize.substring(pos+1));
-     	Toast.makeText(context, "width "+width+" height "+height, Toast.LENGTH_LONG).show();
+     	//Toast.makeText(context, "width "+width+" height "+height, Toast.LENGTH_LONG).show();
         cameraSettings.setPictureSize(width, height);
     }
     catch(Exception e){
