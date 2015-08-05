@@ -26,6 +26,7 @@
 			// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		 } catch(e) { 
 			 onError("Error in database "+e);
+			 dumpError("openDB",e);
 		 } 
 			 
 	}
@@ -36,6 +37,7 @@
      * @param tx
      */
     function populateDB(tx) {
+    	try{
      // tx.executeSql('DROP TABLE IF EXISTS Bills');
     //	tx.executeSql('DROP TABLE IF EXISTS UserEnvironment');
     //	tx.executeSql('DROP TABLE IF EXISTS Transactions');
@@ -112,6 +114,10 @@
          // таблица единиц измерения
          tx.executeSql('CREATE TABLE IF NOT EXISTS Measures' 
    		 		+'(id integer primary key,name)');
+    	}
+		catch(e){
+			  dumpError("populateDB",e);
+		  }			
 
     }
     
@@ -121,7 +127,7 @@
      * @param longitude пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
      */
     function addBill(filePath, latitude, longitude,altitude){
-       
+       try{
         db.transaction(
     		function(transaction) { 
         		transaction.executeSql(
@@ -135,18 +141,28 @@
         		);},
         		 onError, onSuccess);
       refreshBills();
+       }
+		catch(e){
+			  dumpError("addBill",e);
+		  }			
    }
     
     /** пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ" пїЅпїЅпїЅпїЅ
      * @param billID
      */
     function setBillSent(billID){
-            db.transaction(
-    		function(transaction) { 
-        		transaction.executeSql(
-        		'UPDATE Bills set sent=1 where id='+billID);} ,
-        		 onError, onSuccess);
-      refreshBills();
+    	try{
+	            db.transaction(
+	    		function(transaction) { 
+	        		transaction.executeSql(
+	        		'UPDATE Bills set sent=1 where id='+billID);} ,
+	        		 onError, onSuccess);
+	      refreshBills();
+    	}
+		catch(e){
+			  dumpError("setBillSent",e);
+		  }			
+      
     }
 
     
@@ -155,12 +171,17 @@
      * пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ (пїЅпїЅпїЅпїЅпїЅпїЅпїЅ)
      */
     function clearBillsTable(){
-        db.transaction(
-        		function(transaction) { 
-            		transaction.executeSql(
-            		'delete from Bills')} ,
-            		 onError, onSuccess);
-          refreshBills();
+    	try{
+	        db.transaction(
+	        		function(transaction) { 
+	            		transaction.executeSql(
+	            		'delete from Bills')} ,
+	            		 onError, onSuccess);
+	          refreshBills();
+    	}
+		catch(e){
+			  dumpError("clearBillsTable",e);
+		  }			
     }
     
     
@@ -169,30 +190,39 @@
      * @param environment
      */
     function addUserEnvironment(environment){
-    	
-        db.transaction(
-    		function(transaction) { 
-    		//	environment.replace ('"','""');
-        		transaction.executeSql(
-        		"UPDATE UserEnvironment set environment='"+environment+"'"
-        		);},
-        		 onError, onSuccess);
+    	try{
+	        db.transaction(
+	    		function(transaction) { 
+	    		//	environment.replace ('"','""');
+	        		transaction.executeSql(
+	        		"UPDATE UserEnvironment set environment='"+environment+"'"
+	        		);},
+	        		 onError, onSuccess);
+    	}
+		catch(e){
+			  dumpError("addUserEnvironment",e);
+		  }			
    }
     
     /**
      * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅ
      */
     function getUserEnvironment(){
-    	var deferred = $.Deferred();
-    	db.transaction(
-  		    function(transaction) {
-  		        transaction.executeSql('SELECT * FROM UserEnvironment', [],
-  		        		function(transaction, result) {
-  		        	deferred.resolve( result.rows.item(0).environment);
-    		    }, onError);
-  		 });
-    	
-    	return deferred;
+    	try{
+	    	var deferred = $.Deferred();
+	    	db.transaction(
+	  		    function(transaction) {
+	  		        transaction.executeSql('SELECT * FROM UserEnvironment', [],
+	  		        		function(transaction, result) {
+	  		        	deferred.resolve( result.rows.item(0).environment);
+	    		    }, onError);
+	  		 });
+	    	
+	    	return deferred;
+    	}
+		catch(e){
+			  dumpError("getUserEnvironment",e);
+		  }			
     }
         
     
@@ -205,44 +235,54 @@
     
     
     function putSetting(setting, value){
-    	console.log("SQL: "+'UPDATE Settings set '+setting+'="'+value+'" where id=1');
-    	if (setting==SETTING_USER_LOGIN)
-    		window.localStorage.setItem(SETTING_USER_LOGIN,value);
-    	if (setting==SETTING_USER_PASSWORD)
-    		window.localStorage.setItem(SETTING_USER_PASSWORD,value);
-
-       db.transaction(
-      		function(transaction) { 
-          		transaction.executeSql(
-           		'UPDATE Settings set '+setting+'="'+value+'"');} ,
-           		 onError, onSuccess);
-    }
+    	try{
+	    	console.log("SQL: "+'UPDATE Settings set '+setting+'="'+value+'" where id=1');
+	    	if (setting==SETTING_USER_LOGIN)
+	    		window.localStorage.setItem(SETTING_USER_LOGIN,value);
+	    	if (setting==SETTING_USER_PASSWORD)
+	    		window.localStorage.setItem(SETTING_USER_PASSWORD,value);
+	
+	       db.transaction(
+	      		function(transaction) { 
+	          		transaction.executeSql(
+	           		'UPDATE Settings set '+setting+'="'+value+'"');} ,
+	           		 onError, onSuccess);
+    	}
+		catch(e){
+			  dumpError("putSetting",e);
+		  }			
+    	}
 
     
     function getSetting(setting, defValue){
-   	console.log("SQL: "+'SELECT '+setting+' FROM Settings where id=1;');
-    var res = "";
-   var deferred = $.Deferred();
-	db.transaction(
-		    function(transaction) {
-		        transaction.executeSql('SELECT '+setting+' FROM Settings;', [],
-		        		function(transaction, result) {
-		        	var row =  result.rows.item(0);
-		        	// первый аргумент - порядковый номер
-		        	// второй - значение, объект
-		        	$.each(row, function(columnName, value) {
-		        			res = value;
-		        			deferred.resolve(res);
-		        			if (res==="") res = defValue;
-		        			console.log("Get setting "+setting+" returned "+res );
-        	        });
-		        	        	
-		    },  function onError(error){
-		    	alert("GetSetting: "+setting+" error: "+error);
-		    	console.log(error);
-		    });
-		 });
-	return deferred;
+    	try{
+	   	console.log("SQL: "+'SELECT '+setting+' FROM Settings where id=1;');
+	    var res = "";
+	   var deferred = $.Deferred();
+		db.transaction(
+			    function(transaction) {
+			        transaction.executeSql('SELECT '+setting+' FROM Settings;', [],
+			        		function(transaction, result) {
+			        	var row =  result.rows.item(0);
+			        	// первый аргумент - порядковый номер
+			        	// второй - значение, объект
+			        	$.each(row, function(columnName, value) {
+			        			res = value;
+			        			deferred.resolve(res);
+			        			if (res==="") res = defValue;
+			        			console.log("Get setting "+setting+" returned "+res );
+	        	        });
+			        	        	
+			    },  function onError(error){
+			    	alert("GetSetting: "+setting+" error: "+error);
+			    	console.log(error);
+			    });
+			 });
+		return deferred;
+    	}
+		catch(e){
+			  dumpError("getSetting",e);
+		  }			
 	}
     
     
@@ -252,64 +292,79 @@
      * @param transaction
      */
     function addTransaction(i,json,id,transactionJSON, purseID, transactionDate, categoryID){
-    	var deferred = $.Deferred();
-    	var sql=  "INSERT OR REPLACE INTO Transactions (id, transactionJSON, purseID,transactionDate, categoryID) " +
-		" values ("
-		+"'"+id+"',"
-		+"'"+transactionJSON.replace(/'/g,"''")+"',"
-		+"'"+purseID+"',"
-		+"'"+transactionDate+"',"
-		+"'"+categoryID+
-		"')";
-        db.transaction(
-    		function(transaction) { 
-        		transaction.executeSql(
-        		sql
-        		);},
-        		function onError(error){
-    		    	console.log("Error trying to add transaction!");
-    		    	console.log("SQL: "+sql);
-    		    	deferred.resolve(i,json);
-    		    }, function onSuccess(res){
-    		    	deferred.resolve(i,json);
-    		    });
-        return deferred;
+    	try{
+	    	var deferred = $.Deferred();
+	    	var sql=  "INSERT OR REPLACE INTO Transactions (id, transactionJSON, purseID,transactionDate, categoryID) " +
+			" values ("
+			+"'"+id+"',"
+			+"'"+transactionJSON.replace(/'/g,"''")+"',"
+			+"'"+purseID+"',"
+			+"'"+transactionDate+"',"
+			+"'"+categoryID+
+			"')";
+	        db.transaction(
+	    		function(transaction) { 
+	        		transaction.executeSql(
+	        		sql
+	        		);},
+	        		function onError(error){
+	    		    	console.log("Error trying to add transaction!");
+	    		    	console.log("SQL: "+sql);
+	    		    	deferred.resolve(i,json);
+	    		    }, function onSuccess(res){
+	    		    	deferred.resolve(i,json);
+	    		    });
+	        return deferred;
+    	}
+		catch(e){
+			  dumpError("addTransaction",e);
+		  }			
    }
     
     
     function addSeveralTransactions(json,i, deferred){
-    	if (deferred==undefined) deferred = $.Deferred();
-       	var transaction = json[i];
-       	var id = transaction.Id;
-    	var purseID = transaction.PurseID;
-    	var transactionDate = transaction.TransactionDate;
-    	var categoryID = transaction.CategoryID;
-       	addTransaction(i,json,id,JSON.stringify(transaction), purseID, transactionDate, categoryID).done(function(i, json){
-       		if (i==json.length-1) {
-  	   			deferred.resolve(''); 
-  	   			return deferred;
-  	   		}
-  	   		else{
-  	   			addSeveralTransactions(json, i+1, deferred);
-  	   		}
-  	   	});
-     	return deferred;
+    	try{
+	    	if (deferred==undefined) deferred = $.Deferred();
+	       	var transaction = json[i];
+	       	var id = transaction.Id;
+	    	var purseID = transaction.PurseID;
+	    	var transactionDate = transaction.TransactionDate;
+	    	var categoryID = transaction.CategoryID;
+	       	addTransaction(i,json,id,JSON.stringify(transaction), purseID, transactionDate, categoryID).done(function(i, json){
+	       		if (i==json.length-1) {
+	  	   			deferred.resolve(''); 
+	  	   			return deferred;
+	  	   		}
+	  	   		else{
+	  	   			addSeveralTransactions(json, i+1, deferred);
+	  	   		}
+	  	   	});
+	     	return deferred;
+    	}
+		catch(e){
+			  dumpError("addSeveralTransactinos",e);
+		  }			
     }
     
     /**
      * получение всех транзацкций
      */
     function getTransactions(){
-   	var deferred = $.Deferred();
-    	db.transaction(
-  		    function(transaction) {
-  		        transaction.executeSql("SELECT * FROM Transactions order by datetime(transactionDate) desc", [],
-  		        		function(transaction, result) {
-  		        	deferred.resolve(result);
-    		    }, onError);
-  		 });
-    	
-    	return deferred;
+    	try{
+		   	var deferred = $.Deferred();
+		    	db.transaction(
+		  		    function(transaction) {
+		  		        transaction.executeSql("SELECT * FROM Transactions order by datetime(transactionDate) desc", [],
+		  		        		function(transaction, result) {
+		  		        	deferred.resolve(result);
+		    		    }, onError);
+		  		 });
+		    	
+		    	return deferred;
+    	}
+		catch(e){
+			  dumpError("getTransactions",e);
+		  }			
     }
         
     
@@ -317,247 +372,289 @@
      * получение транзакций по категории
      */
     function getTransactionsByCategoryID(categoryID){
-   	var deferred = $.Deferred();
-    	db.transaction(
-  		    function(transaction) {
-  		        transaction.executeSql("SELECT * FROM Transactions where categoryID='"+categoryID+"'  order by datetime(transactionDate) desc", [],
-  		        		function(transaction, result) {
-  		        	
-  		        	deferred.resolve(result);
-    		    }, onError);
-  		 });
-    	return deferred;
+    	try{
+		   	var deferred = $.Deferred();
+		    	db.transaction(
+		  		    function(transaction) {
+		  		        transaction.executeSql("SELECT * FROM Transactions where categoryID='"+categoryID+"'  order by datetime(transactionDate) desc", [],
+		  		        		function(transaction, result) {
+		  		        	
+		  		        	deferred.resolve(result);
+		    		    }, onError);
+		  		 });
+		    	return deferred;
+    	}
+		catch(e){
+			  dumpError("getTransactionsByCategoryID",e);
+		  }			
     }
     
     
     function getTransaction(transactionID){
-    	var deferred = $.Deferred();
-    	db.transaction(
-  		    function(transaction) {
-  		        transaction.executeSql("SELECT * FROM Transactions where id='"+transactionID+"'", [],
-  		        		function(transaction, result) {
-  		        	
-  		        	deferred.resolve(result);
-    		    }, onError);
-  		 });
-    	return deferred;
+    	try{
+	    	var deferred = $.Deferred();
+	    	db.transaction(
+	  		    function(transaction) {
+	  		        transaction.executeSql("SELECT * FROM Transactions where id='"+transactionID+"'", [],
+	  		        		function(transaction, result) {
+	  		        	
+	  		        	deferred.resolve(result);
+	    		    }, onError);
+	  		 });
+	    	return deferred;
+    	}
+		catch(e){
+			  dumpError("getTransaction",e);
+		  }			
     }
     
     function addWidget(id,json){
-       db.transaction(
-       		function(transaction) { 
-           		transaction.executeSql(
-           		"INSERT OR REPLACE INTO Widgets (id, json) " +
-           		" values ("
-           		+"'"+id+"',"
-           		+"'"+json+
-           		"')"
-           		);},
-     		 onError, onSuccess);
+    	try{
+	       db.transaction(
+	       		function(transaction) { 
+	           		transaction.executeSql(
+	           		"INSERT OR REPLACE INTO Widgets (id, json) " +
+	           		" values ("
+	           		+"'"+id+"',"
+	           		+"'"+json+
+	           		"')"
+	           		);},
+	     		 onError, onSuccess);
+    	}
+		catch(e){
+			  dumpError("addWidget",e);
+		  }			
     }
     
     
     function getWidget(id){
-    	var deferred = $.Deferred();
-    	db.transaction(
-  		    function(transaction) {
-  		        transaction.executeSql("SELECT * FROM Widgets where id='"+id+"'", [],
-  		        		function(transaction, result) {
-  		        	deferred.resolve(result.rows.item(0).json);
-    		    }, onError);
-  		 });
-    	return deferred;
+    	try{
+	    	var deferred = $.Deferred();
+	    	db.transaction(
+	  		    function(transaction) {
+	  		        transaction.executeSql("SELECT * FROM Widgets where id='"+id+"'", [],
+	  		        		function(transaction, result) {
+	  		        	deferred.resolve(result.rows.item(0).json);
+	    		    }, onError);
+	  		 });
+	    	return deferred;
+    	}
+		catch(e){
+			  dumpError("getWidget",e);
+		  }			
     }
     
     function getWidgets(){
-    	var deferred = $.Deferred();
-    	db.transaction(
-  		    function(transaction) {
-  		        transaction.executeSql("SELECT * FROM Widgets", [],
-  		        		function(transaction, result) {
-  		        	deferred.resolve(result);
-    		    }, onError);
-  		 });
-    	return deferred;
+    	try{
+	    	var deferred = $.Deferred();
+	    	db.transaction(
+	  		    function(transaction) {
+	  		        transaction.executeSql("SELECT * FROM Widgets", [],
+	  		        		function(transaction, result) {
+	  		        	deferred.resolve(result);
+	    		    }, onError);
+	  		 });
+	    	return deferred;
+    	}
+		catch(e){
+			  dumpError("getWidgets",e);
+		  }			
     }
     
     function addShopList(i,json,id,name, accountID,createdAt, fullJSON, itemsJSON){
-        // таблица для списка покупок
-     	/*Пользователь может иметь несколько списков продуктов, идентифицируемых по ObjectId,  Name.
-     	   В БД SQLite необходимо сделать табличку для хранения таких объектов.
-     	каждый список имеет продуктов состоит из:
-     	идентификатора (ObjectId)
-     	наименования (Name)
-     	перечня продуктов, каждый продукт из:
-     	порядковый номер No,
-     	Тег  (TAG_BEEF, например),  Tag
-     	Наименование из классификатора (Говядина) , ItemName
-     	Количество,   Quantity
-     	Ед. измерения, Measure*/
-
-     /*  +'(id integer primary key,name, createdAt, fullJSON, itemsJSON)');
- 		*/
-
-    	var deferred = $.Deferred();
-    	 db.transaction(
-    	   function(transaction) { 
-    	   		transaction.executeSql(
-    	      		"INSERT OR REPLACE INTO ShopLists (id, name, accountID,createdAt, fullJSON, itemsJSON) " +
-    	      		" values ('"
-    	       		+id+"',"
-    	       		+"'"+name+"',"
-    	       		+"'"+accountID+"',"
-    	       		+"'"+createdAt+"',"
-    	       		+"'"+fullJSON+"',"
-    	       		+"'"+itemsJSON+"')"
-    	   		);},
-    	     function onError(error){
-    		    	console.log("Error trying to add transaction!"+error.message);
-    		    	deferred.resolve(i, json);
-    		    },function onSuccess(){
-    		    	deferred.resolve(i, json);
-    		    });
-    	 return deferred;
+    	try{
+	        // таблица для списка покупок
+	     	/*Пользователь может иметь несколько списков продуктов, идентифицируемых по ObjectId,  Name.
+	     	   В БД SQLite необходимо сделать табличку для хранения таких объектов.
+	     	каждый список имеет продуктов состоит из:
+	     	идентификатора (ObjectId)
+	     	наименования (Name)
+	     	перечня продуктов, каждый продукт из:
+	     	порядковый номер No,
+	     	Тег  (TAG_BEEF, например),  Tag
+	     	Наименование из классификатора (Говядина) , ItemName
+	     	Количество,   Quantity
+	     	Ед. измерения, Measure*/
+	
+	     /*  +'(id integer primary key,name, createdAt, fullJSON, itemsJSON)');
+	 		*/
+	
+	    	var deferred = $.Deferred();
+	    	 db.transaction(
+	    	   function(transaction) { 
+	    	   		transaction.executeSql(
+	    	      		"INSERT OR REPLACE INTO ShopLists (id, name, accountID,createdAt, fullJSON, itemsJSON) " +
+	    	      		" values ('"
+	    	       		+id+"',"
+	    	       		+"'"+name+"',"
+	    	       		+"'"+accountID+"',"
+	    	       		+"'"+createdAt+"',"
+	    	       		+"'"+fullJSON+"',"
+	    	       		+"'"+itemsJSON+"')"
+	    	   		);},
+	    	     function onError(error){
+	    		    	console.log("Error trying to add transaction!"+error.message);
+	    		    	deferred.resolve(i, json);
+	    		    },function onSuccess(){
+	    		    	deferred.resolve(i, json);
+	    		    });
+	    	 return deferred;
+    	}
+		catch(e){
+			  dumpError("addShopList",e);
+		  }			
     }
     
     
     
     function addSeveralShopLists(json, i, deferred){
-    	if (deferred==undefined) deferred = $.Deferred();
- 		  var shopList = json[i];
-   		  var id = shopList.Id;
-   		  var name = shopList.Name;
-   		  var createdAt = shopList.CreatedAt;
-   		  var accountID = shopList.AccountID;
-   		  var itemsJSON = JSON.stringify(shopList.Items);
-   		  var fullJSON = JSON.stringify(shopList);
-   		  
-   		addShopList(i, json,id,name, accountID,createdAt, fullJSON, itemsJSON).done(function(i, json){
-	   			if (i==json.length-1) {
-	   				deferred.resolve(''); 
-	   				return deferred;
-	   			}
-	   			else{
-	   				addSeveralShopLists(json, i+1, deferred);
-	   			}
-	   		});
-   		return deferred;
+    	try{
+	    	if (deferred==undefined) deferred = $.Deferred();
+	 		  var shopList = json[i];
+	   		  var id = shopList.Id;
+	   		  var name = shopList.Name;
+	   		  var createdAt = shopList.CreatedAt;
+	   		  var accountID = shopList.AccountID;
+	   		  var itemsJSON = JSON.stringify(shopList.Items);
+	   		  var fullJSON = JSON.stringify(shopList);
+	   		  
+	   		addShopList(i, json,id,name, accountID,createdAt, fullJSON, itemsJSON).done(function(i, json){
+		   			if (i==json.length-1) {
+		   				deferred.resolve(''); 
+		   				return deferred;
+		   			}
+		   			else{
+		   				addSeveralShopLists(json, i+1, deferred);
+		   			}
+		   		});
+	   		return deferred;
+    	}
+		catch(e){
+			  dumpError("addSeveralShopLists",e);
+		  }			
     }
     
     
     function createShopList(name){
-    	var deferred = $.Deferred();
-    	var accountID = "";
-
-    	getUserEnvironment().done(function(res){
-    		
-    	
-    	accountID = jQuery.parseJSON(res).AccountID;
-   // 	alert("acountID is: "+accountID);
-    	var fullJSON = new Object();
-    	fullJSON.AccountID = accountID;
-    	fullJSON.Number = 1;
-    	fullJSON.Name = name;
-    	fullJSON.Items ='';
-    	fullJSON.CollectionName = '';
-    	fullJSON.Id = null;
-    	fullJSON.CreatedAt = null;
-    	
-  //  	alert("fullJSOn is"+JSON.stringify(fullJSON));
-    	db.transaction(
-      		    function(transaction) {
-      		    	transaction.executeSql(
-       	    	   			"INSERT OR REPLACE INTO ShopLists (id, name, accountID, createdAt, fullJSON, itemsJSON) " +
-    	    	      		" values ('"
-    	    	       		+tempShopListID+"',"
-    	    	       		+"'"+name+"',"
-    	    	       		+"'"+accountID+"',"
-    	    	       		+"'',"
-    	    	       		+"'"+JSON.stringify(fullJSON)+"',"
-    	    	       		+"'null')", [],
-      		        		function(transaction, result) {
-      		        	
-      		        	deferred.resolve(result);
-        		    }, onError);
-      		 });
-    	});
-
-    	 return deferred;
+    	try{
+	    	var deferred = $.Deferred();
+	    	var accountID = "";
+	
+	    	getUserEnvironment().done(function(res){
+	    		
+	    	
+	    	accountID = jQuery.parseJSON(res).AccountID;
+	   // 	alert("acountID is: "+accountID);
+	    	var fullJSON = new Object();
+	    	fullJSON.AccountID = accountID;
+	    	fullJSON.Number = 1;
+	    	fullJSON.Name = name;
+	    	fullJSON.Items ='';
+	    	fullJSON.CollectionName = '';
+	    	fullJSON.Id = null;
+	    	fullJSON.CreatedAt = null;
+	    	
+	  //  	alert("fullJSOn is"+JSON.stringify(fullJSON));
+	    	db.transaction(
+	      		    function(transaction) {
+	      		    	transaction.executeSql(
+	       	    	   			"INSERT OR REPLACE INTO ShopLists (id, name, accountID, createdAt, fullJSON, itemsJSON) " +
+	    	    	      		" values ('"
+	    	    	       		+tempShopListID+"',"
+	    	    	       		+"'"+name+"',"
+	    	    	       		+"'"+accountID+"',"
+	    	    	       		+"'',"
+	    	    	       		+"'"+JSON.stringify(fullJSON)+"',"
+	    	    	       		+"'null')", [],
+	      		        		function(transaction, result) {
+	      		        	
+	      		        	deferred.resolve(result);
+	        		    }, onError);
+	      		 });
+	    	});
+	
+	    	 return deferred;
+    	}
+		catch(e){
+			  dumpError("createShopList",e);
+		  }			
     }
     
     
     function addShopListID(id, oldID){
-    	var deferred = $.Deferred();
-    	
-    	
-    	
-    	
-    		
-    		
-    		
-    	db.transaction(
-      		    function(transaction) {
-      		        transaction.executeSql("UPDATE ShopLists set id='"+id+"' where id='"+oldID+"'", [],
-      		        		function(transaction, result) {
-      		        	tempShopListID = tempShopListID+1;
-      		        	
-      		        	
-      		        	
-      		        	db.transaction(
-      		        		    function(transaction) {
-      		        		        transaction.executeSql("SELECT *  FROM ShopLists where id='"+id+"'", [],
-      		        		        		function(transaction, result) {
-      		        		        	
-      		        		        	var fullJSON = jQuery.parseJSON(result.rows.item(0).fullJSON);
-      		        		        	
-      		        		        	fullJSON.Id = id;
-      		        		        	
-      		        		        	db.transaction(
-      		        		        		    function(transaction) {
-      		        		        		        transaction.executeSql("UPDATE ShopLists set fullJSON='"+JSON.stringify(fullJSON)+"' where id='"+id+"'", [],
-      		        		        		        		function(transaction, result) {
-      		        		        		        	deferred.resolve(result);
-      		        		          		    }, onError);
-      		        		        		 });
-      		        		        	
-      		        		        	
-      		        		        	
-      		        		        	deferred.resolve(result);
-      		          		    }, onError);
-      		        		 });
-      		        	
-      		        	
-        		    }, function onError(error){
-        		    	console.log("Error trying to add ID to shop list!"+error.message);
-        		    	console.log("SQL: "+sql);
-        		    });
-      		 });    	
-    	return deferred;
+    	try{
+	    	var deferred = $.Deferred();
+	    	db.transaction(
+	      		    function(transaction) {
+	      		        transaction.executeSql("UPDATE ShopLists set id='"+id+"' where id='"+oldID+"'", [],
+	      		        		function(transaction, result) {
+	      		        	tempShopListID = tempShopListID+1;
+	      		        	db.transaction(
+	      		        		    function(transaction) {
+	      		        		        transaction.executeSql("SELECT *  FROM ShopLists where id='"+id+"'", [],
+	      		        		        		function(transaction, result) {
+	      		        		        	
+	      		        		        	var fullJSON = jQuery.parseJSON(result.rows.item(0).fullJSON);
+	      		        		        	
+	      		        		        	fullJSON.Id = id;
+	      		        		        	
+	      		        		        	db.transaction(
+	      		        		        		    function(transaction) {
+	      		        		        		        transaction.executeSql("UPDATE ShopLists set fullJSON='"+JSON.stringify(fullJSON)+"' where id='"+id+"'", [],
+	      		        		        		        		function(transaction, result) {
+	      		        		        		        	deferred.resolve(result);
+	      		        		          		    }, onError);
+	      		        		        		 });
+	      		        		        	deferred.resolve(result);
+	      		          		    }, onError);
+	      		        		 });
+	      		        	
+	      		        	
+	        		    }, function onError(error){
+	        		    	console.log("Error trying to add ID to shop list!"+error.message);
+	        		    	console.log("SQL: "+sql);
+	        		    });
+	      		 });    	
+	    	return deferred;
+    	}
+		catch(e){
+			  dumpError("addShopListID",e);
+		  }			
     }
     
     function getShopLists(){
-    	var deferred = $.Deferred();
-    	db.transaction(
-  		    function(transaction) {
-  		        transaction.executeSql("SELECT * FROM ShopLists", [],
-  		        		function(transaction, result) {
-  		        	deferred.resolve(result);
-    		    }, onError);
-  		 });
-    	return deferred;
+    	try{
+	    	var deferred = $.Deferred();
+	    	db.transaction(
+	  		    function(transaction) {
+	  		        transaction.executeSql("SELECT * FROM ShopLists", [],
+	  		        		function(transaction, result) {
+	  		        	deferred.resolve(result);
+	    		    }, onError);
+	  		 });
+	    	return deferred;
+    	}
+		catch(e){
+			  dumpError("getShopLists",e);
+		  }			
     }
     
     
     function getShopList(listID){
-    	var deferred = $.Deferred();
-    	db.transaction(
-  		    function(transaction) {
-  		        transaction.executeSql("SELECT * FROM ShopLists where id='"+listID+"'", [],
-  		        		function(transaction, result) {
-  		        	deferred.resolve(result);
-    		    }, onError);
-  		 });
-    	return deferred;
+    	try{
+	    	var deferred = $.Deferred();
+	    	db.transaction(
+	  		    function(transaction) {
+	  		        transaction.executeSql("SELECT * FROM ShopLists where id='"+listID+"'", [],
+	  		        		function(transaction, result) {
+	  		        	deferred.resolve(result);
+	    		    }, onError);
+	  		 });
+	    	return deferred;
+    	}
+		catch(e){
+			  dumpError("getShopList",e);
+		  }			
     }
     
     
@@ -568,104 +665,96 @@
      * @returns
      */
     function addToShopList(listID,product){
-    	
-    	//var listID = window.localStorage.getItem("ShopListID");
-    	var deferred = $.Deferred();
-    //	alert ("ListID: "+listID);
-    //	alert ("Product String: "+product);
-    	// обрабатываем строку продукта
-    	//var expr = new RegExp('[0-9]*[.,/\*]*[0-9]*', 'i');
-    	var expr = new RegExp('[0-9][.,\*]*[0-9]*');
-    /*	var quantityPos = expr.search(product);
-    	var quantity = expr.exec(product);
-    	alert ("Quantity: "+quantity);
-    	alert ("Quantity postition: "+quantityPos);
-    	var value = product.substr(0, quantityPos);
-    	var measure = product.substring((quantityPos+quantity.length), product.length);
-    	console.log('Value: '+value);
-    	console.log('Measure: '+measure);
-    	*/
-    	var value,measure ;
-    	var quantityPos = product.search(expr);
-    	var quantityArray = expr.exec(product);
-    	var quantity = null;
-    	if (quantityArray!=null)
-    		quantity = expr.exec(product)[0];
-    	else
-    		quantity = null;
-    	if (quantity!=null){
-	    //	alert("Quantity: "+quantity);
-	    	value = product.substr(0, quantityPos);
-	    	measure = product.substring((quantityPos+quantity.length), product.length);
+    	try{
+	    	//var listID = window.localStorage.getItem("ShopListID");
+	    	var deferred = $.Deferred();
+	    //	alert ("ListID: "+listID);
+	    //	alert ("Product String: "+product);
+	    	// обрабатываем строку продукта
+	    	//var expr = new RegExp('[0-9]*[.,/\*]*[0-9]*', 'i');
+	    	var expr = new RegExp('[0-9][.,\*]*[0-9]*');
+	    /*	var quantityPos = expr.search(product);
+	    	var quantity = expr.exec(product);
+	    	alert ("Quantity: "+quantity);
+	    	alert ("Quantity postition: "+quantityPos);
+	    	var value = product.substr(0, quantityPos);
+	    	var measure = product.substring((quantityPos+quantity.length), product.length);
 	    	console.log('Value: '+value);
-	    	console.log('Quantity: '+quantity);
 	    	console.log('Measure: '+measure);
+	    	*/
+	    	var value,measure ;
+	    	var quantityPos = product.search(expr);
+	    	var quantityArray = expr.exec(product);
+	    	var quantity = null;
+	    	if (quantityArray!=null)
+	    		quantity = expr.exec(product)[0];
+	    	else
+	    		quantity = null;
+	    	if (quantity!=null){
+		    //	alert("Quantity: "+quantity);
+		    	value = product.substr(0, quantityPos);
+		    	measure = product.substring((quantityPos+quantity.length), product.length);
+		    	console.log('Value: '+value);
+		    	console.log('Quantity: '+quantity);
+		    	console.log('Measure: '+measure);
+	    	}
+	    	else{
+	    		value = product;
+	    		quantity = "";
+	    		measure ="";
+	    	}
+	    /*	alert('Value:*'+value+"*");
+	    	alert('Quantity:*'+quantity+"*");
+	    	alert('Measure:*'+measure+"*");
+	    	*/
+	    	value = value.trim();
+	    	measure = measure.trim();
+	    	
+	    	/*value = value.replace(/\s/g, '');
+	    	measure = measure.replace(/\s/g, '');
+	    	*/
+	    	getShopList(listID).done(function(res){
+	    	var itemsJSON;
+	    	//alert(res.rows.item(0).id);
+	    	if ((res.rows.item(0).itemsJSON=="") |(res.rows.item(0).itemsJSON==null)|(res.rows.item(0).itemsJSON=='null')
+	    			|(res.rows.item(0).itemsJSON=="''")){
+	    		itemsJSON = [];
+	    		var json={ "Tag":"TAG_OTHER", "Value":value,"Quantity":quantity,"Measure":measure,"Color":"2","bought":"0"};
+	    		itemsJSON.push(json);
+	    	}
+	    	else{
+	    //		alert("JSON is: "+res.rows.item(0).itemsJSON);
+	    		itemsJSON =jQuery.parseJSON(res.rows.item(0).itemsJSON);
+	    		if (!(itemsJSON instanceof Array)){
+	    			itemsJSON = [];
+	    		}
+	    	//	alert(JSON.stringify(itemsJSON));
+	    		itemsJSON.push({
+	    			'Tag': 'TAG_OTHER', 
+	    			'Value': value,
+	    			'Quantity':quantity,
+	    			'Measure':measure,
+	    			'Color':'2',
+	    			'bought':'0'
+	    			});
+	    	}
+	    	//alert(JSON.stringify(itemsJSON));
+	    	db.transaction(
+	      		    function(transaction) {
+	      		        transaction.executeSql("UPDATE ShopLists set itemsJSON='"+JSON.stringify(itemsJSON)+"' where id='"+listID+"'", [],
+	      		        		function(transaction, result) {
+	      		        	deferred.resolve(result);
+	        		    }, function onError(error){
+	        		    	console.log("Error trying to add to shop list!");
+	        		    	console.log("SQL: "+sql);
+	        		    });
+	      		 });    	
+	    	});
+	    	return deferred;
     	}
-    	else{
-    		value = product;
-    		quantity = "";
-    		measure ="";
-    	}
-    /*	alert('Value:*'+value+"*");
-    	alert('Quantity:*'+quantity+"*");
-    	alert('Measure:*'+measure+"*");
-    	*/
-    	value = value.trim();
-    	measure = measure.trim();
-    	
-    	/*value = value.replace(/\s/g, '');
-    	measure = measure.replace(/\s/g, '');
-    	*/
-    	getShopList(listID).done(function(res){
-    	var itemsJSON;
-    	//alert(res.rows.item(0).id);
-    	if ((res.rows.item(0).itemsJSON=="") |(res.rows.item(0).itemsJSON==null)|(res.rows.item(0).itemsJSON=='null')
-    			|(res.rows.item(0).itemsJSON=="''")){
-    		itemsJSON = [];
-    		var json={ "Tag":"TAG_OTHER", "Value":value,"Quantity":quantity,"Measure":measure,"Color":"2","bought":"0"};
-    		
-    	/*	json.push({
-    			'Tag': 'TAG_OTHER', 
-    			'Value': value,
-    			'Quantity':quantity,
-    			'Measure':measure,
-    			'Color':'2',
-    			'bought':'0'
-    			});*
-    		/*var json = '[{"Tag":"TAG_OTHER", "Value":"'+value+'","Quantity":"'+quantity+
-    		'","Measure":"'+measure+'","Color":"2","bought":"0"}]';
-    		alert("JSON is "+json);*/
-    		itemsJSON.push(json);
-    	}
-    	else{
-    //		alert("JSON is: "+res.rows.item(0).itemsJSON);
-    		itemsJSON =jQuery.parseJSON(res.rows.item(0).itemsJSON);
-    		if (!(itemsJSON instanceof Array)){
-    			itemsJSON = [];
-    		}
-    	//	alert(JSON.stringify(itemsJSON));
-    		itemsJSON.push({
-    			'Tag': 'TAG_OTHER', 
-    			'Value': value,
-    			'Quantity':quantity,
-    			'Measure':measure,
-    			'Color':'2',
-    			'bought':'0'
-    			});
-    	}
-    	//alert(JSON.stringify(itemsJSON));
-    	db.transaction(
-      		    function(transaction) {
-      		        transaction.executeSql("UPDATE ShopLists set itemsJSON='"+JSON.stringify(itemsJSON)+"' where id='"+listID+"'", [],
-      		        		function(transaction, result) {
-      		        	deferred.resolve(result);
-        		    }, function onError(error){
-        		    	console.log("Error trying to add to shop list!");
-        		    	console.log("SQL: "+sql);
-        		    });
-      		 });    	
-    	});
-    	return deferred;
+		catch(e){
+			  dumpError("addToShopList",e);
+		  }			
     }
     
     /** удаление продукта из списка покупок
@@ -674,64 +763,79 @@
      * @returns
      */
     function removeFromShopList(listID, product){
-    	console.log("Trying to find item: "+product);
-    	var deferred = $.Deferred();
-    	getShopList(listID).done(function(res){
-        	var itemsJSON =jQuery.parseJSON(res.rows.item(0).itemsJSON);
-        	var pos = 0;
-        	for (var i=0; i<itemsJSON.length;i++){
-        		console.log("Found item: "+itemsJSON[i].Value);
-        		if (itemsJSON[i].Value==product){
-        			pos = i;
-        			console.log("FOUND MATCH!");
-        			break;
-        		}
-        	}
-        	itemsJSON.splice(pos, 1);
-        	db.transaction(
-          		    function(transaction) {
-          		        transaction.executeSql("UPDATE ShopLists set itemsJSON='"+JSON.stringify(itemsJSON)+"' where id='"+listID+"'", [],
-          		        		function(transaction, result) {
-          		        	deferred.resolve(result);
-            		    }, function onError(error){
-            		    	console.log("Error trying to remove from shop lisr!");
-            		    });
-          		 });    	
-    	});
-    	return deferred;
+    	try{
+	    	console.log("Trying to find item: "+product);
+	    	var deferred = $.Deferred();
+	    	getShopList(listID).done(function(res){
+	        	var itemsJSON =jQuery.parseJSON(res.rows.item(0).itemsJSON);
+	        	var pos = 0;
+	        	for (var i=0; i<itemsJSON.length;i++){
+	        		console.log("Found item: "+itemsJSON[i].Value);
+	        		if (itemsJSON[i].Value==product){
+	        			pos = i;
+	        			console.log("FOUND MATCH!");
+	        			break;
+	        		}
+	        	}
+	        	itemsJSON.splice(pos, 1);
+	        	db.transaction(
+	          		    function(transaction) {
+	          		        transaction.executeSql("UPDATE ShopLists set itemsJSON='"+JSON.stringify(itemsJSON)+"' where id='"+listID+"'", [],
+	          		        		function(transaction, result) {
+	          		        	deferred.resolve(result);
+	            		    }, function onError(error){
+	            		    	console.log("Error trying to remove from shop lisr!");
+	            		    });
+	          		 });    	
+	    	});
+	    	return deferred;
+    	}
+		catch(e){
+			  dumpError("removeFromShopList",e);
+		  }			
 
     }
 
     
     
     function updateShopList(listID, itemsJSON){
-    	var deferred = $.Deferred();
-        	db.transaction(
-          		    function(transaction) {
-          		        transaction.executeSql("UPDATE ShopLists set itemsJSON='"+JSON.stringify(itemsJSON)+"' where id='"+listID+"'", [],
-          		        		function(transaction, result) {
-          		        	deferred.resolve(result);
-            		    }, function onError(error){
-            		    	console.log("Error trying to remove from shop list!");
-
-            		    });
-          		 });    	
-    	return deferred;
+    	try{
+	    	var deferred = $.Deferred();
+	        	db.transaction(
+	          		    function(transaction) {
+	          		        transaction.executeSql("UPDATE ShopLists set itemsJSON='"+JSON.stringify(itemsJSON)+"' where id='"+listID+"'", [],
+	          		        		function(transaction, result) {
+	          		        	deferred.resolve(result);
+	            		    }, function onError(error){
+	            		    	console.log("Error trying to remove from shop list!");
+	
+	            		    });
+	          		 });    	
+	    	return deferred;
+    	}
+		catch(e){
+			  dumpError("updateShopList",e);
+		  }			
     }
     
     function getShopListCount(){
-    	var deferred = $.Deferred();
-    	db.transaction(
-      		    function(transaction) {
-      		        transaction.executeSql("select count(*) as count from ShopLists ", [],
-      		        		function(transaction, result) {
-      		        	var count = result.rows.item(0).count;
-      		        	deferred.resolve(count);
-        		    }, function onError(error){
-        		    	console.log("Error trying to get count of shop lists!");
-        		    });
-      		 });    	
-	return deferred;
+    	try{
+	    	var deferred = $.Deferred();
+	    	db.transaction(
+	      		    function(transaction) {
+	      		        transaction.executeSql("select count(*) as count from ShopLists ", [],
+	      		        		function(transaction, result) {
+	      		        	var count = result.rows.item(0).count;
+	      		        	deferred.resolve(count);
+	        		    }, function onError(error){
+	        		    	console.log("Error trying to get count of shop lists!");
+	        		    });
+	      		 });    	
+	    	return deferred;
+    	}
+		catch(e){
+			  dumpError("getShopListCount",e);
+		  }			
     }
     
     
@@ -742,54 +846,79 @@
     */
     
     function deleteGoodItemsTable(){
+    	try{
     	   db.transaction(
            		function(transaction) { 
                		transaction.executeSql(
                		'delete from Goods')} ,
                		 onError, onSuccess);
+    	}
+		catch(e){
+			  dumpError("deleteGoodItemsTable",e);
+		  }			
     }
     function deleteGoodMeasuresTable(){
+    	try{
     	   db.transaction(
            		function(transaction) { 
                		transaction.executeSql(
                		'delete from Measures')} ,
                		 onError, onSuccess);
+    	}
+		catch(e){
+			  dumpError("deleteGoodMeasuresTable",e);
+		  }			
     }
     
     function deleteShopListsTable(){
- 	   db.transaction(
-        		function(transaction) { 
-            		transaction.executeSql(
-            		'delete from ShopLists')} ,
-            		 onError, onSuccess);
+    	try{
+	 	   db.transaction(
+	        		function(transaction) { 
+	            		transaction.executeSql(
+	            		'delete from ShopLists')} ,
+	            		 onError, onSuccess);
+    	}
+		catch(e){
+			  dumpError("deleteShopListsTable",e);
+		  }			
  }
     
 
     function deleteUserEnvironmentTable(){
- 	   db.transaction(
-        		function(transaction) { 
-            		transaction.executeSql(
-            		'delete from UserEnvironment')} ,
-            		 onError, onSuccess);
+    	try{
+	 	   db.transaction(
+	        		function(transaction) { 
+	            		transaction.executeSql(
+	            		'delete from UserEnvironment')} ,
+	            		 onError, onSuccess);
+    	}
+		catch(e){
+			  dumpError("deleteUserEnvironmentTable",e);
+		  }			
  }
     
   function addGoodItem(tag, value,measure,color,soundTranscription,json){
-	  db.transaction(
-	    	   function(transaction) { 
-	    	   		transaction.executeSql(
-	    	      		"INSERT OR REPLACE INTO Goods (tag, value, measure, color,soundTranscription, json) " +
-	    	      		" values ('"
-	    	       		+tag+"',"
-	    	       		+"'"+value+"',"
-	    	       		+"'"+measure+"',"
-	    	       		+"'"+color+"',"
-	    	       		+"'"+soundTranscription+"',"
-	    	       		+"'"+json+"')"
-	    	   		);},
-	    	     function onError(error){
-	    		    	console.log("Error trying to add good item!");
-
-	    		    },onSuccess);
+	  try{
+		  db.transaction(
+		    	   function(transaction) { 
+		    	   		transaction.executeSql(
+		    	      		"INSERT OR REPLACE INTO Goods (tag, value, measure, color,soundTranscription, json) " +
+		    	      		" values ('"
+		    	       		+tag+"',"
+		    	       		+"'"+value+"',"
+		    	       		+"'"+measure+"',"
+		    	       		+"'"+color+"',"
+		    	       		+"'"+soundTranscription+"',"
+		    	       		+"'"+json+"')"
+		    	   		);},
+		    	     function onError(error){
+		    		    	console.log("Error trying to add good item!");
+	
+		    		    },onSuccess);
+	  }
+		catch(e){
+			  dumpError("addGoodItem",e);
+		  }			
     }
     // таблица единиц измерения
  /*   tx.executeSql('CREATE TABLE IF NOT EXISTS Measures' 
@@ -797,79 +926,104 @@
 */
   
     function addGoodMeasure(index, name){
-    	 db.transaction(
-  	    	   function(transaction) { 
-  	    	   		transaction.executeSql(
-  	    	      		"INSERT OR REPLACE INTO Measures (id, name) " +
-  	    	      		" values ("
-  	    	       		+index+","
-  	    	       		+"'"+name+"')"
-  	    	   		);},
-  	    	     function onError(error){
-  	    		    	console.log("Error trying to add measure item!");
-  	    		    },onSuccess);
-    }
+    	try{
+	    	 db.transaction(
+	  	    	   function(transaction) { 
+	  	    	   		transaction.executeSql(
+	  	    	      		"INSERT OR REPLACE INTO Measures (id, name) " +
+	  	    	      		" values ("
+	  	    	       		+index+","
+	  	    	       		+"'"+name+"')"
+	  	    	   		);},
+	  	    	     function onError(error){
+	  	    		    	console.log("Error trying to add measure item!");
+	  	    		    },onSuccess);
+    	}
+		catch(e){
+			  dumpError("addGoodMeasure",e);
+		  }			
+	   }
     
     
     function getGoodItems(){
-    	var deferred = $.Deferred();
-    	db.transaction(
-  		    function(transaction) {
-  		        transaction.executeSql("SELECT * FROM Goods", [],
-  		        		function(transaction, result) {
-  		        	deferred.resolve(result);
-    		    }, onError);
-  		 });
-    	return deferred;
+    	try{
+	    	var deferred = $.Deferred();
+	    	db.transaction(
+	  		    function(transaction) {
+	  		        transaction.executeSql("SELECT * FROM Goods", [],
+	  		        		function(transaction, result) {
+	  		        	deferred.resolve(result);
+	    		    }, onError);
+	  		 });
+	    	return deferred;
+    	}
+		catch(e){
+			  dumpError("getGoodItems",e);
+		  }			
     }
     
     
     function getGoodItemsCount(){
-     	var deferred = $.Deferred();
-    	db.transaction(
-      		    function(transaction) {
-      		        transaction.executeSql("select count(*) as count from Goods ", [],
-      		        		function(transaction, result) {
-	      		        	var count = result.rows.item(0).count;
-	      		        	deferred.resolve(count);
-        		    }, function onError(error){
-        		    	console.log("Error trying to get count of goods!");
-        		    });
-      		 });    	
-	return deferred;
-    }
+    	try{
+	     	var deferred = $.Deferred();
+	    	db.transaction(
+	      		    function(transaction) {
+	      		        transaction.executeSql("select count(*) as count from Goods ", [],
+	      		        		function(transaction, result) {
+		      		        	var count = result.rows.item(0).count;
+		      		        	deferred.resolve(count);
+	        		    }, function onError(error){
+	        		    	console.log("Error trying to get count of goods!");
+	        		    });
+	      		 });    	
+	    	return deferred;
+    	}
+		catch(e){
+			  dumpError("getGoodItemsCount",e);
+		  }			
+	   }
     
     function getMeasure(index){
-    	var deferred = $.Deferred();
-    	db.transaction(
-  		    function(transaction) {
-  		        transaction.executeSql("SELECT * FROM Measures where index="+index, [],
-  		        		function(transaction, result) {
-  		        	deferred.resolve(result);
-    		    }, onError);
-  		 });
-    	return deferred;
+    	try{
+	    	var deferred = $.Deferred();
+	    	db.transaction(
+	  		    function(transaction) {
+	  		        transaction.executeSql("SELECT * FROM Measures where index="+index, [],
+	  		        		function(transaction, result) {
+	  		        	deferred.resolve(result);
+	    		    }, onError);
+	  		 });
+	    	return deferred;
+    	}
+		catch(e){
+			  dumpError("getMeasure",e);
+		  }			
     }
     
     // обнуляем и инициализируем бд заново!
     function updateDatabase(){
-    	//вычищаем таблицы
-    	clearBillsTable();
-    	deleteGoodItemsTable();
-    	deleteGoodMeasuresTable();
-    	deleteShopListsTable();
-    	deleteUserEnvironmentTable();
-    	window.localStorage.removeItem("CurrentShopListNum");
-    	getGoodItemsCount().done(function(res){
-				requestShopLists().done(function(){
-					requestGoodItems().done(function(){
-						requestGoodMeasures().done(function(){
-							requestUserEnvironment().done(function(){
-								updateMainPage();
+    	try{
+	    	//вычищаем таблицы
+	    	clearBillsTable();
+	    	deleteGoodItemsTable();
+	    	deleteGoodMeasuresTable();
+	    	deleteShopListsTable();
+	    	deleteUserEnvironmentTable();
+	    	window.localStorage.removeItem("CurrentShopListNum");
+	    	getGoodItemsCount().done(function(res){
+					requestShopLists().done(function(){
+						requestGoodItems().done(function(){
+							requestGoodMeasures().done(function(){
+								requestUserEnvironment().done(function(){
+									updateMainPage();
+								});
 							});
 						});
 					});
-				});
-    	});
+	    	});
+    	}
+		catch(e){
+			  dumpError("updateDatabase",e);
+		  }	
     }
     

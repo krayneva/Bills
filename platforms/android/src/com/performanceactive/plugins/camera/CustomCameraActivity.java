@@ -1326,7 +1326,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 	    	Bundle bundle = new Bundle();
 	    	bundle.putInt("imageCount", bitmaps.size());
             AppEventsLogger logger = AppEventsLogger.newLogger(context);
-           logger.logEvent("Capture event", bundle);
+            logger.logEvent("Capture event", bundle);
 	    	
 	    	bitmaps.clear();
 	    	System.gc();

@@ -127,7 +127,6 @@ body {
 	color: #fff;
 }
 .ui-page {
-	padding-top: 75px;
 	height: 100%;
 	box-sizing: border-box;
 }
@@ -738,9 +737,6 @@ label.error {
 	.ui-label {
 		padding-left: 30px;
 	}
-	.ui-page {
-		padding-top: 50px;
-	}
 	.ui-header-w,
 	.ui-collapsible-heading,
 	.ui-collapsible-heading-toggle,
@@ -821,9 +817,6 @@ label.error {
 @media (max-width: 400px){
 	*{
 	font-size: 12px;
-	}
-	.ui-page {
-		padding-top: 40px;
 	}
 	.ui-label,
 	.ui-label a {

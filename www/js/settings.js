@@ -36,24 +36,35 @@ var SERVER_ADDRESS_DEFAULT = "https://billview.cloudapp.net/rec/";
 //http://ryoga.esed.kodeks.ru/ReceiptsAPI/
 
 function removeSetting(setting){
-	window.localStorage.removeItem(setting);
+	try{
+		window.localStorage.removeItem(setting);
+	}
+    catch(e){
+    	dumpError("removeSetting",e);
+    }
+
 }
 
 // сохранение всех настроек с экрана настроек
 function saveSettings(){
+	try{
+		var quality = document.getElementById("jpegQualitySetting").value;
+		var colorMode = document.getElementById("colorModeSetting").value;
+		var outputWidth = document.getElementById("outputWidthSetting").value;
+		if (outputWidth==0)  outputWidth = "";
+		if (outputWidth=="undefined") outputWidth = "";
+		putSetting(SETTING_JPEG_QUALITY, quality);
+		putSetting(SETTING_COLOR_MODE, colorMode);
+		putSetting(SETTING_OUTPUT_WIDTH, outputWidth);
+		
+		console.log(getSetting(SETTING_JPEG_QUALITY));
+		console.log(getSetting(SETTING_OUTPUT_WIDTH));
+		console.log(getSetting(SETTING_COLOR_MODE));
+	}
+    catch(e){
+    	dumpError("saveSettings",e);
+    }
 
-	var quality = document.getElementById("jpegQualitySetting").value;
-	var colorMode = document.getElementById("colorModeSetting").value;
-	var outputWidth = document.getElementById("outputWidthSetting").value;
-	if (outputWidth==0)  outputWidth = "";
-	if (outputWidth=="undefined") outputWidth = "";
-	putSetting(SETTING_JPEG_QUALITY, quality);
-	putSetting(SETTING_COLOR_MODE, colorMode);
-	putSetting(SETTING_OUTPUT_WIDTH, outputWidth);
-	
-	console.log(getSetting(SETTING_JPEG_QUALITY));
-	console.log(getSetting(SETTING_OUTPUT_WIDTH));
-	console.log(getSetting(SETTING_COLOR_MODE));
 }
 
 
@@ -61,18 +72,26 @@ function saveSettings(){
  * сохранение настройки адреса сервера
  */
 function saveConnectionSettings(){
-	var serverAddress = document.getElementById("serverAddress").value;
-	if (serverAddress =="") serverAddress = SERVER_ADDRESS_DEFAULT;
-	//putSetting(SETTING_SERVER_ADDRESS, serverAddress);
-	window.localStorage.setItem(SETTING_SERVER_ADDRESS, serverAddress);
-	
+	try{
+		var serverAddress = document.getElementById("serverAddress").value;
+		if (serverAddress =="") serverAddress = SERVER_ADDRESS_DEFAULT;
+		//putSetting(SETTING_SERVER_ADDRESS, serverAddress);
+		window.localStorage.setItem(SETTING_SERVER_ADDRESS, serverAddress);
+	}
+    catch(e){
+    	dumpError("saveConnectionSettings",e);
+    }
 }
 
 function getSettingFromStorage(setting,defaultValue){
-	var res = window.localStorage.getItem(setting);
-	if (res!=undefined)
-		return res;
-	else return defaultValue;
-	
+	try{
+		var res = window.localStorage.getItem(setting);
+		if (res!=undefined)
+			return res;
+		else return defaultValue;
+	}
+    catch(e){
+    	dumpError("getSettingFromStorage",e);
+    }
 }
 
