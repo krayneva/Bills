@@ -224,7 +224,7 @@ function updateWidgets(){
 			for (var j=0;j<res.rows.length;j++){
 			var w = jQuery.parseJSON(res.rows.item(j).json);
 			// пропускаем кошельки
-			if (w.Type==0) continue
+			if (w.Type==0) continue;
 			  //var w = json.Widgets[k];
 			 // alert("Widget "+w.Name+" left: "+w.Left+" top:"+w.Top+" interest:"+w.Percent);
 			  var widget = document.getElementById("widget".concat(w.Left,w.Top));
