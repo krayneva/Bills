@@ -218,13 +218,6 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/org.apache.cordova.device/www/device.js",
-        "id": "org.apache.cordova.device.device",
-        "clobbers": [
-            "device"
-        ]
-    },
-    {
         "file": "plugins/cordova-plugin-whitelist/whitelist.js",
         "id": "cordova-plugin-whitelist.whitelist",
         "runs": true
@@ -242,6 +235,13 @@ module.exports = [
         "clobbers": [
             "facebookConnectPlugin"
         ]
+    },
+    {
+        "file": "plugins/org.apache.cordova.device/www/device.js",
+        "id": "org.apache.cordova.device.device",
+        "clobbers": [
+            "device"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -253,12 +253,12 @@ module.exports.metadata =
     "org.apache.cordova.file-transfer": "0.4.8",
     "org.apache.cordova.network-information": "0.2.14",
     "org.apache.cordova.splashscreen": "0.3.5",
-    "org.apache.cordova.device": "0.3.0",
     "cordova-plugin-crosswalk-webview": "1.2.0",
     "cordova-plugin-whitelist": "1.0.1-dev",
     "com.ionic.keyboard": "1.0.4",
     "com.appblade.cordova.plugin": "0.9.0",
-    "com.phonegap.plugins.facebookconnect": "0.11.0"
+    "com.phonegap.plugins.facebookconnect": "0.11.0",
+    "org.apache.cordova.device": "0.3.0"
 }
 // BOTTOM OF METADATA
 });

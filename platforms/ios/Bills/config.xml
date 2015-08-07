@@ -31,9 +31,6 @@
     <feature name="NetworkStatus">
         <param name="ios-package" value="CDVConnection" />
     </feature>
-    <feature name="Device">
-        <param name="ios-package" value="CDVDevice" />
-    </feature>
     <feature name="Keyboard">
         <param name="ios-package" onload="true" value="IonicKeyboard" />
     </feature>
@@ -45,6 +42,9 @@
         <param name="onload" value="true" />
     </feature>
     <plugin name="FacebookConnectPlugin" value="FacebookConnectPlugin" />
+    <feature name="Device">
+        <param name="ios-package" value="CDVDevice" />
+    </feature>
     <name>Bills</name>
     <description>
         Application for financial accounting
@@ -58,6 +58,7 @@
     <access origin="https://*.fbcdn.net" />
     <access origin="https://*.akamaihd.net" />
     <preference name="permissions" value="none" />
+    <preference name="BackupWebStorage" value="local" />
     <preference name="phonegap-version" value="3.5.0" />
     <preference name="orientation" value="portrait" />
     <preference name="target-device" value="universal" />

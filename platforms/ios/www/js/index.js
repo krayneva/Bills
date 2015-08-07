@@ -34,11 +34,9 @@ var app = {
     // function, we must explicitly call 'app.receivedEvent(...);'
     onDeviceReady: function() {
         app.receivedEvent('deviceready');
-        console.log("ON DEVICE READY!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         plugins.appBlade.setupAppBlade('593a33fc-2d22-418c-967a-a2ff60e40da6','a676f0fc1be603eb9db15316490a605c', '28bfa152cbb25ce82f447784994addc7', '1419938400');
         plugins.appBlade.catchAndReportCrashes();
         plugins.appBlade.allowFeedbackReporting();
-        plugins.appBlade.showFeedbackDialog("true");	
       
 
     },

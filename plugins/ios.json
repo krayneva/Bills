@@ -111,10 +111,6 @@
                             "count": 1
                         },
                         {
-                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
-                            "count": 1
-                        },
-                        {
                             "xml": "<feature name=\"Keyboard\"><param name=\"ios-package\" onload=\"true\" value=\"IonicKeyboard\" /></feature>",
                             "count": 1
                         },
@@ -148,6 +144,10 @@
                         },
                         {
                             "xml": "<access origin=\"https://*.akamaihd.net\" />",
+                            "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
                             "count": 1
                         }
                     ]
@@ -200,9 +200,6 @@
             "PACKAGE_NAME": "ru.krayneva.bills"
         },
         "org.apache.cordova.splashscreen": {},
-        "org.apache.cordova.device": {
-            "PACKAGE_NAME": "ru.krayneva.bills"
-        },
         "cordova-plugin-crosswalk-webview": {
             "PACKAGE_NAME": "com.checkomatic"
         },
@@ -215,6 +212,9 @@
         "com.phonegap.plugins.facebookconnect": {
             "APP_ID": "1471431413171503",
             "APP_NAME": "Check-A-Matic",
+            "PACKAGE_NAME": "com.checkomatic"
+        },
+        "org.apache.cordova.device": {
             "PACKAGE_NAME": "com.checkomatic"
         }
     },
