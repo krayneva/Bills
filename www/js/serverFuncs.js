@@ -290,7 +290,7 @@ function uploadPhoto() {
 	    	            data: [],       
 	    	            success: function(response, textStatus, jqXHR) {
 	    	            //	alert("user environment success!");
-	    	             //  alert(jqXHR.responseText);
+	    	            //   alert(jqXHR.responseText);
 	    	            	if (debugMode==true)
 	    	            		console.log("request user environment: "+jqXHR.responseText);
 	    	               //putSetting(SETTING_USER_ENVIRONMENT,jqXHR.responseText);
@@ -825,8 +825,9 @@ function uploadPhoto() {
     
     
     function onServerRequestError(jqXHR, textStatus, errorThrown){
+    	var deferred = $.Deferred();
     	try{
-	    	var deferred = $.Deferred();
+	    	
 	    	if (authCount==2){
 		    	    $.mobile.loading("hide");
 		    	  // alert("Ошибка авторизации");
@@ -921,6 +922,9 @@ function uploadPhoto() {
     	}
 	    catch(e){
 	    	dumpError("onServerRequestError",e);
+	      	deferred.resolve(SERVER_ERROR_OTHER);
+	      	return deferred;
+	    	
 	    }
 
     }

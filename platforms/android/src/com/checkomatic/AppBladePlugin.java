@@ -14,6 +14,7 @@ import org.json.JSONObject;
 
 import android.os.Looper;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.appblade.framework.AppBlade;
 import com.appblade.framework.customparams.CustomParamData;
@@ -49,6 +50,7 @@ public class AppBladePlugin extends CordovaPlugin {
 	public static final String SETCUSTOMPARAMETER="setCustomParameter";
 	public static final String SETALLCUSTOMPARAMETERS="setCustomParameters";
 	public static final String CLEARCUSTOMPARAMETERS="clearCustomParameters";
+	public static final String SENDFEEDBACKDATA="sendFeedbackData";
 
 	@Override
 	public boolean execute(String action, JSONArray args, CallbackContext callbackContext) throws JSONException {
@@ -70,12 +72,13 @@ public class AppBladePlugin extends CordovaPlugin {
 	    	//do nothing since it's a valid call but no setup is required for Android
 	    }
 	    else if (SHOWFEEDBACKDIALOG.equals(action)) {
-	    	boolean includeScreenshot = true; 
+	    	boolean includeScreenshot = false; 
 	    	if(args.length() == 1)
 	    	{
 	    		includeScreenshot = !(SHOWFEEDBACKDIALOG_NOSCREENSHOTCHECK.equals(args.getString(0).toLowerCase(Locale.US)));
 	    	}
-	    	includeScreenshot = true;
+	    	else
+	    		includeScreenshot = true;
 			showFeedbackDialog(callbackContext, includeScreenshot);
 	    }
 	    else if (STARTSESSION.equals(action)) {
@@ -96,6 +99,7 @@ public class AppBladePlugin extends CordovaPlugin {
 	    else if (CLEARCUSTOMPARAMETERS.equals(action)) {
 	    	clearAllCustomParameters(callbackContext);
 	    }
+	  
 	  /*  else if (CATCHANDREPORTCRASHES.equals(action)) {
 	    	Log.w("CRASH REPO","NOTHING IS DONE ON register CATCH CRAsh");
 	    }*/
@@ -142,25 +146,42 @@ public class AppBladePlugin extends CordovaPlugin {
 	}
 
 	private void showFeedbackDialog(final CallbackContext callbackContext, boolean includeScreenshot) {
-		//if(includeScreenshot)
-		//{
+		if(includeScreenshot)
+		{
 			cordova.getActivity().runOnUiThread(new Runnable() {
 	       public void run() {
 	            AppBlade.doFeedbackWithScreenshot(cordova.getActivity(), cordova.getActivity().getCurrentFocus());
 	            callbackContext.success();
 	       		}
 			});
-	/*	} 
+		} 
 		else 
 		{ 
 			cordova.getActivity().runOnUiThread(new Runnable() {
 			       public void run() {
-	        AppBlade.doFeedback(cordova.getActivity());
+	      //  AppBlade.doFeedback(cordova.getActivity());
+			AppBlade.sendFeedbackData(cordova.getActivity(), "exception caught",cordova.getActivity().getCurrentFocus().getDrawingCache());
+	        callbackContext.success();
+	        
+			       }
+			});
+		}
+	}
+	
+	
+	private void sendFeedbackData(final CallbackContext callbackContext) {
+			Toast.makeText(cordova.getActivity(),"without!", Toast.LENGTH_LONG).show();
+			cordova.getActivity().runOnUiThread(new Runnable() {
+			       public void run() {
+	      //  AppBlade.doFeedback(cordova.getActivity());
+			AppBlade.sendFeedbackData(cordova.getActivity(), "exception caught",cordova.getActivity().getCurrentFocus().getDrawingCache());
 	        callbackContext.success();
 			       }
 			});
-		}*/
 	}
+	
+	
+	
 
 	private void startSession(final CallbackContext callbackContext) {
 		cordova.getThreadPool().execute(new Runnable() {
