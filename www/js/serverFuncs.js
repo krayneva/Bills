@@ -94,7 +94,10 @@ function uploadPhoto() {
 
     function onFileUploadSuccess(r) {
     	try{
+    		alert(r.response);
 	    	setBillSent(currentRowID);
+	    	var s = r.response.replace(/"/g,"");
+	    	setBillUID(currentRowID,s);
 	    	$.mobile.loading("hide");
 	        uploadPhoto();
     	}
@@ -355,9 +358,11 @@ function uploadPhoto() {
 	                },
 	    	            data: [],       
 	    	            success: function(response, textStatus, jqXHR) {
-	    	               if (debugMode==true)console.log(jqXHR.responseText);
+	    	               if (debugMode==true)
+	    	            	   console.log(jqXHR.responseText);
 	    	         //      alert(jqXHR.responseText);
 	    	           		var json = jQuery.parseJSON(jqXHR.responseText);
+	    	     
 	    	           		/*for (var k in json) {
 	    	           		  var transaction = json[k];
 	    	           		  var id = transaction.Id;
@@ -977,3 +982,79 @@ function uploadPhoto() {
 	    }
 
     }
+    
+    
+    /** получение образа чека
+     * @param uid уид образа
+     * @returns
+     */
+    function getImage(uid){
+    	var deferred = $.Deferred();
+    	try{
+	    	
+	    	$.mobile.loading("show",{
+	    		text: "Загрузка образа",
+	    		textVisible: true,
+	    		theme: 'e',
+	    	});
+	    	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
+	    		var serverAddress = res;
+	    		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
+	    		var userToken = uToken;
+	    		
+	    	    var fileTransfer = new FileTransfer();
+	    	    var uri = encodeURI(serverAddress+getPhotoURL+uid);
+	    		var filePath =  receivedPhotoDir +uid;
+
+	    	    fileTransfer.download(
+	    	            uri,
+	    	            filePath,
+	    	            function(entry) {
+	    	                $.mobile.loading("hide");
+                		    deferred.resolve();
+	    	            },
+	    	            function(error) {
+	    	                console.log("download error source " + error.source);
+	    	                console.log("download error target " + error.target);
+	    	                console.log("download error code" + error.code);
+	    	            	   $.mobile.loading("hide");
+	    	            	   showErrorDialog("download error source " + error.source +" "+error.target+" "+error.code);
+	                		   deferred.resolve();
+
+	    	            },
+	    	            true,
+	    	            {
+	    	                headers: {
+	    	                    "Authorization":"Bearer "+userToken
+	    	                }
+	    	            }
+	    	        );
+	    		
+
+	    		});
+	    	});
+	    	
+    	}
+	    catch(e){
+	    	dumpError("getImage",e);
+	    }
+	    return deferred;
+    }
+    /*
+     * cordova.file.dataDirectory - 
+     * Persistent and private data storage within the application's sandbox using internal memory 
+     * (on Android, if you need to use external memory, use .externalDataDirectory).
+     *  On iOS, this directory is not synced with iCloud (use .syncedDataDirectory).
+     *   (iOS, Android, BlackBerry 10)
+
+
+	cordova.file.cacheDirectory - 
+	Directory for cached data files or any files that your app can re-create easily. 
+	The OS may delete these files when the device runs low on storage, nevertheless,
+	 apps should not rely on the OS to delete files in here. (iOS, Android, BlackBerry 10)
+     */
+    
+    
+
+
+

@@ -9,6 +9,8 @@
 			 if (db==0) {
 				 requestTransactionPageCount = 0;
 				 window.localStorage.removeItem("CurrentShopListNum");
+				  window.localStorage.removeItem(RECEIPT_ID_KEY);
+				  window.localStorage.removeItem(TRANSACTION_ID_KEY);
 			      db = window.openDatabase("Checomatic_"+dbName, "1.0", "Checkomatic_"+dbName, 200000);
 				  db.transaction(populateDB, onError, onSuccess);
 			      putSetting(SETTING_DB_NAME, dbName);
@@ -17,6 +19,9 @@
 				 var usingName = getSetting(SETTING_DB_NAME);
 				 if (usingName!= dbName){
 					 window.localStorage.removeItem("CurrentShopListNum");
+					  window.localStorage.removeItem(RECEIPT_ID_KEY);
+					  window.localStorage.removeItem(TRANSACTION_ID_KEY);
+
 					 requestTransactionPageCount = 0;
 				      db = window.openDatabase("Checomatic_"+dbName, "1.0", "Checkomatic_"+dbName, 200000);
 					  db.transaction(populateDB, onError, onSuccess);
@@ -44,13 +49,13 @@
     //	 tx.executeSql('DROP TABLE IF EXISTS ShopLists');
          tx.executeSql('CREATE TABLE IF NOT EXISTS Bills' 
         		 		+'(id integer primary key autoincrement,name, description,'
-        		 		+'createdate,path, sent, latitude,longitude,altitude)');
+        		 		+'createdate,path, sent, latitude,longitude,altitude,uid)');
      //    tx.executeSql('INSERT INTO Bills (id, name, description,path) VALUES (1, "пїЅпїЅпїЅпїЅ 1","пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ 1","/mnt/sdcard/test.jpg")');
      //    tx.executeSql('INSERT INTO Bills (id, name, description,path) VALUES (2, "пїЅпїЅпїЅпїЅ 2","пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ 2","/mnt/sdcard/test.jpg")');
          tx.executeSql('CREATE TABLE IF NOT EXISTS UserEnvironment' 
  		 		+' (id integer primary key autoincrement,environment)');
          tx.executeSql('CREATE TABLE IF NOT EXISTS Transactions' 
-  		 		+' (id text primary key,transactionJSON, purseID, transactionDate, categoryID)');
+  		 		+' (id text primary key,transactionJSON, purseID, transactionDate, categoryID, receiptImageID)');
     
          tx.executeSql('CREATE TABLE IF NOT EXISTS Widgets' 
    		 		+' (id text primary key,json)');
@@ -163,6 +168,28 @@
 			  dumpError("setBillSent",e);
 		  }			
       
+    }
+    
+    
+    /**установка уида для отправленного чека - для привязки к фото
+     * @param billID айдишник чека 
+     * @param uid уид чека, фото
+     */
+    function setBillUID(billID, uid){
+    	try{
+            db.transaction(
+    	    		function(transaction) { 
+    	        		transaction.executeSql(
+    	        		'UPDATE Bills set uid="'+uid+'" where id='+billID);} ,
+    	        		 onError, onSuccess);
+    	}
+    	catch(e){
+    		var json = new Object();
+    		json.billID = billID;
+    		json.billUID = uid;
+    		dumpError("setBillSent",e,json);
+    	}
+    	
     }
 
     
@@ -291,16 +318,17 @@
     /** добавление данных о транзакциях пользователя
      * @param transaction
      */
-    function addTransaction(i,json,id,transactionJSON, purseID, transactionDate, categoryID){
+    function addTransaction(i,json,id,transactionJSON, purseID, transactionDate, categoryID, receiptImageID){
     	try{
 	    	var deferred = $.Deferred();
-	    	var sql=  "INSERT OR REPLACE INTO Transactions (id, transactionJSON, purseID,transactionDate, categoryID) " +
+	    	var sql=  "INSERT OR REPLACE INTO Transactions (id, transactionJSON, purseID,transactionDate, categoryID, receiptImageID) " +
 			" values ("
 			+"'"+id+"',"
 			+"'"+transactionJSON.replace(/'/g,"''")+"',"
 			+"'"+purseID+"',"
 			+"'"+transactionDate+"',"
-			+"'"+categoryID+
+			+"'"+categoryID+"',"
+			+"'"+receiptImageID+
 			"')";
 	        db.transaction(
 	    		function(transaction) { 
@@ -330,7 +358,8 @@
 	    	var purseID = transaction.PurseID;
 	    	var transactionDate = transaction.TransactionDate;
 	    	var categoryID = transaction.CategoryID;
-	       	addTransaction(i,json,id,JSON.stringify(transaction), purseID, transactionDate, categoryID).done(function(i, json){
+	    	var receiptImageID =  transaction.ReceiptImageID;
+	       	addTransaction(i,json,id,JSON.stringify(transaction), purseID, transactionDate, categoryID, receiptImageID).done(function(i, json){
 	       		if (i==json.length-1) {
 	  	   			deferred.resolve(''); 
 	  	   			return deferred;
@@ -1025,5 +1054,24 @@
 		catch(e){
 			  dumpError("updateDatabase",e);
 		  }	
+    }
+    
+    function getReceiptID(transactionID){
+    	var deferred = $.Deferred();
+    	try{
+	    	db.transaction(
+	  		    function(transaction) {
+	  		        transaction.executeSql('SELECT * FROM Transactions where id="'+transactionID+'"', [],
+	  		        		function(transaction, result) {
+	  		        	deferred.resolve( result.rows.item(0).receiptImageID);
+	    		    }, onError);
+	  		 });
+	    	
+
+    	}
+		catch(e){
+			  dumpError("getReceiptID",e);
+		  }
+    	return deferred;
     }
     

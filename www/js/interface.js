@@ -120,11 +120,16 @@ function refershBillSendStatus(rowID){
 		  }	
 	}
 	
-	function showCheck(billID){
+	function showCheckPage(transactionID){
 		try{
 		    currentPage = "pageCheck";
-		    window.localStorage.setItem(BILL_ID_KEY, billID);
-			$.mobile.pageContainer.pagecontainer( "change", "check.html",{transition:"none"});
+		    getReceiptID(transactionID).done(function(res){
+		    	var receiptID = res;
+			    window.localStorage.setItem(RECEIPT_ID_KEY, receiptID);
+			    window.localStorage.setItem(TRANSACTION_ID_KEY, transactionID);
+				$.mobile.pageContainer.pagecontainer( "change", "check.html",{transition:"none"});
+		    	 
+		    });
 		}
 		catch(e){
 			  dumpError("showCheck",e);

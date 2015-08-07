@@ -74,12 +74,18 @@ var MeasureEnum = {
 */
 
 function getCurrencyString(currency){
-	switch(currency){
-	case 2:
-		return "ð.";
-	case 1:
-		return "$";
-	case 3:
-		return "&#8364;";
+	try{
+		switch(currency){
+		case 2:
+			return "ð.";
+		case 1:
+			return "$";
+		case 3:
+			return "&#8364;";
+		}
 	}
+    catch(e){
+    	dumpError("getCurrencyString",e);
+    }
+
 }

@@ -146,6 +146,7 @@ function requestAndUpdateTransactionPage(){
 function updateTransactionPage(){
 	try{
 		var deferred = $.Deferred();
+
 		getTransactions().done(function(result){
 			if ((result.rows.length==0)&(requestTransactionPageCount==0)){
 				requestAndUpdateTransactionPage();
@@ -157,14 +158,14 @@ function updateTransactionPage(){
 			}
 		});
 		
-		//$('#expensesList').html('');
+
 		 var categoryID =  window.localStorage.getItem(CATEGORY_ID_KEY);
 		 getWidget(categoryID).done(function(result){
 			  var json = jQuery.parseJSON(result);
 				$('#categoryTitle').html(json.Name);	
 			});
 			getTransactionsByCategoryID(categoryID).done(function(result){
-				$('#expensesList').html('');
+			
 				var start = +new Date();  // log start timestamp
 	            var totalAmount = 0;
 	            var lastAmount = 0;
