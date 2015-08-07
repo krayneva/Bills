@@ -126,8 +126,7 @@ body {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#f69b96', endColorstr='#dd8580',GradientType=0 ); /* IE6-9 */
 	color: #fff;
 }
-.ui-page.pageWithHeader{
-	padding-top: 75px;
+.ui-page {
 	height: 100%;
 	box-sizing: border-box;
 }
@@ -189,12 +188,14 @@ body {
 }
 .ui-btn-menu {
 	background-image: url("images/menu.png") !important;
-	background-position: center center;
-	background-repeat: no-repeat;
-	height: 100%;
+	background-position: center center !important;
+	background-repeat: no-repeat !important;
+	height: 100% !important;
 	right: 0 !important;
 	left: auto !important;
-	width: 50px;
+	width: 80px !important;
+	border: none !important;
+	border-radius: 0 !important;
 }
 .ui-header-w {
 	position: absolute !important;
@@ -718,9 +719,16 @@ label.error {
 	height: 100%;
 }
 
+.ui-page.pageWithHeader {
+	padding-top: 75px;
+}
+
 @media (max-width: 640px) and (min-width: 400px){
 	* {
 		font-size: 12px;
+	}
+	.ui-page.pageWithHeader {
+		padding-top: 50px;
 	}
 	.ui-label,
 	.ui-label a {
@@ -728,9 +736,6 @@ label.error {
 	}
 	.ui-label {
 		padding-left: 30px;
-	}
-	.ui-page.pageWithHeader {
-		padding-top: 50px;
 	}
 	.ui-header-w,
 	.ui-collapsible-heading,
@@ -805,13 +810,23 @@ label.error {
 	.check-all-details dd:after {
 		background-size: 35%;
 	}
+	.ui-btn-menu {
+		width: 60px !important;
+	}
 }  
 @media (max-width: 400px){
 	*{
-	font-size: 9px;
+	font-size: 12px;
 	}
-	.ui-page.pageWithHeader{
+	.ui-label,
+	.ui-label a {
+		line-height: 16px;
+	}
+	.ui-page.pageWithHeader {
 		padding-top: 40px;
+	}
+	.ui-label {
+		padding-left: 30px;
 	}
 	.ui-header-w,
 	.ui-collapsible-heading,
@@ -886,5 +901,8 @@ label.error {
 	}
 	.check-all-details dd:after {
 		background-size: 35%;
+	}
+	.ui-btn-menu {
+		width: 60px !important;
 	}
 }

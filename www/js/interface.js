@@ -1,155 +1,95 @@
 function refreshBills() {
-  if (!db){
-       $('#billsHeader').html('Не сохранено ни одного чека');
-      $('#uploadButton').hide();
-      $('#clearBillsButton').hide();
-       return;
-    }
-    
-    db.transaction(
-    function(transaction) {
-        transaction.executeSql('SELECT * FROM Bills;', [], function(transaction, result) {
-        	 $('#billList').html('');
-
-        		 
-            for (var i = 0; i < result.rows.length; i++) {
-             d = new Date();
-                var row = result.rows.item(i);
-                $('#billList').append(
-		      	'<li onclick = "showCheck('+row.id+')">'
-		       +'<a href="#">'
-		        +'<img src="'+row.path+"?"+d.getTime()+'" width = "70">'
-		        +'<h4>'+row.name+" "+row.id+'</h4>'
-		        +'<p>'+formatDate(row.createdate)+'</p>'
-		        +'<p><img id="uploadImage'+row.id+'" width = "20"></img>'
-		        +'<h5 id="uploadProgress'+row.id+'">asdfasd</h5>' 
-		        +'</p>'
-		        +'</a>'
-		      +'</li>'); 
-                if (row.sent==1){
-                	 $('#uploadImage'+row.id).attr('src','img/cameraoverlay/send.png');
-                	 $('#uploadProgress'+row.id).hide();
-                }
-                else{
-                	$('#uploadImage'+row.id).attr('src','img/cameraoverlay/upload_blue.png');
-                	$('#uploadProgress'+row.id).hide();
-                }
-                
-		       $('#billList').listview('refresh');
-            }
-            if (result.rows.length>0){
-              $('#billsHeader').html('Список чеков');
-              $('#uploadButton').show();
-              $('#clearBillsButton').show();
-            }
-            else{
-             $('#billsHeader').html('Не сохранено ни одного чека');
-             $('#uploadButton').hide();
-             $('#clearBillsButton').hide();
-            }
-        }, onError);
-    });
+	try{
+	  if (!db){
+	       $('#billsHeader').html('Не сохранено ни одного чека');
+	      $('#uploadButton').hide();
+	      $('#clearBillsButton').hide();
+	       return;
+	    }
+	    
+	    db.transaction(
+	    function(transaction) {
+	        transaction.executeSql('SELECT * FROM Bills;', [], function(transaction, result) {
+	        	 $('#billList').html('');
+	
+	        		 
+	            for (var i = 0; i < result.rows.length; i++) {
+	             d = new Date();
+	                var row = result.rows.item(i);
+	                $('#billList').append(
+			      	'<li onclick = "showCheck('+row.id+')">'
+			       +'<a href="#">'
+			        +'<img src="'+row.path+"?"+d.getTime()+'" width = "70">'
+			        +'<h4>'+row.name+" "+row.id+'</h4>'
+			        +'<p>'+formatDate(row.createdate)+'</p>'
+			        +'<p><img id="uploadImage'+row.id+'" width = "20"></img>'
+			        +'<h5 id="uploadProgress'+row.id+'">asdfasd</h5>' 
+			        +'</p>'
+			        +'</a>'
+			      +'</li>'); 
+	                if (row.sent==1){
+	                	 $('#uploadImage'+row.id).attr('src','img/cameraoverlay/send.png');
+	                	 $('#uploadProgress'+row.id).hide();
+	                }
+	                else{
+	                	$('#uploadImage'+row.id).attr('src','img/cameraoverlay/upload_blue.png');
+	                	$('#uploadProgress'+row.id).hide();
+	                }
+	                
+			       $('#billList').listview('refresh');
+	            }
+	            if (result.rows.length>0){
+	              $('#billsHeader').html('Список чеков');
+	              $('#uploadButton').show();
+	              $('#clearBillsButton').show();
+	            }
+	            else{
+	             $('#billsHeader').html('Не сохранено ни одного чека');
+	             $('#uploadButton').hide();
+	             $('#clearBillsButton').hide();
+	            }
+	        }, onError);
+	    });
+	}
+	catch(e){
+		  dumpError("refreshBills",e);
+	  }	
   
 }
 
-/*var expenses = {
-		"expenses":[
-		{"title": "День рождения",
-			"comment": "Билеты в парк отдыха на четверых",
-			"date": "06.12.2014",
-			"time": "14:17",
-			"cost": "4000"}
-		+"{\"title\": \"Игрушка\",comment: \"Купил игрушку для дочки\",date: \"13.11.2014\","
-		+"\"time\": \"12:28\",\"cost\": \"525\"},"
-
-		+"{\"title\": \"Бильярд\",\"comment\": \"Поход в бильярд на 1.5 часа\",\"date\": \"13.11.2014\","
-		+"\"time\": \"20:29\",\"cost\": \"1000\"},"
-
-		+"{\"title\": \"Поход в кино\",\"comment\": \"2 билета на фильм\",\"date\": \"10.11.2014\","
-		+"\"time\": \"19.30\",\"cost\": \"900\"}"
-
-		
-		]};*/
-
- 
-
-var dictionary = {
-	 /*   "employee1":[
-	        {"id":"0","name":"Google"},
-	        {"id":"1","name":"eBay"}
-	    ],
-	    "employee2": [
-	        {"id":"2","name":"Yahoo"},
-	        {"id":"3","name":"Facebook"}
-	    ]*/
-	};
-
-function refreshExpenses(){
-	/*var json = '{"expenses":[{"title": "День рождения","comment": "Билеты в парк отдыха на четверых","date": "06.12.2014","time": "14:17","cost": "4000"}]}';
-    obj = JSON.parse(json);
-
-	alert(obj.count);
-	alert(obj.expenses.count);*/
-//	var exp = JSON.parse(dictionary);
-/*	for (var i=0; i<exp.length;i++){
-		alert(exp[i]);
-	}*/
-   /* for (var i = 0; i < result.rows.length; i++) {
-     d = new Date();
-        var row = result.rows.item(i);
-        $('#billList').append(
-      	'<li onclick = "showCheck('+row.id+')">'
-       +'<a href="#">'
-        +'<img src="'+row.path+"?"+d.getTime()+'" width = "70">'
-        +'<h4>'+row.name+" "+row.id+'</h4>'
-        +'<p>'+formatDate(row.createdate)+'</p>'
-        +'<p><img id="uploadImage'+row.id+'" width = "20"></img>'
-        +'<h5 id="uploadProgress'+row.id+'">asdfasd</h5>' 
-        +'</p>'
-        +'</a>'
-      +'</li>');
-        if (row.sent==1){
-        	 $('#uploadImage'+row.id).attr('src','img/cameraoverlay/send.png');
-        	 $('#uploadProgress'+row.id).hide();
-        }
-        else{
-        	$('#uploadImage'+row.id).attr('src','img/cameraoverlay/upload_blue.png');
-        	$('#uploadProgress'+row.id).hide();
-        }
-        
-       $('#billList').listview('refresh');
-    }
-	*/
-}
-
 function refershBillSendStatus(rowID){
-    if (!db) return;
-    db.transaction(
-        function(transaction) {
-        transaction.executeSql('SELECT * FROM Bills;', [], function(transaction, result) {
-                for (var i = 0; i < result.rows.length; i++) {
-                    var row = result.rows.item(i);
-                    if (row.id==rowID){
-                               if (row.sent==1){
-                                    $('#uploadImage'+row.id).attr('src','img/cameraoverlay/send.png');
-                                    $('#uploadProgress'+row.id).hide();
-                               }
-                               else{
-                                    $('#uploadImage'+row.id).attr('src','img/cameraoverlay/upload_blue.png');
-                                    $('#uploadProgress'+row.id).hide();
-                                }
-                               break;
-                               }
-                               else{
-                               continue;
-                               }
-                                          
-                        $('#billList').listview('refresh');
-                        }
-                               
-                        }, onError);
- 
-                   });
+	try{
+	    if (!db) return;
+	    db.transaction(
+	        function(transaction) {
+	        transaction.executeSql('SELECT * FROM Bills;', [], function(transaction, result) {
+	                for (var i = 0; i < result.rows.length; i++) {
+	                    var row = result.rows.item(i);
+	                    if (row.id==rowID){
+	                               if (row.sent==1){
+	                                    $('#uploadImage'+row.id).attr('src','img/cameraoverlay/send.png');
+	                                    $('#uploadProgress'+row.id).hide();
+	                               }
+	                               else{
+	                                    $('#uploadImage'+row.id).attr('src','img/cameraoverlay/upload_blue.png');
+	                                    $('#uploadProgress'+row.id).hide();
+	                                }
+	                               break;
+	                               }
+	                               else{
+	                               continue;
+	                               }
+	                                          
+	                        $('#billList').listview('refresh');
+	                        }
+	                               
+	                        }, onError);
+	 
+	                   });
+	}
+	catch(e){
+		  dumpError("refreshBillSendStatus",e);
+	  }	
     }
 
 
@@ -158,201 +98,317 @@ function refershBillSendStatus(rowID){
 	
 
 	function formatDate(jsD){
-	jsDate = new Date(jsD);
-	var  hm =  (jsDate.getHours()<10?("0"+jsDate.getHours()):jsDate.getHours()) + ":" + (jsDate.getMinutes()<10?("0"+jsDate.getMinutes()):jsDate.getMinutes());
-  	var dmy =  (jsDate.getDate()<10?("0"+jsDate.getDate()):jsDate.getDate()) + "." + 
-      ((jsDate.getMonth()+1)<10?("0"+(jsDate.getMonth()+1)):(jsDate.getMonth()+1)) + "." + 
-      jsDate.getFullYear();
-    return hm+" "+dmy;
-}
+		try{
+			jsDate = new Date(jsD);
+			var  hm =  (jsDate.getHours()<10?("0"+jsDate.getHours()):jsDate.getHours()) + ":" + (jsDate.getMinutes()<10?("0"+jsDate.getMinutes()):jsDate.getMinutes());
+		  	var dmy =  (jsDate.getDate()<10?("0"+jsDate.getDate()):jsDate.getDate()) + "." + 
+		      ((jsDate.getMonth()+1)<10?("0"+(jsDate.getMonth()+1)):(jsDate.getMonth()+1)) + "." + 
+		      jsDate.getFullYear();
+		    return hm+" "+dmy;
+		}
+		catch(e){
+			  dumpError("formatDate",e);
+		  }	
+	}
 
 	function hideTesterDiv(){
-	 $('#testDiv').hide();
+		try{
+			$('#testDiv').hide();
+		}
+		catch(e){
+			  dumpError("hodeTesterDiv",e);
+		  }	
 	}
 	
-	function showCheck(billID){
-	    currentPage = "pageCheck";
-	    window.localStorage.setItem(BILL_ID_KEY, billID);
-		$.mobile.pageContainer.pagecontainer( "change", "check.html",{transition:"none"});
-
+	function showCheckPage(transactionID){
+		try{
+		    currentPage = "pageCheck";
+		    getReceiptID(transactionID).done(function(res){
+		    	var receiptID = res;
+			    window.localStorage.setItem(RECEIPT_ID_KEY, receiptID);
+			    window.localStorage.setItem(TRANSACTION_ID_KEY, transactionID);
+				$.mobile.pageContainer.pagecontainer( "change", "check.html",{transition:"none"});
+		    	 
+		    });
+		}
+		catch(e){
+			  dumpError("showCheck",e);
+		  }	
 	}
 	
 	function showBillsList(){
-		currentPage = "pageBills";
-		$.mobile.pageContainer.pagecontainer( "change", "bills.html",{transition:"none"});
-		//refreshBills();
+		try{
+			currentPage = "pageBills";
+			$.mobile.pageContainer.pagecontainer( "change", "bills.html",{transition:"none"});
+		}
+		catch(e){
+			  dumpError("showBillsList",e);
+		  }	
+
 	}
 	
 	
 
 	
 	function showAuthPage(){
-		currentPage = "pageAuth";
-		$.mobile.pageContainer.pagecontainer( "change", "login.html", {transition:"none"});
+		try{
+			currentPage = "pageAuth";
+			$.mobile.pageContainer.pagecontainer( "change", "login.html", {transition:"none"});
+		}
+		catch(e){
+			  dumpError("showAuthPage",e);
+		  }	
 	}
 	
 	
 	function showSettingsPage(){
-		currentPage = "pageSettings";
-		$.mobile.pageContainer.pagecontainer( "change", "settings.html",{transition:"none"});
+		try{
+			currentPage = "pageSettings";
+			$.mobile.pageContainer.pagecontainer( "change", "settings.html",{transition:"none"});
+		}
+		catch(e){
+			  dumpError("showSettingsPage",e);
+		  }	
 	}
 	
 	
 	function showMainPage(){
+		try{
 		currentPage = "pageMain";
-		$.mobile.pageContainer.pagecontainer( "change", 'main.html' ,{transition:"none"});
-	//	$.mobile.pageContainer.pagecontainer( "change", "pull.html" ,{transition:"none"});
+			$.mobile.pageContainer.pagecontainer( "change", 'main.html' ,{transition:"none"});
+		//	$.mobile.pageContainer.pagecontainer( "change", "pull.html" ,{transition:"none"});
+		}
+		catch(e){
+			  dumpError("showMainPage",e);
+		  }			
 	}
 	
 	function showConnectionSettingsPage(){
-		currentPage = "pageConnectionSettings";
-		$.mobile.pageContainer.pagecontainer( "change", "connectionSettings.html" ,{transition:"none"});
+		try{
+			currentPage = "pageConnectionSettings";
+			$.mobile.pageContainer.pagecontainer( "change", "connectionSettings.html" ,{transition:"none"});
+		}
+		catch(e){
+			  dumpError("showConnectionSettingsPage",e);
+		  }			
 	}
 	
 	function showExpensesPage(categoryID){
-		window.localStorage.setItem(CATEGORY_ID_KEY, categoryID);
-		currentPage = "pageExpenses";
-		$.mobile.pageContainer.pagecontainer( "change", "expenses.html" ,{transition:"none"});
-    //    $.mobile.pageContainer.pagecontainer( "change", "pull.html" ,{transition:"none"});
-	//	window.localStorage.setItem(TRANSACTION_ID_KEY, transactionID);
+		try{
+			window.localStorage.setItem(CATEGORY_ID_KEY, categoryID);
+			currentPage = "pageExpenses";
+			$.mobile.pageContainer.pagecontainer( "change", "expenses.html" ,{transition:"none"});
+	    //    $.mobile.pageContainer.pagecontainer( "change", "pull.html" ,{transition:"none"});
+		//	window.localStorage.setItem(TRANSACTION_ID_KEY, transactionID);
+		}
+		catch(e){
+			  dumpError("showExpensesPage",e);
+		  }			
 	}
 	
 	function showTransactionPage(){
-		currentPage = "pageTransaction";
-		$.mobile.pageContainer.pagecontainer( "change", "transaction.html" ,{transition:"none"});
+		try{
+			currentPage = "pageTransaction";
+			$.mobile.pageContainer.pagecontainer( "change", "transaction.html" ,{transition:"none"});
+		}
+		catch(e){
+			  dumpError("showTransactionPage",e);
+		  }			
 	}
 	
 	function showShopListPage(){
-		currentPage = "pageShopList";
-		$.mobile.pageContainer.pagecontainer( "change", "shopList.html" ,{transition:"none"});
+		try{
+			currentPage = "pageShopList";
+			$.mobile.pageContainer.pagecontainer( "change", "shopList.html" ,{transition:"none"});
+		}
+		catch(e){
+			  dumpError("showShopListPage",e);
+		  }			
 	}
 	
 	function showCreateShopListPage(){
-		currentPage = "pageCreateShopList";
-		$.mobile.pageContainer.pagecontainer( "change", "createShopList.html" ,{transition:"none"});
+		try{
+			currentPage = "pageCreateShopList";
+			$.mobile.pageContainer.pagecontainer( "change", "createShopList.html" ,{transition:"none"});
+		}
+		catch(e){
+			  dumpError("showCreateShopListPage",e);
+		  }			
 	}
 
 	function showRegistrationPage(){
-		currentPage = "pageRegistration";
-		//$.mobile.pageContainer.pagecontainer( "change", "registration.html" ,{transition:"none"});
-		$.mobile.pageContainer.pagecontainer( "change", "registration_new.html" ,{transition:"none"});
+		try{
+			currentPage = "pageRegistration";
+			//$.mobile.pageContainer.pagecontainer( "change", "registration.html" ,{transition:"none"});
+			$.mobile.pageContainer.pagecontainer( "change", "registration_new.html" ,{transition:"none"});
+		}
+		catch(e){
+			  dumpError("showRegistrationPage",e);
+		  }			
 	}
 	function showRulesPage(){
-		currentPage = "pageRules";
-		//$.mobile.pageContainer.pagecontainer( "change", 'rules.html' ,{transition:"none"});
-		$.mobile.pageContainer.pagecontainer( "change", 'rules_new.html' ,{transition:"none"});
+		try{
+			currentPage = "pageRules";
+			//$.mobile.pageContainer.pagecontainer( "change", 'rules.html' ,{transition:"none"});
+			$.mobile.pageContainer.pagecontainer( "change", 'rules_new.html' ,{transition:"none"});
+		}
+		catch(e){
+			  dumpError("showRegistrationPage",e);
+		  }			
 	}
 	function showHabitsPage(){
-		currentPage = "pageHabits";
-		$.mobile.pageContainer.pagecontainer( "change", 'habits.html' ,{transition:"none"});
+		try{
+			currentPage = "pageHabits";
+			$.mobile.pageContainer.pagecontainer( "change", 'habits.html' ,{transition:"none"});
+		}
+		catch(e){
+			  dumpError("showHabitsPage",e);
+		  }			
 	}
 	
 	
 	function showErrorDialog(message){
-		showDialog("Ошибка",message);
+		try{
+			showDialog("Ошибка",message);
+		}
+		catch(e){
+			  dumpError("showErrorDialog",e);
+		  }			
 	}
 	
 	
 	function showDialog(header,message){
-		currentPage = "pageError";
-		window.localStorage.setItem(DIALOG_HEADER, header);
-		window.localStorage.setItem(DIALOG_MESSAGE, message);
-		message = message.replace ('"','');
-		$.mobile.pageContainer.pagecontainer( "change", "dialog.html" ,{transition:"none",role: "dialog"});
+		try{
+			currentPage = "pageError";
+			window.localStorage.setItem(DIALOG_HEADER, header);
+			window.localStorage.setItem(DIALOG_MESSAGE, message);
+			message = message.replace ('"','');
+			$.mobile.pageContainer.pagecontainer( "change", "dialog.html" ,{transition:"none",role: "dialog"});
+		}
+		catch(e){
+			  dumpError("showDialog",e);
+		  }			
 
 	}
 
 	
 	
 	function showUserEnvironment(){
-		var environment = getUserEnvironment();
-		alert(environment);
+		try{
+			var environment = getUserEnvironment();
+			alert(environment);
+		}
+		catch(e){
+			  dumpError("showUserEnvironment",e);
+		  }			
 	}
 	
 	function getUserTokenAndShowMainPage(login, password){
-		var json = new Object();
-		json.login = login;
-		//json.password = password;
-		
-		facebookConnectPlugin.logEvent("Login event", json);
-		
-		requestUserToken(login,password).done(function(res){
-			if (res!=""){
-				getGoodItemsCount().done(function(res){
-					if (res==0){
-						requestShopLists().done(function(){
-							requestGoodItems().done(function(){
-								requestGoodMeasures().done(function(){
-									showMainPage();
+		try{
+			var json = new Object();
+	
+			//facebookConnectPlugin.logEvent("Login event", json);
+			dumpEvent("Login event", json);
+			requestUserToken(login,password).done(function(res){
+				if (res!=""){
+					getGoodItemsCount().done(function(res){
+						if (res==0){
+							requestShopLists().done(function(){
+								requestGoodItems().done(function(){
+									requestGoodMeasures().done(function(){
+										showMainPage();
+								});
 							});
 						});
+						}
+						else{
+							showMainPage();						
+						}
 					});
-					}
-					else{
-						showMainPage();						
-					}
-				});
-			}
-		});
+				}
+			});
+		}
+		catch(e){
+			  dumpError("getUserTokenAndShowMainPage",e);
+		  }			
 	}
 	
 	
 	function showTransactionInfo(transactionID){
-		window.localStorage.setItem(TRANSACTION_ID_KEY, transactionID);
-		currentPage = "pageTransactionInfo";
-		$.mobile.pageContainer.pagecontainer( "change", "transactionInfo.html",{transition:"none"});
+		try{
+			window.localStorage.setItem(TRANSACTION_ID_KEY, transactionID);
+			currentPage = "pageTransactionInfo";
+			$.mobile.pageContainer.pagecontainer( "change", "transactionInfo.html",{transition:"none"});
+		}
+		catch(e){
+			  dumpError("showTransactionInfo",e);
+		  }			
 	}
 	
 	
 	function acceptRulesAndGoToRegistrationPage(){
-		window.localStorage.setItem(ACCEPT_RULES_KEY,"true");
-		//navigator.app.backHistory();
-        // window.history.go(-1);
-        $("#backButton").click();
+		try{
+			window.localStorage.setItem(ACCEPT_RULES_KEY,"true");
+			//navigator.app.backHistory();
+	        // window.history.go(-1);
+	        $("#backButton").click();
+		}		
+		catch(e){
+			  dumpError("acceptRulesAndGoToRegistrationPage",e);
+		  }			
 	}
 	
 	function declineRulesAndGoToRegistrationPage(){
-       // alert("trying to decline");
-		window.localStorage.setItem(ACCEPT_RULES_KEY,"false");
-       // alert("trying to go back");
-		//navigator.app.backHistory();
-        //window.history.go(-1);
-         $("#backButton").click();
+		try{
+	       // alert("trying to decline");
+			window.localStorage.setItem(ACCEPT_RULES_KEY,"false");
+	       // alert("trying to go back");
+			//navigator.app.backHistory();
+	        //window.history.go(-1);
+	         $("#backButton").click();
+		}
+		catch(e){
+			  dumpError("declineRulesAndGoToRegistrationPage",e);
+		  }			
 	}
 	
 	function tryToRegisterUser(){
-		 var email= $('#email').val();
-		 var nick = $('#nick').val();
-		 var promo = $('#promo').val();
-		 var rulesCheck = $("#checkboxRules").is(':checked')?true:false;
-		 
-		if (
-			/*	(nick==undefined)||(nick=="")
-				(email==undefined)||(email=="")
-				(promo==undefined)||(promo=="")
-				*/
-				(nick=="")
-				||(email=="")
-			//	||(promo=="")
-		)
-		{
-			//alert("Пожалуйста, заполните все необходимые поля");
-			 showErrorDialog("Пожалуйста, заполните все необходимые поля");
-			return;
-		}
-		
-		
-		
-		if (rulesCheck==false){
-		//	alert("Необходимо принять условия пользовательского приложения");
-			  showErrorDialog("Необходимо принять условия пользовательского соглашения");
-			  return;
-		}
-		sendRegistration(email, nick, promo).done(function(res){
-			if (res=="success"){
-				navigator.app.backHistory();
+		try{
+			var email= $('#email').val();
+			 var nick = $('#nick').val();
+			 var promo = $('#promo').val();
+			 var rulesCheck = $("#checkboxRules").is(':checked')?true:false;
+			 
+			if (
+				/*	(nick==undefined)||(nick=="")
+					(email==undefined)||(email=="")
+					(promo==undefined)||(promo=="")
+					*/
+					(nick=="")
+					||(email=="")
+				//	||(promo=="")
+			)
+			{
+				//alert("Пожалуйста, заполните все необходимые поля");
+				 showErrorDialog("Пожалуйста, заполните все необходимые поля");
+				return;
 			}
-		});
 			
+			
+			
+			if (rulesCheck==false){
+			//	alert("Необходимо принять условия пользовательского приложения");
+				  showErrorDialog("Необходимо принять условия пользовательского соглашения");
+				  return;
+			}
+			sendRegistration(email, nick, promo).done(function(res){
+				if (res=="success"){
+					navigator.app.backHistory();
+				}
+			});
+		}
+		catch(e){
+			  dumpError("tryToRegister",e);
+		  }			
 		
 	}

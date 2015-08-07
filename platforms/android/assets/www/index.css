@@ -27,7 +27,7 @@
 }
 @media (max-width: 400px) { 
   body{ 
-    font-size: 9px;
+/*     font-size: 9px; */
     overflow:hidden;
   }
   .footer>table>tbody>tr>td:last-child,
@@ -43,13 +43,14 @@
   }
   .login_ico img,
 .login_menu img{
-  height: 60%;
+ /* height: 60%;*/
+ height:45%;
 }
 
 }
 @media (max-width: 600px) and (min-width: 400px) { 
   body{ 
-    font-size: 12px;
+/*     font-size: 12px; */
      overflow:hidden;
   }
   .footer>table>tbody>tr>td:last-child,
@@ -65,13 +66,14 @@
   }
   .login_ico img,
 .login_menu img{
-  height: 60%;
+  /*height: 60%;*/
+  height: 45%;
 }
 
 }
 @media (min-width: 600px) { 
   body{ 
-    font-size: 16px;
+/*     font-size: 16px; */
      overflow:hidden;
   }
   .footer>table>tbody>tr>td:last-child,
@@ -93,10 +95,7 @@
 }
 
 
-@font-face {
-   font-family: aparaj;
-   src: url(aparaji.ttf);
-}
+
 * {  
   text-shadow: none!important;
 }
@@ -1010,5 +1009,9 @@ opacity: 1;
 
 .ui-dialog {
 	background: transparent !important;
+}
+
+.justlabel {
+	margin-bottom: 0px !important;
 }
 
