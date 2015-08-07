@@ -20,9 +20,6 @@
     <feature name="AppBlade">
         <param name="android-package" value="com.checkomatic.AppBladePlugin" />
     </feature>
-    <feature name="Device">
-        <param name="android-package" value="org.apache.cordova.device.Device" />
-    </feature>
     <preference name="webView" value="org.crosswalk.engine.XWalkWebViewEngine" />
     <feature name="Whitelist">
         <param name="android-package" value="org.apache.cordova.whitelist.WhitelistPlugin" />
@@ -34,6 +31,9 @@
     </feature>
     <feature name="FacebookConnectPlugin">
         <param name="android-package" value="org.apache.cordova.facebook.ConnectPlugin" />
+    </feature>
+    <feature name="Device">
+        <param name="android-package" value="org.apache.cordova.device.Device" />
     </feature>
     <name>Bills</name>
     <description>
@@ -48,6 +48,7 @@
     <access origin="https://*.fbcdn.net" />
     <access origin="https://*.akamaihd.net" />
     <preference name="permissions" value="none" />
+    <preference name="BackupWebStorage" value="local" />
     <preference name="phonegap-version" value="3.5.0" />
     <preference name="orientation" value="portrait" />
     <preference name="target-device" value="universal" />

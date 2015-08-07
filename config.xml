@@ -46,6 +46,7 @@
 
 
     <preference name="permissions" value="none" />
+    <preference name="BackupWebStorage" value="local" />
     <preference name="phonegap-version" value="3.5.0" />
     <preference name="orientation" value="portrait" />
     <preference name="target-device" value="universal" />
