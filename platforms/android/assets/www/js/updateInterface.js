@@ -9,9 +9,9 @@ function updateLoginPage(){
 */
 	//var login =  window.localStorage.getItem(SETTING_USER_LOGIN);
 	var login =  getSettingFromStorage(SETTING_USER_LOGIN,"");
-	document.getElementById('login').value = login;
+	$('#login').val(login);
 	var password = getSettingFromStorage(SETTING_USER_PASSWORD,"");
-	document.getElementById('password').value= password;
+	$('#password').val(password);
     
 	 if ( $("#login").length==0)$('#login').focus();
 	 else
@@ -37,8 +37,57 @@ function updateLoginPage(){
 		 	        $('#login_button').click();
 		 	    }
 		 	  });
-  	  	$('#buildVersion').html("Версия сборки: "+buildVersion);
+
+	$('.ui-input-reg').parent().addClass('ui-register-input');
+	$('.ui-input-reg-promo').parent().addClass('ui-register-input-promo');
+	   $(document).on("blur", "#registerPage input[type='email']", function()
+		    	{
+		    		var val = $(this).val();
+		    		if(val.length <= 0)
+					{
+						$(this).parent().removeClass('valid');
+		    			$(this).parent().removeClass('error');
+		    			return 0;
+					}
+
+		    		if(val.search('@') > 0)
+		    		{
+		    			$(this).parent().addClass('valid');
+		    			$(this).parent().removeClass('error');
+		    		}
+		    		else
+		    		{
+		    			$(this).parent().addClass('error');
+		    			$(this).parent().removeClass('valid');
+		    		}
+
+		    	});
+
+		    $(document).on("blur", "#registerPage input[type='password']",function()
+		    {
+		    	var len = $(this).val().length;
+
+
+				if(len <= 0)
+				{
+					$(this).parent().removeClass('valid');
+					$(this).parent().removeClass('error');
+					return 0;
+				}
+				else if(len > 0 && len < 5)
+				{
+					$(this).parent().removeClass('valid');
+					$(this).parent().addClass('error');
+				}
+				else
+				{
+					$(this).parent().removeClass('error');
+					$(this).parent().addClass('valid');
+				}
+		    });
 	}
+	
+	
     catch(e){
     	dumpError("updateLoginPage",e);
     }

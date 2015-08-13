@@ -27,6 +27,30 @@ body {
 	padding: 0;
 }
 
+
+.ui-field-contain,
+.ui-select {
+	margin: 0;
+	margin-top: 10px;
+}
+
+.logo-header {
+	width: 80%;
+	margin: 0 auto 3rem;
+}
+
+.login-logo {
+	width: 100%;
+	display: block;
+	margin: 0 auto;
+	padding: 0;
+	text-align: center;
+
+}
+.login-logo img {
+	width: 90%;
+}
+
 .ui-mobile-viewport-main {
 	background-color: #27aabd;
 	background-image: url("images/background.jpg");
@@ -82,7 +106,7 @@ body {
 .ui-register-input input {
 	background: #fff;
 	height: 55px;
-	border-radius: 3px;
+	border-radius: 3px !important;
 	font-family: 'OpenSans-Light';
 	font-size: .9375rem;
 	color: #525252;
@@ -127,6 +151,7 @@ body {
 	color: #fff;
 }
 .ui-page {
+	padding-top: 0;
 	height: 100%;
 	box-sizing: border-box;
 }
@@ -167,7 +192,7 @@ body {
 	width: 20px;
 	height: 20px !important;
 	margin-top: -8px !important;
-	border-radius: 3px;
+	border-radius: 3px !important; 
 	border: 1px solid #77a7cd;
 	box-shadow: 0 0 0 1px #d5e9f9 inset;
 }
@@ -284,12 +309,11 @@ body {
 button.ui-btn {
 	background: transparent;
 	border: 1px solid #fff;
-	border-radius: 3px;
+	border-radius: 3px !important;
 	height: 55px;
 	color: #fff;
 	font-family: 'OpenSans-Light';
 	font-size: 1.085rem;
-	background: #0090a6;
 }
 .ui-container {
 	max-width: 720px;
@@ -310,6 +334,16 @@ button.ui-btn {
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#27aabd', endColorstr='#0090a6',GradientType=0 ); /* IE6-9 */
 
 }
+.ui-header-w > a {
+	width: 75px !important;
+	height: 100%;
+	padding: 0 !important;
+	font-size: 0 !important;
+	position: absolute;
+	left: 0;
+	top: 0;
+	z-index:1000;
+}
 .ui-header-w .ui-icon-back {
 	height: 100% !important;
 	top: 0 !important;
@@ -318,6 +352,7 @@ button.ui-btn {
 	background-image: url("images/arrow.png");
 	background-repeat: no-repeat;
 	background-position: center center;
+	border: none !important;
 }
 .term-content h1 {
 	text-align: center;
@@ -367,7 +402,7 @@ label.error {
 	height: 75px !important;
 	position: relative;
 }
-.ui-collapsible-heading-toggle {
+.ui-select > div {
 	background: #ecf1f1;
 	border: none;
 	text-decoration: none;
@@ -377,15 +412,24 @@ label.error {
 	line-height: 75px;
 	height: 75px;
 	white-space: nowrap;
+	text-align: left;
+	padding: 0 !important;
 }
-.info-term {
-	display: inline-block;
+.ui-select > div img {
+	max-height: 100%;
+	position: absolute;
+	left: 0;
+	top: 0;
+}
+.ui-select span {
+	display: inline-block !important;
 	vertical-align: middle;
 	font-size: 1.125rem;
 	line-height: 18px;
-	color: #404040;
+	color: #0090a6;
 	font-family: 'OpenSans-Semibold';
 	min-width: 122px;
+	margin-left: 6em;
 }
 .info-count {
 	color: #0090a6;
@@ -402,8 +446,7 @@ label.error {
 .ui-collapsible {
 	margin-top: 9px !important;
 }
-.ui-icon-collapsed:after,
-.ui-icon-expanded:after {
+.ui-select .ui-btn-icon-right:after {
 	height: 75px;
 	width: 76px;
 	top: 0;
@@ -412,14 +455,7 @@ label.error {
 	background-image: url("images/col-exp.jpg");
 	background-size: 100% auto;
 }
-.collapse-cash .ui-icon-collapsed:after,
-.collapse-cash .ui-icon-expanded:after {
-	background-image: url("images/col-exp-2.jpg");
-}
-.ui-icon-collapsed:after {
-	background-position: 0 0;
-}
-.ui-icon-expanded:after {
+.ui-select .ui-btn-icon-right:after {
 	background-position: 0 -75px;
 }
 .ui-collapsible-content {
@@ -563,7 +599,7 @@ label.error {
 	padding: .4em 2.5em .4em 1.8em;
 	text-decoration: none;
 	color: #8c8b8b;
-	font-size: 1.625rem;
+	font-size: 1.525rem;
 	position: relative;
 }
 .shopping-list a:nth-of-type(1n+1) {
@@ -686,7 +722,7 @@ label.error {
 .check-all-details dd {
 	display: inline-block;
 	vertical-align: top;
-	font-size: 1.875rem;
+	font-size: 1.675rem;
 	font-family: 'OpenSans-Semibold';
 }
 .check-all-details dd {
@@ -723,9 +759,51 @@ label.error {
 	padding-top: 75px;
 }
 
+.socials {
+	position: absolute;
+	left: 0;
+	bottom: 0;
+	width: 100%;
+	text-align: center;
+	padding-bottom: 20px;
+}
+
+.socials ul {
+	width: 100%;
+	margin: 0;
+	margin-bottom: 15px;
+	padding: 0;
+	list-style: none;
+}
+
+.socials li {
+	display: inline-block;
+	vertical-align: top;
+	margin: 0 1.5%;
+}
+
+.socials img {
+	width: 67px;
+}
+
+.to-register {
+	font-size: 1.65rem;
+	color: #fff;
+	text-decoration: underline;
+	opacity: .6;
+}
+
+.ui-field-contain, .ui-mobile fieldset.ui-field-contain {
+	padding: 0 !Important;
+}
+
+.ui-field-contain:before, .ui-field-contain:after {
+	display: none;
+}
+
 @media (max-width: 640px) and (min-width: 400px){
 	* {
-		font-size: 12px;
+		font-size: 14px;
 	}
 	.ui-page.pageWithHeader {
 		padding-top: 50px;
@@ -737,9 +815,12 @@ label.error {
 	.ui-label {
 		padding-left: 30px;
 	}
+	.ui-page {
+		padding-top: 0;
+	}
 	.ui-header-w,
 	.ui-collapsible-heading,
-	.ui-collapsible-heading-toggle,
+	.ui-select > div,
 	.spent span {
 		height: 50px !important;
 		line-height: 50px !important;
@@ -748,11 +829,11 @@ label.error {
 		width: 50px !important;
 		background-size: 60%;
 	}
-	.ui-icon-collapsed:after, .ui-icon-expanded:after {
+	.ui-select .ui-btn-icon-right:after {
 		height: 50px;
 		width: 51px;
 	}
-	.ui-icon-expanded:after {
+	.ui-select .ui-btn-icon-right:after {
 		background-position: 0 -50px;
 	}
 	.ui-btn-star, .buttons-container button {
@@ -813,10 +894,34 @@ label.error {
 	.ui-btn-menu {
 		width: 60px !important;
 	}
+	.socials img {
+		width: 43px;
+	}
+	.ui-header-w > a {
+		width: 50px !important;
+	}
+	.ui-header-w .ui-icon-back {
+		width: 50px !important;
+		background-size: 60%;
+	}
+
 }  
 @media (max-width: 400px){
 	*{
 	font-size: 12px;
+	}
+	.ui-page {
+		padding-top: 0;
+	}
+	.ui-header-w > a {
+		width: 40px !important;
+	}
+	.ui-header-w .ui-icon-back {
+		width: 40px !important;
+		background-size: 60%;
+	}
+	.socials img {
+		width: 35px;
 	}
 	.ui-label,
 	.ui-label a {
@@ -830,7 +935,7 @@ label.error {
 	}
 	.ui-header-w,
 	.ui-collapsible-heading,
-	.ui-collapsible-heading-toggle,
+	.ui-select > div,
 	.spent span {
 		height: 40px !important;
 		line-height: 40px !important;
@@ -839,11 +944,11 @@ label.error {
 		width: 40px !important;
 		background-size: 60%;
 	}
-	.ui-icon-collapsed:after, .ui-icon-expanded:after {
+	.ui-select .ui-btn-icon-right:after {
 		height: 40px;
 		width: 41px;
 	}
-	.ui-icon-expanded:after {
+	.ui-select .ui-btn-icon-right:after {
 		background-position: 0 -40px;
 	}
 	.ui-btn-star, .buttons-container button {

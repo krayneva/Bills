@@ -183,7 +183,7 @@ div.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset.ui-focus{
 .bigFontSize{    
   padding-top: 0.2em;
 }
-/*login*/
+/*login
 .login{
   position: absolute;
   top:8%;
@@ -209,7 +209,7 @@ div.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset.ui-focus{
 .login_ico img,
 .login_menu img{
   display: table;
-  /*height: 100%;*/
+
   margin: auto;
 }
 .login_information{
@@ -257,7 +257,7 @@ font-size: 1.2em;
   display: inline;
   height: 50%;
   margin: 0.5em auto auto;
-}
+}*/
 /**/
 .header{
   float: left;

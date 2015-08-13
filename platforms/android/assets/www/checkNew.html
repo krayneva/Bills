@@ -1,6 +1,14 @@
-<div data-role="page">
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta http-equiv="Content-Security-Policy" content="default-src *; 
+style-src 'self' 'unsafe-inline';
+script-src 'self' 'unsafe-inline' 'unsafe-eval'
+ https://*.gstatic.com https://*.googleapis.com;"
+>
+<div data-role="page" class="pageWithHeader ui-mobile-viewport-term " id = "pageCheck">
         <div data-role="header" class="ui-header-w">
-            <button class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all">No text</button>
+     <a data-rel="back"><button class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all">No text</button></a>
+        	 
             <div class="buttons-container">
             	<button data-href="#main-check" class="ui-btn ui-icon-info active-icon-tab ui-btn-icon-notext ui-corner-all"></button><!--
              --><button data-href="#check-details" class="ui-btn ui-icon-cart ui-btn-icon-notext ui-corner-all"></button><!--
@@ -12,63 +20,68 @@
         <div class="check-tab active-tab" id="main-check">
 	        <div class="check-content">
 	        	<div class="check-head">
-	        		<h1>Наименование</h1>
-	        		<span>Магазин</span><br/>
+	        		<h1>РќР°РёРјРµРЅРѕРІР°РЅРёРµ</h1>
+	        		<span>РњР°РіР°Р·РёРЅ</span><br/>
+	
 	        		<span>21:12 | 05.07.2015</span>
 	        		<a href="#" title="" class="ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all"></a>
 	        	</div>
-	        	<!--Родительский аккордеон-->
-	        	<div data-role="collapsible-set" class="collapse-sub-category">
-					<div data-role="collapsible" data-collapsed="false"  data-collapsed-icon="collapsed" data-expanded-icon="expanded" data-iconpos="right">
-						<h3><img src="images/img.jpg" alt=""><span class="info-term">Подкатегория</span></h3>
-						<!--Вложеный аккордеон-->
-						<div data-role="collapsible-set" class="collapse-sub-category collapse-cash">
-							<div data-role="collapsible" data-collapsed="false"  data-collapsed-icon="collapsed" data-expanded-icon="expanded" data-iconpos="right">
-								<h3><img src="images/cash.png" alt=""><span class="info-term">4545 8989 2323 5487</span></h3>
-								<div class="spent">
-									<span>2 740</span>
-									<div>Скидка 140 р.</div>
-								</div>
-								<div class="shopping-list">
-									<a href="javsdcript:void(0)">пиво</a>
-									<a href="javsdcript:void(0)">хлеб</a>
-									<a href="javsdcript:void(0)">говядина</a>
-									<a href="javsdcript:void(0)">cтиральный порошек</a>
-									<a href="javsdcript:void(0)">яйца</a>
-								</div>
-							</div>
-						</div>
-						<!--Вложеный аккордеон-->
+	        	<!--Р РѕРґРёС‚РµР»СЊСЃРєРёР№ Р°РєРєРѕСЂРґРµРѕРЅ-->
+	        	<form><div class="ui-field-contain"><select name="select-native-1" id="select-native-1">
+					В В В В В В В В <option value="1">РџРѕРґРєР°С‚РµРіРѕСЂРёСЏ</option>
+					В В В В В В В В <option value="2">РџРѕРґРєР°С‚РµРіРѕСЂРёСЏ 1</option>
+					В В В В В В В В <option value="3">РџРѕРґРєР°С‚РµРіРѕСЂРёСЏ 2</option>
+					В В В В В В В В <option value="4">РџРѕРґРєР°С‚РµРіРѕСЂРёСЏ 3</option>
+					В В В В </select>
 					</div>
+				</form>
+				<form><div class="ui-field-contain"><select name="select-native-2" id="select-native-2">
+					В В В В В В В В <option value="1">4545 8989 2323 5487</option>
+					В В В В В В В В <option value="2">4545 8989 2323 2345</option>
+					В В В В В В В В <option value="3">4545 8989 2323 1234</option>
+					В В В В В В В В <option value="4">4545 8989 2323 6788</option>
+					В В В В </select>
+					</div>
+				</form>
+				<div class="spent">
+					<span>2 740</span>
+					<div>РЎРєРёРґРєР° 140 СЂ.</div>
 				</div>
-				<!--Родительский аккордеон-->
+				<div class="shopping-list">
+					<a href="javsdcript:void(0)">РїРёРІРѕ</a>
+					<a href="javsdcript:void(0)">С…Р»РµР±</a>
+					<a href="javsdcript:void(0)">РіРѕРІСЏРґРёРЅР°</a>
+					<a href="javsdcript:void(0)">cС‚РёСЂР°Р»СЊРЅС‹Р№ РїРѕСЂРѕС€РµРє</a>
+					<a href="javsdcript:void(0)">СЏР№С†Р°</a>
+				</div>
+				<!--Р РѕРґРёС‚РµР»СЊСЃРєРёР№ Р°РєРєРѕСЂРґРµРѕРЅ-->
 	        </div>
 	        <a href="javascript:void(0)" class="message"></a>
 	    </div>
 	    <div class="check-tab" id="check-details">
 	        <div class="check-details">
-	        	<h3>Название магазина</h3>
+	        	<h3>РќР°Р·РІР°РЅРёРµ РјР°РіР°Р·РёРЅР°</h3>
 	        	<div class="one-detail">
-	        		пиво
+	        		РїРёРІРѕ
 	        		<span>500</span>
 	        	</div>
 	        	<div class="one-detail">
-	        		стиральный порошек
+	        		СЃС‚РёСЂР°Р»СЊРЅС‹Р№ РїРѕСЂРѕС€РµРє
 	        		<span>1350</span>
 	        	</div>
 	        	<div class="one-detail">
-	        		говядина
+	        		РіРѕРІСЏРґРёРЅР°
 	        		<span>890</span>
 	        	</div>
 	        </div>
 	        <div class="check-all-details">
 	        	<div>
 	        		<dl>
-	        			<dt>Итого:</dt>
+	        			<dt>РС‚РѕРіРѕ:</dt>
 	        			<dd>2740</dd>
 	        		</dl>
 	        		<dl>
-	        			<dt>Скидка:</dt>
+	        			<dt>РЎРєРёРґРєР°:</dt>
 	        			<dd>140</dd>
 	        		</dl>
 	        	</div>
@@ -83,42 +96,3 @@
 	    	<div class="map" id="map"></div>
 	    </div>
     </div>
-    <script>
-    	function initMap()
-		{     
-		  var myLatlng = new google.maps.LatLng(43.21108769372807,27.93095827102661);
-
-		  var myOptions = 
-		  {
-		      zoom: 10,
-		      center: myLatlng,
-		      mapTypeId: google.maps.MapTypeId.ROADMAP,
-		      scrollwheel: true,
-		      disableDefaultUI: true,
-		      draggable : true,
-		      scaleControl : false
-		  }
-
-		  map = new google.maps.Map(document.getElementById("map"), myOptions);
-		}
-		var flag = false;
-		$('.buttons-container span').click(function()
-		{
-			var id = $(this).data('href');
-			$('.check-tab').hide();
-			$(id).show();
-
-			$('.active-icon-tab').removeClass('active-icon-tab');
-			$(this).addClass('active-icon-tab');
-
-			if(id == '#check-map')
-			{
-				if(flag) return 0;
-
-				flag = true;
-				initMap();
-			}
-		});
-	</script>
-</body>
-</html>
