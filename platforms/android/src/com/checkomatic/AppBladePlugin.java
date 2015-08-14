@@ -160,6 +160,7 @@ public class AppBladePlugin extends CordovaPlugin {
 			cordova.getActivity().runOnUiThread(new Runnable() {
 			       public void run() {
 	      //  AppBlade.doFeedback(cordova.getActivity());
+			    	   cordova.getActivity().getCurrentFocus().setDrawingCacheEnabled(true);
 			AppBlade.sendFeedbackData(cordova.getActivity(), "exception caught",cordova.getActivity().getCurrentFocus().getDrawingCache());
 	        callbackContext.success();
 	        

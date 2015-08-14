@@ -127,7 +127,8 @@ function refershBillSendStatus(rowID){
 		    	var receiptID = res;
 			    window.localStorage.setItem(RECEIPT_ID_KEY, receiptID);
 			    window.localStorage.setItem(TRANSACTION_ID_KEY, transactionID);
-				$.mobile.pageContainer.pagecontainer( "change", "check.html",{transition:"none"});
+			//	$.mobile.pageContainer.pagecontainer( "change", "check.html",{transition:"none"});
+				$.mobile.pageContainer.pagecontainer( "change", "checkNew.html",{transition:"none"});
 		    	 
 		    });
 		}
@@ -153,7 +154,8 @@ function refershBillSendStatus(rowID){
 	function showAuthPage(){
 		try{
 			currentPage = "pageAuth";
-			$.mobile.pageContainer.pagecontainer( "change", "login.html", {transition:"none"});
+			//$.mobile.pageContainer.pagecontainer( "change", "login.html", {transition:"none"});
+			$.mobile.pageContainer.pagecontainer( "change", "loginNew.html", {transition:"none"});
 		}
 		catch(e){
 			  dumpError("showAuthPage",e);
@@ -306,10 +308,11 @@ function refershBillSendStatus(rowID){
 	function getUserTokenAndShowMainPage(login, password){
 		try{
 			var json = new Object();
-	
+
 			//facebookConnectPlugin.logEvent("Login event", json);
 			dumpEvent("Login event", json);
 			requestUserToken(login,password).done(function(res){
+
 				if (res!=""){
 					getGoodItemsCount().done(function(res){
 						if (res==0){
