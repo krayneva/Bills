@@ -1,4 +1,5 @@
 	function openDB(login){
+        alert("open DB!");
 		try { 
 			 if (!window.openDatabase) {
 	             alert('Databases are not supported in this browser.');
@@ -42,6 +43,7 @@
      * @param tx
      */
     function populateDB(tx) {
+        alert("populateDB");
     	try{
      // tx.executeSql('DROP TABLE IF EXISTS Bills');
     //	tx.executeSql('DROP TABLE IF EXISTS UserEnvironment');

@@ -311,8 +311,9 @@ function refershBillSendStatus(rowID){
 
 			//facebookConnectPlugin.logEvent("Login event", json);
 			dumpEvent("Login event", json);
+            alert("getusertoken");
 			requestUserToken(login,password).done(function(res){
-
+                alert("request user token returned "+res);
 				if (res!=""){
 					getGoodItemsCount().done(function(res){
 						if (res==0){
