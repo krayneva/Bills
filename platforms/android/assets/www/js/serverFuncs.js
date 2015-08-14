@@ -94,7 +94,6 @@ function uploadPhoto() {
 
     function onFileUploadSuccess(r) {
     	try{
-    		alert(r.response);
 	    	setBillSent(currentRowID);
 	    	var s = r.response.replace(/"/g,"");
 	    	setBillUID(currentRowID,s);
