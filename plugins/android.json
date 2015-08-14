@@ -169,6 +169,9 @@
         },
         "cordova-plugin-device": {
             "PACKAGE_NAME": "com.checkomatic"
+        },
+        "org.apache.cordova.console": {
+            "PACKAGE_NAME": "com.checkomatic"
         }
     },
     "dependent_plugins": {}

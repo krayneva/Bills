@@ -770,5 +770,42 @@ function updateShopListsPage(reloadFromBase){
 	    	dumpError("clearBoughtItems",e);
 	    }
 	}
+
+
+       function updateCheckPage(){
+
+           try{
+                
+               var receiptID = window.localStorage.getItem(RECEIPT_ID_KEY);
+        var transactionID = window.localStorage.getItem(TRANSACTION_ID_KEY);
+                alert(receiptID +" "+transactionID);
+               getTransaction(transactionID).done(function(result){
+                        var now = new Date();
+                        var row = result.rows.item(0);
+                                                  
+                       var json =  jQuery.parseJSON(row.transactionJSON);
+                                                  alert(row.transactionJSON);
+                                                  console.log(row.transactionJSON);
+                        $('#checkName').html(json.Name==null?"":json.Name);
+            $('#shopName').html(json.Shop==null?"":json.Shop);
+                        window.resolveLocalFileSystemURL(receivedPhotoDir +receiptID,
+                                                         function success(fileEntry){
+                                                            $('#checkImage').attr('src',receivedPhotoDir +receiptID+ '?' + now.getTime());
+                                                         },
+                                    function fail(error){ getImage(receiptID).done(function(res){
+                                                                                    $('#checkImage').attr('src',receivedPhotoDir +receiptID+ '?' + now.getTime());
+                                                                                   });
+                                                         });
+            
+                                                   });
+               
+               //subcategorys and purses
+               
+           }
+            catch(e){
+                dumpError("updateCheckPage",e);
+            }
+    
+            }
 	
 

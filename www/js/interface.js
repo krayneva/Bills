@@ -319,9 +319,11 @@ function refershBillSendStatus(rowID){
 							requestShopLists().done(function(){
 								requestGoodItems().done(function(){
 									requestGoodMeasures().done(function(){
+                                     //   requestDictionaries().done(function(){
 										showMainPage();
 								});
 							});
+                                                       // });
 						});
 						}
 						else{

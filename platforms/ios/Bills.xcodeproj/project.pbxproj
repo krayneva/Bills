@@ -134,6 +134,7 @@
 		EB8A080CE8474C01B19C89A5 /* CDVFile.m in Sources */ = {isa = PBXBuildFile; fileRef = 4202864F875D41DA8646A17C /* CDVFile.m */; };
 		F69470C0990A440D8F6944B2 /* CDVAssetLibraryFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = 205D23B257EB46ABB8D90C4E /* CDVAssetLibraryFilesystem.m */; };
 		FE6D8FBF8E0E4819840BD843 /* CDVDevice.m in Sources */ = {isa = PBXBuildFile; fileRef = AD79245ACC23466A95B34FE0 /* CDVDevice.m */; };
+		C6A0404C85A84B1F808E2226 /* CDVLogger.m in Sources */ = {isa = PBXBuildFile; fileRef = 814D7BD627D64B4F827086E9 /* CDVLogger.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -256,6 +257,8 @@
 		F813CD83DACE42BD8CBA3609 /* CDVLocalFilesystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVLocalFilesystem.m; path = org.apache.cordova.file/CDVLocalFilesystem.m; sourceTree = "<group>"; };
 		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = Bills/config.xml; sourceTree = "<group>"; };
 		FD95B564A7674A72AF75F837 /* UIWebViewExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIWebViewExtension.m; path = com.ionic.keyboard/UIWebViewExtension.m; sourceTree = "<group>"; };
+		814D7BD627D64B4F827086E9 /* CDVLogger.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = "CDVLogger.m"; path = "org.apache.cordova.console/CDVLogger.m"; sourceTree = "<group>"; fileEncoding = 4; };
+		388F4898964E4711A50161C4 /* CDVLogger.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = "CDVLogger.h"; path = "org.apache.cordova.console/CDVLogger.h"; sourceTree = "<group>"; fileEncoding = 4; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -441,6 +444,8 @@
 				2FBC9294CFAA4F18B9AC3894 /* FacebookConnectPlugin.h */,
 				AD79245ACC23466A95B34FE0 /* CDVDevice.m */,
 				75C7DB67C57A48C4841CAE7A /* CDVDevice.h */,
+				814D7BD627D64B4F827086E9 /* CDVLogger.m */,
+				388F4898964E4711A50161C4 /* CDVLogger.h */,
 			);
 			name = Plugins;
 			path = Bills/Plugins;
@@ -720,6 +725,7 @@
 				CA64035FC2B84058AF9FFEE2 /* UIWebViewExtension.m in Sources */,
 				8B2B4DF118E74A0EBAA3BA9C /* FacebookConnectPlugin.m in Sources */,
 				FE6D8FBF8E0E4819840BD843 /* CDVDevice.m in Sources */,
+				C6A0404C85A84B1F808E2226 /* CDVLogger.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

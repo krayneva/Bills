@@ -1043,21 +1043,5 @@ function uploadPhoto() {
 	    }
 	    return deferred;
     }
-    /*
-     * cordova.file.dataDirectory - 
-     * Persistent and private data storage within the application's sandbox using internal memory 
-     * (on Android, if you need to use external memory, use .externalDataDirectory).
-     *  On iOS, this directory is not synced with iCloud (use .syncedDataDirectory).
-     *   (iOS, Android, BlackBerry 10)
-
-
-	cordova.file.cacheDirectory - 
-	Directory for cached data files or any files that your app can re-create easily. 
-	The OS may delete these files when the device runs low on storage, nevertheless,
-	 apps should not rely on the OS to delete files in here. (iOS, Android, BlackBerry 10)
-     */
-    
-    
-
-
-
+                                    
+  
