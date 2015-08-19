@@ -770,5 +770,101 @@ function updateShopListsPage(reloadFromBase){
 	    	dumpError("clearBoughtItems",e);
 	    }
 	}
+
+
+       function updateCheckPage(){
+
+           try{
+                
+               	var receiptID = window.localStorage.getItem(RECEIPT_ID_KEY);
+        		var transactionID = window.localStorage.getItem(TRANSACTION_ID_KEY);
+               // alert(receiptID +" "+transactionID);
+               	getTransaction(transactionID).done(function(res){
+                			var js = jQuery.parseJSON(res.rows.item(0).transactionJSON);
+                			var row = res.rows.item(0);
+                			 var jsonText = row.transactionJSON;
+                			 var lat = js.Coords.Latitude;
+                			 var lon = js.Coords.Longitude;
+                			 window.localStorage.setItem(LATITUDE_KEY,lat);
+                			 window.localStorage.setItem(LONGITUDE_KEY,lon);
+                	//		 preInitMap();
+                     /*   var now = new Date();
+                        var row = result.rows.item(0);
+ 						 var jsonText = row.transactionJSON;
+					  	alert(jsonText);
+					 	 var json =  jQuery.parseJSON(jsonText);*/
+					 	  var now = new Date();
+                        $('#checkName').html(js.Name==null?"":js.Name);
+            			$('#shopName').html(js.Shop==null?"":js.Shop);
+            			$('#shopName2').html(js.Shop==null?"":js.Shop);
+                        window.resolveLocalFileSystemURL(receivedPhotoDir +receiptID,
+                                    function success(fileEntry){
+                                      $('#checkImage').attr('src',receivedPhotoDir +receiptID+ '?' + now.getTime());
+                                     },
+                                    function fail(error){ getImage(receiptID).done(function(res){
+                                    	$('#checkImage').attr('src',receivedPhotoDir +receiptID+ '?' + now.getTime());
+                                         });
+                                     });
+            
+
+               
+               //subcategorys and purses
+
+                var html1 = $('#categoryRowTemplate').html();
+                
+                
+                getSubCategoryName(js.SubCategory).done(function(subcategoryName){
+            	   html1 = html1.replace(/\{catName\}/g,subcategoryName);
+                   $('#select-native-1').html(html1);
+                   $('#select-native-1').selectmenu("refresh"); 	
+                });
+               
+               
+
+                 var html2 = $('#purseRowTemplate').html();
+                // var subcategoryName = getCategoryName(json.SubCategory);
+                 html2 = html2.replace(/\{purseName\}/g,js.PurseID);
+                 $('#select-native-2').html(html2);
+  				 $('#select-native-2').selectmenu( "refresh" );
+  				//$('#select-native-2').selectmenu({disabled: true });
+				// tags
+				 
+                
+               
+                 for (var k=0; k<js.Tags.length; k++){
+                     getTagName(js.Tags[k]).done(function(res){
+                    	 var html3 = $('#tagRowTemplate').html();
+                         html3 = html3.replace(/\{tagName\}/g,res);
+                         $('#tagsList').html(html3);
+                     });
+                 }
+                // $('#tagsList').html(html3);
+
+				//('#tagsList').listview("refresh");
+				// total
+				$('#spent').html(js.receiptData.Total);
+				$('#spent2').html(js.receiptData.Total);
+				// tax
+				$('#discount').html("Скидка "+js.receiptData.TotalTax +" "+getCurrencyString(js.Currency));
+				$('#discount2').html(js.receiptData.TotalTax);
+
+				//checkDetails
+				
+				for (var k in js.receiptData.Items){
+					html4 = $('#positionTemplate').html();
+					html4 = html4.replace(/\{positionName\}/g,js.receiptData.Items[k].ItemName);
+					html4 = html4.replace(/\{positionCost\}/g,js.receiptData.Items[k].Value);
+
+					$("#checkDetails").append(html4);
+				}
+
+
+                });
+           }
+            catch(e){
+                dumpError("updateCheckPage",e);
+            }
+    
+            }
 	
 

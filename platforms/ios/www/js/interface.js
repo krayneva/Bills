@@ -137,6 +137,22 @@ function refershBillSendStatus(rowID){
 		  }	
 	}
 	
+	function showCheckImagePage(transactionID){
+		try{
+		    currentPage = "pageCheckImage";
+		    getReceiptID(transactionID).done(function(res){
+		    	var receiptID = res;
+			    window.localStorage.setItem(RECEIPT_ID_KEY, receiptID);
+			    window.localStorage.setItem(TRANSACTION_ID_KEY, transactionID);
+				$.mobile.pageContainer.pagecontainer( "change", "check.html",{transition:"none"});
+		    	 
+		    });
+		}
+		catch(e){
+			  dumpError("showCheckImagePage",e);
+		  }	
+	}
+	
 	function showBillsList(){
 		try{
 			currentPage = "pageBills";
@@ -311,17 +327,22 @@ function refershBillSendStatus(rowID){
 
 			//facebookConnectPlugin.logEvent("Login event", json);
 			dumpEvent("Login event", json);
+        //    alert("getusertoken");
 			requestUserToken(login,password).done(function(res){
-
+           //     alert("request user token returned "+res);
 				if (res!=""){
 					getGoodItemsCount().done(function(res){
 						if (res==0){
 							requestShopLists().done(function(){
 								requestGoodItems().done(function(){
 									requestGoodMeasures().done(function(){
-										showMainPage();
+                                        requestDictionaries().done(function(){
+											showMainPage();
+
+									});
 								});
 							});
+                                                       // });
 						});
 						}
 						else{
