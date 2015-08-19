@@ -24,6 +24,8 @@ var IS_ROBOT_KEY = "IsRobotKey";
 var NICK_KEY = "NickKey";
 var EMAIL_KEY = "EmailKey";
 var PROMO_KEY = "PromoKey";
+var LATITUDE_KEY = "LatitudeKey";
+var LONGITUDE_KEY = "LongitudeKey";
 
 // дефолтные значения
 var JPEG_QUALITY_DEFAULT = "100";
