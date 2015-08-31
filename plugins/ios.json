@@ -149,6 +149,10 @@
                         {
                             "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"Console\"><param name=\"ios-package\" value=\"CDVLogger\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -214,7 +218,10 @@
             "APP_NAME": "Check-A-Matic",
             "PACKAGE_NAME": "com.checkomatic"
         },
-        "org.apache.cordova.device": {
+        "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.checkomatic"
+        },
+        "org.apache.cordova.console": {
             "PACKAGE_NAME": "com.checkomatic"
         }
     },
