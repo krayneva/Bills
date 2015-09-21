@@ -46,6 +46,15 @@ var MeasureEnum = {
   9 : {valueRus:"сут.", code: "Day", defaultAmount:"1"}
 };
 
+
+ var MarkEnum= 
+    {
+       1:{value:"VeryBad"},
+       2:{value:"Bad"},
+       3:{value:"NotBad"},
+       4:{value:"Good"},
+       5:{value:"Excellent"}
+    };
 /*
  Enum MeasureType = 
     {

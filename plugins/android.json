@@ -167,10 +167,10 @@
             "APP_NAME": "Check-A-Matic",
             "PACKAGE_NAME": "com.checkomatic"
         },
-        "cordova-plugin-device": {
+        "org.apache.cordova.console": {
             "PACKAGE_NAME": "com.checkomatic"
         },
-        "org.apache.cordova.console": {
+        "cordova-plugin-device": {
             "PACKAGE_NAME": "com.checkomatic"
         }
     },

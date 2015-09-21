@@ -1015,3 +1015,24 @@ opacity: 1;
 	margin-bottom: 0px !important;
 }
 
+
+.myimage1{
+    background-position: -55px 0;
+    background-image: url("images/level-1.png");
+}
+.myimage2{
+    background-position: -55px 0;
+    background-image: url("images/level-2.png");
+}
+.myimage3{
+    background-position: -55px 0;
+    background-image: url("images/level-3.png");
+}
+.myimage4{
+    background-position: -55px 0;
+    background-image: url("images/level-4.png");
+}
+.myimage5{
+    background-position: -55px 0;
+    background-image: url("images/level-5.png");
+}
