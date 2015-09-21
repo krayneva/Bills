@@ -5,6 +5,7 @@ style-src 'self' 'unsafe-inline';
 script-src 'self' 'unsafe-inline' 'unsafe-eval'
  https://*.gstatic.com https://*.googleapis.com;"
 		>
+<meta name="format-detection" content="telephone=no">
 <div data-role="page" class="pageWithHeader ui-mobile-viewport-term " id = "pageCheck" data-dom-cache="false">
         <div data-role="header" class="ui-header-w">
      <a data-rel="back"><button class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all">No text</button></a>
@@ -27,22 +28,22 @@ script-src 'self' 'unsafe-inline' 'unsafe-eval'
 	        		<a href="#" title="" class="ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all"></a>
 	        	</div>
 	        	<!--Родительский аккордеон-->
-	        	<form><div class="ui-field-contain"><select name="select-native-1" id="select-native-1" >
+	        	<div class="ui-field-contain"><select name="select-native-1" id="select-native-1" >
 					      <!--  <option value="1">Подкатегория</option>
 					        <option value="2">Подкатегория 1</option>
 					        <option value="3">Подкатегория 2</option>
 					        <option value="4">Подкатегория 3</option>-->
 					    </select>
 					</div>
-				</form>
-				<form><div class="ui-field-contain"><select name="select-native-2" id="select-native-2" >
+
+				<div class="ui-field-contain"><select name="select-native-2" id="select-native-2" >
 					     <!--   <option value="1">4545 8989 2323 5487</option>
 					        <option value="2">4545 8989 2323 2345</option>
 					        <option value="3">4545 8989 2323 1234</option>
 					        <option value="4">4545 8989 2323 6788</option>-->
 					    </select>
 					</div>
-				</form>
+
 				<div class="spent">
 					<span id="spent"></span>
 					<div id = "discount"></div>
@@ -55,13 +56,79 @@ script-src 'self' 'unsafe-inline' 'unsafe-eval'
 					<a href="javsdcript:void(0)">яйца</a>-->
 				</div>
 				<!--Родительский аккордеон-->
-	        </div>
+
 	        <a href="javascript:void(0)" class="message"></a>
+			</div>
 	    </div>
 	    <div class="check-tab" id="check-details">
 	      <div class="check-details" id="checkDetails">
 	        	<h3 id = "shopName2">Название магазина</h3>
-
+			  <div class="check-details-scroll">
+				  <table id = "checkDetailstable">
+					  <tbody>
+					<!--  <tr class="one-detail">
+						  <td>Пиво</td>
+						  <td><span>1350</span></td>
+					  </tr>
+					  <tr class="one-detail">
+						  <td>стиральный порошек</td>
+						  <td><span>1350</span></td>
+					  </tr>
+					  <tr class="one-detail">
+						  <td>говядина</td>
+						  <td><span>1350</span></td>
+					  </tr>
+					  <tr class="one-detail">
+						  <td>Пиво</td>
+						  <td><span>1350</span></td>
+					  </tr>
+					  <tr class="one-detail">
+						  <td>стиральный порошек</td>
+						  <td><span>1350</span></td>
+					  </tr>
+					  <tr class="one-detail">
+						  <td>говядина</td>
+						  <td><span>1350</span></td>
+					  </tr>
+					  <tr class="one-detail">
+						  <td>Пиво</td>
+						  <td><span>1350</span></td>
+					  </tr>
+					  <tr class="one-detail">
+						  <td>стиральный порошек</td>
+						  <td><span>1350</span></td>
+					  </tr>
+					  <tr class="one-detail">
+						  <td>говядина</td>
+						  <td><span>1350</span></td>
+					  </tr>
+					  <tr class="one-detail">
+						  <td>Пиво</td>
+						  <td><span>1350</span></td>
+					  </tr>
+					  <tr class="one-detail">
+						  <td>стиральный порошек</td>
+						  <td><span>1350</span></td>
+					  </tr>
+					  <tr class="one-detail">
+						  <td>говядина</td>
+						  <td><span>1350</span></td>
+					  </tr>
+					  <tr class="one-detail">
+						  <td>Пиво</td>
+						  <td><span>1350</span></td>
+					  </tr>
+					  <tr class="one-detail">
+						  <td>стиральный порошек</td>
+						  <td><span>1350</span></td>
+					  </tr>
+					  <tr class="one-detail">
+						  <td>говядина</td>
+						  <td><span>1350</span></td>
+					  </tr>-->
+					  </tbody>
+				  </table>
+			  </div>
 	        </div>
 	        <div class="check-all-details">
 	        	<div>
@@ -74,7 +141,7 @@ script-src 'self' 'unsafe-inline' 'unsafe-eval'
 	        			<dd id = "discount2"></dd>
 	        		</dl>
 	        	</div>
-	        </div> -
+	        </div>
 	    </div>
 	    <div class="check-tab" id="check-photo">
 	    	<div class="check-photo">
@@ -86,7 +153,41 @@ script-src 'self' 'unsafe-inline' 'unsafe-eval'
 	    	<label id="noCoords" style="display: none;">Координаты не заданы</label>
 	    	<label id="noConnection" style="display: none;">Нет соединения с интернетом</label>
 	    </div>
-        
+
+<div class="my-modal-bg" id="modal"></div>
+    	<div class="my-modal">
+			<div class="my-modal-head">
+				<div data-role="fieldcontain">
+					<fieldset data-role="controlgroup" data-type="horizontal" >
+						<input type="radio" name="level" id="level-1">
+						<label for="level-1" class="level-1"></label>
+						<input type="radio" name="level" id="level-2">
+						<label for="level-2" class="level-2"></label>
+						<input type="radio" name="level" id="level-3">
+						<label for="level-3" class="level-3"></label>
+						<input type="radio" name="level" id="level-4">
+						<label for="level-4" class="level-4"></label>
+						<input type="radio" name="level" id="level-5" checked>
+						<label for="level-5" class="level-5"></label>
+					</fieldset>
+				</div>
+			</div>
+			<div class="my-modal-content">
+				<label class="select-ui-arrow">
+					<select name="select-native-3" id="select-native-3">
+				        <option value="1">Не распознаны итоги или скидки</option>
+				        <option value="2">Не распознан один или несколько продуктов в чеке</option>
+				        <option value="3">не определился магазин</option>
+				        <option value="4">Плохое качество фотографии</option>
+				        <option value="4">Другое</option>
+				    </select>
+				</label>
+				<h3>Комментарий <br/>разработчикам</h3>
+				<textarea></textarea>
+				<button id = "sendFeedbackButton">Отправить</button>
+			</div>
+		</div>
+
         
         
         <!-- templates -->
@@ -108,16 +209,20 @@ script-src 'self' 'unsafe-inline' 'unsafe-eval'
             <a href="javsdcript:void(0)">{tagName}</a>
         </div>
         <div id ="checkRowTemplate" style="display: none;">
-            <div class="one-detail">
+    <!--        <div class="one-detail">
                 {positionName}
                 <span>{positionPrice}</span>
-            </div>
+            </div>-->
+			<tr class="one-detail">
+				<td>{positionName}</td>
+				<td><span>{positionPrice}</span></td>
+			</tr>
         </div>
 
 	<div id="positionTemplate"  style="display: none;">
-		<div class="one-detail">
-			{positionName}
-			<span>{positionCost}</span>
+			<tr class="one-detail">
+				<td>{positionName}</td>
+				<td><span>{positionCost}</span></td>
+			</tr>
 		</div>
 	</div>
-</div>
