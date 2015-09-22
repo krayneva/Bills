@@ -62,6 +62,12 @@ function updateLoginPage(){
 		    		}
 
 		    	});
+			$(document).on("focus", "#registerPage input[type='email']", function()
+					{
+						$(this).parent().removeClass('valid');
+						$(this).parent().removeClass('error');
+					});
+
 
 		    $(document).on("blur", "#registerPage input[type='password']",function()
 		    {
@@ -85,6 +91,11 @@ function updateLoginPage(){
 					$(this).parent().addClass('valid');
 				}
 		    });
+			$(document).on("focus", "#registerPage input[type='password']", function()
+				{
+					$(this).parent().removeClass('valid');
+					$(this).parent().removeClass('error');
+				});
 	}
 	
 	
@@ -775,72 +786,217 @@ function updateShopListsPage(reloadFromBase){
        function updateCheckPage(){
 
            try{
-                
-               	var receiptID = window.localStorage.getItem(RECEIPT_ID_KEY);
+
+            	var receiptID = window.localStorage.getItem(RECEIPT_ID_KEY);
         		var transactionID = window.localStorage.getItem(TRANSACTION_ID_KEY);
-               // alert(receiptID +" "+transactionID);
+        		$('#sendFeedbackButton').click(function()
+                           {
+                           var mark=5;
+                            //{"Id":"55045f4773915739e8789689","Mark":3,"Remark":"Ремарк тут!","Reason":1}
+                           		    $("input[name*=level]:checked").each(function() {
+                                        mark = $(this).val();
+                                    });
+
+                            		sendFeedback(receiptID,3,$('#commentForProggers').val(),$('#select-native-3').val())
+                            		.done(function(res){
+                            				$('#modal').hide();
+                                            $('.my-modal').hide();
+                            		});
+                                });
+				$('#okButton').click(function(){
+				      		$('#modal').hide();
+                        				$('.my-modal').hide();
+				});
+
                	getTransaction(transactionID).done(function(res){
                 			var js = jQuery.parseJSON(res.rows.item(0).transactionJSON);
+                			var row = res.rows.item(0);
                 			 var jsonText = row.transactionJSON;
-                            					  	alert(jsonText);
-                     /*   var now = new Date();
-                        var row = result.rows.item(0);
- 						 var jsonText = row.transactionJSON;
-					  	alert(jsonText);
-					 	 var json =  jQuery.parseJSON(jsonText);*/
+                			 if (js.Coords!=undefined)
+                			 var lat = js.Coords.Latitude;
+                			 var lon = js.Coords.Longitude;
+                			 window.localStorage.setItem(LATITUDE_KEY,lat);
+                			 window.localStorage.setItem(LONGITUDE_KEY,lon);
+                			 preInitMap();
+                			 preInitMap();
+
 					 	  var now = new Date();
                         $('#checkName').html(js.Name==null?"":js.Name);
             			$('#shopName').html(js.Shop==null?"":js.Shop);
             			$('#shopName2').html(js.Shop==null?"":js.Shop);
-                        window.resolveLocalFileSystemURL(receivedPhotoDir +receiptID,
-                                    function success(fileEntry){
-                                      $('#checkImage').attr('src',receivedPhotoDir +receiptID+ '?' + now.getTime());
-                                     },
-                                    function fail(error){ getImage(receiptID).done(function(res){
-                                    	$('#checkImage').attr('src',receivedPhotoDir +receiptID+ '?' + now.getTime());
-                                         });
-                                     });
+
             
 
                
                //subcategorys and purses
 
-                var html = $('#categoryRowTemplate').html();
-                var subcategoryName = getSubCategoryName(js.SubCategory);
-                html = html.replace(/\{catName\}/g,subcategoryName);
-                $('#subcategorySelect').html(html);
-                $('#subcategorySelect').selectmenu( "refresh" );
+                var html1 = $('#categoryRowTemplate').html();
+                
+                
+                getSubCategoryName(js.SubCategory).done(function(subcategoryName){
+            	   html1 = html1.replace(/\{catName\}/g,subcategoryName);
+                   $('#select-native-1').html(html1);
+                   $('#select-native-1').selectmenu("refresh"); 	
+                });
+               
+               
 
-                 var html = $('#purseRowTemplate').html();
+                 var html2 = $('#purseRowTemplate').html();
                 // var subcategoryName = getCategoryName(json.SubCategory);
-                 html = html.replace(/\{catName\}/g,js.PurseID);
-                 $('#purseSelect').html(html);
-  				 $('#purseSelect').selectmenu( "refresh" );
+                 html2 = html2.replace(/\{purseName\}/g,js.PurseID);
+                 $('#select-native-2').html(html2);
+  				 $('#select-native-2').selectmenu( "refresh" );
+  				//$('#select-native-2').selectmenu({disabled: true });
 				// tags
-				 var html = $('#tagRowTemplate').html();
-                 // var subcategoryName = getCategoryName(json.SubCategory);
-                 alert("tag name is "+js.Tags[0].name)
-                 var tagName = getTagName(js.Tags[0].name);
-                 html = html.replace(/\{tagName\}/g,tagName);
-                 $('#tagsList').html(html);
+				 
+                
+                $('#tagsList').html('');
+                 for (var k=0; k<js.Tags.length; k++){
+                     getTagName(js.Tags[k]).done(function(res){
+                    	 var html3 = $('#tagRowTemplate').html();
+                         html3 = html3.replace(/\{tagName\}/g,res);
+                         $('#tagsList').append(html3);
+                     });
+                 }
+                // $('#tagsList').html(html3);
+
 				//('#tagsList').listview("refresh");
 				// total
 				$('#spent').html(js.receiptData.Total);
+				$('#spent2').html(js.receiptData.Total);
 				// tax
 				$('#discount').html("Скидка "+js.receiptData.TotalTax +" "+getCurrencyString(js.Currency));
-
+				$('#discount2').html(js.receiptData.TotalTax);
 
 				//checkDetails
+				var tableHTML="";
+				$("#checkDetailstable > tbody").html('');
 				for (var k in js.receiptData.Items){
+					//html4 = $('#positionTemplate').html();
+					var html5='<tr class="one-detail"><td>{positionName}</td><td><span>{positionCost}</span></td></tr>' ;
+					//alert(html5);
+					html5 = html5.replace(/\{positionName\}/g,js.receiptData.Items[k].ItemName);
+					html5 = html5.replace(/\{positionCost\}/g,js.receiptData.Items[k].Value);
+					tableHTML+=html5;
 
-					html = $('#positionTemplate').html();
-					html = html.replace(/\{positionName\}/g,js.receiptData.Items[k].ItemName);
-					html = html.replace(/\{positionPrice\}/g,js.receiptData.Items[k].Value);
-					$("#checkDetails").append(html);
 				}
+			//alert(tableHTML);
+
+			  $('#checkDetailstable > tbody').append(tableHTML);
+			  $("#checkDetailstable").table("refresh");
+       });
 
 
-                });
+	//$( "#table" ).table( "rebuild" );
+		var flag = false;
+        		$('.buttons-container button').click(function()
+        		{
+        			var id = $(this).data('href');
+        			$('.check-tab').hide();
+        			$(id).show();
+
+        			$('.active-icon-tab').removeClass('active-icon-tab');
+        			$(this).addClass('active-icon-tab');
+
+        			takeHeight();
+
+        			if(id == '#check-map')
+        			{
+        				if(flag) return 0;
+
+        				flag = true;
+        				initMap();
+
+        			}
+        			if (id== '#check-photo'){
+        			var receiptID = window.localStorage.getItem(RECEIPT_ID_KEY);
+        			var now2 = new Date();
+        			     window.resolveLocalFileSystemURL(receivedPhotoDir +receiptID,
+                         	function success(fileEntry){
+                         	//	alert("success");
+                            	$('#checkImage').attr('src',receivedPhotoDir +receiptID+ '?' + now2.getTime());
+                               },
+                       function fail(error){
+                       		getImage(receiptID).done(function(res){
+                       			//alert("getImage done!");
+
+                          		$('#checkImage').attr('src',receivedPhotoDir +receiptID+ '?' + now2.getTime());
+                         	});
+                         });
+                    }
+        		});
+
+
+        		$(document).ready(function()
+        		{
+        			$('#select-native-1-button').prepend('<img src="images/img.jpg" alt="">');
+        			$('#select-native-2-button').prepend('<img src="images/cash.png" alt="">');
+
+        			$( "#modal" ).dialog({
+        				autoOpen: false,
+        				modal: true,
+        				show: {
+        			        effect: "blind",
+        			        duration: 1000
+        			    },
+        			    hide: {
+        			        effect: "explode",
+        			        duration: 1000
+        			    }
+        			});
+
+        			takeHeight();
+        		});
+
+        		$('.message').click(function()
+        			{
+
+        				requestFeedback(receiptID).done(function(res){
+        				 	$.mobile.loading("hide");
+        					// no existing feedback
+ 							if (res=='null'){
+								$('#modal').show();
+								$('#createFeedbackDialog').show();
+ 							}
+        					// show existing feedback
+        					else{
+							//	alert(res);
+								var json = jQuery.parseJSON(res);
+								$('#modal').show();
+								$('#showFeedbackDialog').show();
+								$("#comment").html(json.Remark);
+								var nowdate = new Date();
+								if (json.Mark==1) $('#markImage').addClass('myimage1');
+								if (json.Mark==2) $('#markImage').addClass('myimage2');
+								if (json.Mark==3) $('#markImage').addClass('myimage3');
+								if (json.Mark==4) $('#markImage').addClass('myimage4');
+								if (json.Mark==5) $('#markImage').addClass('myimage5');
+
+								if (json.Reason==1)$("#reason").html('Все хорошо, спасибо вам, разработчики!');
+								if (json.Reason==2)$("#reason").html('Не распознались итоги или скидки');
+								if (json.Reason==3)$("#reason").html('Не распознались покупки');
+								if (json.Reason==4)$("#reason").html('Не определился магазин');
+								if (json.Reason==5)$("#reason").html('Низкое качество фотографии');
+								if (json.Reason==200)$("#reason").html('Другое');
+								//$('#markImage').attr('src',receivedPhotoDir +receiptID+ '?' + now.getTime());
+
+								if (json.State=1)$("#state").html('Новый отзыв');
+								if (json.State=2)$("#state").html('Рассмотрен, предприняты некоторые действия и закрыт');
+								if (json.State=3)$("#state").html('В работе. Необходимо доработать систему');
+
+								if (json.Reaction==null)$("#reaction").html('Нет ответа');
+								else $("#reaction").html(json.Reaction);
+        					};
+        				});
+        			});
+
+        		$(document).on('click','#modal',function(event)
+        			{
+        				$('#modal').hide();
+        				$('.my-modal').hide();
+        			});
+
+
            }
             catch(e){
                 dumpError("updateCheckPage",e);
@@ -849,3 +1005,27 @@ function updateShopListsPage(reloadFromBase){
             }
 	
 
+function takeHeight()
+		{
+		try{
+			var parent = $(window).outerHeight(),
+				childs = $('.check-head').outerHeight(),
+				height = 0,
+				height2 = 0;
+
+				childs += $('.ui-field-contain').outerHeight()*2;
+
+				childs += $('.spent').outerHeight();
+
+				height = parent-childs-280;
+
+				height2 = parent - $('.check-details h3').height()-250;
+
+			$('.shopping-list').height(height);
+
+			$('.check-details-scroll').height(height2);
+			}
+            catch(e){
+                dumpError("takeHeight",e);
+            }
+		}

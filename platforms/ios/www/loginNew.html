@@ -9,7 +9,7 @@ script-src 'self' 'unsafe-inline' 'unsafe-eval'
 	<div data-role="page" id ="pageAuth" class="ui-mobile-viewport-main">
 		<div class="ui-container">
 	        <div data-role="header" class="logo-header">
-	        <a href="#" title="" class="login-logo"><img src="images/register-logo.png"></a>
+	        <a href="#" title="" class="login-logo"><img src="images/register-logo.png" onclick="showConnectionSettingsPage();"></a>
 	        </div>
 	        <div data-role="content">
 	        	<div id="registerPage">
@@ -18,14 +18,15 @@ script-src 'self' 'unsafe-inline' 'unsafe-eval'
 	        		<button id="login_button" onclick = "getUserTokenAndShowMainPage( $('#login').val(),   $('#password').val());">Войти</button>
 	        	</div>
 	        </div>
-    	<!--  <div class="socials">
+    	
+	    </div>
+	      <div class="socials">
 	        	<ul>
-	        		<li><a href="#" onclick ="alert('zgdasf');" title=""><img src="images/fb.png"></a></li>
+	        		<li><a href="#"  title=""><img src="images/fb.png"></a></li>
 	        		<li><a href="#" title=""><img src="images/vk.png"></a></li>
 	        		<li><a href="#" title=""><img src="images/tw.png"></a></li>
 	        		<li><a href="#" title=""><img src="images/gpl.png"></a></li>
 	        	</ul>
-	        	<a onclick = "showRegisterPage();" class="to-register">Регистрация</a>
-	        </div> -->
-	    </div>
+	        	<a onclick = "showRegistrationPage();" class="to-register">Регистрация</a>
+	        </div> 
     </div>

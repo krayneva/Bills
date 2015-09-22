@@ -232,13 +232,6 @@ module.exports = [
         ]
     },
     {
-        "file": "plugins/cordova-plugin-device/www/device.js",
-        "id": "cordova-plugin-device.device",
-        "clobbers": [
-            "device"
-        ]
-    },
-    {
         "file": "plugins/org.apache.cordova.console/www/console-via-logger.js",
         "id": "org.apache.cordova.console.console",
         "clobbers": [
@@ -250,6 +243,13 @@ module.exports = [
         "id": "org.apache.cordova.console.logger",
         "clobbers": [
             "cordova.logger"
+        ]
+    },
+    {
+        "file": "plugins/cordova-plugin-device/www/device.js",
+        "id": "cordova-plugin-device.device",
+        "clobbers": [
+            "device"
         ]
     }
 ];
@@ -266,8 +266,8 @@ module.exports.metadata =
     "com.ionic.keyboard": "1.0.4",
     "com.appblade.cordova.plugin": "0.9.0",
     "com.phonegap.plugins.facebookconnect": "0.11.0",
-    "cordova-plugin-device": "1.0.1",
-    "org.apache.cordova.console": "0.2.13"
+    "org.apache.cordova.console": "0.2.13",
+    "cordova-plugin-device": "1.0.1"
 }
 // BOTTOM OF METADATA
 });

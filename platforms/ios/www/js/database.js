@@ -1234,3 +1234,23 @@
              			  dumpError("getSubCategoryName",e);
              		  }
              }
+	
+	
+	function getSubCategories(categoryID){
+		try{
+				var res = "";
+			    var deferred = $.Deferred();
+				db.transaction(
+						function(transaction) {
+							transaction.executeSql('SELECT * FROM SubCategories where category ="'+categoryID+'";', [],
+									function(transaction, res) {
+									
+									deferred.resolve(res);
+							}, onError);
+					 });
+				return deferred;
+     	}
+ 		catch(e){
+ 			  dumpError("getSubCategories",e);
+ 		  }
+	}

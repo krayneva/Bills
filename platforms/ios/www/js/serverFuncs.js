@@ -73,11 +73,11 @@ function uploadPhoto() {
 								// $('#uploadPercent').html(''+loadingStatus);
 							    }
 							};
-							getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
-					    		var serverAddress = res;
+
+					    		var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT)
 					    		console.log("ImageURI: ",imageURI);
 					    		ft.upload(imageURI, encodeURI(serverAddress.concat(addPhotoURL)), onFileUploadSuccess, onFileUploadError, options,true);
-							});
+
 				        
 		                
 			        });
@@ -185,7 +185,7 @@ function uploadPhoto() {
     
     function getImageList(){
     	try{
-	        var serverAddress = getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
+	        var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
 	  	        $.ajax({
 	    	          url: serverAddress+getPhotosURL,
 	    	            type: "get",
@@ -213,7 +213,7 @@ function uploadPhoto() {
     	try{
 	    	var deferred = $.Deferred();
 	    	authCount = authCount+1;
-	    	//getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
+	    	//getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
 	    	//var serverAddress = res;
 	    	var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
 	    //	alert("GetUserToken serverAddress: "+serverAddress+getTokenURL);
@@ -275,8 +275,8 @@ function uploadPhoto() {
 	    		textVisible: true,
 	    		theme: 'e',
 	    	});
-	    	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
-	    		var serverAddress = res;
+	   // 	getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
+	    		var serverAddress =getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
 	    		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
 	    		var userToken = uToken;
 	    	   $.ajax({
@@ -318,7 +318,7 @@ function uploadPhoto() {
 	    	            }
 	    	        });
 	    		});
-	    	});
+	    //	});
 	    	return deferred;
     	}
 	    catch(e){
@@ -340,8 +340,8 @@ function uploadPhoto() {
 	    		textVisible: true,
 	    		theme: 'e',
 	    	});
-	    	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
-	    		var serverAddress = res;
+	    //	getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
+	    		var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
 	    		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
 	    		var userToken = uToken;
 	    		
@@ -399,7 +399,7 @@ function uploadPhoto() {
 	    	            }
 	    	        });
 	    		});
-	    	});
+	   // 	});
 	    	return deferred;
     	}
 	    catch(e){
@@ -419,8 +419,8 @@ function uploadPhoto() {
 	    		textVisible: true,
 	    		theme: 'e',
 	    	});
-	    	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
-	    		var serverAddress = res;
+	    //	getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
+	    		var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
 	    		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
 	    		var userToken = uToken;
 	    		console.log("requestTransactionsURL server address: "+serverAddress+getTransactionsURL);
@@ -476,7 +476,7 @@ function uploadPhoto() {
 	    	            }
 	    	        });
 	    		});
-	    	});
+	    	//});
 	    	return deferred;
     	}
 	    catch(e){
@@ -500,8 +500,8 @@ function uploadPhoto() {
 	    		getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
 	    		var pass = password;
 	    			requestUserToken(log, pass).done(function(uToken){
-	    	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
-	    		var serverAddress = res;
+	    	//getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
+	    		var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
 	    		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
 	    		var userToken = uToken;
 	    		console.log("sendShopList server address: "+serverAddress+getProductListsURL);
@@ -567,7 +567,8 @@ function uploadPhoto() {
 		    	        });
 		    		});
 	    		});
-	    	});});});});
+	    	//});
+	    	});});});
 	    	return deferred;
     	}
 	    catch(e){
@@ -628,7 +629,7 @@ function uploadPhoto() {
 			//facebookConnectPlugin.logEvent("Registrarion event", jsonData);
 	    	dumpEvent("Registrarion event", jsonData);
 	
-	    //	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
+	    //	getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
 	    		var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
 		    	   $.ajax({
 		    	          url: serverAddress+getRegistrationURL,
@@ -680,8 +681,8 @@ function uploadPhoto() {
 	    		textVisible: true,
 	    		theme: 'e',
 	    	});
-	    	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
-	    		var serverAddress = res;
+	    	//getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
+	    		var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
 	    		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
 	    		var userToken = uToken;
 	    		console.log("requestGoodItems server address: "+serverAddress+getGoodItemsURL);
@@ -733,7 +734,7 @@ function uploadPhoto() {
 	    		
 	    		
 	    		});
-	    	});
+	    	//});
 	    	return deferred;
     	}
 	    catch(e){
@@ -753,8 +754,8 @@ function uploadPhoto() {
 	    		textVisible: true,
 	    		theme: 'e',
 	    	});
-	    	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
-	    		var serverAddress = res;
+	    //	getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
+	    		var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
 	    		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
 	    		var userToken = uToken;
 	    		console.log("requestGoodMeasures server address: "+serverAddress+getGoodMeasuresURL);
@@ -798,7 +799,7 @@ function uploadPhoto() {
 	  	            }
 	  	        });
 	    		});
-	    	});
+	    	//});
 	    	return deferred;
     	}
 	    catch(e){
@@ -867,15 +868,15 @@ function uploadPhoto() {
 	    		$.mobile.loading("hide");
 	    		deferred.resolve(SERVER_ERROR_NO_INTERNET);
 	    		//alert("Проверьте подключение к интернету");
-	    		showErroDialog("Проверьте подключение к интернету");
+	    		showErrorDialog("Проверьте подключение к интернету");
 	    		authCount = 0;
 	    		return deferred;
 	    	}
 	
 	    	// Проверяем доступность сервера
 	    	var isReachable = false;
-	    	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
-		    	$.get(res)
+	    //	getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
+		    	$.get(getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT))
 		    	    .done( function(){ isReachable = true; } )
 		    	    .fail( function(){ isReachable = false; 
 		    	    deferred.resolve(SERVER_ERROR_NO_CONNECTION_TO_HOST);
@@ -885,7 +886,7 @@ function uploadPhoto() {
 		    	    authCount = 0;
 		    	    return deferred;
 		    	    } );
-	    	});
+	    //	});
 	    	// проверяем, не протух ли ключ авторизации и если что пытаемся обновить
 	    	if (errorThrown==="Unauthorized"){
 	    		getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
@@ -944,8 +945,8 @@ function uploadPhoto() {
 	    		textVisible: true,
 	    		theme: 'e',
 	    	});
-	    	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
-	    		var serverAddress = res;
+	    //	getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
+	    		var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
 	    		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
 	    		var userToken = uToken;
 	    	   $.ajax({
@@ -977,7 +978,7 @@ function uploadPhoto() {
 	    	            }
 	    	        });
 	    		});
-	    	});
+	    	//});
 	    	return deferred;
     	}
 	    catch(e){
@@ -1000,8 +1001,8 @@ function uploadPhoto() {
 	    		textVisible: true,
 	    		theme: 'e',
 	    	});
-	    	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
-	    		var serverAddress = res;
+	    //	getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
+	    		var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
 	    		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
 	    		var userToken = uToken;
 	    		
@@ -1035,8 +1036,8 @@ function uploadPhoto() {
 	    		
 
 	    		});
-	    	});
-	    	
+	    //	});
+
     	}
 	    catch(e){
 	    	dumpError("getImage",e);
@@ -1054,8 +1055,8 @@ function uploadPhoto() {
   	    		textVisible: true,
   	    		theme: 'e',
   	    	});
-  	    	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
-  	    		var serverAddress = res;
+  	    //	getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
+  	    		var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
   	    		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
   	    		var userToken = uToken;
   	    		console.log("requestDictionaries server address: "+serverAddress+getDictionariesURL);
@@ -1127,7 +1128,7 @@ function uploadPhoto() {
   	  	            }
   	  	        });
   	    		});
-  	    	});
+  	    //});
   	    	return deferred;
       	}
   	    catch(e){
@@ -1135,3 +1136,127 @@ function uploadPhoto() {
   	    }
 
       }
+
+
+      function sendFeedback(id, mark,remark,reason){
+    	  try{
+  	    	$.mobile.loading("show",{
+  	    		text: "Отправка комментария",
+  	    		textVisible: true,
+  	    		theme: 'e',
+  	    	});
+  	    	
+  	    	var deferred = $.Deferred();
+  	    //	alert("trying to send feedback id: "+id+" mark: "+mark+" remark:"+remark+" reason:"+reason);
+  	    	getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
+  	    		var log = login;
+  	    		getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
+  	    		var pass = password;
+  	    			requestUserToken(log, pass).done(function(uToken){
+  	    //	getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
+  	    		var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
+  	    		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
+  	    		var userToken = uToken;
+  	    		console.log("sendFeedback server address: "+serverAddress+sendFeedbackURL);
+  	    		console.log("sendFeedback user token: "+userToken);
+  	    		
+
+  	    			
+  	    			
+  	    		var feedback =new Object();
+  	    		feedback.Id = id;
+  	    		feedback.Mark = mark;
+  	    		feedback.Remark = remark;
+  	    		feedback.Reason = reason;
+  	    		//alert(JSON.stringify(feedback));
+  		    	   $.ajax({
+  		    	          url: serverAddress+sendFeedbackURL,
+  		    	          type: "post",
+  		                beforeSend: function (request)
+  		                {
+  			                request.setRequestHeader("Authorization", "Bearer "+userToken);
+  			                request.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+  		                },
+  		    	        data:  JSON.stringify(feedback),
+  		    	        success: function(response, textStatus, jqXHR) {
+  		    	        console.log(jqXHR.responseText);
+  		    	      //   alert("cервер ответил: "+jqXHR.responseText);
+  		    	          var json = jQuery.parseJSON(jqXHR.responseText);
+
+  		    	           		$.mobile.loading("hide");
+  		    	           		deferred.resolve(res);
+
+  		    	            },
+  		    	            error: function(jqXHR, textStatus, errorThrown) {
+  		    	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
+  		                        	   if (res==SERVER_ERROR_TRY_AGAIN){
+  		                        		   sendFeedback(id, mark,remark);
+  		                        	   	   deferred.resolve();
+  		                        	   }
+  		                        	   else{
+  		                        		   $.mobile.loading("hide");
+  		                        		   deferred.resolve();
+  		                        	   }
+  	
+  		                    	   });
+  		    	            }
+  		    	        });
+  	    		});
+  	    //	});
+  	    	});});});
+  	    	  $.mobile.loading("hide");
+  	    	return deferred;
+      	}
+       	  catch(e){
+       	    	dumpError("sendFeedback",e);
+           }
+      }
+
+
+       function requestFeedback(receiptID){
+          	try{
+      	    	var deferred = $.Deferred();
+      	    	$.mobile.loading("show",{
+      	    		text: "Запрос отзыва",
+      	    		textVisible: true,
+      	    		theme: 'e',
+      	    	});
+      	    //	getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
+      	    		var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
+      	    		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
+      	    		var userToken = uToken;
+      	    		console.log("requestFeedbackURL server address: "+serverAddress+getFeedbackURL+receiptID);
+      	    		console.log("requestFeedbackURL user token: "+userToken);
+      	    	   $.ajax({
+      	    	          url: serverAddress+getFeedbackURL+receiptID,
+      	    	            type: "get",
+      	                beforeSend: function (request)
+      	                {
+      	                request.setRequestHeader("Authorization", "Bearer "+userToken);
+      	                },
+      	    	            data: [],
+      	    	            success: function(response, textStatus, jqXHR) {
+      	    	           		deferred.resolve(jqXHR.responseText);
+      	    	            },
+      	    	            error: function(jqXHR, textStatus, errorThrown) {
+      	    	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
+      	                      	   if (res==SERVER_ERROR_TRY_AGAIN){
+      	                      		 	requestFeedback(receiptID)
+      	                      	   	   deferred.resolve("");
+      	                      	   }
+      	                      	   else{
+      	                      		   $.mobile.loading("hide");
+      	                      		   deferred.resolve("");
+      	                      	   }
+      	                   	   });
+      	    	            }
+      	    	        });
+      	    		});
+      	    	//});
+      	    	return deferred;
+          	}
+      	    catch(e){
+      	    	dumpError("requestFeedback",e);
+      	    }
+
+          }
