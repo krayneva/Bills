@@ -1,5 +1,5 @@
 	function openDB(login){
-        alert("open DB!");
+     //   alert("open DB!");
 		try { 
 			 if (!window.openDatabase) {
 	             alert('Databases are not supported in this browser.');
@@ -43,7 +43,7 @@
      * @param tx
      */
     function populateDB(tx) {
-        alert("populateDB");
+   //     alert("populateDB");
     	try{
      // tx.executeSql('DROP TABLE IF EXISTS Bills');
     //	tx.executeSql('DROP TABLE IF EXISTS UserEnvironment');
@@ -61,8 +61,8 @@
     
          tx.executeSql('CREATE TABLE IF NOT EXISTS Widgets' 
    		 		+' (id text primary key,json)');
-     
-         
+
+
          tx.executeSql('CREATE TABLE IF NOT EXISTS Settings' 
   		 +'(id integer primary key autoincrement,'
   		+SETTING_USER_LOGIN+','
@@ -121,6 +121,15 @@
          // таблица единиц измерения
          tx.executeSql('CREATE TABLE IF NOT EXISTS Measures' 
    		 		+'(id integer primary key,name)');
+
+   		 tx.executeSql('CREATE TABLE IF NOT EXISTS Categories'
+                   		 		+' (id text primary key,name)');
+
+         tx.executeSql('CREATE TABLE IF NOT EXISTS Tags'
+                  +' (id text primary key,name)');
+
+         tx.executeSql('CREATE TABLE IF NOT EXISTS SubCategories'
+          	+' (id text primary key,name,category)');
     	}
 		catch(e){
 			  dumpError("populateDB",e);
@@ -927,6 +936,29 @@
 			  dumpError("deleteUserEnvironmentTable",e);
 		  }			
  }
+
+ function deleteDictionariesTable(){
+	 try{
+			   db.transaction(
+						function(transaction) {
+							transaction.executeSql(
+							'delete from Categories')} ,
+							 onError, onSuccess);
+				db.transaction(
+                        function(transaction) {
+                         transaction.executeSql(
+                         'delete from SubCategories')} ,
+                          onError, onSuccess);
+                 db.transaction(
+                        function(transaction) {
+                        transaction.executeSql(
+                        'delete from Tags')} ,
+                         onError, onSuccess);
+			}
+ 		catch(e){
+ 			  dumpError("delete Dictionaries Tables",e);
+ 		  }
+ }
     
   function addGoodItem(tag, value,measure,color,soundTranscription,json){
 	  try{
@@ -955,7 +987,67 @@
  /*   tx.executeSql('CREATE TABLE IF NOT EXISTS Measures' 
 		 		+'(index integer primary key,name)');
 */
-  
+
+  function addCategory(id,name){
+  	try{
+  	    	 db.transaction(
+  	  	    	   function(transaction) {
+  	  	    	   		transaction.executeSql(
+  	  	    	      		"INSERT OR REPLACE INTO Categories (id, name) " +
+  	  	    	      		" values ('"
+  	  	    	       		+id+"',"
+  	  	    	       		+"'"+name+"')"
+  	  	    	   		);},
+  	  	    	     function onError(error){
+  	  	    		    	console.log("Error trying to add category item!");
+  	  	    		    },onSuccess);
+      	}
+  		catch(e){
+  			  dumpError("addCategory",e);
+  		  }
+  }
+
+
+    function addTag(id,name){
+    	try{
+    	    	 db.transaction(
+    	  	    	   function(transaction) {
+    	  	    	   		transaction.executeSql(
+    	  	    	      		"INSERT OR REPLACE INTO Tags (id, name) " +
+    	  	    	      		" values ('"
+    	  	    	       		+id+"',"
+    	  	    	       		+"'"+name+"')"
+    	  	    	   		);},
+    	  	    	     function onError(error){
+    	  	    		    	console.log("Error trying to add tag item!");
+    	  	    		    },onSuccess);
+        	}
+    		catch(e){
+				dumpError("addTag",e);
+             }
+    }
+
+      function addSubCategory(id,name,category){
+      	try{
+      	    	 db.transaction(
+      	  	    	   function(transaction) {
+      	  	    	   		transaction.executeSql(
+      	  	    	      		"INSERT OR REPLACE INTO SubCategories (id, name,category) " +
+      	  	    	      		" values ('"
+      	  	    	       		+id+"',"
+      	  	    	       		+"'"+name+"',"
+      	  	    	       		+"'"+category+"')"
+      	  	    	   		);},
+      	  	    	     function onError(error){
+      	  	    		    	console.log("Error trying to add subcategory item!");
+      	  	    		    },onSuccess);
+          	}
+      		catch(e){
+      			  dumpError("addsubCategory",e);
+      		  }
+      }
+
+
     function addGoodMeasure(index, name){
     	try{
 	    	 db.transaction(
@@ -1040,13 +1132,18 @@
 	    	deleteGoodMeasuresTable();
 	    	deleteShopListsTable();
 	    	deleteUserEnvironmentTable();
+
+	    	deleteDictionariesTable();
 	    	window.localStorage.removeItem("CurrentShopListNum");
 	    	getGoodItemsCount().done(function(res){
 					requestShopLists().done(function(){
 						requestGoodItems().done(function(){
 							requestGoodMeasures().done(function(){
-								requestUserEnvironment().done(function(){
-									updateMainPage();
+								requestDictionaries().done(function(){
+									requestUserEnvironment().done(function(){
+
+										updateMainPage();
+									});
 								});
 							});
 						});
@@ -1076,4 +1173,64 @@
 		  }
     	return deferred;
     }
-    
+
+
+    function getTagName(tagID){
+             	try{
+     				var res = "";
+     			    var deferred = $.Deferred();
+     				db.transaction(
+     						function(transaction) {
+     							transaction.executeSql('SELECT * FROM Tags where id="'+tagID+'";', [],
+     									function(transaction, result) {
+     									if (result.rows.length!=0)
+     										res =  result.rows.item(0).name;
+     									deferred.resolve(res);
+     							}, onError);
+     					 });
+     				return deferred;
+             	}
+         		catch(e){
+         			  dumpError("getTagName",e);
+         		  }
+         }
+
+
+         function getCategoryName(categoryID){
+                 	try{
+         				var res = "";
+         			    var deferred = $.Deferred();
+         				db.transaction(
+         						function(transaction) {
+         							transaction.executeSql('SELECT * FROM Categories where id ="'+categoryID+'";', [],
+         									function(transaction, result) {
+         									if (result.rows.length!=0)
+         										res =  result.rows.item(0).name;
+         									deferred.resolve(res);
+         							}, onError);
+         					 });
+         				return deferred;
+                 	}
+             		catch(e){
+             			  dumpError("getCategoryName",e);
+             		  }
+             }
+
+	function getSubCategoryName(subcategoryID){
+                 	try{
+         				var res = "";
+         			    var deferred = $.Deferred();
+         				db.transaction(
+         						function(transaction) {
+         							transaction.executeSql('SELECT * FROM SubCategories where id ="'+subcategoryID+'";', [],
+         									function(transaction, result) {
+         									var res =  result.rows.item(0).name;
+         									deferred.resolve(res);
+         							}, onError);
+         					 });
+         				return deferred;
+                 	}
+             		catch(e){
+             			  dumpError("getSubCategoryName",e);
+             		  }
+             }

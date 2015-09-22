@@ -776,31 +776,71 @@ function updateShopListsPage(reloadFromBase){
 
            try{
                 
-               var receiptID = window.localStorage.getItem(RECEIPT_ID_KEY);
-        var transactionID = window.localStorage.getItem(TRANSACTION_ID_KEY);
-                alert(receiptID +" "+transactionID);
-               getTransaction(transactionID).done(function(result){
-                        var now = new Date();
+               	var receiptID = window.localStorage.getItem(RECEIPT_ID_KEY);
+        		var transactionID = window.localStorage.getItem(TRANSACTION_ID_KEY);
+               // alert(receiptID +" "+transactionID);
+               	getTransaction(transactionID).done(function(res){
+                			var js = jQuery.parseJSON(res.rows.item(0).transactionJSON);
+                			 var jsonText = row.transactionJSON;
+                            					  	alert(jsonText);
+                     /*   var now = new Date();
                         var row = result.rows.item(0);
-                                                  
-                       var json =  jQuery.parseJSON(row.transactionJSON);
-                                                  alert(row.transactionJSON);
-                                                  console.log(row.transactionJSON);
-                        $('#checkName').html(json.Name==null?"":json.Name);
-            $('#shopName').html(json.Shop==null?"":json.Shop);
+ 						 var jsonText = row.transactionJSON;
+					  	alert(jsonText);
+					 	 var json =  jQuery.parseJSON(jsonText);*/
+					 	  var now = new Date();
+                        $('#checkName').html(js.Name==null?"":js.Name);
+            			$('#shopName').html(js.Shop==null?"":js.Shop);
+            			$('#shopName2').html(js.Shop==null?"":js.Shop);
                         window.resolveLocalFileSystemURL(receivedPhotoDir +receiptID,
-                                                         function success(fileEntry){
-                                                            $('#checkImage').attr('src',receivedPhotoDir +receiptID+ '?' + now.getTime());
-                                                         },
+                                    function success(fileEntry){
+                                      $('#checkImage').attr('src',receivedPhotoDir +receiptID+ '?' + now.getTime());
+                                     },
                                     function fail(error){ getImage(receiptID).done(function(res){
-                                                                                    $('#checkImage').attr('src',receivedPhotoDir +receiptID+ '?' + now.getTime());
-                                                                                   });
-                                                         });
+                                    	$('#checkImage').attr('src',receivedPhotoDir +receiptID+ '?' + now.getTime());
+                                         });
+                                     });
             
-                                                   });
+
                
                //subcategorys and purses
-               
+
+                var html = $('#categoryRowTemplate').html();
+                var subcategoryName = getSubCategoryName(js.SubCategory);
+                html = html.replace(/\{catName\}/g,subcategoryName);
+                $('#subcategorySelect').html(html);
+                $('#subcategorySelect').selectmenu( "refresh" );
+
+                 var html = $('#purseRowTemplate').html();
+                // var subcategoryName = getCategoryName(json.SubCategory);
+                 html = html.replace(/\{catName\}/g,js.PurseID);
+                 $('#purseSelect').html(html);
+  				 $('#purseSelect').selectmenu( "refresh" );
+				// tags
+				 var html = $('#tagRowTemplate').html();
+                 // var subcategoryName = getCategoryName(json.SubCategory);
+                 alert("tag name is "+js.Tags[0].name)
+                 var tagName = getTagName(js.Tags[0].name);
+                 html = html.replace(/\{tagName\}/g,tagName);
+                 $('#tagsList').html(html);
+				//('#tagsList').listview("refresh");
+				// total
+				$('#spent').html(js.receiptData.Total);
+				// tax
+				$('#discount').html("Скидка "+js.receiptData.TotalTax +" "+getCurrencyString(js.Currency));
+
+
+				//checkDetails
+				for (var k in js.receiptData.Items){
+
+					html = $('#positionTemplate').html();
+					html = html.replace(/\{positionName\}/g,js.receiptData.Items[k].ItemName);
+					html = html.replace(/\{positionPrice\}/g,js.receiptData.Items[k].Value);
+					$("#checkDetails").append(html);
+				}
+
+
+                });
            }
             catch(e){
                 dumpError("updateCheckPage",e);

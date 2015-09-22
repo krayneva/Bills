@@ -1044,4 +1044,94 @@ function uploadPhoto() {
 	    return deferred;
     }
                                     
-  
+
+
+   function requestDictionaries(){
+      	try{
+  	    	var deferred = $.Deferred();
+  	    	$.mobile.loading("show",{
+  	    		text: "Загрузка справочников",
+  	    		textVisible: true,
+  	    		theme: 'e',
+  	    	});
+  	    	getSetting(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
+  	    		var serverAddress = res;
+  	    		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
+  	    		var userToken = uToken;
+  	    		console.log("requestDictionaries server address: "+serverAddress+getDictionariesURL);
+  	    		console.log("requestDicrtionaries user token: "+userToken);
+  	    	//	alert("requestiong good Measures!");
+  	      	   $.ajax({
+  	  	          url: serverAddress+getDictionariesURL,
+  	  	            type: "get",
+  	              beforeSend: function (request)
+  	              {
+  	             	 request.setRequestHeader("Authorization", "Bearer "+userToken);
+  	              },
+  	  	            data: [],
+  	  	            success: function(response, textStatus, jqXHR) {
+  	  	            	deleteDictionariesTable();
+  	  	               if (debugMode==true)console.log(jqXHR.responseText);
+  	  	           		var json = jQuery.parseJSON(jqXHR.responseText);
+
+
+  	  	           		  var categories = json.Categories;
+							 $.each(categories, function(key, value) {
+									$.each(value, function(key, value) {
+										var categoryID = key;
+										$.each(value, function(key, value) {
+											var categoryName = key;
+											$.each(value, function(key, value) {
+												addCategory(categoryID, categoryName);
+												$.each(value, function(key, value) {
+													addSubCategory(key,value,categoryID);
+												});
+										});
+										//addCategory(key,value);
+									  });
+								});
+
+							  });
+
+						//alert("TAGS");
+							var tags = json.Tags;
+						//	alert(JSON.stringify(json.Tags));
+						/*	for (var k in tags){
+							alert(k);
+                          		alert(k.name+" "+k.value);
+                           }
+*/
+					 $.each(tags, function(key, value) {
+							$.each(value, function(key, value) {
+						//	alert("key: "+key+" "+value);
+							addTag(key,value);
+							});;
+  	  	           	});
+
+  	  	           	$.mobile.loading("hide");
+  	  	           		deferred.resolve();
+  	  	            },
+  	  	            error: function(jqXHR, textStatus, errorThrown) {
+  	  	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
+
+  	                  	   if (res==SERVER_ERROR_TRY_AGAIN){
+  	                  		   requestDictionaries();
+  	                  	   	   deferred.resolve();
+  	                  	   }
+  	                  	   else{
+  	                  		   $.mobile.loading("hide");
+  	                  		   deferred.resolve();
+  	                  	   }
+
+  	                  	   });
+  	  	            }
+  	  	        });
+  	    		});
+  	    	});
+  	    	return deferred;
+      	}
+  	    catch(e){
+  	    	dumpError("requestDcitionaries",e);
+  	    }
+
+      }

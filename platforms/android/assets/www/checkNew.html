@@ -4,7 +4,7 @@
 style-src 'self' 'unsafe-inline';
 script-src 'self' 'unsafe-inline' 'unsafe-eval'
  https://*.gstatic.com https://*.googleapis.com;"
->
+		>
 <div data-role="page" class="pageWithHeader ui-mobile-viewport-term " id = "pageCheck">
         <div data-role="header" class="ui-header-w">
      <a data-rel="back"><button class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all">No text</button></a>
@@ -44,8 +44,8 @@ script-src 'self' 'unsafe-inline' 'unsafe-eval'
 					</div>
 				</form>
 				<div class="spent">
-					<span id="spent">2 740</span>
-					<div id = "discount">Скидка 140 р.</div>
+					<span id="spent"></span>
+					<div id = "discount"></div>
 				</div>
 				<div class="shopping-list" id = "tagsList">
 				<!--	<a href="javsdcript:void(0)">пиво</a>
@@ -59,30 +59,19 @@ script-src 'self' 'unsafe-inline' 'unsafe-eval'
 	        <a href="javascript:void(0)" class="message"></a>
 	    </div>
 	    <div class="check-tab" id="check-details">
-	      <div class="check-details">
-	        	<h3>Название магазина</h3>
-	        	<div class="one-detail">
-	        		пиво
-	        		<span>500</span>
-	        	</div>
-	        	<div class="one-detail">
-	        		стиральный порошек
-	        		<span>1350</span>
-	        	</div>
-	        	<div class="one-detail">
-	        		говядина
-	        		<span>890</span>
-	        	</div>
+	      <div class="check-details" id="checkDetails">
+	        	<h3 id = "shopName2">Название магазина</h3>
+
 	        </div>
 	        <div class="check-all-details">
 	        	<div>
 	        		<dl>
 	        			<dt>Итого:</dt>
-	        			<dd>2740</dd>
+	        			<dd id="total2"></dd>
 	        		</dl>
 	        		<dl>
 	        			<dt>Скидка:</dt>
-	        			<dd>140</dd>
+	        			<dd id = "discount2"></dd>
 	        		</dl>
 	        	</div>
 	        </div> -
@@ -114,4 +103,11 @@ script-src 'self' 'unsafe-inline' 'unsafe-eval'
                 <span>{positionPrice}</span>
             </div>
         </div>
+
+	<div id="positionTemplate"  style="display: none;">
+		<div class="one-detail">
+			{postitionName}
+			<span>{positionCost}</span>
+		</div>
+	</div>
 </div>
