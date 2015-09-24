@@ -855,6 +855,7 @@ function updateShopListsPage(reloadFromBase){
                      getTagName(js.Tags[k]).done(function(res){
                     	 var html3 = $('#tagRowTemplate').html();
                          html3 = html3.replace(/\{tagName\}/g,res);
+                      //   alert(html3);
                          $('#tagsList').append(html3);
                      });
                  }

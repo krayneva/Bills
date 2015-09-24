@@ -128,7 +128,7 @@ function refershBillSendStatus(rowID){
 			    window.localStorage.setItem(RECEIPT_ID_KEY, receiptID);
 			    window.localStorage.setItem(TRANSACTION_ID_KEY, transactionID);
 			//	$.mobile.pageContainer.pagecontainer( "change", "check.html",{transition:"none"});
-				$.mobile.pageContainer.pagecontainer( "change", "checkNew.html",{transition:"none"});
+			//	$.mobile.pageContainer.pagecontainer( "change", "checkNew.html",{transition:"none"});
 			//	$.mobile.pageContainer.pagecontainer( "change", "check_0709.html",{transition:"none"});
 		//	$.mobile.pageContainer.pagecontainer( "change", "check_0809.html",{transition:"none"});
 		$.mobile.pageContainer.pagecontainer( "change", "check0809v2.html",{transition:"none"});
