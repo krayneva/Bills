@@ -125,57 +125,59 @@ function updateMainPage(){
 		getUserEnvironment().done(function(res){
 			if (debugMode==true)
 			console.log("Update main page json :"+res);
-			if (res==="") {
+			if (res=="") {
 				console.log("updateMainPage: requesting environment From server");
 				requestAndUpdateMainPage();
-				return;
-			}
-			var json = jQuery.parseJSON(res);
-			
-			//--------------- доход----------//
-			var incomeRublesTD = document.getElementById("incomeRublesTD");
-			var incomeDollarsTD = document.getElementById("incomeDollarsTD");
-			//var incomeEurosTD = document.getElementById("incomeRublesTD");
-			
-			
-			var showRublesIncome = json.IsAmount1Visible;
-			var showDollarsIncome = json.IsAmount2Visible;
-			//var showEurosIncome = json.IsAmount3Visible;
-			
-			// рубли
-			if (showRublesIncome===true){
-				incomeRublesTD.style.display = "block";
-				var incomeRubles = document.getElementById("incomeRubles");
-				incomeRubles.innerHTML = json.Amount1;
-				
-			}
-			else{
-				incomeRublesTD.style.display = "none";
-			}
-			
-			// доллары
-			if (showDollarsIncome===true){
-				incomeDollarsTD.style.display = "block";
-				var incomeDollars = document.getElementById("incomeDollars");
-				incomeDollars.innerHTML = json.Amount2;
-				
-			}
-			else{
-				incomeDollarsTD.style.display = "none";
-			}
 
-			// еврики пока отбой
-			
-			//---------------конец  доход----------//
-			
-			
-			// ------------- расход-------------------//
-			var expenses = document.getElementById("expenses");
-			expenses.innerHTML = json.ExpencesAmountStr;
-			// ------------- конец расход-------------------//
-			
-			updateWidgets();
-		});
+			}
+			else{
+				var json = jQuery.parseJSON(res);
+
+				//--------------- доход----------//
+				var incomeRublesTD = document.getElementById("incomeRublesTD");
+				var incomeDollarsTD = document.getElementById("incomeDollarsTD");
+				//var incomeEurosTD = document.getElementById("incomeRublesTD");
+
+
+				var showRublesIncome = json.IsAmount1Visible;
+				var showDollarsIncome = json.IsAmount2Visible;
+				//var showEurosIncome = json.IsAmount3Visible;
+
+				// рубли
+				if (showRublesIncome===true){
+					incomeRublesTD.style.display = "block";
+					var incomeRubles = document.getElementById("incomeRubles");
+					incomeRubles.innerHTML = json.Amount1;
+
+				}
+				else{
+					incomeRublesTD.style.display = "none";
+				}
+
+				// доллары
+				if (showDollarsIncome===true){
+					incomeDollarsTD.style.display = "block";
+					var incomeDollars = document.getElementById("incomeDollars");
+					incomeDollars.innerHTML = json.Amount2;
+
+				}
+				else{
+					incomeDollarsTD.style.display = "none";
+				}
+
+				// еврики пока отбой
+
+				//---------------конец  доход----------//
+
+
+				// ------------- расход-------------------//
+				var expenses = document.getElementById("expenses");
+				expenses.innerHTML = json.ExpencesAmountStr;
+				// ------------- конец расход-------------------//
+
+				updateWidgets();
+				}
+			});
 	}
     catch(e){
     	dumpError("UpdateMainPage",e);
@@ -798,7 +800,7 @@ function updateShopListsPage(reloadFromBase){
                                     });
 
                             		sendFeedback(receiptID,3,$('#commentForProggers').val(),$('#select-native-3').val())
-                            		.done(function(res){
+                            		.done(function(){
                             				$('#modal').hide();
                                             $('.my-modal').hide();
                             		});

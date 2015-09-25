@@ -350,8 +350,9 @@ function refershBillSendStatus(rowID){
 								requestGoodItems().done(function(){
 									requestGoodMeasures().done(function(){
                                         requestDictionaries().done(function(){
-											showMainPage();
-
+                                        	requestUserEnvironment().done(function(){
+												showMainPage();
+										});
 									});
 								});
 							});
