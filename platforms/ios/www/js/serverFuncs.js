@@ -5,6 +5,24 @@ var SERVER_ERROR_OTHER = "other";
 var SERVER_ERROR_TRY_AGAIN = "tryAgain";
 
 
+function getErrorMessage(err){
+	switch(err){
+
+	case SERVER_ERROR_NO_INTERNET:
+	return "Отсутствует соединение с интернетом";
+		break;
+	case SERVER_ERROR_NO_AUTH:
+	return "Неправильная пара логин-пароль";
+    	break;
+    case SERVER_ERROR_NO_CONNECTION_TO_HOST:
+    return "Нет связи с сервером";
+      	break;
+    case SERVER_ERROR_OTHER:
+    default:
+    return "Произошла неизвестная ошибка";
+     	break;
+	}
+}
 
 var currentRowID = 0;
 
@@ -249,12 +267,23 @@ function uploadPhoto() {
 	                	   alert("login: "+login+ " password: "+password);
 	               			$.mobile.loading("hide");
 	               			*/
-	                	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
+	                	/*   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
 	                    	   //showMainPage();
 	                		   $.mobile.loading("hide");
+	                		   showErrorDialog(getErrorMessage(res));
 	                    	   deferred.resolve("");
 	                		   
-	                	   });
+	                	   });*/
+	                	  /* onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
+
+                           	                        		   $.mobile.loading("hide");
+                           	                        		   if (res==SERVER_ERROR_TRY_AGAIN)*/
+                           	                        		 var  res = SERVER_ERROR_NO_AUTH;
+                           	                        		     showErrorDialog(getErrorMessage(res));
+                           	                        		     authCount = 0;
+                           	                        		   deferred.resolve("");
+
+                           	                    	  // });
 	                   } 
 	                   });  
 	    	//});
@@ -311,6 +340,7 @@ function uploadPhoto() {
 	                        	   }
 	                        	   else{
 	                        		   $.mobile.loading("hide");
+	                        		     showErrorDialog(getErrorMessage(res));
 	                        		   deferred.resolve();
 	                        	   }
 	                    	   });
@@ -319,10 +349,13 @@ function uploadPhoto() {
 	    	        });
 	    		});
 	    //	});
+
 	    	return deferred;
     	}
 	    catch(e){
+	    alert("exception caught while  userebvironment");
 	    	dumpError("requestUserEnvironment",e);
+	    	deferred.resolve();
 	    }
 
     }
@@ -389,6 +422,7 @@ function uploadPhoto() {
 	                      	   }
 	                      	   else{
 	                      		   $.mobile.loading("hide");
+	                      		     showErrorDialog(getErrorMessage(res));
 	                      		   deferred.resolve();
 	                      	   }
 	
@@ -470,6 +504,7 @@ function uploadPhoto() {
 	                      	   }
 	                      	   else{
 	                      		   $.mobile.loading("hide");
+	                      		     showErrorDialog(getErrorMessage(res));
 	                      		   deferred.resolve();
 	                      	   }
 	                   	   });
@@ -559,6 +594,7 @@ function uploadPhoto() {
 		                        	   }
 		                        	   else{
 		                        		   $.mobile.loading("hide");
+		                        		     showErrorDialog(getErrorMessage(res));
 		                        		   deferred.resolve();
 		                        	   }
 	
@@ -724,6 +760,7 @@ function uploadPhoto() {
 	                  	   }
 	                  	   else{
 	                  		   $.mobile.loading("hide");
+	                  		     showErrorDialog(getErrorMessage(res));
 	                  		   deferred.resolve();
 	                  	   }
 	
@@ -792,6 +829,7 @@ function uploadPhoto() {
 	                  	   }
 	                  	   else{
 	                  		   $.mobile.loading("hide");
+	                  		     showErrorDialog(getErrorMessage(res));
 	                  		   deferred.resolve();
 	                  	   }
 	
@@ -827,22 +865,22 @@ function uploadPhoto() {
     function onServerRequestError(jqXHR, textStatus, errorThrown){
     	var deferred = $.Deferred();
     	try{
-	    	
-	    	if (authCount==2){
+
+	    	if (authCount>2){
 		    	    $.mobile.loading("hide");
 		    	  // alert("Ошибка авторизации");
 		    	    showErrorDialog(jqXHR.responseText);
-		    	    getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
-		        		var log = login;
-		        		getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
-		        		var pass = password;
+		    //	    getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
+		     //   		var log = login;
+		      //  		getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
+		       // 		var pass = password;
 		        		/*alert("Логин: "+log);
 		        		alert("Пароль: "+pass);
 		        		*/
 		        		 deferred.resolve(SERVER_ERROR_NO_AUTH);
 		        		return deferred;
-		        		});
-		    	    });
+		    //    		});
+		   // 	    });
 	    	}
 	    	/*
 	    	var SERVER_ERROR_NO_INTERNET = "noInternet";
@@ -874,7 +912,7 @@ function uploadPhoto() {
 	    	}
 	
 	    	// Проверяем доступность сервера
-	    	var isReachable = false;
+	    /*	var isReachable = false;
 	    //	getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
 		    	$.get(getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT))
 		    	    .done( function(){ isReachable = true; } )
@@ -886,13 +924,16 @@ function uploadPhoto() {
 		    	    authCount = 0;
 		    	    return deferred;
 		    	    } );
+		    	    */
 	    //	});
 	    	// проверяем, не протух ли ключ авторизации и если что пытаемся обновить
-	    	if (errorThrown==="Unauthorized"){
-	    		getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
-	        		var log = login;
-	        		getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
-	        		var pass = password;
+	    	if ((errorThrown==="Unauthorized")|(errorThrown==="Bad Request")){
+	    	//	getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
+	        //		var log = login;
+	       // 		getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
+	       // 		var pass = password;
+	       			var log = getSettingFromStorage(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT);
+	       			var pass = getSettingFromStorage(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT);
 	        			requestUserToken(log, pass).done(function(uToken){
 	                		var userToken = uToken;
 	                		if (userToken!=""){
@@ -906,8 +947,8 @@ function uploadPhoto() {
 	                		
 	                		
 	        			});
-	        		});
-	        	});
+	        		//});
+	        //	});
 	    	}
 	    	else{
 		    	$.mobile.loading("hide");
@@ -1121,6 +1162,7 @@ function uploadPhoto() {
   	                  	   }
   	                  	   else{
   	                  		   $.mobile.loading("hide");
+  	                  		     showErrorDialog(getErrorMessage(res));
   	                  		   deferred.resolve();
   	                  	   }
 
@@ -1194,7 +1236,9 @@ function uploadPhoto() {
   		                        	   	   deferred.resolve();
   		                        	   }
   		                        	   else{
+
   		                        		   $.mobile.loading("hide");
+  		                        		     showErrorDialog(getErrorMessage(res));
   		                        		   deferred.resolve();
   		                        	   }
   	
@@ -1246,7 +1290,9 @@ function uploadPhoto() {
       	                      	   }
       	                      	   else{
       	                      		   $.mobile.loading("hide");
+      	                      		   showErrorDialog(getErrorMessage(res));
       	                      		   deferred.resolve("");
+
       	                      	   }
       	                   	   });
       	    	            }

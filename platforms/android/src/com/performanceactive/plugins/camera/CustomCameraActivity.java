@@ -69,6 +69,8 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
  
     private static final String TAG = CustomCameraActivity.class.getSimpleName();
     private static final float ASPECT_RATIO = 126.0f / 86;
+    // берем чуть больше от рамки
+    public static final int BORDER_CORRECTION = 5;
  
     public static String FILENAME = "Filename";
     public static String QUALITY = "Quality"; 
@@ -1057,9 +1059,13 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
                 Log.w("imp height", ""+impHeight);
                 Log.w("top margin corrected", ""+topMarginCorrected);
 
+
                 
-                
-                Bitmap croppedBitmap = Bitmap.createBitmap(capturedImage, leftMarginCorrected , topMarginCorrected, impWidth,impHeight);
+                Bitmap croppedBitmap = Bitmap.createBitmap(capturedImage,
+                                                leftMarginCorrected-BORDER_CORRECTION ,
+                                                topMarginCorrected-BORDER_CORRECTION,
+                                                impWidth+BORDER_CORRECTION,
+                                                impHeight+BORDER_CORRECTION);
                 capturedImage.recycle();
                 jpegData = null;
                 System.gc();
