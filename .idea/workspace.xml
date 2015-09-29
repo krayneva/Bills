@@ -150,7 +150,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/js/serverFuncs.js" afterPath="$PROJECT_DIR$/platforms/android/assets/www/js/serverFuncs.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/FileLruCache$ModifiedFile.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/FileLruCache$ModifiedFile.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/AppEventsLogger$AccessTokenAppIdPair$SerializationProxyV1.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/AppEventsLogger$AccessTokenAppIdPair$SerializationProxyV1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/plugins/org.apache.cordova.camera/www/ios/CameraPopoverHandle.js" afterPath="$PROJECT_DIR$/platforms/ios/www/plugins/org.apache.cordova.camera/www/ios/CameraPopoverHandle.js" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\ios\www\plugins\org.apache.cordova.camera\www\ios\CameraPopoverHandle.js" afterPath="D:\Projects\Bills\platforms\ios\www\plugins\org.apache.cordova.camera\www\ios\CameraPopoverHandle.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugins/cordova-plugin-device/doc/ru/index.md" afterPath="$PROJECT_DIR$/plugins/cordova-plugin-device/doc/ru/index.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/GraphObjectAdapter$SectionAndItem$Type.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/GraphObjectAdapter$SectionAndItem$Type.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/ImageDownloader.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/ImageDownloader.class" />
@@ -175,7 +175,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/PickerFragment$3.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/PickerFragment$3.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/FriendPickerFragment$ImmediateLoadingStrategy.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/FriendPickerFragment$ImmediateLoadingStrategy.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/AppEventsLogger$AccessTokenAppIdPair.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/AppEventsLogger$AccessTokenAppIdPair.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/images/check-photo.jpg" afterPath="$PROJECT_DIR$/platforms/ios/www/images/check-photo.jpg" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\ios\www\images\check-photo.jpg" afterPath="D:\Projects\Bills\platforms\ios\www\images\check-photo.jpg" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/debug/org/apache/cordova/NativeToJsMessageQueue$JsMessage.class" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/debug/org/apache/cordova/NativeToJsMessageQueue$JsMessage.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/bundles/release/res/drawable/com_facebook_button_check.xml" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/bundles/release/res/drawable/com_facebook_button_check.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/widget/UserSettingsFragment$1.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/widget/UserSettingsFragment$1.class" />
@@ -210,7 +210,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/release/org/apache/cordova/engine/SystemWebChromeClient$3.class" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/release/org/apache/cordova/engine/SystemWebChromeClient$3.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/FileLruCache.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/FileLruCache.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/FriendPickerFragment.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/FriendPickerFragment.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/plugins/org.apache.cordova.network-information/www/Connection.js" afterPath="$PROJECT_DIR$/platforms/ios/www/plugins/org.apache.cordova.network-information/www/Connection.js" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\ios\www\plugins\org.apache.cordova.network-information\www\Connection.js" afterPath="D:\Projects\Bills\platforms\ios\www\plugins\org.apache.cordova.network-information\www\Connection.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/bundles/debug/res/drawable/com_facebook_button_blue.xml" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/bundles/debug/res/drawable/com_facebook_button_blue.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/res/release/drawable/com_facebook_picker_list_selector_background_transition.xml" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/res/release/drawable/com_facebook_picker_list_selector_background_transition.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/debug/org/apache/cordova/PluginResult.class" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/debug/org/apache/cordova/PluginResult.class" />
@@ -265,7 +265,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/bundles/release/res/values-hdpi-v4/values.xml" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/bundles/release/res/values-hdpi-v4/values.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/TokenCachingStrategy.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/TokenCachingStrategy.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/LikeView$AuxiliaryViewPosition.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/LikeView$AuxiliaryViewPosition.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/plugins/org.apache.cordova.network-information/www/Connection.js" afterPath="$PROJECT_DIR$/platforms/android/assets/www/plugins/org.apache.cordova.network-information/www/Connection.js" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\android\assets\www\plugins\org.apache.cordova.network-information\www\Connection.js" afterPath="D:\Projects\Bills\platforms\android\assets\www\plugins\org.apache.cordova.network-information\www\Connection.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/LoggingBehavior.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/LoggingBehavior.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/widget/LikeView.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/widget/LikeView.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/Validate.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/Validate.class" />
@@ -288,7 +288,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/BundleJSONConverter$5.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/BundleJSONConverter$5.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/widget/PickerFragment$LoadingStrategy$2.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/widget/PickerFragment$LoadingStrategy$2.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/FacebookFragment$DefaultSessionStatusCallback.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/FacebookFragment$DefaultSessionStatusCallback.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/plugins/cordova-plugin-device/www/device.js" afterPath="$PROJECT_DIR$/platforms/ios/www/plugins/cordova-plugin-device/www/device.js" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\ios\www\plugins\cordova-plugin-device\www\device.js" afterPath="D:\Projects\Bills\platforms\ios\www\plugins\cordova-plugin-device\www\device.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/FacebookTimeSpentData$1.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/FacebookTimeSpentData$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/PickerFragment$1.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/PickerFragment$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/GraphObjectAdapter$2.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/GraphObjectAdapter$2.class" />
@@ -365,9 +365,9 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/LikeActionController$8$1.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/LikeActionController$8$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/debug/org/apache/cordova/CoreAndroid$1.class" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/debug/org/apache/cordova/CoreAndroid$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/LikeActionController$GetEngagementRequestWrapper.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/LikeActionController$GetEngagementRequestWrapper.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/habits.html" afterPath="$PROJECT_DIR$/platforms/ios/www/habits.html" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\ios\www\habits.html" afterPath="D:\Projects\Bills\platforms\ios\www\habits.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/ServerProtocol.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/ServerProtocol.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/cordova_plugins.js" afterPath="$PROJECT_DIR$/platforms/ios/www/cordova_plugins.js" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\ios\www\cordova_plugins.js" afterPath="D:\Projects\Bills\platforms\ios\www\cordova_plugins.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/bundles/release/res/values/values.xml" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/bundles/release/res/values/values.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/FileLruCache$StreamHeader.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/FileLruCache$StreamHeader.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/widget/FacebookDialog$MessageDialogBuilder.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/widget/FacebookDialog$MessageDialogBuilder.class" />
@@ -383,7 +383,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/debug/org/apache/cordova/CoreAndroid$5.class" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/debug/org/apache/cordova/CoreAndroid$5.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/AppEventsLogger$AccessTokenAppIdPair.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/AppEventsLogger$AccessTokenAppIdPair.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/PlatformServiceClient.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/PlatformServiceClient.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/plugins/cordova-plugin-whitelist/whitelist.js" afterPath="$PROJECT_DIR$/platforms/android/assets/www/plugins/cordova-plugin-whitelist/whitelist.js" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\android\assets\www\plugins\cordova-plugin-whitelist\whitelist.js" afterPath="D:\Projects\Bills\platforms\android\assets\www\plugins\cordova-plugin-whitelist\whitelist.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/AppEventsLogger$PersistedAppSessionInfo.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/AppEventsLogger$PersistedAppSessionInfo.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/AccessToken.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/AccessToken.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/debug/org/apache/cordova/CallbackContext.class" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/debug/org/apache/cordova/CallbackContext.class" />
@@ -399,7 +399,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/AuthorizationClient$1.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/AuthorizationClient$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/SessionAuthorizationType.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/SessionAuthorizationType.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/android/Facebook.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/android/Facebook.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/plugins/org.apache.cordova.network-information/www/network.js" afterPath="$PROJECT_DIR$/platforms/ios/www/plugins/org.apache.cordova.network-information/www/network.js" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\ios\www\plugins\org.apache.cordova.network-information\www\network.js" afterPath="D:\Projects\Bills\platforms\ios\www\plugins\org.apache.cordova.network-information\www\network.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/bin/classes/org/apache/cordova/PluginManager.class" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/bin/classes/org/apache/cordova/PluginManager.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/bin/classes/com/checkomatic/R$layout.class" afterPath="$PROJECT_DIR$/platforms/android/bin/classes/com/checkomatic/R$layout.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/Bills/config.xml" afterPath="$PROJECT_DIR$/platforms/ios/Bills/config.xml" />
@@ -497,7 +497,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/BundleJSONConverter.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/BundleJSONConverter.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/TestSession$Mode.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/TestSession$Mode.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/AccessTokenSource.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/AccessTokenSource.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/plugins/org.apache.cordova.console/www/console-via-logger.js" afterPath="$PROJECT_DIR$/platforms/ios/www/plugins/org.apache.cordova.console/www/console-via-logger.js" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\ios\www\plugins\org.apache.cordova.console\www\console-via-logger.js" afterPath="D:\Projects\Bills\platforms\ios\www\plugins\org.apache.cordova.console\www\console-via-logger.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/ImageRequest.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/ImageRequest.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/AccessToken.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/AccessToken.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/GraphObjectPagingLoader$2.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/GraphObjectPagingLoader$2.class" />
@@ -526,7 +526,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/PlacePickerFragment$2.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/PlacePickerFragment$2.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugins/cordova-plugin-device/doc/it/README.md" afterPath="$PROJECT_DIR$/plugins/cordova-plugin-device/doc/it/README.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/debug/org/apache/cordova/CordovaBridge.class" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/debug/org/apache/cordova/CordovaBridge.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/style.css" afterPath="$PROJECT_DIR$/platforms/android/assets/www/style.css" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\android\assets\www\style.css" afterPath="D:\Projects\Bills\platforms\android\assets\www\style.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/release/org/apache/cordova/engine/SystemWebChromeClient$2.class" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/release/org/apache/cordova/engine/SystemWebChromeClient$2.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/LikeActionController$MRUCacheWorkItem.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/LikeActionController$MRUCacheWorkItem.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/LoginButton$1.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/LoginButton$1.class" />
@@ -559,7 +559,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/HttpMethod.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/HttpMethod.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/widget/PlacePickerFragment$SearchTextWatcher.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/widget/PlacePickerFragment$SearchTextWatcher.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/AppEventsLogger$FlushReason.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/AppEventsLogger$FlushReason.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/plugins/org.apache.cordova.splashscreen/www/splashscreen.js" afterPath="$PROJECT_DIR$/platforms/android/assets/www/plugins/org.apache.cordova.splashscreen/www/splashscreen.js" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\android\assets\www\plugins\org.apache.cordova.splashscreen\www\splashscreen.js" afterPath="D:\Projects\Bills\platforms\android\assets\www\plugins\org.apache.cordova.splashscreen\www\splashscreen.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/LikeActionController$AbstractRequestWrapper$1.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/LikeActionController$AbstractRequestWrapper$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/android/AsyncFacebookRunner$1.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/android/AsyncFacebookRunner$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/android/Facebook$TokenRefreshConnectionHandler.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/android/Facebook$TokenRefreshConnectionHandler.class" />
@@ -572,7 +572,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/LoginButton$LoginButtonCallback.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/LoginButton$LoginButtonCallback.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/res/debug/layout/com_facebook_search_bar_layout.xml" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/res/debug/layout/com_facebook_search_bar_layout.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/LikeActionController$7.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/LikeActionController$7.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/plugins/org.apache.cordova.console/www/logger.js" afterPath="$PROJECT_DIR$/platforms/ios/www/plugins/org.apache.cordova.console/www/logger.js" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\ios\www\plugins\org.apache.cordova.console\www\logger.js" afterPath="D:\Projects\Bills\platforms\ios\www\plugins\org.apache.cordova.console\www\logger.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/FacebookRequestError.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/FacebookRequestError.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/bin/classes/org/apache/cordova/engine/SystemWebViewClient.class" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/bin/classes/org/apache/cordova/engine/SystemWebViewClient.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/LikeActionController$MRUCacheWorkItem.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/LikeActionController$MRUCacheWorkItem.class" />
@@ -627,7 +627,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/LikeActionController$LikeDialogBuilder.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/LikeActionController$LikeDialogBuilder.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/AuthorizationClient$KatanaAuthHandler.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/AuthorizationClient$KatanaAuthHandler.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/bundles/debug/res/drawable/com_facebook_button_check.xml" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/bundles/debug/res/drawable/com_facebook_button_check.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/plugins/cordova-plugin-device/www/device.js" afterPath="$PROJECT_DIR$/platforms/android/assets/www/plugins/cordova-plugin-device/www/device.js" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\android\assets\www\plugins\cordova-plugin-device\www\device.js" afterPath="D:\Projects\Bills\platforms\android\assets\www\plugins\cordova-plugin-device\www\device.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/ServerProtocol.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/ServerProtocol.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/android/AsyncFacebookRunner$2.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/android/AsyncFacebookRunner$2.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/Session$AuthorizationRequest$AuthRequestSerializationProxyV1.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/Session$AuthorizationRequest$AuthRequestSerializationProxyV1.class" />
@@ -650,12 +650,12 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/bundles/release/res/drawable/com_facebook_button_blue.xml" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/bundles/release/res/drawable/com_facebook_button_blue.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/release/org/apache/cordova/CordovaDialogsHelper$8.class" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/release/org/apache/cordova/CordovaDialogsHelper$8.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/Session$4$1.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/Session$4$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/plugins/org.apache.cordova.file/www/ios/FileSystem.js" afterPath="$PROJECT_DIR$/platforms/ios/www/plugins/org.apache.cordova.file/www/ios/FileSystem.js" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\ios\www\plugins\org.apache.cordova.file\www\ios\FileSystem.js" afterPath="D:\Projects\Bills\platforms\ios\www\plugins\org.apache.cordova.file\www\ios\FileSystem.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/android/AsyncFacebookRunner.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/android/AsyncFacebookRunner.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/release/org/apache/cordova/CordovaActivity$4.class" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/release/org/apache/cordova/CordovaActivity$4.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/debug/org/apache/cordova/CordovaActivity$4.class" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/debug/org/apache/cordova/CordovaActivity$4.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/GraphObjectAdapter.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/GraphObjectAdapter.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/plugins/com.ionic.keyboard/www/keyboard.js" afterPath="$PROJECT_DIR$/platforms/ios/www/plugins/com.ionic.keyboard/www/keyboard.js" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\ios\www\plugins\com.ionic.keyboard\www\keyboard.js" afterPath="D:\Projects\Bills\platforms\ios\www\plugins\com.ionic.keyboard\www\keyboard.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/widget/WebDialog$DialogWebViewClient.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/widget/WebDialog$DialogWebViewClient.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/widget/WebDialog$RequestsDialogBuilder.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/widget/WebDialog$RequestsDialogBuilder.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/FileLruCache$BufferFile.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/FileLruCache$BufferFile.class" />
@@ -764,7 +764,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/SessionTracker.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/SessionTracker.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/LikeActionController$AbstractRequestWrapper.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/LikeActionController$AbstractRequestWrapper.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/debug/org/apache/cordova/CordovaDialogsHelper$6.class" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/debug/org/apache/cordova/CordovaDialogsHelper$6.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/plugins/org.apache.cordova.network-information/www/network.js" afterPath="$PROJECT_DIR$/platforms/android/assets/www/plugins/org.apache.cordova.network-information/www/network.js" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\android\assets\www\plugins\org.apache.cordova.network-information\www\network.js" afterPath="D:\Projects\Bills\platforms\android\assets\www\plugins\org.apache.cordova.network-information\www\network.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/release/org/apache/cordova/CordovaWebViewImpl.class" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/release/org/apache/cordova/CordovaWebViewImpl.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/NativeProtocol$1.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/NativeProtocol$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/bin/classes/com/checkomatic/R$id.class" afterPath="$PROJECT_DIR$/platforms/android/bin/classes/com/checkomatic/R$id.class" />
@@ -781,7 +781,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/widget/LikeView$LikeControllerBroadcastReceiver.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/widget/LikeView$LikeControllerBroadcastReceiver.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugins/fetch.json" afterPath="$PROJECT_DIR$/plugins/fetch.json" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/serverFuncs.js" afterPath="$PROJECT_DIR$/www/js/serverFuncs.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/js/interface.js" afterPath="$PROJECT_DIR$/platforms/ios/www/js/interface.js" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\ios\www\js\interface.js" afterPath="D:\Projects\Bills\platforms\ios\www\js\interface.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/res/debug/layout/com_facebook_login_activity_layout.xml" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/res/debug/layout/com_facebook_login_activity_layout.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/LikeActionController$GetOGObjectIdRequestWrapper.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/LikeActionController$GetOGObjectIdRequestWrapper.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/FacebookDialog$ShareDialogBuilderBase.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/FacebookDialog$ShareDialogBuilderBase.class" />
@@ -799,11 +799,11 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/widget/PickerFragment$5.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/widget/PickerFragment$5.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/widget/GraphObjectPagingLoader.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/widget/GraphObjectPagingLoader.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/habits.html" afterPath="$PROJECT_DIR$/www/habits.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/loginNew.html" afterPath="$PROJECT_DIR$/platforms/ios/www/loginNew.html" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\ios\www\loginNew.html" afterPath="D:\Projects\Bills\platforms\ios\www\loginNew.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/Session$AutoPublishAsyncTask.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/Session$AutoPublishAsyncTask.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/ImageResponseCache$BufferedHttpInputStream.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/ImageResponseCache$BufferedHttpInputStream.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/cordova_plugins.js" afterPath="$PROJECT_DIR$/platforms/android/assets/www/cordova_plugins.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/plugins/com.phonegap.plugins.facebookconnect/facebookConnectPlugin.js" afterPath="$PROJECT_DIR$/platforms/android/assets/www/plugins/com.phonegap.plugins.facebookconnect/facebookConnectPlugin.js" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\android\assets\www\plugins\com.phonegap.plugins.facebookconnect\facebookConnectPlugin.js" afterPath="D:\Projects\Bills\platforms\android\assets\www\plugins\com.phonegap.plugins.facebookconnect\facebookConnectPlugin.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/widget/LoginButton$LoginClickListener.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/widget/LoginButton$LoginClickListener.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/.gradle/2.2.1/taskArtifacts/fileHashes.bin" afterPath="$PROJECT_DIR$/platforms/android/.gradle/2.2.1/taskArtifacts/fileHashes.bin" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/outputs/aar/checkomatic-FacebookLib-release.aar" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/outputs/aar/checkomatic-FacebookLib-release.aar" />
@@ -832,7 +832,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/NativeAppCallAttachmentStore$2.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/NativeAppCallAttachmentStore$2.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugins/cordova-plugin-device/doc/de/index.md" afterPath="$PROJECT_DIR$/plugins/cordova-plugin-device/doc/de/index.md" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/bundles/debug/res/values-es/values.xml" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/bundles/debug/res/values-es/values.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/plugins/com.phonegap.plugins.facebookconnect/facebookConnectPlugin.js" afterPath="$PROJECT_DIR$/platforms/ios/www/plugins/com.phonegap.plugins.facebookconnect/facebookConnectPlugin.js" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\ios\www\plugins\com.phonegap.plugins.facebookconnect\facebookConnectPlugin.js" afterPath="D:\Projects\Bills\platforms\ios\www\plugins\com.phonegap.plugins.facebookconnect\facebookConnectPlugin.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/PlatformServiceClient.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/PlatformServiceClient.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/AuthorizationClient$5.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/AuthorizationClient$5.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/FacebookDialog$ShareDialogFeature.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/FacebookDialog$ShareDialogFeature.class" />
@@ -845,10 +845,10 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/release/org/apache/cordova/ConfigXmlParser.class" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/release/org/apache/cordova/ConfigXmlParser.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/LikeActionController$LikeDialogBuilder.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/LikeActionController$LikeDialogBuilder.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/AppEventsLogger$FlushBehavior.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/AppEventsLogger$FlushBehavior.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/checkNew.html" afterPath="$PROJECT_DIR$/platforms/ios/www/checkNew.html" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\ios\www\checkNew.html" afterPath="D:\Projects\Bills\platforms\ios\www\checkNew.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/FacebookDialog$Builder.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/FacebookDialog$Builder.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/bin/classes/org/apache/cordova/CordovaWebViewImpl$EngineClient.class" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/bin/classes/org/apache/cordova/CordovaWebViewImpl$EngineClient.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/index.css" afterPath="$PROJECT_DIR$/platforms/ios/www/index.css" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\ios\www\index.css" afterPath="D:\Projects\Bills\platforms\ios\www\index.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/incremental/packageResources/debug/merger.xml" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/incremental/packageResources/debug/merger.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/UiLifecycleHelper$ActiveSessionBroadcastReceiver.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/UiLifecycleHelper$ActiveSessionBroadcastReceiver.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/release/org/apache/cordova/CordovaDialogsHelper$4.class" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/release/org/apache/cordova/CordovaDialogsHelper$4.class" />
@@ -864,14 +864,14 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/bundles/release/res/values-iw/values.xml" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/bundles/release/res/values-iw/values.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/LikeActionController.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/LikeActionController.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/bundles/release/res/layout/com_facebook_picker_list_row.xml" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/bundles/release/res/layout/com_facebook_picker_list_row.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/css/index.css" afterPath="$PROJECT_DIR$/platforms/ios/www/css/index.css" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\ios\www\css\index.css" afterPath="D:\Projects\Bills\platforms\ios\www\css\index.css" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/bundles/debug/classes.jar" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/bundles/debug/classes.jar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/debug/org/apache/cordova/CordovaDialogsHelper$7.class" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/debug/org/apache/cordova/CordovaDialogsHelper$7.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/Utility$FetchedAppSettings.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/Utility$FetchedAppSettings.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/PickerFragment$LoadingStrategy$1.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/PickerFragment$LoadingStrategy$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/widget/ToolTipPopup.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/widget/ToolTipPopup.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/BundleJSONConverter$1.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/BundleJSONConverter$1.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/js/generalFuncs.js" afterPath="$PROJECT_DIR$/platforms/ios/www/js/generalFuncs.js" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\ios\www\js\generalFuncs.js" afterPath="D:\Projects\Bills\platforms\ios\www\js\generalFuncs.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/PickerFragment$LoadingStrategy$3.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/PickerFragment$LoadingStrategy$3.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/LikeActionController$PublishUnlikeRequestWrapper.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/LikeActionController$PublishUnlikeRequestWrapper.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/AppEventsLogger$AppEvent$SerializationProxyV1.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/AppEventsLogger$AppEvent$SerializationProxyV1.class" />
@@ -927,11 +927,11 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/FileLruCache$CloseCallbackOutputStream.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/FileLruCache$CloseCallbackOutputStream.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/FacebookDialog$VideoDialogBuilderBase.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/FacebookDialog$VideoDialogBuilderBase.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/bin/classes/org/apache/cordova/CordovaActivity$4.class" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/bin/classes/org/apache/cordova/CordovaActivity$4.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/js/serverFuncs.js" afterPath="$PROJECT_DIR$/platforms/ios/www/js/serverFuncs.js" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\ios\www\js\serverFuncs.js" afterPath="D:\Projects\Bills\platforms\ios\www\js\serverFuncs.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/Request$Serializer.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/Request$Serializer.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/js/generalFuncs.js" afterPath="$PROJECT_DIR$/www/js/generalFuncs.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugins/cordova-plugin-device/src/ubuntu/device.js" afterPath="$PROJECT_DIR$/plugins/cordova-plugin-device/src/ubuntu/device.js" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/plugins/org.apache.cordova.splashscreen/www/splashscreen.js" afterPath="$PROJECT_DIR$/platforms/ios/www/plugins/org.apache.cordova.splashscreen/www/splashscreen.js" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\ios\www\plugins\org.apache.cordova.splashscreen\www\splashscreen.js" afterPath="D:\Projects\Bills\platforms\ios\www\plugins\org.apache.cordova.splashscreen\www\splashscreen.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/BundleJSONConverter$7.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/internal/BundleJSONConverter$7.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/debug/org/apache/cordova/NativeToJsMessageQueue$LoadUrlBridgeMode$1.class" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/debug/org/apache/cordova/NativeToJsMessageQueue$LoadUrlBridgeMode$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/res/debug/layout/com_facebook_friendpickerfragment.xml" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/res/debug/layout/com_facebook_friendpickerfragment.xml" />
@@ -1034,9 +1034,9 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/widget/PlacePickerFragment$AsNeededLoadingStrategy$1.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/widget/PlacePickerFragment$AsNeededLoadingStrategy$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/NativeProtocol$KatanaAppInfo.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/internal/NativeProtocol$KatanaAppInfo.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/www/checkNew.html" afterPath="$PROJECT_DIR$/www/checkNew.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/js/utils.js" afterPath="$PROJECT_DIR$/platforms/ios/www/js/utils.js" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\ios\www\js\utils.js" afterPath="D:\Projects\Bills\platforms\ios\www\js\utils.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/AuthorizationClient.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/AuthorizationClient.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/ios/www/js/updateInterface.js" afterPath="$PROJECT_DIR$/platforms/ios/www/js/updateInterface.js" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\ios\www\js\updateInterface.js" afterPath="D:\Projects\Bills\platforms\ios\www\js\updateInterface.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/bundles/debug/res/values-iw/values.xml" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/bundles/debug/res/values-iw/values.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/PickerFragment$4.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/debug/com/facebook/widget/PickerFragment$4.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/res/debug/layout/com_facebook_picker_image.xml" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/res/debug/layout/com_facebook_picker_image.xml" />
@@ -1074,7 +1074,7 @@
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/AuthorizationClient$AuthHandler.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/AuthorizationClient$AuthHandler.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/plugins/cordova-plugin-device/plugin.xml" afterPath="$PROJECT_DIR$/plugins/cordova-plugin-device/plugin.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/res/release/drawable/com_facebook_loginbutton_silver.xml" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/res/release/drawable/com_facebook_loginbutton_silver.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/assets/www/plugins/com.ionic.keyboard/www/keyboard.js" afterPath="$PROJECT_DIR$/platforms/android/assets/www/plugins/com.ionic.keyboard/www/keyboard.js" />
+      <change type="MODIFICATION" beforePath="D:\Projects\Bills\platforms\android\assets\www\plugins\com.ionic.keyboard\www\keyboard.js" afterPath="D:\Projects\Bills\platforms\android\assets\www\plugins\com.ionic.keyboard\www\keyboard.js" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/release/org/apache/cordova/NativeToJsMessageQueue.class" afterPath="$PROJECT_DIR$/platforms/android/CordovaLib/build/intermediates/classes/release/org/apache/cordova/NativeToJsMessageQueue.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/UiLifecycleHelper$1.class" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/classes/release/com/facebook/UiLifecycleHelper$1.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/bundles/release/res/values-he/values.xml" afterPath="$PROJECT_DIR$/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/build/intermediates/bundles/release/res/values-he/values.xml" />
@@ -1186,11 +1186,21 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="serverFuncs.js" pinned="false" current-in-tab="true">
+      <file leaf-file-name="serverFuncs.js" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/www/js/serverFuncs.js">
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
-              <caret line="355" column="57" selection-start-line="355" selection-start-column="57" selection-end-line="355" selection-end-column="57" />
+              <caret line="366" column="7" selection-start-line="366" selection-start-column="7" selection-end-line="366" selection-end-column="7" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="loginNew.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/loginNew.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.230769">
+              <caret line="23" column="24" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
               <folding />
             </state>
           </provider>
@@ -1221,16 +1231,41 @@
           <provider selected="true" editor-type-id="text-editor">
             <state vertical-scroll-proportion="0.0">
               <caret line="56" column="16" selection-start-line="56" selection-start-column="16" selection-end-line="56" selection-end-column="16" />
+              <folding>
+                <element signature="imports" expanded="false" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="updateInterface.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/www/js/updateInterface.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="0.7492625">
+              <caret line="891" column="0" selection-start-line="891" selection-start-column="0" selection-end-line="891" selection-end-column="0" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="updateInterface.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/www/js/updateInterface.js">
+      <file leaf-file-name="check0809v2.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/check0809v2.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state vertical-scroll-proportion="0.0">
-              <caret line="110" column="19" selection-start-line="110" selection-start-column="8" selection-end-line="110" selection-end-column="19" />
+            <state vertical-scroll-proportion="-3.3396227">
+              <caret line="290" column="39" selection-start-line="290" selection-start-column="39" selection-end-line="290" selection-end-column="39" />
+              <folding>
+                <element signature="e#6647#6669#0" expanded="true" />
+                <element signature="e#10887#10909#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/index.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state vertical-scroll-proportion="-5.230769">
+              <caret line="8" column="47" selection-start-line="8" selection-start-column="47" selection-end-line="8" selection-end-column="47" />
               <folding />
             </state>
           </provider>
@@ -1261,18 +1296,18 @@
         <option value="$PROJECT_DIR$/www/check_0709.html" />
         <option value="$PROJECT_DIR$/www/style.css" />
         <option value="$PROJECT_DIR$/www/checkNew.html" />
-        <option value="$PROJECT_DIR$/www/loginNew.html" />
         <option value="$PROJECT_DIR$/www/check_0809.html" />
         <option value="$PROJECT_DIR$/www/js/database.js" />
         <option value="$PROJECT_DIR$/www/css/index.css" />
         <option value="$PROJECT_DIR$/www/index.css" />
         <option value="$PROJECT_DIR$/www/expenses.html" />
-        <option value="$PROJECT_DIR$/www/check0809v2.html" />
         <option value="$PROJECT_DIR$/www/js/generalFuncs.js" />
         <option value="$PROJECT_DIR$/config.xml" />
         <option value="$PROJECT_DIR$/www/js/interface.js" />
-        <option value="$PROJECT_DIR$/www/js/updateInterface.js" />
         <option value="$PROJECT_DIR$/www/js/serverFuncs.js" />
+        <option value="$PROJECT_DIR$/www/loginNew.html" />
+        <option value="$PROJECT_DIR$/www/check0809v2.html" />
+        <option value="$PROJECT_DIR$/www/js/updateInterface.js" />
       </list>
     </option>
   </component>
@@ -1561,7 +1596,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Build Variants" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="true" content_ui="tabs" />
@@ -1576,7 +1611,7 @@
       <window_info id="Android" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32993197" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Gradle Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="11" side_tool="true" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2344932" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.23298033" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="4" side_tool="true" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -1631,14 +1666,6 @@
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/www/js/generalFuncs.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="1" column="27" selection-start-line="1" selection-start-column="27" selection-end-line="1" selection-end-column="27" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/config.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1800,14 +1827,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/loginNew.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="16" column="34" selection-start-line="16" selection-start-column="34" selection-end-line="16" selection-end-column="34" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/www/js/settings.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
@@ -1868,24 +1887,6 @@
         <state vertical-scroll-proportion="-0.65384614">
           <caret line="294" column="14" selection-start-line="294" selection-start-column="14" selection-end-line="294" selection-end-column="14" />
           <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/www/check0809v2.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="-6.9615383">
-          <caret line="281" column="59" selection-start-line="281" selection-start-column="59" selection-end-line="281" selection-end-column="59" />
-          <folding>
-            <element signature="e#6564#6586#0" expanded="false" />
-            <element signature="e#6647#6669#0" expanded="false" />
-            <element signature="e#10245#10267#0" expanded="false" />
-            <element signature="e#10389#10411#0" expanded="false" />
-            <element signature="e#10549#10571#0" expanded="false" />
-            <element signature="e#10723#10745#0" expanded="false" />
-            <element signature="e#10887#10909#0" expanded="false" />
-            <element signature="e#11017#11039#0" expanded="false" />
-            <element signature="e#11203#11225#0" expanded="false" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1957,7 +1958,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
           <caret line="56" column="16" selection-start-line="56" selection-start-column="16" selection-end-line="56" selection-end-column="16" />
-          <folding />
+          <folding>
+            <element signature="imports" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -1993,18 +1996,45 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/updateInterface.js">
+    <entry file="file://$PROJECT_DIR$/www/js/serverFuncs.js">
       <provider selected="true" editor-type-id="text-editor">
         <state vertical-scroll-proportion="0.0">
-          <caret line="110" column="19" selection-start-line="110" selection-start-column="8" selection-end-line="110" selection-end-column="19" />
+          <caret line="366" column="7" selection-start-line="366" selection-start-column="7" selection-end-line="366" selection-end-column="7" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/www/js/serverFuncs.js">
+    <entry file="file://$PROJECT_DIR$/www/loginNew.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state vertical-scroll-proportion="0.0">
-          <caret line="355" column="57" selection-start-line="355" selection-start-column="57" selection-end-line="355" selection-end-column="57" />
+        <state vertical-scroll-proportion="-5.230769">
+          <caret line="23" column="24" selection-start-line="23" selection-start-column="24" selection-end-line="23" selection-end-column="24" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/index.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-5.230769">
+          <caret line="8" column="47" selection-start-line="8" selection-start-column="47" selection-end-line="8" selection-end-column="47" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/check0809v2.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="-3.3396227">
+          <caret line="290" column="39" selection-start-line="290" selection-start-column="39" selection-end-line="290" selection-end-column="39" />
+          <folding>
+            <element signature="e#6647#6669#0" expanded="true" />
+            <element signature="e#10887#10909#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/js/updateInterface.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state vertical-scroll-proportion="0.7492625">
+          <caret line="891" column="0" selection-start-line="891" selection-start-column="0" selection-end-line="891" selection-end-column="0" />
           <folding />
         </state>
       </provider>

@@ -1,4 +1,4 @@
-function updateLoginPage(){
+п»їfunction updateLoginPage(){
 	try{
 /*	(getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT)).done(function(res){
 			document.getElementById('login').value = res;
@@ -133,7 +133,7 @@ function updateMainPage(){
 			else{
 				var json = jQuery.parseJSON(res);
 
-				//--------------- доход----------//
+				//--------------- пїЅпїЅпїЅпїЅпїЅ----------//
 				var incomeRublesTD = document.getElementById("incomeRublesTD");
 				var incomeDollarsTD = document.getElementById("incomeDollarsTD");
 				//var incomeEurosTD = document.getElementById("incomeRublesTD");
@@ -143,7 +143,7 @@ function updateMainPage(){
 				var showDollarsIncome = json.IsAmount2Visible;
 				//var showEurosIncome = json.IsAmount3Visible;
 
-				// рубли
+				// пїЅпїЅпїЅпїЅпїЅ
 				if (showRublesIncome===true){
 					incomeRublesTD.style.display = "block";
 					var incomeRubles = document.getElementById("incomeRubles");
@@ -154,7 +154,7 @@ function updateMainPage(){
 					incomeRublesTD.style.display = "none";
 				}
 
-				// доллары
+				// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 				if (showDollarsIncome===true){
 					incomeDollarsTD.style.display = "block";
 					var incomeDollars = document.getElementById("incomeDollars");
@@ -165,15 +165,15 @@ function updateMainPage(){
 					incomeDollarsTD.style.display = "none";
 				}
 
-				// еврики пока отбой
+				// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
 
-				//---------------конец  доход----------//
+				//---------------пїЅпїЅпїЅпїЅпїЅ  пїЅпїЅпїЅпїЅпїЅ----------//
 
 
-				// ------------- расход-------------------//
+				// ------------- пїЅпїЅпїЅпїЅпїЅпїЅ-------------------//
 				var expenses = document.getElementById("expenses");
 				expenses.innerHTML = json.ExpencesAmountStr;
-				// ------------- конец расход-------------------//
+				// ------------- пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ-------------------//
 
 				updateWidgets();
 				}
@@ -285,7 +285,7 @@ function updateWidgets(){
 		getWidgets().done(function(res){
 			for (var j=0;j<res.rows.length;j++){
 			var w = jQuery.parseJSON(res.rows.item(j).json);
-			// пропускаем кошельки
+			// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			if (w.Type==0) continue;
 			  //var w = json.Widgets[k];
 			 // alert("Widget "+w.Name+" left: "+w.Left+" top:"+w.Top+" interest:"+w.Percent);
@@ -366,15 +366,15 @@ function updateTransactionInfoPage(){
 		
 		getTransaction(transactionID).done(function(res){
 			var json = jQuery.parseJSON(res.rows.item(0).transactionJSON);
-			$('#category').html("Категория: "+json.Category);
+			$('#category').html("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: "+json.Category);
 			if (json.Name!=null)
-				$('#name').html("Наименование: "+json.Name);
-			$('#subcategory').html("Подкатегория: "+json.SubCategory);
-			$('#id').html("Идентификатор: "+json.Id);
-			$('#createdAt').html("Дата создания: "+json.CreatedAt);
-			$('#currency').html("Валюта "+ getCurrencyString(json.Currency));
-			$('#transactionDate').html("Дата транзакции: "+json.TransactionDate);
-			$('#amount').html("Итого "+json.Amount);
+				$('#name').html("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: "+json.Name);
+			$('#subcategory').html("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: "+json.SubCategory);
+			$('#id').html("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: "+json.Id);
+			$('#createdAt').html("пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: "+json.CreatedAt);
+			$('#currency').html("пїЅпїЅпїЅпїЅпїЅпїЅ "+ getCurrencyString(json.Currency));
+			$('#transactionDate').html("пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: "+json.TransactionDate);
+			$('#amount').html("пїЅпїЅпїЅпїЅпїЅ "+json.Amount);
 			
 			var listHTML = "";
 			  $('#tableTransactionInfo > tbody').html("");
@@ -402,7 +402,7 @@ function updateTransactionInfoPage(){
 	
 function updateShopListsPage(reloadFromBase){
 	try{
-		// для обнуления криво забитого параметра
+		// пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		//window.localStorage.setItem("CurrentShopListNum",0);
 		 var currentShopList = window.localStorage.getItem("CurrentShopListNum");
 		 if (currentShopList==undefined) {
@@ -434,9 +434,9 @@ function updateShopListsPage(reloadFromBase){
 			  $('#alreadyBoughtList').html('');
 			  $('#alreadyBoughtList').listview('refresh');
 			  //var itemsJSON =  jQuery.parseJSON(res.rows.item(currentShopList).itemsJSON);
-			  // запоминаем айдишник списка покупок
+			  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			  window.localStorage.setItem("ShopListID",res.rows.item(currentShopList).id);
-			  // смотрим нет ли инфы по купленным
+			  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
 			 var itemsString = window.localStorage.getItem("ShopListAlreadyBought"+res.rows.item(currentShopList).id);
 
@@ -488,7 +488,7 @@ function updateShopListsPage(reloadFromBase){
 		       		  console.log('Measure: '+measure);
 		       		  console.log('Color: '+color);
 	       		  }
-	       		  // товар еще в спсике некупленных
+	       		  // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	       		  console.log('Bought: '+bought);
 	       		if (bought=="0")	{
 		       		  var listrow = document.getElementById("shopListRow").cloneNode(true);
@@ -537,7 +537,7 @@ function updateShopListsPage(reloadFromBase){
 					 
 					  $('#ShopListList').append(listrow);
 	       		  }
-	       		  // товар в списке купленных
+	       		  // пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	       		  else{
 		       		  var listrowBought = document.getElementById("alreadyBoughtRow").cloneNode(true);
 		       		  listrowBought.setAttribute("id", "listrowBought"+k);
@@ -594,7 +594,7 @@ function updateShopListsPage(reloadFromBase){
 
 		 
 		  $("#autocomplete").html('');
-		 // наполняем автокомплит
+		 // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		 getGoodItems().done(function(res){
 			 	//alert("goods items count: "+res.rows.length);
 			  for (var i=0; i<res.rows.length; i++){
@@ -794,7 +794,7 @@ function updateShopListsPage(reloadFromBase){
         		$('#sendFeedbackButton').click(function()
                            {
                            var mark=5;
-                            //{"Id":"55045f4773915739e8789689","Mark":3,"Remark":"Ремарк тут!","Reason":1}
+                            //{"Id":"55045f4773915739e8789689","Mark":3,"Remark":"пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ!","Reason":1}
                            		    $("input[name*=level]:checked").each(function() {
                                         mark = $(this).val();
                                     });
@@ -845,7 +845,8 @@ function updateShopListsPage(reloadFromBase){
 
                  var html2 = $('#purseRowTemplate').html();
                 // var subcategoryName = getCategoryName(json.SubCategory);
-                 html2 = html2.replace(/\{purseName\}/g,js.PurseID);
+                //alert(JSON.stringify(js));
+                 html2 = html2.replace(/\{purseName\}/g,"РљРѕС€РµР»С‘Рє");
                  $('#select-native-2').html(html2);
   				 $('#select-native-2').selectmenu( "refresh" );
   				//$('#select-native-2').selectmenu({disabled: true });
@@ -858,7 +859,7 @@ function updateShopListsPage(reloadFromBase){
                     	 var html3 = $('#tagRowTemplate').html();
                          html3 = html3.replace(/\{tagName\}/g,res);
                       //   alert(html3);
-                         $('#tagsList').append(html3);
+                        if (res!="") $('#tagsList').append(html3);
                      });
                  }
                 // $('#tagsList').html(html3);
@@ -868,7 +869,7 @@ function updateShopListsPage(reloadFromBase){
 				$('#spent').html(js.receiptData.Total);
 				$('#spent2').html(js.receiptData.Total);
 				// tax
-				$('#discount').html("Скидка "+js.receiptData.TotalTax +" "+getCurrencyString(js.Currency));
+				$('#discount').html("РЎРєРёРґРєР° "+js.receiptData.TotalTax +" "+getCurrencyString(js.Currency));
 				$('#discount2').html(js.receiptData.TotalTax);
 
 				//checkDetails
@@ -876,18 +877,23 @@ function updateShopListsPage(reloadFromBase){
 				$("#checkDetailstable > tbody").html('');
 				for (var k in js.receiptData.Items){
 					//html4 = $('#positionTemplate').html();
-					var html5='<tr class="one-detail"><td>{positionName}</td><td><span>{positionCost}</span></td></tr>' ;
+					var html5='<tr class="one-detail"><td>{positionName}</td><td><span>{positionCost}</span></td><td>{positionTag}</td></tr>' ;
 					//alert(html5);
 					html5 = html5.replace(/\{positionName\}/g,js.receiptData.Items[k].ItemName);
 					html5 = html5.replace(/\{positionCost\}/g,js.receiptData.Items[k].Value);
-					tableHTML+=html5;
+					getTagName(js.receiptData.Items[k].Tag).done(function(res){
+						html5 = html5.replace(/\{positionTag\}/g,res);
+                    	tableHTML=html5;
+                    		  $('#checkDetailstable > tbody').append(tableHTML);
+                        			  $("#checkDetailstable").table("refresh");
+
+					});
+
 
 				}
 			//alert(tableHTML);
 
-			  $('#checkDetailstable > tbody').append(tableHTML);
-			  $("#checkDetailstable").table("refresh");
-       });
+		       });
 
 
 	//$( "#table" ).table( "rebuild" );
@@ -975,19 +981,19 @@ function updateShopListsPage(reloadFromBase){
 								if (json.Mark==4) $('#markImage').addClass('myimage4');
 								if (json.Mark==5) $('#markImage').addClass('myimage5');
 
-								if (json.Reason==1)$("#reason").html('Все хорошо, спасибо вам, разработчики!');
-								if (json.Reason==2)$("#reason").html('Не распознались итоги или скидки');
-								if (json.Reason==3)$("#reason").html('Не распознались покупки');
-								if (json.Reason==4)$("#reason").html('Не определился магазин');
-								if (json.Reason==5)$("#reason").html('Низкое качество фотографии');
-								if (json.Reason==200)$("#reason").html('Другое');
+								if (json.Reason==1)$("#reason").html('пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ!');
+								if (json.Reason==2)$("#reason").html('пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ');
+								if (json.Reason==3)$("#reason").html('пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ');
+								if (json.Reason==4)$("#reason").html('пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ');
+								if (json.Reason==5)$("#reason").html('пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ');
+								if (json.Reason==200)$("#reason").html('пїЅпїЅпїЅпїЅпїЅпїЅ');
 								//$('#markImage').attr('src',receivedPhotoDir +receiptID+ '?' + now.getTime());
 
-								if (json.State=1)$("#state").html('Новый отзыв');
-								if (json.State=2)$("#state").html('Рассмотрен, предприняты некоторые действия и закрыт');
-								if (json.State=3)$("#state").html('В работе. Необходимо доработать систему');
+								if (json.State=1)$("#state").html('пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ');
+								if (json.State=2)$("#state").html('пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ');
+								if (json.State=3)$("#state").html('пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ');
 
-								if (json.Reaction==null)$("#reaction").html('Нет ответа');
+								if (json.Reaction==null)$("#reaction").html('пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ');
 								else $("#reaction").html(json.Reaction);
         					};
         				});
