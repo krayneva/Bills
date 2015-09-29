@@ -83,8 +83,15 @@
 
         <div id ="transactionRowTemplate" style="display: none;">
         <li class="expenses_item"  id="transactionRow"  onclick="showCheckPage('{transactionID}')">
-        <table>
+        
+          <table>
             <tr>
+              <td class="expenses_favorites" id="">
+                <div class="transactionIsFavorites-{isFavorites}" id="transactionIsFavorites">
+                  <img class="transactionFavorites" src="img/ico-favorites.png"/>
+                  <img class="transactionNotFavorites" src="img/ico-notFavorites.png"/>
+                </div>          
+              </td>
               <td class="expenses_info" id="transactionInfoDiv">
                 <div class="expenses_date" id="transactionDate">{transactionDate}</div>
                 <div class="expenses_time" id="transactionTime">{transactionTime}</div>
@@ -92,6 +99,8 @@
               </td>
               <td class="expenses_description" id="transactionDescriptionDiv">
                 <div class="expenses_title" id="transactionName">{transactionName}</div>
+                <div class="expenses_tag" id="transactionTag">пиво, хле, говядина, яйца</div>
+                
           
               </td>
             </tr>
