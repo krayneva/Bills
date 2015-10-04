@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		1424D240ADE24DD6AE04446F /* CDVLocalFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = F813CD83DACE42BD8CBA3609 /* CDVLocalFilesystem.m */; };
 		14DA48A0095D4065BB405FA0 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F2B8962A130C441AA60DA6B2 /* SystemConfiguration.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
@@ -821,7 +822,7 @@
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_NAME = Bills;
-				PROVISIONING_PROFILE = "9bc07fb4-aa53-4aa0-954e-4adefbfa5583";
+				PROVISIONING_PROFILE = "61d3bfe1-cee1-4e98-83d5-2fccfe6b1003";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
@@ -871,7 +872,7 @@
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_NAME = Bills;
-				PROVISIONING_PROFILE = "9bc07fb4-aa53-4aa0-954e-4adefbfa5583";
+				PROVISIONING_PROFILE = "61d3bfe1-cee1-4e98-83d5-2fccfe6b1003";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
@@ -883,7 +884,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: INTERTEKHNOLOGIYA OOO (88DEJM85SK)";
+				CODE_SIGN_IDENTITY = "";
 				COPY_PHASE_STRIP = NO;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
@@ -921,7 +922,7 @@
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_NAME = "Bills copy";
-				PROVISIONING_PROFILE = "9bc07fb4-aa53-4aa0-954e-4adefbfa5583";
+				PROVISIONING_PROFILE = "61d3bfe1-cee1-4e98-83d5-2fccfe6b1003";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
@@ -933,8 +934,8 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = "$(ARCHS_STANDARD)";
 				CLANG_ENABLE_OBJC_ARC = YES;
-				CODE_SIGN_IDENTITY = "iPhone Distribution: INTERTEKHNOLOGIYA OOO (88DEJM85SK)";
-				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Distribution: INTERTEKHNOLOGIYA OOO (88DEJM85SK)";
+				CODE_SIGN_IDENTITY = "";
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "";
 				COPY_PHASE_STRIP = YES;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(PROJECT_DIR)",
@@ -970,7 +971,7 @@
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
 				PRODUCT_NAME = "Bills copy";
-				PROVISIONING_PROFILE = "9bc07fb4-aa53-4aa0-954e-4adefbfa5583";
+				PROVISIONING_PROFILE = "61d3bfe1-cee1-4e98-83d5-2fccfe6b1003";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
 			};
