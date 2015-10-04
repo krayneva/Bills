@@ -2,9 +2,9 @@
  /* стили для пейзажа */
  
 *:not(input):not(textarea){
- 	-webkit-user-select:none;
- 	-webkit-touch-callout:none;
- 	-webkit-transform: translate3d(0,0,0);
+  -webkit-user-select:none;
+  -webkit-touch-callout:none;
+  -webkit-transform: translate3d(0,0,0);
   -khtml-user-select: none;
   -ms-user-select: none;
   -moz-user-select: none;
@@ -15,8 +15,8 @@
  /* стили для портрета */
  
   *:not(input):not(textarea){
-	-webkit-user-select:none;
- 	-webkit-touch-callout:none;
+  -webkit-user-select:none;
+  -webkit-touch-callout:none;
 -webkit-transform: translate3d(0,0,0);
   -khtml-user-select: none;
   -ms-user-select: none;
@@ -240,11 +240,11 @@ div.ui-input-text.ui-body-inherit.ui-corner-all.ui-shadow-inset.ui-focus{
   text-align: center;
 }
 .build_version{
-	vertical-align: bottom;
-	 width: 100%;
-  	color: #367272;
-  	font-size: 1.2em;
-	
+  vertical-align: bottom;
+   width: 100%;
+    color: #367272;
+    font-size: 1.2em;
+  
 }
 .login_social span,
 .login_welcome span{
@@ -661,7 +661,7 @@ label{
 }
 
 .ui-panel-inner{
-	  background-color: #59a6b2;
+    background-color: #59a6b2;
 }
 
 .ui-panel { width: 27em; }
@@ -693,7 +693,7 @@ label{
 }
 .expenses >ul,
 .expenses >ul>li{
-	border: 0;
+  border: 0;
 }
 ul.expensesList{
   padding: 0!important;
@@ -709,23 +709,41 @@ li.expenses_item{
 
 }
 .expenses_item {
-    color: #59a6b2  !important;
+    color: #174d55!important;
     width:100% !important;
 }
-
+.expenses_item:nth-child(even){
+  background-color: #dfeff1;
+}
 .expenses_item table{
   width: 100%;
 }
 .expenses_info {
-  position: relative;
-  width: 7em;
-  line-height: 2em;
+  width: 11em;
+  min-width: 11em;
+  padding: 0 1em;
 }
-.expenses_description{  
-  min-height: 4.5em;
-  padding: 1em!important;
+
+.expenses_favorites>div{
+  width: 3em;
+  height: 3em;
+  display: block;
+  float: left;
+}
+.transactionNotFavorites
+.transactionIsFavorites-true .transactionFavorites{
+  display: block;
+}
+.transactionFavorites,
+.transactionIsFavorites-true .transactionNotFavorites{
+  display: none;
+}
+.transactionFavorites, .transactionNotFavorites{
+  width: 100%;
+}
+.expenses_description{
   height:100%;
-    background: #ffffff;
+  width: 99%;
 }
 .expenses_title {
     font-size: 1.4em !important;
@@ -742,33 +760,33 @@ li.expenses_item{
     width: 90%;
     margin: 0.4em 0.2em;
 }
-.expenses_date {
-    width: 5.5em;
-    background: #ecf1f1;
-    color: #8eabae;
-    padding: 0 0.5em 0 1em;
+.expenses_date,
+.expenses_time{
+    color: #8e8e8e;
+    padding: 0;
     font-weight: bold;
     font-size: 1.2em !important;
+    float: left;
 }
-.expenses_time {
+.expenses_time{
   padding-left: 1em;
-  font-size: 1.2em !important;
-  padding-top: 0.5em;
-  color: #8eabae;
 }
 .expenses_price {
-    padding-left: 1em;
-    color: red;
-    font-size: 1.4em !important;
-    line-height: 1;
-    color: #943232;
+    font-size: 1.8em !important;
+    color: #27aabd;
     font-weight: bold;
+    float: left;
+    clear: both;
+}
+.expenses_tag{
+  color: #8e8e8e;
+  font-size: 1em;
 }
 .myPanel{  
   background-color: #59a6b2!important;
 }
 .myPanel li{
-  font-size: 1.4em !important;5
+  font-size: 1.4em !important;
   font-weight: bold;
   padding: 1.5em 1em 0em 4.5em!important;  
   color:#ffffff!important;
@@ -968,7 +986,7 @@ li.expenses_item{
 
 
 .buttonRules{
-	  background: #367272;
+    background: #367272;
   color: #fff;
   border-radius: 0.3em;
   font-size: 1.2em;
@@ -983,7 +1001,7 @@ li.expenses_item{
 
 
 .errorDialog{
-	background: #fff !important;
+  background: #fff !important;
 
 
   margin: 1em 1em 1em 1em;
@@ -1008,11 +1026,11 @@ opacity: 1;
 }
 
 .ui-dialog {
-	background: transparent !important;
+  background: transparent !important;
 }
 
 .justlabel {
-	margin-bottom: 0px !important;
+  margin-bottom: 0px !important;
 }
 
 
