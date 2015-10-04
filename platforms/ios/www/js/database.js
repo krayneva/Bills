@@ -365,6 +365,9 @@
     	try{
 	    	if (deferred==undefined) deferred = $.Deferred();
 	       	var transaction = json[i];
+	       	// на случай если у анс не массив а одна единственная транзакция в json
+	       	if (transaction==undefined)
+	       		transaction = json;
 	       	var id = transaction.Id;
 	    	var purseID = transaction.PurseID;
 	    	var transactionDate = transaction.TransactionDate;
@@ -1175,17 +1178,22 @@
     }
 
 
-    function getTagName(tagID){
+    function getTagName(tagID, pos, len){
+
              	try{
      				var res = "";
      			    var deferred = $.Deferred();
+     			    if ((tagID==undefined)||(tagID=="")){
+     			    	deferred.resolve("",tagID,pos,len);
+     			    	return deferred;
+     			    }
      				db.transaction(
      						function(transaction) {
      							transaction.executeSql('SELECT * FROM Tags where id="'+tagID+'";', [],
      									function(transaction, result) {
      									if (result.rows.length!=0)
      										res =  result.rows.item(0).name;
-     									deferred.resolve(res);
+     									deferred.resolve(res,tagID,pos,len);
      							}, onError);
      					 });
      				return deferred;
@@ -1234,7 +1242,25 @@
              			  dumpError("getSubCategoryName",e);
              		  }
              }
-	
+	function getSubCategoryParent(subcategoryID){
+		try{
+    				var res = "";
+    			    var deferred = $.Deferred();
+    				db.transaction(
+    						function(transaction) {
+    							transaction.executeSql('SELECT category FROM SubCategories where id ="'+subcategoryID+'";', [],
+    									function(transaction, res) {
+    									res = res.rows.item(0).category;
+    									deferred.resolve(res);
+    							}, onError);
+    					 });
+    				return deferred;
+         	}
+     		catch(e){
+     			  dumpError("getSubCategoryParent",e);
+     		  }
+	}
+
 	
 	function getSubCategories(categoryID){
 		try{
@@ -1254,3 +1280,4 @@
  			  dumpError("getSubCategories",e);
  		  }
 	}
+
