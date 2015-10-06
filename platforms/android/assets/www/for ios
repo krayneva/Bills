@@ -1,0 +1,6 @@
+export ANDROID_HOME=/Users/Irina/android-sdks
+export PATH=${PATH}:$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools
+
+
+chmod -R 777
+chown  -R irina
