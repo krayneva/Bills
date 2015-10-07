@@ -1,3 +1,5 @@
+	var SYNC_TRANSACTIONS = "synctransactions";
+
 	function openDB(login){
      //   alert("open DB!");
 		try { 
@@ -52,9 +54,7 @@
          tx.executeSql('CREATE TABLE IF NOT EXISTS Bills' 
         		 		+'(id integer primary key autoincrement,name, description,'
         		 		+'createdate,path, sent, latitude,longitude,altitude,uid)');
-     //    tx.executeSql('INSERT INTO Bills (id, name, description,path) VALUES (1, "пїЅпїЅпїЅпїЅ 1","пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ 1","/mnt/sdcard/test.jpg")');
-     //    tx.executeSql('INSERT INTO Bills (id, name, description,path) VALUES (2, "пїЅпїЅпїЅпїЅ 2","пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ 2","/mnt/sdcard/test.jpg")');
-         tx.executeSql('CREATE TABLE IF NOT EXISTS UserEnvironment' 
+         tx.executeSql('CREATE TABLE IF NOT EXISTS UserEnvironment'
  		 		+' (id integer primary key autoincrement,environment)');
          tx.executeSql('CREATE TABLE IF NOT EXISTS Transactions' 
   		 		+' (id text primary key,transactionJSON, purseID, transactionDate, categoryID, receiptImageID)');
@@ -130,6 +130,9 @@
 
          tx.executeSql('CREATE TABLE IF NOT EXISTS SubCategories'
           	+' (id text primary key,name,category)');
+
+          tx.executeSql('CREATE TABLE IF NOT EXISTS Sync'
+                   	+' (name text primary key,date)');
     	}
 		catch(e){
 			  dumpError("populateDB",e);
@@ -365,6 +368,9 @@
     	try{
 	    	if (deferred==undefined) deferred = $.Deferred();
 	       	var transaction = json[i];
+	       	// на случай если у анс не массив а одна единственная транзакция в json
+	       	if (transaction==undefined)
+	       		transaction = json;
 	       	var id = transaction.Id;
 	    	var purseID = transaction.PurseID;
 	    	var transactionDate = transaction.TransactionDate;
@@ -1175,17 +1181,22 @@
     }
 
 
-    function getTagName(tagID){
+    function getTagName(tagID, pos, len){
+
              	try{
      				var res = "";
      			    var deferred = $.Deferred();
+     			    if ((tagID==undefined)||(tagID=="")){
+     			    	deferred.resolve("",tagID,pos,len);
+     			    	return deferred;
+     			    }
      				db.transaction(
      						function(transaction) {
      							transaction.executeSql('SELECT * FROM Tags where id="'+tagID+'";', [],
      									function(transaction, result) {
      									if (result.rows.length!=0)
      										res =  result.rows.item(0).name;
-     									deferred.resolve(res);
+     									deferred.resolve(res,tagID,pos,len);
      							}, onError);
      					 });
      				return deferred;
@@ -1234,8 +1245,26 @@
              			  dumpError("getSubCategoryName",e);
              		  }
              }
-	
-	
+	function getSubCategoryParent(subcategoryID){
+		try{
+    				var res = "";
+    			    var deferred = $.Deferred();
+    				db.transaction(
+    						function(transaction) {
+    							transaction.executeSql('SELECT category FROM SubCategories where id ="'+subcategoryID+'";', [],
+    									function(transaction, res) {
+    									res = res.rows.item(0).category;
+    									deferred.resolve(res);
+    							}, onError);
+    					 });
+    				return deferred;
+         	}
+     		catch(e){
+     			  dumpError("getSubCategoryParent",e);
+     		  }
+	}
+
+
 	function getSubCategories(categoryID){
 		try{
 				var res = "";
@@ -1253,4 +1282,47 @@
  		catch(e){
  			  dumpError("getSubCategories",e);
  		  }
+	}
+
+
+	function addSyncDate(name,date){
+	try{
+            db.transaction(
+        		function(transaction) {
+            		transaction.executeSql(
+            		'INSERT OR REPLACE INTO Sync (name, date) VALUES ("'
+             		+name
+            		+'","'+date
+            		+'")'
+            		);},
+            		 onError, onSuccess);
+           }
+    		catch(e){
+    			  dumpError("addSyncDate",e);
+    		  }
+	}
+
+	function getSyncDate(name){
+	try{
+
+
+    	    	var deferred = $.Deferred();
+    	    	db.transaction(
+    	  		    function(transaction) {
+    	  		        transaction.executeSql('SELECT date FROM Sync where name="'+name+'"', [],
+    	  		        		function(transaction, result) {
+
+    	  		        		if (result.rows.length==0)
+    	  		        			deferred.resolve(0);
+    	  		        		else
+    	  		        			deferred.resolve(result.rows.item(0).date);
+    	    		    }, onError);
+    	  		 });
+
+    	    	return deferred;
+        	}
+    		catch(e){
+    			  dumpError("getSyncDate",e);
+    		  }
+
 	}

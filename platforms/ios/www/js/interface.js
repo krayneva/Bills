@@ -1,7 +1,7 @@
 function refreshBills() {
 	try{
 	  if (!db){
-	       $('#billsHeader').html('Не сохранено ни одного чека');
+	       $('#billsHeader').html('пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ');
 	      $('#uploadButton').hide();
 	      $('#clearBillsButton').hide();
 	       return;
@@ -39,12 +39,12 @@ function refreshBills() {
 			       $('#billList').listview('refresh');
 	            }
 	            if (result.rows.length>0){
-	              $('#billsHeader').html('Список чеков');
+	              $('#billsHeader').html('пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ');
 	              $('#uploadButton').show();
 	              $('#clearBillsButton').show();
 	            }
 	            else{
-	             $('#billsHeader').html('Не сохранено ни одного чека');
+	             $('#billsHeader').html('пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ');
 	             $('#uploadButton').hide();
 	             $('#clearBillsButton').hide();
 	            }
@@ -128,7 +128,7 @@ function refershBillSendStatus(rowID){
 			    window.localStorage.setItem(RECEIPT_ID_KEY, receiptID);
 			    window.localStorage.setItem(TRANSACTION_ID_KEY, transactionID);
 			//	$.mobile.pageContainer.pagecontainer( "change", "check.html",{transition:"none"});
-				$.mobile.pageContainer.pagecontainer( "change", "checkNew.html",{transition:"none"});
+			//	$.mobile.pageContainer.pagecontainer( "change", "checkNew.html",{transition:"none"});
 			//	$.mobile.pageContainer.pagecontainer( "change", "check_0709.html",{transition:"none"});
 		//	$.mobile.pageContainer.pagecontainer( "change", "check_0809.html",{transition:"none"});
 		$.mobile.pageContainer.pagecontainer( "change", "check0809v2.html",{transition:"none"});
@@ -291,7 +291,7 @@ function refershBillSendStatus(rowID){
 	
 	function showErrorDialog(message){
 		try{
-			showDialog("Ошибка",message);
+			showDialog("пїЅпїЅпїЅпїЅпїЅпїЅ",message);
 		}
 		catch(e){
 			  dumpError("showErrorDialog",e);
@@ -350,8 +350,9 @@ function refershBillSendStatus(rowID){
 								requestGoodItems().done(function(){
 									requestGoodMeasures().done(function(){
                                         requestDictionaries().done(function(){
-											showMainPage();
-
+                                        	requestUserEnvironment().done(function(){
+												showMainPage();
+										});
 									});
 								});
 							});
@@ -426,16 +427,16 @@ function refershBillSendStatus(rowID){
 				//	||(promo=="")
 			)
 			{
-				//alert("Пожалуйста, заполните все необходимые поля");
-				 showErrorDialog("Пожалуйста, заполните все необходимые поля");
+				//alert("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ");
+				 showErrorDialog("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ");
 				return;
 			}
 			
 			
 			
 			if (rulesCheck==false){
-			//	alert("Необходимо принять условия пользовательского приложения");
-				  showErrorDialog("Необходимо принять условия пользовательского соглашения");
+			//	alert("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+				  showErrorDialog("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
 				  return;
 			}
 			sendRegistration(email, nick, promo).done(function(res){

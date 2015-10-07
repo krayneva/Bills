@@ -234,7 +234,12 @@ CLLocationDegrees latitude=-1,longitude=-1, altitude=-1;
     CGFloat leftMarginCorrected =(image.size.width-impWidth)/2;
     
    /* CGRect rect = CGRectMake(leftMargin*scaleHor,topMargin*scaleVer, (image.size.width-(2*leftMargin*scaleHor)), (image.size.height-(topMargin*scaleVer)-(bottomMargin*scaleVer)));*/
-    CGRect rect = CGRectMake(leftMarginCorrected,topMargin*scaleVer, impWidth, (image.size.height-(topMargin*scaleVer)-(bottomMargin*scaleVer)));
+    
+    CGFloat borderCorrection = 5;
+    CGRect rect = CGRectMake(leftMarginCorrected-borderCorrection,
+                             topMargin*scaleVer-borderCorrection,
+                             impWidth+borderCorrection,
+                             (image.size.height-(topMargin*scaleVer)-(bottomMargin*scaleVer))+borderCorrection);
     
     // Create bitmap image from original image data,
     // using rectangle to specify desired crop area

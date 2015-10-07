@@ -1,3 +1,4 @@
+п»ї	 var def;
 function updateLoginPage(){
 	try{
 /*	(getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT)).done(function(res){
@@ -125,57 +126,59 @@ function updateMainPage(){
 		getUserEnvironment().done(function(res){
 			if (debugMode==true)
 			console.log("Update main page json :"+res);
-			if (res==="") {
+			if (res=="") {
 				console.log("updateMainPage: requesting environment From server");
 				requestAndUpdateMainPage();
-				return;
-			}
-			var json = jQuery.parseJSON(res);
-			
-			//--------------- доход----------//
-			var incomeRublesTD = document.getElementById("incomeRublesTD");
-			var incomeDollarsTD = document.getElementById("incomeDollarsTD");
-			//var incomeEurosTD = document.getElementById("incomeRublesTD");
-			
-			
-			var showRublesIncome = json.IsAmount1Visible;
-			var showDollarsIncome = json.IsAmount2Visible;
-			//var showEurosIncome = json.IsAmount3Visible;
-			
-			// рубли
-			if (showRublesIncome===true){
-				incomeRublesTD.style.display = "block";
-				var incomeRubles = document.getElementById("incomeRubles");
-				incomeRubles.innerHTML = json.Amount1;
-				
-			}
-			else{
-				incomeRublesTD.style.display = "none";
-			}
-			
-			// доллары
-			if (showDollarsIncome===true){
-				incomeDollarsTD.style.display = "block";
-				var incomeDollars = document.getElementById("incomeDollars");
-				incomeDollars.innerHTML = json.Amount2;
-				
-			}
-			else{
-				incomeDollarsTD.style.display = "none";
-			}
 
-			// еврики пока отбой
-			
-			//---------------конец  доход----------//
-			
-			
-			// ------------- расход-------------------//
-			var expenses = document.getElementById("expenses");
-			expenses.innerHTML = json.ExpencesAmountStr;
-			// ------------- конец расход-------------------//
-			
-			updateWidgets();
-		});
+			}
+			else{
+				var json = jQuery.parseJSON(res);
+
+				//--------------- пїЅпїЅпїЅпїЅпїЅ----------//
+				var incomeRublesTD = document.getElementById("incomeRublesTD");
+				var incomeDollarsTD = document.getElementById("incomeDollarsTD");
+				//var incomeEurosTD = document.getElementById("incomeRublesTD");
+
+
+				var showRublesIncome = json.IsAmount1Visible;
+				var showDollarsIncome = json.IsAmount2Visible;
+				//var showEurosIncome = json.IsAmount3Visible;
+
+				// пїЅпїЅпїЅпїЅпїЅ
+				if (showRublesIncome===true){
+					incomeRublesTD.style.display = "block";
+					var incomeRubles = document.getElementById("incomeRubles");
+					incomeRubles.innerHTML = json.Amount1;
+
+				}
+				else{
+					incomeRublesTD.style.display = "none";
+				}
+
+				// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+				if (showDollarsIncome===true){
+					incomeDollarsTD.style.display = "block";
+					var incomeDollars = document.getElementById("incomeDollars");
+					incomeDollars.innerHTML = json.Amount2;
+
+				}
+				else{
+					incomeDollarsTD.style.display = "none";
+				}
+
+				// пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ
+
+				//---------------пїЅпїЅпїЅпїЅпїЅ  пїЅпїЅпїЅпїЅпїЅ----------//
+
+
+				// ------------- пїЅпїЅпїЅпїЅпїЅпїЅ-------------------//
+				var expenses = document.getElementById("expenses");
+				expenses.innerHTML = json.ExpencesAmountStr;
+				// ------------- пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ-------------------//
+
+				updateWidgets();
+				}
+			});
 	}
     catch(e){
     	dumpError("UpdateMainPage",e);
@@ -217,7 +220,7 @@ function updateTransactionPage(){
 				return;
 			}
 		});
-		
+
 
 		 var categoryID =  window.localStorage.getItem(CATEGORY_ID_KEY);
 		 getWidget(categoryID).done(function(result){
@@ -225,7 +228,8 @@ function updateTransactionPage(){
 				$('#categoryTitle').html(json.Name);	
 			});
 			getTransactionsByCategoryID(categoryID).done(function(result){
-			
+							  var tagArray = new Array();
+                              		var tagCounter = 0;
 				var start = +new Date();  // log start timestamp
 	            var totalAmount = 0;
 	            var lastAmount = 0;
@@ -233,6 +237,7 @@ function updateTransactionPage(){
 	            	lastAmount = jQuery.parseJSON(result.rows.item(0).transactionJSON).Amount;
 	            var listHTML = "";
 				  for (var i = 0; i <result.rows.length; i++) {
+
 					  var row = result.rows.item(i);
 					  var html = $('#transactionRowTemplate').html();
 					  
@@ -246,36 +251,77 @@ function updateTransactionPage(){
 					  var month = date.getMonth()+1;
 					  var day =  date.getDate();
 					  var year = date.getYear()+1900;
+
+
+
+
 					  html = html.replace(/\{transactionDate\}/g,(day<10?'0':'')+day+"."+(month<10?'0':'')+month+"."+year);
 					  html = html.replace(/\{transactionTime\}/g,(hours<10?'0':'')+hours+":"+(minutes<10?'0':'')+minutes);
 					  html = html.replace(/\{transactionPrice\}/g,json.Amount+getCurrencyString(json.Currency));
 					  html = html.replace(/\{transactionName\}/g,json.Name==null?"":json.Name);
 					  html = html.replace(/\{transactionID\}/g,json.Id);
-					  
-					  listHTML+=html;
-					 if (i==result.rows.length-1){
-						 deferred.resolve();
-					 }
-					 
-				  }
-			  $('#expensesList').html(listHTML);
-	           $('#totalAmount').html(Math.round(totalAmount*100)/100);
-	           $('#lastAmount').html(Math.round(lastAmount*100)/100);
+
+					 	var tagKeys = "";
+					 	for (var j=0; j<json.receiptData.Items.length; j++){
+
+							tagArray[tagCounter] = json.receiptData.Items[j].Tag;
+							tagCounter=tagCounter+1;
+					 		tagKeys+=json.receiptData.Items[j].Tag;
+					 		if (j!=json.receiptData.Items.length-1)
+					 			tagKeys = tagKeys+",";
+					 	}
+
+					//  alert(JSON.stringify(json.receiptData.Items));
+					// collecting tags
+
+
+						html = html.replace(/\{transactionTags\}/g,tagKeys);
+						listHTML = listHTML+html;
+
+
+
+					};
+				for (var j=0; j<tagArray.length; j++){
+                	getTagName(tagArray[j],j,tagArray.length).done(function(res, src,position,len){
+
+                    	listHTML = listHTML.replace(src,res);
+
+                    		if (position==len-1)$('#expensesList').html(listHTML);
+                    	});
+
+                   }
+
+
 				var end =  +new Date();  // log end timestamp
 				var diff = (end - start)/(20*result.rows.length);
 				console.log("Time per row: "+diff);
-		
-			});
-		//});	
-			 
-			return deferred; 
+
+
+
+		//	});
+		//});
+
+		/*		html = $('#expensesList').html();
+					for (var j=0; j<tagArray.length; j++){
+						getTagName(tagArray[j]).done(function(res, src){
+							//console.log("replaced "+src+" with "+res);
+							html = html.replace(src,res);
+
+						});
+					}
+ 				$('#expensesList').html(html);*/
+  			});
+
+			return deferred;
 	}
     catch(e){
-    	dumpError("updateTransactionPage",e);
+    	dumpError("nsactionPage",e);
     }
 
-		
 }
+
+
+
 
 
 function updateWidgets(){
@@ -283,7 +329,7 @@ function updateWidgets(){
 		getWidgets().done(function(res){
 			for (var j=0;j<res.rows.length;j++){
 			var w = jQuery.parseJSON(res.rows.item(j).json);
-			// пропускаем кошельки
+			// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			if (w.Type==0) continue;
 			  //var w = json.Widgets[k];
 			 // alert("Widget "+w.Name+" left: "+w.Left+" top:"+w.Top+" interest:"+w.Percent);
@@ -364,15 +410,15 @@ function updateTransactionInfoPage(){
 		
 		getTransaction(transactionID).done(function(res){
 			var json = jQuery.parseJSON(res.rows.item(0).transactionJSON);
-			$('#category').html("Категория: "+json.Category);
+			$('#category').html("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: "+json.Category);
 			if (json.Name!=null)
-				$('#name').html("Наименование: "+json.Name);
-			$('#subcategory').html("Подкатегория: "+json.SubCategory);
-			$('#id').html("Идентификатор: "+json.Id);
-			$('#createdAt').html("Дата создания: "+json.CreatedAt);
-			$('#currency').html("Валюта "+ getCurrencyString(json.Currency));
-			$('#transactionDate').html("Дата транзакции: "+json.TransactionDate);
-			$('#amount').html("Итого "+json.Amount);
+				$('#name').html("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: "+json.Name);
+			$('#subcategory').html("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: "+json.SubCategory);
+			$('#id').html("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: "+json.Id);
+			$('#createdAt').html("пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: "+json.CreatedAt);
+			$('#currency').html("пїЅпїЅпїЅпїЅпїЅпїЅ "+ getCurrencyString(json.Currency));
+			$('#transactionDate').html("пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ: "+json.TransactionDate);
+			$('#amount').html("пїЅпїЅпїЅпїЅпїЅ "+json.Amount);
 			
 			var listHTML = "";
 			  $('#tableTransactionInfo > tbody').html("");
@@ -400,7 +446,7 @@ function updateTransactionInfoPage(){
 	
 function updateShopListsPage(reloadFromBase){
 	try{
-		// для обнуления криво забитого параметра
+		// пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		//window.localStorage.setItem("CurrentShopListNum",0);
 		 var currentShopList = window.localStorage.getItem("CurrentShopListNum");
 		 if (currentShopList==undefined) {
@@ -432,9 +478,9 @@ function updateShopListsPage(reloadFromBase){
 			  $('#alreadyBoughtList').html('');
 			  $('#alreadyBoughtList').listview('refresh');
 			  //var itemsJSON =  jQuery.parseJSON(res.rows.item(currentShopList).itemsJSON);
-			  // запоминаем айдишник списка покупок
+			  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 			  window.localStorage.setItem("ShopListID",res.rows.item(currentShopList).id);
-			  // смотрим нет ли инфы по купленным
+			  // пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 
 			 var itemsString = window.localStorage.getItem("ShopListAlreadyBought"+res.rows.item(currentShopList).id);
 
@@ -486,7 +532,7 @@ function updateShopListsPage(reloadFromBase){
 		       		  console.log('Measure: '+measure);
 		       		  console.log('Color: '+color);
 	       		  }
-	       		  // товар еще в спсике некупленных
+	       		  // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	       		  console.log('Bought: '+bought);
 	       		if (bought=="0")	{
 		       		  var listrow = document.getElementById("shopListRow").cloneNode(true);
@@ -535,7 +581,7 @@ function updateShopListsPage(reloadFromBase){
 					 
 					  $('#ShopListList').append(listrow);
 	       		  }
-	       		  // товар в списке купленных
+	       		  // пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	       		  else{
 		       		  var listrowBought = document.getElementById("alreadyBoughtRow").cloneNode(true);
 		       		  listrowBought.setAttribute("id", "listrowBought"+k);
@@ -592,7 +638,7 @@ function updateShopListsPage(reloadFromBase){
 
 		 
 		  $("#autocomplete").html('');
-		 // наполняем автокомплит
+		 // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		 getGoodItems().done(function(res){
 			 	//alert("goods items count: "+res.rows.length);
 			  for (var i=0; i<res.rows.length; i++){
@@ -792,13 +838,13 @@ function updateShopListsPage(reloadFromBase){
         		$('#sendFeedbackButton').click(function()
                            {
                            var mark=5;
-                            //{"Id":"55045f4773915739e8789689","Mark":3,"Remark":"Ремарк тут!","Reason":1}
+                            //{"Id":"55045f4773915739e8789689","Mark":3,"Remark":"пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ!","Reason":1}
                            		    $("input[name*=level]:checked").each(function() {
                                         mark = $(this).val();
                                     });
 
                             		sendFeedback(receiptID,3,$('#commentForProggers').val(),$('#select-native-3').val())
-                            		.done(function(res){
+                            		.done(function(){
                             				$('#modal').hide();
                                             $('.my-modal').hide();
                             		});
@@ -818,7 +864,7 @@ function updateShopListsPage(reloadFromBase){
                 			 window.localStorage.setItem(LATITUDE_KEY,lat);
                 			 window.localStorage.setItem(LONGITUDE_KEY,lon);
                 			 preInitMap();
-                			 preInitMap();
+                			 
 
 					 	  var now = new Date();
                         $('#checkName').html(js.Name==null?"":js.Name);
@@ -832,18 +878,39 @@ function updateShopListsPage(reloadFromBase){
 
                 var html1 = $('#categoryRowTemplate').html();
                 
-                
+                $('#select-native-1').html('');
                 getSubCategoryName(js.SubCategory).done(function(subcategoryName){
             	   html1 = html1.replace(/\{catName\}/g,subcategoryName);
-                   $('#select-native-1').html(html1);
-                   $('#select-native-1').selectmenu("refresh"); 	
+            	   html1 = html1.replace(/\{catValue\}/g,js.SubCategory);
+                   $('#select-native-1').append(html1);
+
+                getSubCategoryParent(js.SubCategory).done(function(catID){
+                	getSubCategories(catID).done(function(res){
+                	for (var j=0;j<res.rows.length;j++){
+                	//alert(js.SubCategory+" vs "+res.rows.item(j).id);
+                		if (js.SubCategory==res.rows.item(j).id) continue;
+      	                var html11 = $('#categoryRowTemplate').html();
+	            	   	html11 = html11.replace(/\{catName\}/g,res.rows.item(j).name);
+    	        	  	html11 = html11.replace(/\{catValue\}/g,res.rows.item(j).id);
+        	           	$('#select-native-1').append(html11);
+						if (j==res.rows.length-1){
+							$("#select-native-1 option:first").attr('selected','selected');
+						//	$("#select-native-1").trigger("change");
+                            $('#select-native-1').selectmenu("refresh", "true");
+                             }
+                    	}
+                	});
+                	});
                 });
-               
-               
+				$('#select-native-1').change(function() {
+                //	alert("subcat checnged from "+js.SubCategory+" to "+$('#select-native-1').val());
+                	changeSubCategory(transactionID, $('#select-native-1').val());
+               });
 
                  var html2 = $('#purseRowTemplate').html();
                 // var subcategoryName = getCategoryName(json.SubCategory);
-                 html2 = html2.replace(/\{purseName\}/g,js.PurseID);
+                //alert(JSON.stringify(js));
+                 html2 = html2.replace(/\{purseName\}/g,"РљРѕС€РµР»С‘Рє");
                  $('#select-native-2').html(html2);
   				 $('#select-native-2').selectmenu( "refresh" );
   				//$('#select-native-2').selectmenu({disabled: true });
@@ -852,39 +919,48 @@ function updateShopListsPage(reloadFromBase){
                 
                 $('#tagsList').html('');
                  for (var k=0; k<js.Tags.length; k++){
-                     getTagName(js.Tags[k]).done(function(res){
+
+                     getTagName(js.Tags[k],k,js.Tags.length).done(function(res,src,position,len){
                     	 var html3 = $('#tagRowTemplate').html();
                          html3 = html3.replace(/\{tagName\}/g,res);
-                         $('#tagsList').append(html3);
+                        if (res!="") $('#tagsList').append(html3);
                      });
                  }
                 // $('#tagsList').html(html3);
 
 				//('#tagsList').listview("refresh");
 				// total
-				$('#spent').html(js.receiptData.Total);
-				$('#spent2').html(js.receiptData.Total);
-				// tax
-				$('#discount').html("Скидка "+js.receiptData.TotalTax +" "+getCurrencyString(js.Currency));
-				$('#discount2').html(js.receiptData.TotalTax);
+
 
 				//checkDetails
 				var tableHTML="";
 				$("#checkDetailstable > tbody").html('');
-				for (var k in js.receiptData.Items){
-					//html4 = $('#positionTemplate').html();
-					var html5='<tr class="one-detail"><td>{positionName}</td><td><span>{positionCost}</span></td></tr>' ;
-					//alert(html5);
-					html5 = html5.replace(/\{positionName\}/g,js.receiptData.Items[k].ItemName);
-					html5 = html5.replace(/\{positionCost\}/g,js.receiptData.Items[k].Value);
-					tableHTML+=html5;
+				for (var p=0; p< js.receiptData.Items.length; p++){
+					var html5='<tr class="one-detail"><td>{positionName}</td><td><span>{positionCost}</span></td><td>{positionTag}</td></tr>' ;
+
+					html5 = html5.replace(/\{positionName\}/g,js.receiptData.Items[p].ItemName);
+					html5 = html5.replace(/\{positionCost\}/g,js.receiptData.Items[p].Value);
+					html5 = html5.replace(/\{positionTag\}/g,js.receiptData.Items[p].Tag);
+						$('#checkDetailstable > tbody').append(html5);
+					getTagName(js.receiptData.Items[p].Tag,p,js.receiptData.Items.length).done(function(res, src, position,len){
+
+					//	html5 = html5.replace(/\{positionTag\}/g,res);
+						var ht = $('#checkDetailstable > tbody').html();
+						ht = ht.replace(src,res);
+						$('#checkDetailstable > tbody').html(ht);
+
+					});
 
 				}
-			//alert(tableHTML);
 
-			  $('#checkDetailstable > tbody').append(tableHTML);
-			  $("#checkDetailstable").table("refresh");
-       });
+			$('#spent').html(js.receiptData.Total);
+            $('#spent2').html(js.receiptData.Total);
+            // tax
+            $('#discount').html("РЎРєРёРґРєР° "+js.receiptData.TotalTax +" "+getCurrencyString(js.Currency));
+            $('#discount2').html(js.receiptData.TotalTax);
+ 			 $("#checkDetailstable").table("refresh");
+
+		       });
 
 
 	//$( "#table" ).table( "rebuild" );
@@ -972,19 +1048,19 @@ function updateShopListsPage(reloadFromBase){
 								if (json.Mark==4) $('#markImage').addClass('myimage4');
 								if (json.Mark==5) $('#markImage').addClass('myimage5');
 
-								if (json.Reason==1)$("#reason").html('Все хорошо, спасибо вам, разработчики!');
-								if (json.Reason==2)$("#reason").html('Не распознались итоги или скидки');
-								if (json.Reason==3)$("#reason").html('Не распознались покупки');
-								if (json.Reason==4)$("#reason").html('Не определился магазин');
-								if (json.Reason==5)$("#reason").html('Низкое качество фотографии');
-								if (json.Reason==200)$("#reason").html('Другое');
+								if (json.Reason==1)$("#reason").html('Р’СЃРµ С…РѕСЂРѕС€Рѕ, СЃРїР°СЃРёР±Рѕ РІР°Рј, СЂР°Р·СЂР°Р±РѕС‚С‡РёРєРё!');
+								if (json.Reason==2)$("#reason").html('РќРµ СЂР°СЃРїРѕР·РЅР°Р»РёСЃСЊ РёС‚РѕРіРё РёР»Рё СЃРєРёРґРєРё');
+								if (json.Reason==3)$("#reason").html('РќРµ СЂР°СЃРїРѕР·РЅР°Р»РёСЃСЊ РїРѕРєСѓРїРєРё');
+								if (json.Reason==4)$("#reason").html('РќРµ РѕРїСЂРµРґРµР»РёР»СЃСЏ РјР°РіР°Р·РёРЅ');
+								if (json.Reason==5)$("#reason").html(' РќРёР·РєРѕРµ РєР°С‡РµСЃС‚РІРѕ С„РѕС‚РѕРіСЂР°С„РёРё');
+								if (json.Reason==200)$("#reason").html('Р”СЂСѓРіРѕРµ');
 								//$('#markImage').attr('src',receivedPhotoDir +receiptID+ '?' + now.getTime());
 
-								if (json.State=1)$("#state").html('Новый отзыв');
-								if (json.State=2)$("#state").html('Рассмотрен, предприняты некоторые действия и закрыт');
-								if (json.State=3)$("#state").html('В работе. Необходимо доработать систему');
+								if (json.State=1)$("#state").html('РќРѕРІС‹Р№ РѕС‚Р·С‹РІ');
+								if (json.State=2)$("#state").html('Р Р°СЃСЃРјРѕС‚СЂРµРЅ, РїСЂРµРґРїСЂРёРЅСЏС‚С‹ РЅРµРєРѕС‚РѕСЂС‹Рµ РґРµР№СЃС‚РІРёСЏ Рё Р·Р°РєСЂС‹С‚');
+								if (json.State=3)$("#state").html('Р’ СЂР°Р±РѕС‚Рµ. РќРµРѕР±С…РѕРґРёРјРѕ РґРѕСЂР°Р±РѕС‚Р°С‚СЊ СЃРёСЃС‚РµРјСѓ');
 
-								if (json.Reaction==null)$("#reaction").html('Нет ответа');
+								if (json.Reaction==null)$("#reaction").html('РќРµС‚ РѕС‚РІРµС‚Р°');
 								else $("#reaction").html(json.Reaction);
         					};
         				});
@@ -1003,7 +1079,8 @@ function updateShopListsPage(reloadFromBase){
             }
     
             }
-	
+
+
 
 function takeHeight()
 		{

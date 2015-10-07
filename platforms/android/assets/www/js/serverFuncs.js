@@ -1,10 +1,28 @@
-var SERVER_ERROR_NO_INTERNET = "noInternet";
+п»їvar SERVER_ERROR_NO_INTERNET = "noInternet";
 var SERVER_ERROR_NO_AUTH = "noAuth";
 var SERVER_ERROR_NO_CONNECTION_TO_HOST = "noConnectionToHost";
 var SERVER_ERROR_OTHER = "other";
 var SERVER_ERROR_TRY_AGAIN = "tryAgain";
 
 
+function getErrorMessage(err){
+	switch(err){
+
+	case SERVER_ERROR_NO_INTERNET:
+	return "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
+		break;
+	case SERVER_ERROR_NO_AUTH:
+	return "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ-пїЅпїЅпїЅпїЅпїЅпїЅ";
+    	break;
+    case SERVER_ERROR_NO_CONNECTION_TO_HOST:
+    return "пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ";
+      	break;
+    case SERVER_ERROR_OTHER:
+    default:
+    return "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ";
+     	break;
+	}
+}
 
 var currentRowID = 0;
 
@@ -26,7 +44,7 @@ function uploadPhoto() {
 	             var row = result.rows.item(i);
 	             if (row.sent==0){
 	            	 $.mobile.loading("show",{
-	             		text: "Отправка чека "+row.id,
+	             		text: "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ "+row.id,
 	             		textVisible: true,
 	             		theme: 'e',
 	             	});
@@ -169,7 +187,7 @@ function uploadPhoto() {
 	        }
 	    	}
 	        console.log(error);
-	      /*  alert("Ошибка при отправке файла " + message);
+	      /*  alert("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ " + message);
 	        alert("HTTP RESPONSE CODE: " + error.http_status);
 		    console.log("upload error source " + error.source);*/
     	}
@@ -200,7 +218,7 @@ function uploadPhoto() {
 	    	            },
 	    	            error: function(jqXHR, textStatus, errorThrown) {
 	    	                alert(textStatus + " " + errorThrown);
-	    	                alert("Код ошибки " + errorThrown.code);
+	    	                alert("пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ " + errorThrown.code);
 	    	            }
 	    	        });
     	}
@@ -219,7 +237,7 @@ function uploadPhoto() {
 	    //	alert("GetUserToken serverAddress: "+serverAddress+getTokenURL);
 	    	
 	        	$.mobile.loading("show",{
-	        		text: "Авторизация",
+	        		text: "РђРІС‚РѕСЂРёР·Р°С†РёСЏ",
 	        		textVisible: true,
 	        		theme: 'e',
 	        	});
@@ -249,12 +267,23 @@ function uploadPhoto() {
 	                	   alert("login: "+login+ " password: "+password);
 	               			$.mobile.loading("hide");
 	               			*/
-	                	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
+	                	/*   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
 	                    	   //showMainPage();
 	                		   $.mobile.loading("hide");
+	                		   showErrorDialog(getErrorMessage(res));
 	                    	   deferred.resolve("");
 	                		   
-	                	   });
+	                	   });*/
+	                	  /* onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
+
+                           	                        		   $.mobile.loading("hide");
+                           	                        		   if (res==SERVER_ERROR_TRY_AGAIN)*/
+                           	                        		 var  res = SERVER_ERROR_NO_AUTH;
+                           	                        		     showErrorDialog(getErrorMessage(res));
+                           	                        		     authCount = 0;
+                           	                        		   deferred.resolve("");
+
+                           	                    	  // });
 	                   } 
 	                   });  
 	    	//});
@@ -271,7 +300,7 @@ function uploadPhoto() {
     	try{
 	    	var deferred = $.Deferred();
 	    	$.mobile.loading("show",{
-	    		text: "Загрузка окружения пользователя",
+	    		text: "Р—Р°РіСЂСѓР·РєР° РѕРєСЂСѓР¶РµРЅРёСЏ РїРѕР»СЊР·РѕРІР°С‚РµР»СЏ",
 	    		textVisible: true,
 	    		theme: 'e',
 	    	});
@@ -298,7 +327,7 @@ function uploadPhoto() {
 	    	           		for (var k in json.Widgets) {
 	    	  				  var w = json.Widgets[k];
 	    	  				  	addWidget(w.VisualObjectId, JSON.stringify(w));
-	    	  				  	// alert (JSON.stringify(w));
+
 	    	           		}
 	    	           		$.mobile.loading("hide");
 	    	               deferred.resolve();
@@ -311,6 +340,7 @@ function uploadPhoto() {
 	                        	   }
 	                        	   else{
 	                        		   $.mobile.loading("hide");
+	                        		     showErrorDialog(getErrorMessage(res));
 	                        		   deferred.resolve();
 	                        	   }
 	                    	   });
@@ -319,10 +349,13 @@ function uploadPhoto() {
 	    	        });
 	    		});
 	    //	});
+
 	    	return deferred;
     	}
 	    catch(e){
+	    alert("exception caught while  userebvironment");
 	    	dumpError("requestUserEnvironment",e);
+	    	deferred.resolve();
 	    }
 
     }
@@ -336,10 +369,11 @@ function uploadPhoto() {
     	try{
 	    	var deferred = $.Deferred();
 	    	$.mobile.loading("show",{
-	    		text: "Загрузка транзакций",
+	    		text: "Р—Р°РіСЂСѓР·РєР° С‚СЂР°РЅР·Р°РєС†РёР№",
 	    		textVisible: true,
 	    		theme: 'e',
 	    	});
+
 	    //	getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
 	    		var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
 	    		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
@@ -347,58 +381,78 @@ function uploadPhoto() {
 	    		
 	    		console.log("requestTransactionsURL server address: "+serverAddress+getTransactionsURL);
 	    		console.log("requestTransactionsURL user token: "+userToken);
-	    		
-	    	   $.ajax({
-	    	          url: serverAddress+getTransactionsURL+"?dateFrom=null&dateTo=null",
-	    	            type: "get",
-	                beforeSend: function (request)
-	                {
-	                request.setRequestHeader("Authorization", "Bearer "+userToken);
-	                },
-	    	            data: [],       
-	    	            success: function(response, textStatus, jqXHR) {
-	    	               if (debugMode==true)
-	    	            	   console.log(jqXHR.responseText);
-	    	         //      alert(jqXHR.responseText);
-	    	           		var json = jQuery.parseJSON(jqXHR.responseText);
-	    	     
-	    	           		/*for (var k in json) {
-	    	           		  var transaction = json[k];
-	    	           		  var id = transaction.Id;
-	     	           		  var purseID = transaction.PurseID;
-	     	           		  var transactionDate = transaction.TransactionDate;
-	     	           		  var categoryID = transaction.CategoryID;
-		    	           	  addTransaction(id,JSON.stringify(transaction), purseID, transactionDate, categoryID);
-	    	           		}
-	    	           		*/
-		    	           	if (json.length>0)
-			    	           	  addSeveralTransactions(json,0,undefined).done(function(r){
-				    	           		$.mobile.loading("hide");
-				    	           		deferred.resolve();
-			    	           	  });
-		    	           	else{
-			    	           		$.mobile.loading("hide");
-			    	               deferred.resolve();
-		    	           	}
-	    	            },
-	    	            error: function(jqXHR, textStatus, errorThrown) {
-	    	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
-	                      	   if (res==SERVER_ERROR_TRY_AGAIN){
-	                      		   requestTransactions();
-	                      	   	   deferred.resolve();
-	                      	   }
-	                      	   else{
-	                      		   $.mobile.loading("hide");
-	                      		   deferred.resolve();
-	                      	   }
-	
-	                    		   
-	                    	   });
-	     
-	
-	    	            }
-	    	        });
-	    		});
+
+	    		getSyncDate(SYNC_TRANSACTIONS).done(function(res){
+	    		var startDate = "null";
+
+					if (res!=0){
+						var d = new Date();
+						d.setTime(Date.parse(res));
+						//dateFrom=1.1.2000&dateTfo=1.1.2020
+						startDate = d.getDate()+"."+(d.getMonth()+1)+"."+(1900+d.getYear());
+						alert("startDate is "+startDate);
+					}
+				   $.ajax({
+						//  url: serverAddress+getTransactionsURL+"?dateFrom=null&dateTo=null",
+						url: serverAddress+getTransactionsURL+"?dateFrom="+startDate+"&dateTo=null",
+							type: "get",
+						beforeSend: function (request)
+						{
+						request.setRequestHeader("Authorization", "Bearer "+userToken);
+						},
+							data: [],
+							success: function(response, textStatus, jqXHR) {
+							//   if (debugMode==true)
+								//   console.log(jqXHR.responseText);
+
+								var dateString = jqXHR.getResponseHeader("Date");
+								alert(dateString);
+								addSyncDate(SYNC_TRANSACTIONS,dateString);
+								var json = jQuery.parseJSON(jqXHR.responseText);
+
+								/*for (var k in json) {
+								  var transaction = json[k];
+								  var id = transaction.Id;
+								  var purseID = transaction.PurseID;
+								  var transactionDate = transaction.TransactionDate;
+								  var categoryID = transaction.CategoryID;
+								  addTransaction(id,JSON.stringify(transaction), purseID, transactionDate, categoryID);
+								}
+								*/
+								alert("got transactions count: "+json.length);
+								if (json.length>0)
+									  addSeveralTransactions(json,0,undefined).done(function(r){
+											$.mobile.loading("hide");
+											deferred.resolve();
+									  });
+								else{
+										$.mobile.loading("hide");
+									   deferred.resolve();
+								}
+							},
+							error: function(jqXHR, textStatus, errorThrown) {
+								   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
+								   if (res==SERVER_ERROR_TRY_AGAIN){
+									   requestTransactions();
+									   deferred.resolve();
+								   }
+								   else{
+									   $.mobile.loading("hide");
+										 showErrorDialog(getErrorMessage(res));
+									   deferred.resolve();
+								   }
+
+
+								   });
+
+
+							}
+						});
+
+
+				});
+
+	    	});
 	   // 	});
 	    	return deferred;
     	}
@@ -415,7 +469,7 @@ function uploadPhoto() {
     	try{
 	    	var deferred = $.Deferred();
 	    	$.mobile.loading("show",{
-	    		text: "Обновление списков покупок",
+	    		text: "Р—Р°РіСЂСѓР·РєР° СЃРїРёСЃРєРѕРІ РїРѕРєСѓРїРѕРє",
 	    		textVisible: true,
 	    		theme: 'e',
 	    	});
@@ -423,8 +477,8 @@ function uploadPhoto() {
 	    		var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
 	    		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
 	    		var userToken = uToken;
-	    		console.log("requestTransactionsURL server address: "+serverAddress+getTransactionsURL);
-	    		console.log("requestTransactionsURL user token: "+userToken);
+	    		console.log("requestShopLists server address: "+serverAddress+getProductListsURL);
+	    		console.log("requestShopLists user token: "+userToken);
 	    	   $.ajax({
 	    	          url: serverAddress+getProductListsURL,
 	    	            type: "get",
@@ -470,6 +524,7 @@ function uploadPhoto() {
 	                      	   }
 	                      	   else{
 	                      		   $.mobile.loading("hide");
+	                      		     showErrorDialog(getErrorMessage(res));
 	                      		   deferred.resolve();
 	                      	   }
 	                   	   });
@@ -489,7 +544,7 @@ function uploadPhoto() {
     function sendShopList(listID){
     	try{
 	    	$.mobile.loading("show",{
-	    		text: "Отправка списка покупок",
+	    		text: "РћС‚РїСЂР°РІРєР° СЃРїРёСЃРєР° РїРѕРєСѓРїРѕРє",
 	    		textVisible: true,
 	    		theme: 'e',
 	    	});
@@ -507,7 +562,7 @@ function uploadPhoto() {
 	    		console.log("sendShopList server address: "+serverAddress+getProductListsURL);
 	    		console.log("sendShopList user token: "+userToken);
 	    		
-	    		// форимруем json списка продуктов для отправки на серевр
+	    		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ json пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 	    		getShopList(listID).done(function(result){
 	    		//	alert("Count of such listIDs: "+result.rows.length);
 	    			
@@ -523,7 +578,7 @@ function uploadPhoto() {
 	    		else{
 	    			alert ("row full json is empty");
 	    		}
-	    		//listJSON ='{"AccountID":"54ef3e2073915440bcd7d216","Number":2,"Name":"Мои покупки 2","Items":[{"Tag":"TAG_VODKA","Value":"Водочка","Quantity":"1","Measure":"бутылочка","Color":-983041,"bought":"0"},{"Tag":"TAG_APPLES","Value":"Яблочки","Quantity":"1","Measure":"кг","Color":-7722014},{"Tag":"TAG_PISTACHES","Value":"Фисташки","Quantity":"1","Measure":"п.","Color":-2180985},{"Tag":"TAG_CHIPS","Value":"Чипсы","Quantity":"1","Measure":"п.","Color":-32944}],"Id":"55411209e657afb61404689f","CreatedAt":"2015-04-29T20:16:57.217+03:00"}';
+	    		//listJSON ='{"AccountID":"54ef3e2073915440bcd7d216","Number":2,"Name":"пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ 2","Items":[{"Tag":"TAG_VODKA","Value":"пїЅпїЅпїЅпїЅпїЅпїЅпїЅ","Quantity":"1","Measure":"пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ","Color":-983041,"bought":"0"},{"Tag":"TAG_APPLES","Value":"пїЅпїЅпїЅпїЅпїЅпїЅпїЅ","Quantity":"1","Measure":"пїЅпїЅ","Color":-7722014},{"Tag":"TAG_PISTACHES","Value":"пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ","Quantity":"1","Measure":"пїЅ.","Color":-2180985},{"Tag":"TAG_CHIPS","Value":"пїЅпїЅпїЅпїЅпїЅ","Quantity":"1","Measure":"пїЅ.","Color":-32944}],"Id":"55411209e657afb61404689f","CreatedAt":"2015-04-29T20:16:57.217+03:00"}';
 	    		console.log("sending shop list: "+listJSON);
 		    	   $.ajax({
 		    	          url: serverAddress+getProductListsURL,
@@ -559,6 +614,7 @@ function uploadPhoto() {
 		                        	   }
 		                        	   else{
 		                        		   $.mobile.loading("hide");
+		                        		     showErrorDialog(getErrorMessage(res));
 		                        		   deferred.resolve();
 		                        	   }
 	
@@ -580,7 +636,7 @@ function uploadPhoto() {
     
     
     /**
-     * отправка всех списков на сервер
+     * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
      */
     function sendShopLists(){
     	try{
@@ -613,7 +669,7 @@ function uploadPhoto() {
     function sendRegistration(email, nick , promo){
     	try{
 	    	$.mobile.loading("show",{
-	    		text: "Регистрация",
+	    		text: "Р РµРіРёСЃС‚СЂР°С†РёСЏ",
 	    		textVisible: true,
 	    		theme: 'e'
 	    	});
@@ -649,7 +705,7 @@ function uploadPhoto() {
 		    	           		//res = jqXHR.responseText.replace(/"/g,"");
 		    	            	$.mobile.loading("hide");
 		    	            	window.localStorage.setItem(SETTING_USER_LOGIN,email);
-		    	         	    showDialog("Регистрация успешно завершена","Благодарим Вас за регистрацию. На Ваш адрес электронный почты мы отправили пароль, используйте его для входа в систему.");
+		    	         	    showDialog("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ","пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ. пїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ.");
 		    	           		deferred.resolve("success");
 		    	            },
 		    	            error: function(jqXHR, textStatus, errorThrown) {
@@ -671,13 +727,13 @@ function uploadPhoto() {
  
     
     /**
-     *  запрос классификатора продуктов
+     *  пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
      */
     function requestGoodItems(){
     	try{
 	    	var deferred = $.Deferred();
 	    	$.mobile.loading("show",{
-	    		text: "Загрузка списков продуктов",
+	    		text: "Р—Р°РіСЂСѓР·РєР° РІРёРґРѕРІ РїСЂРѕРґСѓРєС‚РѕРІ",
 	    		textVisible: true,
 	    		theme: 'e',
 	    	});
@@ -724,6 +780,7 @@ function uploadPhoto() {
 	                  	   }
 	                  	   else{
 	                  		   $.mobile.loading("hide");
+	                  		     showErrorDialog(getErrorMessage(res));
 	                  		   deferred.resolve();
 	                  	   }
 	
@@ -750,7 +807,7 @@ function uploadPhoto() {
     	try{
 	    	var deferred = $.Deferred();
 	    	$.mobile.loading("show",{
-	    		text: "Загрузка единиц измерения",
+	    		text: "Р—Р°РіСЂСѓР·РєР° РµРґРёРЅРёС† РёР·РјРµСЂРµРЅРёСЏ",
 	    		textVisible: true,
 	    		theme: 'e',
 	    	});
@@ -792,6 +849,7 @@ function uploadPhoto() {
 	                  	   }
 	                  	   else{
 	                  		   $.mobile.loading("hide");
+	                  		     showErrorDialog(getErrorMessage(res));
 	                  		   deferred.resolve();
 	                  	   }
 	
@@ -827,22 +885,22 @@ function uploadPhoto() {
     function onServerRequestError(jqXHR, textStatus, errorThrown){
     	var deferred = $.Deferred();
     	try{
-	    	
-	    	if (authCount==2){
+
+	    	if (authCount>2){
 		    	    $.mobile.loading("hide");
-		    	  // alert("Ошибка авторизации");
+		    	  // alert("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
 		    	    showErrorDialog(jqXHR.responseText);
-		    	    getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
-		        		var log = login;
-		        		getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
-		        		var pass = password;
-		        		/*alert("Логин: "+log);
-		        		alert("Пароль: "+pass);
+		    //	    getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
+		     //   		var log = login;
+		      //  		getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
+		       // 		var pass = password;
+		        		/*alert("пїЅпїЅпїЅпїЅпїЅ: "+log);
+		        		alert("пїЅпїЅпїЅпїЅпїЅпїЅ: "+pass);
 		        		*/
 		        		 deferred.resolve(SERVER_ERROR_NO_AUTH);
 		        		return deferred;
-		        		});
-		    	    });
+		    //    		});
+		   // 	    });
 	    	}
 	    	/*
 	    	var SERVER_ERROR_NO_INTERNET = "noInternet";
@@ -863,36 +921,39 @@ function uploadPhoto() {
 	   	    states[Connection.CELL]     = 'Cell generic connection';
 	   	    states[Connection.NONE]     = 'No network connection';
 	   	//	alert(  states[networkState]);
-	   	    // Проверяем доступность интернета
+	   	    // пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 	    	if (networkState==Connection.NONE){
 	    		$.mobile.loading("hide");
 	    		deferred.resolve(SERVER_ERROR_NO_INTERNET);
-	    		//alert("Проверьте подключение к интернету");
-	    		showErrorDialog("Проверьте подключение к интернету");
+	    		//alert("пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+	    		showErrorDialog("РџСЂРѕРІРµСЂСЊС‚Рµ СЃРѕРµРґРёРЅРµРЅРёРµ СЃ РёРЅС‚РµСЂРЅРµС‚РѕРј");
 	    		authCount = 0;
 	    		return deferred;
 	    	}
 	
-	    	// Проверяем доступность сервера
-	    	var isReachable = false;
+	    	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	    /*	var isReachable = false;
 	    //	getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
 		    	$.get(getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT))
 		    	    .done( function(){ isReachable = true; } )
 		    	    .fail( function(){ isReachable = false; 
 		    	    deferred.resolve(SERVER_ERROR_NO_CONNECTION_TO_HOST);
 		    	    $.mobile.loading("hide");
-		    	   // alert("Нет связи с сервером");
-		    	    showErrorDialog("Нет связи с сервером");
+		    	   // alert("пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
+		    	    showErrorDialog("пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ");
 		    	    authCount = 0;
 		    	    return deferred;
 		    	    } );
+		    	    */
 	    //	});
-	    	// проверяем, не протух ли ключ авторизации и если что пытаемся обновить
-	    	if (errorThrown==="Unauthorized"){
-	    		getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
-	        		var log = login;
-	        		getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
-	        		var pass = password;
+	    	// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ, пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
+	    	if ((errorThrown==="Unauthorized")|(errorThrown==="Bad Request")){
+	    	//	getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
+	        //		var log = login;
+	       // 		getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
+	       // 		var pass = password;
+	       			var log = getSettingFromStorage(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT);
+	       			var pass = getSettingFromStorage(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT);
 	        			requestUserToken(log, pass).done(function(uToken){
 	                		var userToken = uToken;
 	                		if (userToken!=""){
@@ -906,15 +967,15 @@ function uploadPhoto() {
 	                		
 	                		
 	        			});
-	        		});
-	        	});
+	        		//});
+	        //	});
 	    	}
 	    	else{
 		    	$.mobile.loading("hide");
 		    	deferred.resolve(SERVER_ERROR_OTHER);
-		    	alert("Сервер ответил "+jqXHR.reponseText);
+		    	alert("пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ "+jqXHR.reponseText);
 		        alert(textStatus + " " + errorThrown);
-		        alert("Код ошибки " + errorThrown.code);
+		        alert("пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ " + errorThrown.code);
 		       
 	    	}
 	    	
@@ -941,7 +1002,7 @@ function uploadPhoto() {
     	try{
 	    	var deferred = $.Deferred();
 	    	$.mobile.loading("show",{
-	    		text: "Загрузка  тест",
+	    		text: "пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ  пїЅпїЅпїЅпїЅ",
 	    		textVisible: true,
 	    		theme: 'e',
 	    	});
@@ -969,7 +1030,7 @@ function uploadPhoto() {
 	    	            
 	    	            /*	alert("error! error thrown is "+errorThrown);
 	    	            	alert("textStatus is "+textStatus);
-	    	            	/// вот здесь  текст огшибки от Сергея
+	    	            	/// пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ  пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
 	    	            	alert("jqXHR is "+jqXHR.responseText);
 	    	            	*/
 	    	            	   $.mobile.loading("hide");
@@ -988,8 +1049,8 @@ function uploadPhoto() {
     }
     
     
-    /** получение образа чека
-     * @param uid уид образа
+    /** пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ
+     * @param uid пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
      * @returns
      */
     function getImage(uid){
@@ -997,7 +1058,7 @@ function uploadPhoto() {
     	try{
 	    	
 	    	$.mobile.loading("show",{
-	    		text: "Загрузка образа",
+	    		text: "Р—Р°РіСЂСѓР·РєР° РѕР±СЂР°Р·Р°",
 	    		textVisible: true,
 	    		theme: 'e',
 	    	});
@@ -1051,7 +1112,7 @@ function uploadPhoto() {
       	try{
   	    	var deferred = $.Deferred();
   	    	$.mobile.loading("show",{
-  	    		text: "Загрузка справочников",
+  	    		text: "Р—Р°РіСЂСѓР·РєР° СЃРїСЂР°РІРѕС‡РЅРёРєРѕРІ",
   	    		textVisible: true,
   	    		theme: 'e',
   	    	});
@@ -1121,6 +1182,7 @@ function uploadPhoto() {
   	                  	   }
   	                  	   else{
   	                  		   $.mobile.loading("hide");
+  	                  		     showErrorDialog(getErrorMessage(res));
   	                  		   deferred.resolve();
   	                  	   }
 
@@ -1141,7 +1203,7 @@ function uploadPhoto() {
       function sendFeedback(id, mark,remark,reason){
     	  try{
   	    	$.mobile.loading("show",{
-  	    		text: "Отправка комментария",
+  	    		text: "РћС‚РїСЂР°РІРєР° РѕС‚Р·С‹РІР°",
   	    		textVisible: true,
   	    		theme: 'e',
   	    	});
@@ -1180,11 +1242,11 @@ function uploadPhoto() {
   		    	        data:  JSON.stringify(feedback),
   		    	        success: function(response, textStatus, jqXHR) {
   		    	        console.log(jqXHR.responseText);
-  		    	      //   alert("cервер ответил: "+jqXHR.responseText);
+  		    	      //   alert("cпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ: "+jqXHR.responseText);
   		    	          var json = jQuery.parseJSON(jqXHR.responseText);
 
   		    	           		$.mobile.loading("hide");
-  		    	           		deferred.resolve(res);
+  		    	           		deferred.resolve();
 
   		    	            },
   		    	            error: function(jqXHR, textStatus, errorThrown) {
@@ -1194,7 +1256,9 @@ function uploadPhoto() {
   		                        	   	   deferred.resolve();
   		                        	   }
   		                        	   else{
+
   		                        		   $.mobile.loading("hide");
+  		                        		     showErrorDialog(getErrorMessage(res));
   		                        		   deferred.resolve();
   		                        	   }
   	
@@ -1217,7 +1281,7 @@ function uploadPhoto() {
           	try{
       	    	var deferred = $.Deferred();
       	    	$.mobile.loading("show",{
-      	    		text: "Запрос отзыва",
+      	    		text: "Р—Р°РіСЂСѓР·РєР° РѕС‚Р·С‹РІР°",
       	    		textVisible: true,
       	    		theme: 'e',
       	    	});
@@ -1246,7 +1310,9 @@ function uploadPhoto() {
       	                      	   }
       	                      	   else{
       	                      		   $.mobile.loading("hide");
+      	                      		   showErrorDialog(getErrorMessage(res));
       	                      		   deferred.resolve("");
+
       	                      	   }
       	                   	   });
       	    	            }
@@ -1260,3 +1326,85 @@ function uploadPhoto() {
       	    }
 
           }
+
+
+function changeSubCategory(transactionID, subcategory){
+    	try{
+	    	$.mobile.loading("show",{
+	    		text: "РЎРјРµРЅР° РїРѕРґРєР°С‚РµРіРѕСЂРёРё С‚СЂР°РЅР·Р°РєС†РёРё",
+	    		textVisible: true,
+	    		theme: 'e',
+	    	});
+
+	    	var deferred = $.Deferred();
+	    	getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
+	    		var log = login;
+	    		getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
+	    		var pass = password;
+	    			requestUserToken(log, pass).done(function(uToken){
+
+	    		var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
+	    		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
+	    		var userToken = uToken;
+	    		console.log("changeSubCategory server address: "+serverAddress+getTransactionsURL);
+	    		console.log("changeSubCategory user token: "+userToken);
+
+	    		// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ json пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ
+	    		getTransaction(transactionID).done(function(res){
+	    		var js = jQuery.parseJSON(res.rows.item(0).transactionJSON);
+				js.SubCategory = subcategory;
+
+		    	   $.ajax({
+		    	          url: serverAddress+getTransactionsURL,
+		    	          type: "post",
+
+		                beforeSend: function (request)
+		                {
+			                request.setRequestHeader("Authorization", "Bearer "+userToken);
+			                request.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+		                },
+		    	            data: JSON.stringify(js),
+		    	            success: function(response, textStatus, jqXHR) {
+
+							jqXHR.responseText=jqXHR.responseText.replace(/"/g,"");
+							if (jqXHR.responseText==transactionID){
+
+							 addSeveralTransactions(js,0,undefined).done(function(r){
+                            				    	           		$.mobile.loading("hide");
+                            				    	           		deferred.resolve();
+                            			    	           	  });
+							}
+							else{
+								//alert("errors while changing subcategrory");
+							}
+
+
+		    	           		$.mobile.loading("hide");
+		    	           		deferred.resolve(res);
+		    	            },
+		    	            error: function(jqXHR, textStatus, errorThrown) {
+		    	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
+		                        	   if (res==SERVER_ERROR_TRY_AGAIN){
+		                        		   changeSubCategory(transactionID, subcategory);
+		                        	   	   deferred.resolve();
+		                        	   }
+		                        	   else{
+		                        		   $.mobile.loading("hide");
+		                        		     showErrorDialog(getErrorMessage(res));
+		                        		   deferred.resolve();
+		                        	   }
+
+		                    	   });
+		    	            }
+		    	        });
+		    		});
+	    		});
+	    	//});
+	    	});});});
+	    	return deferred;
+    	}
+	    catch(e){
+	    	dumpError("changeSubCAtegory",e);
+	    }
+
+    }
