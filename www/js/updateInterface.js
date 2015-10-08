@@ -268,7 +268,7 @@ function updateTransactionPage(){
 							tagCounter=tagCounter+1;
 					 		tagKeys+=json.receiptData.Items[j].Tag;
 					 		if (j!=json.receiptData.Items.length-1)
-					 			tagKeys = tagKeys+",";
+					 			tagKeys = tagKeys+", ";
 					 	}
 
 					//  alert(JSON.stringify(json.receiptData.Items));
