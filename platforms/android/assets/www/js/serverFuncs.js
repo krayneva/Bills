@@ -390,7 +390,7 @@ function uploadPhoto() {
 						d.setTime(Date.parse(res));
 						//dateFrom=1.1.2000&dateTfo=1.1.2020
 						startDate = d.getDate()+"."+(d.getMonth()+1)+"."+(1900+d.getYear());
-						alert("startDate is "+startDate);
+					//	alert("startDate is "+startDate);
 					}
 				   $.ajax({
 						//  url: serverAddress+getTransactionsURL+"?dateFrom=null&dateTo=null",
@@ -406,7 +406,7 @@ function uploadPhoto() {
 								//   console.log(jqXHR.responseText);
 
 								var dateString = jqXHR.getResponseHeader("Date");
-								alert(dateString);
+							//	alert(dateString);
 								addSyncDate(SYNC_TRANSACTIONS,dateString);
 								var json = jQuery.parseJSON(jqXHR.responseText);
 
@@ -419,7 +419,7 @@ function uploadPhoto() {
 								  addTransaction(id,JSON.stringify(transaction), purseID, transactionDate, categoryID);
 								}
 								*/
-								alert("got transactions count: "+json.length);
+							//	alert("got transactions count: "+json.length);
 								if (json.length>0)
 									  addSeveralTransactions(json,0,undefined).done(function(r){
 											$.mobile.loading("hide");
@@ -973,9 +973,9 @@ function uploadPhoto() {
 	    	else{
 		    	$.mobile.loading("hide");
 		    	deferred.resolve(SERVER_ERROR_OTHER);
-		    	alert("������ ������� "+jqXHR.reponseText);
+		    	alert("Сервер ответил "+jqXHR.reponseText);
 		        alert(textStatus + " " + errorThrown);
-		        alert("��� ������ " + errorThrown.code);
+		        alert("Код ошибки " + errorThrown.code);
 		       
 	    	}
 	    	
@@ -1155,7 +1155,7 @@ function uploadPhoto() {
 
 							  });
 
-						//alert("TAGS");
+						alert("TAGS are: "+JSON.stringify(json.Tags));
 							var tags = json.Tags;
 						//	alert(JSON.stringify(json.Tags));
 						/*	for (var k in tags){

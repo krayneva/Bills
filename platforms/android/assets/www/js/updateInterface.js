@@ -281,10 +281,11 @@ function updateTransactionPage(){
 
 
 					};
-				for (var j=0; j<tagArray.length; j++){
-                	getTagName(tagArray[j],j,tagArray.length).done(function(res, src,position,len){
 
-                    	listHTML = listHTML.replace(src,res);
+				for (var j=0; j<tagArray.length; j++){
+
+                	getTagName(tagArray[j],j,tagArray.length).done(function(res, src,position,len){
+	                    	listHTML = listHTML.replace(src,res);
 
                     		if (position==len-1)$('#expensesList').html(listHTML);
                     	});
