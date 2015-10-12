@@ -268,7 +268,7 @@ function updateTransactionPage(){
 							tagCounter=tagCounter+1;
 					 		tagKeys+=json.receiptData.Items[j].Tag;
 					 		if (j!=json.receiptData.Items.length-1)
-					 			tagKeys = tagKeys+",";
+					 			tagKeys = tagKeys+", ";
 					 	}
 
 					//  alert(JSON.stringify(json.receiptData.Items));
@@ -1048,19 +1048,19 @@ function updateShopListsPage(reloadFromBase){
 								if (json.Mark==4) $('#markImage').addClass('myimage4');
 								if (json.Mark==5) $('#markImage').addClass('myimage5');
 
-								if (json.Reason==1)$("#reason").html('��� ������, ������� ���, ������������!');
-								if (json.Reason==2)$("#reason").html('�� ������������ ����� ��� ������');
-								if (json.Reason==3)$("#reason").html('�� ������������ �������');
-								if (json.Reason==4)$("#reason").html('�� ����������� �������');
-								if (json.Reason==5)$("#reason").html('������ �������� ����������');
-								if (json.Reason==200)$("#reason").html('������');
+								if (json.Reason==1)$("#reason").html('Все хорошо, спасибо вам, разработчики!');
+								if (json.Reason==2)$("#reason").html('Не распознались итоги или скидки');
+								if (json.Reason==3)$("#reason").html('Не распознались покупки');
+								if (json.Reason==4)$("#reason").html('Не определился магазин');
+								if (json.Reason==5)$("#reason").html(' Низкое качество фотографии');
+								if (json.Reason==200)$("#reason").html('Другое');
 								//$('#markImage').attr('src',receivedPhotoDir +receiptID+ '?' + now.getTime());
 
-								if (json.State=1)$("#state").html('����� �����');
-								if (json.State=2)$("#state").html('����������, ����������� ��������� �������� � ������');
-								if (json.State=3)$("#state").html('� ������. ���������� ���������� �������');
+								if (json.State=1)$("#state").html('Новый отзыв');
+								if (json.State=2)$("#state").html('Рассмотрен, предприняты некоторые действия и закрыт');
+								if (json.State=3)$("#state").html('В работе. Необходимо доработать систему');
 
-								if (json.Reaction==null)$("#reaction").html('��� ������');
+								if (json.Reaction==null)$("#reaction").html('Нет ответа');
 								else $("#reaction").html(json.Reaction);
         					};
         				});

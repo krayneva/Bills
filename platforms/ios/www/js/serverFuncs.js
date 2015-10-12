@@ -373,6 +373,7 @@ function uploadPhoto() {
 	    		textVisible: true,
 	    		theme: 'e',
 	    	});
+
 	    //	getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
 	    		var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
 	    		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
@@ -380,59 +381,78 @@ function uploadPhoto() {
 	    		
 	    		console.log("requestTransactionsURL server address: "+serverAddress+getTransactionsURL);
 	    		console.log("requestTransactionsURL user token: "+userToken);
-	    		
-	    	   $.ajax({
-	    	          url: serverAddress+getTransactionsURL+"?dateFrom=null&dateTo=null",
-	    	            type: "get",
-	                beforeSend: function (request)
-	                {
-	                request.setRequestHeader("Authorization", "Bearer "+userToken);
-	                },
-	    	            data: [],       
-	    	            success: function(response, textStatus, jqXHR) {
-	    	               if (debugMode==true)
-	    	            	   console.log(jqXHR.responseText);
-	    	         //      alert(jqXHR.responseText);
-	    	           		var json = jQuery.parseJSON(jqXHR.responseText);
-	    	     
-	    	           		/*for (var k in json) {
-	    	           		  var transaction = json[k];
-	    	           		  var id = transaction.Id;
-	     	           		  var purseID = transaction.PurseID;
-	     	           		  var transactionDate = transaction.TransactionDate;
-	     	           		  var categoryID = transaction.CategoryID;
-		    	           	  addTransaction(id,JSON.stringify(transaction), purseID, transactionDate, categoryID);
-	    	           		}
-	    	           		*/
-		    	           	if (json.length>0)
-			    	           	  addSeveralTransactions(json,0,undefined).done(function(r){
-				    	           		$.mobile.loading("hide");
-				    	           		deferred.resolve();
-			    	           	  });
-		    	           	else{
-			    	           		$.mobile.loading("hide");
-			    	               deferred.resolve();
-		    	           	}
-	    	            },
-	    	            error: function(jqXHR, textStatus, errorThrown) {
-	    	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
-	                      	   if (res==SERVER_ERROR_TRY_AGAIN){
-	                      		   requestTransactions();
-	                      	   	   deferred.resolve();
-	                      	   }
-	                      	   else{
-	                      		   $.mobile.loading("hide");
-	                      		     showErrorDialog(getErrorMessage(res));
-	                      		   deferred.resolve();
-	                      	   }
-	
-	                    		   
-	                    	   });
-	     
-	
-	    	            }
-	    	        });
-	    		});
+
+	    		getSyncDate(SYNC_TRANSACTIONS).done(function(res){
+	    		var startDate = "null";
+
+					if (res!=0){
+						var d = new Date();
+						d.setTime(Date.parse(res));
+						//dateFrom=1.1.2000&dateTfo=1.1.2020
+						startDate = d.getDate()+"."+(d.getMonth()+1)+"."+(1900+d.getYear());
+						alert("startDate is "+startDate);
+					}
+				   $.ajax({
+						//  url: serverAddress+getTransactionsURL+"?dateFrom=null&dateTo=null",
+						url: serverAddress+getTransactionsURL+"?dateFrom="+startDate+"&dateTo=null",
+							type: "get",
+						beforeSend: function (request)
+						{
+						request.setRequestHeader("Authorization", "Bearer "+userToken);
+						},
+							data: [],
+							success: function(response, textStatus, jqXHR) {
+							//   if (debugMode==true)
+								//   console.log(jqXHR.responseText);
+
+								var dateString = jqXHR.getResponseHeader("Date");
+								alert(dateString);
+								addSyncDate(SYNC_TRANSACTIONS,dateString);
+								var json = jQuery.parseJSON(jqXHR.responseText);
+
+								/*for (var k in json) {
+								  var transaction = json[k];
+								  var id = transaction.Id;
+								  var purseID = transaction.PurseID;
+								  var transactionDate = transaction.TransactionDate;
+								  var categoryID = transaction.CategoryID;
+								  addTransaction(id,JSON.stringify(transaction), purseID, transactionDate, categoryID);
+								}
+								*/
+								alert("got transactions count: "+json.length);
+								if (json.length>0)
+									  addSeveralTransactions(json,0,undefined).done(function(r){
+											$.mobile.loading("hide");
+											deferred.resolve();
+									  });
+								else{
+										$.mobile.loading("hide");
+									   deferred.resolve();
+								}
+							},
+							error: function(jqXHR, textStatus, errorThrown) {
+								   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
+								   if (res==SERVER_ERROR_TRY_AGAIN){
+									   requestTransactions();
+									   deferred.resolve();
+								   }
+								   else{
+									   $.mobile.loading("hide");
+										 showErrorDialog(getErrorMessage(res));
+									   deferred.resolve();
+								   }
+
+
+								   });
+
+
+							}
+						});
+
+
+				});
+
+	    	});
 	   // 	});
 	    	return deferred;
     	}
@@ -457,8 +477,8 @@ function uploadPhoto() {
 	    		var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
 	    		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
 	    		var userToken = uToken;
-	    		console.log("requestTransactionsURL server address: "+serverAddress+getTransactionsURL);
-	    		console.log("requestTransactionsURL user token: "+userToken);
+	    		console.log("requestShopLists server address: "+serverAddress+getProductListsURL);
+	    		console.log("requestShopLists user token: "+userToken);
 	    	   $.ajax({
 	    	          url: serverAddress+getProductListsURL,
 	    	            type: "get",
