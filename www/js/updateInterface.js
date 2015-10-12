@@ -268,7 +268,7 @@ function updateTransactionPage(){
 							tagCounter=tagCounter+1;
 					 		tagKeys+=json.receiptData.Items[j].Tag;
 					 		if (j!=json.receiptData.Items.length-1)
-					 			tagKeys = tagKeys+",";
+					 			tagKeys = tagKeys+", ";
 					 	}
 
 					//  alert(JSON.stringify(json.receiptData.Items));
@@ -281,10 +281,11 @@ function updateTransactionPage(){
 
 
 					};
-				for (var j=0; j<tagArray.length; j++){
-                	getTagName(tagArray[j],j,tagArray.length).done(function(res, src,position,len){
 
-                    	listHTML = listHTML.replace(src,res);
+				for (var j=0; j<tagArray.length; j++){
+
+                	getTagName(tagArray[j],j,tagArray.length).done(function(res, src,position,len){
+	                    	listHTML = listHTML.replace(src,res);
 
                     		if (position==len-1)$('#expensesList').html(listHTML);
                     	});

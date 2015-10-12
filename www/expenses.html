@@ -1,89 +1,29 @@
-
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, height=device-height">
 
-      <div id="pageExpenses"  data-role="page"    >
+<div id="pageExpenses" data-role="page">
+    <div class="background"></div>
 
-        <div class="background"></div>
-      <!--    <div  data-role="header" data-position="fixed" data-tap-toggle="false" data-transition="none">
-        <div class="topPanel">
-            <span> <a data-rel="back"><img class="topPanel_backButton" src="img/back.png" data-rel="back"/></a></span>
-            <div class="topPanel_title" id="categoryTitle">Развлечения</div>
-            <span><img class="topPanel_menuButton" src="img/menu.png"/></span>
-        </div>
-        <div class="filter">
-            <div class="filter_item">Расходы<img src="img/filter_arrow.png" class="filter_arrow"/></div>
-            <div class="filter_item">За день<img src="img/filter_arrow.png" class="filter_arrow"/></div>
-            <div class="filter_item">За неделю<img src="img/filter_arrow.png" class="filter_arrow"/></div>
-            <div class="filter_item">За месяц<img src="img/filter_arrow.png" class="filter_arrow"/></div>
-        </div>
-        </div>
-        
-       
-        <div class = "topBar" data-id="header" data-position="fixed" data-role="header" data-tap-toggle="false" data-transition="none">  -->
+    <div data-role="header" class="ui-header-w headerFixed">
+        <a data-rel="back"><button class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all">No text</button></a>
+        <span class="topPanel_title"><span class="ui-btn ui-icon-coctail"></span>Развлечения</span>
+    </div>
 
-        <div class="topPanel">
-            <span> <a data-rel="back"><img class="topPanel_backButton" src="img/back.png" data-rel="back"/></a></span>
-            <div class="topPanel_title" id="categoryTitle">Развлечения</div>
-            <span><img class="topPanel_menuButton" src="img/menu.png"/></span>
-      
-       <!--  <div data-role="navbar"  class="filter">
-            <div class="filter_item">Расходы<img src="img/filter_arrow.png" class="filter_arrow"/></div>
-            <div class="filter_item">За день<img src="img/filter_arrow.png" class="filter_arrow"/></div>
-            <div class="filter_item">За неделю<img src="img/filter_arrow.png" class="filter_arrow"/></div>
-            <div class="filter_item">За месяц<img src="img/filter_arrow.png" class="filter_arrow"/></div>
-        </div>
-         -->
-        </div>
-        
-        
-        
-  
-
-    <!--   <div class="expenses"> -->
-    
-<!--   <div data-role="content" data-iscroll=""  id="iscroll-wrapper" class ="expenses" >
-         <div class="iscroll-pulldown">
-          <span class="iscroll-pull-icon"></span>
-       <span data-iscroll-pulled-text="Отпустите, чтобы обновить"
-          data-iscroll-loading-text="Загрузка..."
-          class="iscroll-pull-label">Потяните, чтобы обновить</span>
+    <div id="iscroll-wrapper" class="expenses contentFixed">
+      <div>
+        <ul data-role="listview" id="expensesList"></ul>
       </div>
-       <ul data-role="listview" id="expensesList"> 
-		</ul>
-		<div class="iscroll-pullup">
-        <span class="iscroll-pull-icon"></span>
-        <span class="iscroll-pull-label"></span>
-      </div>
-       </div>
- -->
-       
-       
-       <div id="iscroll-wrapper"  class="expenses">
-       <ul data-role="listview" id="expensesList" >
-		</ul>
-       </div>
-       
-       
-     
-    <!-- <div data-role="footer" data-position="fixed" data-tap-toggle="false" data-transition="none" class="foottopPanel" >-->
-        <div class="foottopPanel"  >
-            <div class="footer_result">
-                <div class="footer_ico_percentage"><img src="img/ico_empty.png" onclick="requestAndUpdateTransactionPage()"/></div>                
-                <div class="footerText">
-                    Всего: <span id="totalAmount"></span>
-                    <br/>
-                    Последний: <span id="lastAmount"></span>
-                </div>
-                <!--<div class="footer_ico_add" onclick="showTransactionPage()"><img src="img/add_transaction.png"/></div>-->
-            </div>            
-      <!--  </div>-->
+    </div>
 
 
+    <div class="foottopPanel2 footerFixed" data-position="fixed">
+        <span style="float:left"><span>45</span>&nbsp;чеков</span>
+        <span  style="float:right">Всего на:&nbsp;<span>232500</span>&nbsp;руб.</span>
+    </div>
 
-        <div id ="transactionRowTemplate" style="display: none;">
-        <li class="expenses_item"  id="transactionRow"  onclick="showCheckPage('{transactionID}')">
-        
+
+    <div id="transactionRowTemplate" style="display: none;">
+        <li class="expenses_item"  id="transactionRow"  onclick="showCheckPage('{transactionID}')">        
           <table>
             <tr>
               <td class="expenses_favorites" id="">
@@ -100,36 +40,10 @@
               <td class="expenses_description" id="transactionDescriptionDiv">
                 <div class="expenses_title" id="transactionName">{transactionName}</div>
                 <div class="expenses_tag" id="transactionTag">{transactionTags}</div>
-                
-          
               </td>
             </tr>
           </table>
-          </li>
-		</div>
-<!--
-<div class="expenses_info" id = "transactionInfoDiv">
-      <div class="expenses_date" id="transactionDate"></div>
-      <div class="expenses_time" id="transactionTime"></div>
-      <div class="expenses_price" id="transactionPrice"></div>
+        </li>
     </div>
-    <div class="expenses_description" id = "transactionDescriptionDiv" >
-      <div class="expenses_title" id="transactionName"></div>
-    </div>
-    <div class="expenses_button" id = "transactionButtonsDiv">
-      <img src="img/check.png" class="expenses_buttonChek" id = "expensesButtonCheck"/> 
-      <img src="img/info.png" class="expenses_buttonInfo" id = "expensesButtonInfo" />
-    </div>
-    <hr />
--->
 
-            <!--<td class="expenses_button" id="transactionButtonsDiv">
-                          <img src="img/info.png" class="expenses_buttonInfo" id="expensesButtonInfo" onclick="showCheckPage('{transactionID}')" />
-        </td>
-        <td class="expenses_button" id="transactionButtonsDiv">
-
-            <img src="img/check.png" class="expenses_buttonChek" id="expensesButtonCheck" onclick = "showCheckImagePage('{transactionID}')"/>
-        </td>-->
-
-        </div>
-          </div>
+</div>

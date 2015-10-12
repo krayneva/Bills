@@ -1182,11 +1182,11 @@
 
 
     function getTagName(tagID, pos, len){
-
              	try{
      				var res = "";
      			    var deferred = $.Deferred();
      			    if ((tagID==undefined)||(tagID=="")){
+
      			    	deferred.resolve("",tagID,pos,len);
      			    	return deferred;
      			    }
@@ -1194,8 +1194,10 @@
      						function(transaction) {
      							transaction.executeSql('SELECT * FROM Tags where id="'+tagID+'";', [],
      									function(transaction, result) {
-     									if (result.rows.length!=0)
-     										res =  result.rows.item(0).name;
+     									if (result.rows.length!=0) {
+											res = result.rows.item(0).name;
+
+										}
      									deferred.resolve(res,tagID,pos,len);
      							}, onError);
      					 });
