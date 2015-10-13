@@ -220,7 +220,7 @@ function updateTransactionPage(){
 		 var categoryID =  window.localStorage.getItem(CATEGORY_ID_KEY);
 		 getWidget(categoryID).done(function(result){
 			  var json = jQuery.parseJSON(result);
-			  var titleHTML ='<span class="ui-btn ui-icon-coctail">'+json.Name+'</span>'	
+			  var titleHTML ='<span class="ui-btn ui-icon-coctail"></span>'	+ json.Name
 			  $('#title').html(titleHTML);
 			});
 			getTransactionsByCategoryID(categoryID).done(function(result){
