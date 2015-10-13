@@ -1,4 +1,4 @@
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+﻿<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1, height=device-height">
 
 <div id="pageExpenses" data-role="page">
@@ -6,7 +6,8 @@
 
     <div data-role="header" class="ui-header-w headerFixed">
         <a data-rel="back"><button class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all">No text</button></a>
-        <span class="topPanel_title"><span class="ui-btn ui-icon-coctail"></span>Развлечения</span>
+        <span class="topPanel_title topPanel_title2" id="title"></span>
+
     </div>
 
     <div id="iscroll-wrapper" class="expenses contentFixed">
@@ -17,13 +18,13 @@
 
 
     <div class="foottopPanel2 footerFixed" data-position="fixed">
-        <span style="float:left"><span>45</span>&nbsp;чеков</span>
-        <span  style="float:right">Всего на:&nbsp;<span>232500</span>&nbsp;руб.</span>
+        <span style="float:left"><span id="checkCount"></span>&nbsp;чеков</span>
+        <span  style="float:right">Всего на:&nbsp;<span id="total"></span>&nbsp;руб.</span>
     </div>
 
 
     <div id="transactionRowTemplate" style="display: none;">
-        <li class="expenses_item"  id="transactionRow"  onclick="showCheckPage('{transactionID}')">        
+        <li class="expenses_item"  id="transactionRow"  onclick="showCheckPage('{transactionID}')">
           <table>
             <tr>
               <td class="expenses_favorites" id="">

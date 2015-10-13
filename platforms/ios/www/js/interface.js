@@ -1,7 +1,7 @@
-function refreshBills() {
+﻿function refreshBills() {
 	try{
 	  if (!db){
-	       $('#billsHeader').html('�� ��������� �� ������ ����');
+	       $('#billsHeader').html('Не сохранено ни одного чека');
 	      $('#uploadButton').hide();
 	      $('#clearBillsButton').hide();
 	       return;
@@ -39,12 +39,12 @@ function refreshBills() {
 			       $('#billList').listview('refresh');
 	            }
 	            if (result.rows.length>0){
-	              $('#billsHeader').html('������ �����');
+	              $('#billsHeader').html('Список чеков');
 	              $('#uploadButton').show();
 	              $('#clearBillsButton').show();
 	            }
 	            else{
-	             $('#billsHeader').html('�� ��������� �� ������ ����');
+	             $('#billsHeader').html('Не сохранено ни одного чека');
 	             $('#uploadButton').hide();
 	             $('#clearBillsButton').hide();
 	            }
@@ -271,7 +271,6 @@ function refershBillSendStatus(rowID){
 	function showRulesPage(){
 		try{
 			currentPage = "pageRules";
-			//$.mobile.pageContainer.pagecontainer( "change", 'rules.html' ,{transition:"none"});
 			$.mobile.pageContainer.pagecontainer( "change", 'rules_new.html' ,{transition:"none"});
 		}
 		catch(e){
@@ -291,7 +290,7 @@ function refershBillSendStatus(rowID){
 	
 	function showErrorDialog(message){
 		try{
-			showDialog("������",message);
+			showDialog("Ошибка",message);
 		}
 		catch(e){
 			  dumpError("showErrorDialog",e);
@@ -387,8 +386,6 @@ function refershBillSendStatus(rowID){
 	function acceptRulesAndGoToRegistrationPage(){
 		try{
 			window.localStorage.setItem(ACCEPT_RULES_KEY,"true");
-			//navigator.app.backHistory();
-	        // window.history.go(-1);
 	        $("#backButton").click();
 		}		
 		catch(e){
@@ -398,11 +395,7 @@ function refershBillSendStatus(rowID){
 	
 	function declineRulesAndGoToRegistrationPage(){
 		try{
-	       // alert("trying to decline");
 			window.localStorage.setItem(ACCEPT_RULES_KEY,"false");
-	       // alert("trying to go back");
-			//navigator.app.backHistory();
-	        //window.history.go(-1);
 	         $("#backButton").click();
 		}
 		catch(e){
@@ -417,26 +410,14 @@ function refershBillSendStatus(rowID){
 			 var promo = $('#promo').val();
 			 var rulesCheck = $("#checkboxRules").is(':checked')?true:false;
 			 
-			if (
-				/*	(nick==undefined)||(nick=="")
-					(email==undefined)||(email=="")
-					(promo==undefined)||(promo=="")
-					*/
-					(nick=="")
-					||(email=="")
-				//	||(promo=="")
-			)
+			if ((nick=="")||(email==""))
 			{
-				//alert("����������, ��������� ��� ����������� ����");
-				 showErrorDialog("����������, ��������� ��� ����������� ����");
+				 showErrorDialog("Необходимо заполнить все обязательные поля");
 				return;
 			}
-			
-			
-			
+
 			if (rulesCheck==false){
-			//	alert("���������� ������� ������� ����������������� ����������");
-				  showErrorDialog("���������� ������� ������� ����������������� ����������");
+				  showErrorDialog("Необходимо принять условия пользовательского соглашения");
 				  return;
 			}
 			sendRegistration(email, nick, promo).done(function(res){
