@@ -509,13 +509,14 @@ font-size: 1.2em;
   color: #fff;
 }
 .topPanel_title{
+  font-family: 'OpenSans-Regular';
   width: 70%;
-  height: 3em;
   text-align: center;
-  text-transform: uppercase;
   font-size: 1.5em;
   line-height: 1.7em;
   float:left;
+  color: white;
+  padding-top: 0.2em;
 }
 .topPanel>span{
   height: 3em;
@@ -582,12 +583,11 @@ label{
 }
 
 .expenses{
-  position: absolute;
+  /*position: absolute;
   /*top:10.6em;
   */
-  top:5em;
-  bottom: 4.6em;
-  overflow: auto;
+  font-family: 'OpenSans-Regular';
+  
   width: 100%
 
 }
@@ -702,31 +702,33 @@ ul.expensesList{
 }
 li.expenses_item{
   padding: 0 0 0.5em 0!important;
-  border-style: solid;
-  border-color: gray;
-  border-width: 0 0 1px 0!important;
   margin: 0!important;
 
 }
 .expenses_item {
     color: #174d55!important;
-    width:100% !important;
+    width:100% !important;   
+  max-width: 100%;
 }
 .expenses_item:nth-child(even){
   background-color: #dfeff1;
 }
 .expenses_item table{
   width: 100%;
+  max-width: 100%;
 }
 .expenses_info {
-  width: 11em;
-  min-width: 11em;
-  padding: 0 1em;
+  width: 9em;
+  min-width: 9em;
+  padding: 0 0.5em;
+}
+.expenses_favorites{
+  width: 1px;
 }
 
 .expenses_favorites>div{
-  width: 3em;
-  height: 3em;
+  width: 1.5em;
+  height: 1.5em;
   display: block;
   float: left;
 }
@@ -742,15 +744,15 @@ li.expenses_item{
   width: 100%;
 }
 .expenses_description{
-  height:100%;
-  width: 99%;
 }
 .expenses_title {
-    font-size: 1.4em !important;
+    font-size: 1.2em !important;
     font-weight: bold;
+  width:100% !important;   
+  max-width: 100%;
 }
 .expenses_remark {
-    font-size: 1.2em !important;
+    font-size: 1.2em !important;    
 }
 .expenses_button {
     width: 4em;
@@ -765,14 +767,14 @@ li.expenses_item{
     color: #8e8e8e;
     padding: 0;
     font-weight: bold;
-    font-size: 1.2em !important;
+    font-size: 1em !important;
     float: left;
 }
 .expenses_time{
-  padding-left: 1em;
+  padding-left: 0.5em;
 }
 .expenses_price {
-    font-size: 1.8em !important;
+    font-size: 1.4em !important;
     color: #27aabd;
     font-weight: bold;
     float: left;
@@ -780,7 +782,11 @@ li.expenses_item{
 }
 .expenses_tag{
   color: #8e8e8e;
-  font-size: 1em;
+  font-size: 0.8em;
+  max-height: 1.6em;
+  overflow: hidden;
+  width:100% !important;   
+  max-width: 100%;
 }
 .myPanel{  
   background-color: #59a6b2!important;
@@ -959,7 +965,6 @@ li.expenses_item{
 }
 .shopList_footPanel.foottopPanel{
 }
-
 .shopList_addItem{
   position: absolute; 
   left:0.5em; 
@@ -1053,4 +1058,76 @@ opacity: 1;
 .myimage5{
     background-position: -55px 0;
     background-image: url("images/level-5.png");
+}
+body{
+  height: 100%;
+}
+.pageExpenses{
+  max-height: 100%;
+  height: 100%;
+  overflow: auto;
+}
+div.headerFixed,
+div.footerFixed{
+  left: 0!important;
+  right: 0!important;
+  position: absolute;!important;
+  z-index: 10;
+  -webkit-backface-visibility: hidden;
+  background: #27aabd; /* Old browsers */
+  background: -moz-linear-gradient(top,  #27aabd 0%, #27aabd 49%, #0090a6 50%, #0090a6 100%); /* FF3.6+ */
+  background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#27aabd), color-stop(50%,#27aabd), color-stop(48%,#0090a6), color-stop(100%,#0090a6)); /* Chrome,Safari4+ */
+  background: -webkit-linear-gradient(top,  #27aabd 0%,#27aabd 49%,#0090a6 50%,#0090a6 100%); /* Chrome10+,Safari5.1+ */
+  background: -o-linear-gradient(top,  #27aabd 0%,#27aabd 49%,#0090a6 50%,#0090a6 100%); /* Opera 11.10+ */
+  background: -ms-linear-gradient(top,  #27aabd 0%,#27aabd 49%,#0090a6 50%,#0090a6 100%); /* IE10+ */
+  background: linear-gradient(to bottom,  #27aabd 0%,#27aabd 49%,#0090a6 50%,#0090a6 100%); /* W3C */
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#27aabd', endColorstr='#0090a6',GradientType=0 ); /* IE6-9 */
+
+}
+.topPanel_title2{
+  width: 90%;
+  text-align: center;
+}
+.foottopPanel2{
+  color: #fff;
+  text-align: center;
+  padding: 0 0.5em;
+  font-size: 2.5em;
+  font-family: 'OpenSans-Regular';
+}
+.foottopPanel2 span span{
+  font-size: 2em;
+}
+.contentFixed{
+  height: 100%;
+  overflow: auto
+}
+.headerFixed{
+  top:0!important;
+}
+.footerFixed{
+  bottom: 0!important;
+  height: 75px!important;
+}
+.contentFixed>div{
+  padding-top: 75px!important;
+  padding-bottom: 75px!important;  
+}
+@media (max-width: 640px) and (min-width: 400px){
+.contentFixed>div{
+  padding-top: 50px!important;
+  padding-bottom: 50px!important;
+}
+.footerFixed{
+  height: 50px!important;
+}
+}
+@media (max-width: 400px){
+.contentFixed>div{
+padding-top: 40px!important;
+  padding-bottom: 40px!important;
+}
+.footerFixed{
+  height: 40px!important;
+}
 }

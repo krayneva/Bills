@@ -1,4 +1,4 @@
-	var SYNC_TRANSACTIONS = "synctransactions";
+﻿	var SYNC_TRANSACTIONS = "synctransactions";
 
 	function openDB(login){
      //   alert("open DB!");
@@ -1286,6 +1286,44 @@
  		  }
 	}
 
+
+	function getCategories(){
+		try{
+			var res = "";
+			var deferred = $.Deferred();
+			db.transaction(
+				function(transaction) {
+					transaction.executeSql('SELECT * FROM Categories;', [],
+						function(transaction, res) {
+
+							deferred.resolve(res);
+						}, onError);
+				});
+			return deferred;
+		}
+		catch(e){
+			dumpError("getCategories",e);
+		}
+	}
+
+	function getFirstSubCategory(categoryID) {
+		try {
+			var res = "";
+			var deferred = $.Deferred();
+			db.transaction(
+				function (transaction) {
+					transaction.executeSql('SELECT * FROM SubCategories where category ="' + categoryID + '";', [],
+						function (transaction, res) {
+							if (res.rows.length==0) deferred.resolve("");
+							deferred.resolve(res.rows.item(0).id);
+						}, onError);
+				});
+			return deferred;
+		}
+		catch (e) {
+			dumpError("getFirstSubCategory", e);
+		}
+	}
 
 	function addSyncDate(name,date){
 	try{

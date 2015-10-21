@@ -134,7 +134,7 @@ function updateMainPage(){
 			else{
 				var json = jQuery.parseJSON(res);
 
-				//--------------- �����----------//
+
 				var incomeRublesTD = document.getElementById("incomeRublesTD");
 				var incomeDollarsTD = document.getElementById("incomeDollarsTD");
 				//var incomeEurosTD = document.getElementById("incomeRublesTD");
@@ -144,7 +144,6 @@ function updateMainPage(){
 				var showDollarsIncome = json.IsAmount2Visible;
 				//var showEurosIncome = json.IsAmount3Visible;
 
-				// �����
 				if (showRublesIncome===true){
 					incomeRublesTD.style.display = "block";
 					var incomeRubles = document.getElementById("incomeRubles");
@@ -155,7 +154,7 @@ function updateMainPage(){
 					incomeRublesTD.style.display = "none";
 				}
 
-				// �������
+
 				if (showDollarsIncome===true){
 					incomeDollarsTD.style.display = "block";
 					var incomeDollars = document.getElementById("incomeDollars");
@@ -166,15 +165,11 @@ function updateMainPage(){
 					incomeDollarsTD.style.display = "none";
 				}
 
-				// ������ ���� �����
-
-				//---------------�����  �����----------//
 
 
-				// ------------- ������-------------------//
 				var expenses = document.getElementById("expenses");
 				expenses.innerHTML = json.ExpencesAmountStr;
-				// ------------- ����� ������-------------------//
+
 
 				updateWidgets();
 				}
@@ -225,7 +220,8 @@ function updateTransactionPage(){
 		 var categoryID =  window.localStorage.getItem(CATEGORY_ID_KEY);
 		 getWidget(categoryID).done(function(result){
 			  var json = jQuery.parseJSON(result);
-				$('#categoryTitle').html(json.Name);	
+			  var titleHTML ='<span class="ui-btn ui-icon-coctail"></span>'	+ json.Name
+			  $('#title').html(titleHTML);
 			});
 			getTransactionsByCategoryID(categoryID).done(function(result){
 							  var tagArray = new Array();
@@ -233,7 +229,10 @@ function updateTransactionPage(){
 				var start = +new Date();  // log start timestamp
 	            var totalAmount = 0;
 	            var lastAmount = 0;
-	            if (result.rowslength>0)
+				var checkCount = result.rows.length;
+				$('#checkCount').html(checkCount);
+
+	            if (result.rows.length>0)
 	            	lastAmount = jQuery.parseJSON(result.rows.item(0).transactionJSON).Amount;
 	            var listHTML = "";
 				  for (var i = 0; i <result.rows.length; i++) {
@@ -268,7 +267,7 @@ function updateTransactionPage(){
 							tagCounter=tagCounter+1;
 					 		tagKeys+=json.receiptData.Items[j].Tag;
 					 		if (j!=json.receiptData.Items.length-1)
-					 			tagKeys = tagKeys+",";
+					 			tagKeys = tagKeys+", ";
 					 	}
 
 					//  alert(JSON.stringify(json.receiptData.Items));
@@ -278,10 +277,10 @@ function updateTransactionPage(){
 						html = html.replace(/\{transactionTags\}/g,tagKeys);
 						listHTML = listHTML+html;
 
-
+						totalAmount=totalAmount+json.Amount;
 
 					};
-
+				$("#total").html(Math.round(totalAmount));
 				for (var j=0; j<tagArray.length; j++){
 
                 	getTagName(tagArray[j],j,tagArray.length).done(function(res, src,position,len){
@@ -330,7 +329,7 @@ function updateWidgets(){
 		getWidgets().done(function(res){
 			for (var j=0;j<res.rows.length;j++){
 			var w = jQuery.parseJSON(res.rows.item(j).json);
-			// ���������� ��������
+
 			if (w.Type==0) continue;
 			  //var w = json.Widgets[k];
 			 // alert("Widget "+w.Name+" left: "+w.Left+" top:"+w.Top+" interest:"+w.Percent);
@@ -411,15 +410,15 @@ function updateTransactionInfoPage(){
 		
 		getTransaction(transactionID).done(function(res){
 			var json = jQuery.parseJSON(res.rows.item(0).transactionJSON);
-			$('#category').html("���������: "+json.Category);
+			$('#category').html("Категория: "+json.Category);
 			if (json.Name!=null)
-				$('#name').html("������������: "+json.Name);
-			$('#subcategory').html("������������: "+json.SubCategory);
-			$('#id').html("�������������: "+json.Id);
-			$('#createdAt').html("���� ��������: "+json.CreatedAt);
-			$('#currency').html("������ "+ getCurrencyString(json.Currency));
-			$('#transactionDate').html("���� ����������: "+json.TransactionDate);
-			$('#amount').html("����� "+json.Amount);
+				$('#name').html("Наименование: "+json.Name);
+			$('#subcategory').html("Подкатегория: "+json.SubCategory);
+			$('#id').html("Идентификатор: "+json.Id);
+			$('#createdAt').html("Дата создания: "+json.CreatedAt);
+			$('#currency').html("Валюта "+ getCurrencyString(json.Currency));
+			$('#transactionDate').html("Дата транзакции: "+json.TransactionDate);
+			$('#amount').html("Сумма "+json.Amount);
 			
 			var listHTML = "";
 			  $('#tableTransactionInfo > tbody').html("");
@@ -447,8 +446,6 @@ function updateTransactionInfoPage(){
 	
 function updateShopListsPage(reloadFromBase){
 	try{
-		// ��� ��������� ����� �������� ���������
-		//window.localStorage.setItem("CurrentShopListNum",0);
 		 var currentShopList = window.localStorage.getItem("CurrentShopListNum");
 		 if (currentShopList==undefined) {
 			 currentShopList = 0;
@@ -478,18 +475,12 @@ function updateShopListsPage(reloadFromBase){
 			  $('#ShopListList').listview('refresh');
 			  $('#alreadyBoughtList').html('');
 			  $('#alreadyBoughtList').listview('refresh');
-			  //var itemsJSON =  jQuery.parseJSON(res.rows.item(currentShopList).itemsJSON);
-			  // ���������� �������� ������ �������
 			  window.localStorage.setItem("ShopListID",res.rows.item(currentShopList).id);
-			  // ������� ��� �� ���� �� ���������
+
 
 			 var itemsString = window.localStorage.getItem("ShopListAlreadyBought"+res.rows.item(currentShopList).id);
 
 			  if ((itemsString==undefined)|(reloadFromBase)){
-			//	  alert("Bought items are not defined!, len"+itemsJSON.length);
-			//	 bought = new Array(itemsJSON.length);
-
-
 				 var itemsJSON =  jQuery.parseJSON(res.rows.item(currentShopList).itemsJSON);
 
 				 var oldJSON = jQuery.parseJSON(itemsString);
@@ -533,7 +524,7 @@ function updateShopListsPage(reloadFromBase){
 		       		  console.log('Measure: '+measure);
 		       		  console.log('Color: '+color);
 	       		  }
-	       		  // ����� ��� � ������ �����������
+
 	       		  console.log('Bought: '+bought);
 	       		if (bought=="0")	{
 		       		  var listrow = document.getElementById("shopListRow").cloneNode(true);
@@ -582,7 +573,7 @@ function updateShopListsPage(reloadFromBase){
 					 
 					  $('#ShopListList').append(listrow);
 	       		  }
-	       		  // ����� � ������ ���������
+
 	       		  else{
 		       		  var listrowBought = document.getElementById("alreadyBoughtRow").cloneNode(true);
 		       		  listrowBought.setAttribute("id", "listrowBought"+k);
@@ -639,7 +630,7 @@ function updateShopListsPage(reloadFromBase){
 
 		 
 		  $("#autocomplete").html('');
-		 // ��������� �����������
+
 		 getGoodItems().done(function(res){
 			 	//alert("goods items count: "+res.rows.length);
 			  for (var i=0; i<res.rows.length; i++){
@@ -839,7 +830,7 @@ function updateShopListsPage(reloadFromBase){
         		$('#sendFeedbackButton').click(function()
                            {
                            var mark=5;
-                            //{"Id":"55045f4773915739e8789689","Mark":3,"Remark":"������ ���!","Reason":1}
+
                            		    $("input[name*=level]:checked").each(function() {
                                         mark = $(this).val();
                                     });
@@ -859,13 +850,13 @@ function updateShopListsPage(reloadFromBase){
                 			var js = jQuery.parseJSON(res.rows.item(0).transactionJSON);
                 			var row = res.rows.item(0);
                 			 var jsonText = row.transactionJSON;
-                			 if (js.Coords!=undefined)
-                			 var lat = js.Coords.Latitude;
-                			 var lon = js.Coords.Longitude;
-                			 window.localStorage.setItem(LATITUDE_KEY,lat);
-                			 window.localStorage.setItem(LONGITUDE_KEY,lon);
-                			 preInitMap();
-                			 
+                			 if ((js.Coords!=undefined)&(js.Coords!=null)&(js.Coords!="null")) {
+								 var lat = js.Coords.Latitude;
+								 var lon = js.Coords.Longitude;
+								 window.localStorage.setItem(LATITUDE_KEY, lat);
+								 window.localStorage.setItem(LONGITUDE_KEY, lon);
+								 preInitMap();
+							 }
 
 					 	  var now = new Date();
                         $('#checkName').html(js.Name==null?"":js.Name);
@@ -877,36 +868,43 @@ function updateShopListsPage(reloadFromBase){
                
                //subcategorys and purses
 
-                var html1 = $('#categoryRowTemplate').html();
-                
-                $('#select-native-1').html('');
-                getSubCategoryName(js.SubCategory).done(function(subcategoryName){
-            	   html1 = html1.replace(/\{catName\}/g,subcategoryName);
-            	   html1 = html1.replace(/\{catValue\}/g,js.SubCategory);
-                   $('#select-native-1').append(html1);
+              refreshSubCategoryCombo(js.SubCategory);
 
-                getSubCategoryParent(js.SubCategory).done(function(catID){
-                	getSubCategories(catID).done(function(res){
-                	for (var j=0;j<res.rows.length;j++){
-                	//alert(js.SubCategory+" vs "+res.rows.item(j).id);
-                		if (js.SubCategory==res.rows.item(j).id) continue;
-      	                var html11 = $('#categoryRowTemplate').html();
-	            	   	html11 = html11.replace(/\{catName\}/g,res.rows.item(j).name);
-    	        	  	html11 = html11.replace(/\{catValue\}/g,res.rows.item(j).id);
-        	           	$('#select-native-1').append(html11);
-						if (j==res.rows.length-1){
-							$("#select-native-1 option:first").attr('selected','selected');
-						//	$("#select-native-1").trigger("change");
-                            $('#select-native-1').selectmenu("refresh", "true");
-                             }
-                    	}
-                	});
-                	});
-                });
-				$('#select-native-1').change(function() {
-                //	alert("subcat checnged from "+js.SubCategory+" to "+$('#select-native-1').val());
-                	changeSubCategory(transactionID, $('#select-native-1').val());
-               });
+					var html13 = $('#categoryRowTemplate').html();
+				//------------combobox for category-----------////////
+					$('#select-native-0').html('');
+					getCategoryName(js.Category).done(function(categoryName){
+						html13 = html13.replace(/\{catName\}/g,categoryName);
+						html13 = html13.replace(/\{catValue\}/g,js.Category);
+						$('#select-native-0').append(html13);
+
+						getCategories().done(function(res){
+								for (var j=0;j<res.rows.length;j++){
+									if (js.Category==res.rows.item(j).id) continue;
+									var html111 = $('#categoryRowTemplate').html();
+									html111 = html111.replace(/\{catName\}/g,res.rows.item(j).name);
+									html111 = html111.replace(/\{catValue\}/g,res.rows.item(j).id);
+									$('#select-native-0').append(html111);
+									if (j==res.rows.length-1){
+										$("#select-native-0 option:first").attr('selected','selected');
+										$('#select-native-0').selectmenu("refresh", "true");
+									}
+								}
+							});
+					});
+					$('#select-native-0').change(function() {
+						changeCategory(transactionID, $('#select-native-0').val()).done(function(){
+							getFirstSubCategory($('#select-native-0').val()).done(function (res){
+								refreshSubCategoryCombo(res);
+							});
+
+						});
+
+					});
+
+					///----------------------------------------//
+
+
 
                  var html2 = $('#purseRowTemplate').html();
                 // var subcategoryName = getCategoryName(json.SubCategory);
@@ -1006,6 +1004,7 @@ function updateShopListsPage(reloadFromBase){
 
         		$(document).ready(function()
         		{
+					$('#select-native-0-button').prepend('<img src="images/img.jpg" alt="">');
         			$('#select-native-1-button').prepend('<img src="images/img.jpg" alt="">');
         			$('#select-native-2-button').prepend('<img src="images/cash.png" alt="">');
 
@@ -1082,6 +1081,42 @@ function updateShopListsPage(reloadFromBase){
             }
 
 
+
+	 function refreshSubCategoryCombo(subcategory){
+		 var html1 = $('#categoryRowTemplate').html();
+		 $('#select-native-1').html('');
+		 if (subcategory==0){
+			 $('#select-native-1').selectmenu("refresh", "true");
+		 }
+		 getSubCategoryName(subcategory).done(function(subcategoryName){
+			 html1 = html1.replace(/\{catName\}/g,subcategoryName);
+			 html1 = html1.replace(/\{catValue\}/g,subcategory);
+			 $('#select-native-1').append(html1);
+
+			 getSubCategoryParent(subcategory).done(function(catID){
+				 getSubCategories(catID).done(function(res){
+
+					 for (var j=0;j<res.rows.length;j++){
+
+						 if (subcategory==res.rows.item(j).id) continue;
+						 var html11 = $('#categoryRowTemplate').html();
+						 html11 = html11.replace(/\{catName\}/g,res.rows.item(j).name);
+						 html11 = html11.replace(/\{catValue\}/g,res.rows.item(j).id);
+						 $('#select-native-1').append(html11);
+						 if (j==res.rows.length-1){
+							 $("#select-native-1 option:first").attr('selected','selected');
+							 //	$("#select-native-1").trigger("change");
+							 $('#select-native-1').selectmenu("refresh", "true");
+						 }
+					 }
+				 });
+			 });
+		 });
+		 $('#select-native-1').change(function() {
+
+			 changeSubCategory(transactionID, $('#select-native-1').val());
+		 });
+	 }
 
 function takeHeight()
 		{

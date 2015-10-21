@@ -9,17 +9,17 @@ function getErrorMessage(err){
 	switch(err){
 
 	case SERVER_ERROR_NO_INTERNET:
-	return "����������� ���������� � ����������";
+	return "Проверьте соединение с интернетом";
 		break;
 	case SERVER_ERROR_NO_AUTH:
-	return "������������ ���� �����-������";
+	return "Неправильная пара логин-пароль";
     	break;
     case SERVER_ERROR_NO_CONNECTION_TO_HOST:
-    return "��� ����� � ��������";
+    return "Нет связи с сервером";
       	break;
     case SERVER_ERROR_OTHER:
     default:
-    return "��������� ����������� ������";
+    return "Произошла неизвестная ошибка";
      	break;
 	}
 }
@@ -44,7 +44,7 @@ function uploadPhoto() {
 	             var row = result.rows.item(i);
 	             if (row.sent==0){
 	            	 $.mobile.loading("show",{
-	             		text: "�������� ���� "+row.id,
+	             		text: "Отправка чека "+row.id,
 	             		textVisible: true,
 	             		theme: 'e',
 	             	});
@@ -142,7 +142,7 @@ function uploadPhoto() {
 	    	}
 	    	else{
 	    	$.mobile.loading("hide");
-	    	//1--�����������
+	    	
 	    
 		    var message = "";;
 		    switch(error.code)
@@ -187,9 +187,7 @@ function uploadPhoto() {
 	        }
 	    	}
 	        console.log(error);
-	      /*  alert("������ ��� �������� ����� " + message);
-	        alert("HTTP RESPONSE CODE: " + error.http_status);
-		    console.log("upload error source " + error.source);*/
+
     	}
 	    catch(e){
 	    	dumpError("onFileUploadError",e);
@@ -218,7 +216,7 @@ function uploadPhoto() {
 	    	            },
 	    	            error: function(jqXHR, textStatus, errorThrown) {
 	    	                alert(textStatus + " " + errorThrown);
-	    	                alert("��� ������ " + errorThrown.code);
+	    	                alert("Код ошибки " + errorThrown.code);
 	    	            }
 	    	        });
     	}
@@ -562,7 +560,7 @@ function uploadPhoto() {
 	    		console.log("sendShopList server address: "+serverAddress+getProductListsURL);
 	    		console.log("sendShopList user token: "+userToken);
 	    		
-	    		// ��������� json ������ ��������� ��� �������� �� ������
+	    		
 	    		getShopList(listID).done(function(result){
 	    		//	alert("Count of such listIDs: "+result.rows.length);
 	    			
@@ -578,7 +576,7 @@ function uploadPhoto() {
 	    		else{
 	    			alert ("row full json is empty");
 	    		}
-	    		//listJSON ='{"AccountID":"54ef3e2073915440bcd7d216","Number":2,"Name":"��� ������� 2","Items":[{"Tag":"TAG_VODKA","Value":"�������","Quantity":"1","Measure":"���������","Color":-983041,"bought":"0"},{"Tag":"TAG_APPLES","Value":"�������","Quantity":"1","Measure":"��","Color":-7722014},{"Tag":"TAG_PISTACHES","Value":"��������","Quantity":"1","Measure":"�.","Color":-2180985},{"Tag":"TAG_CHIPS","Value":"�����","Quantity":"1","Measure":"�.","Color":-32944}],"Id":"55411209e657afb61404689f","CreatedAt":"2015-04-29T20:16:57.217+03:00"}';
+	    	
 	    		console.log("sending shop list: "+listJSON);
 		    	   $.ajax({
 		    	          url: serverAddress+getProductListsURL,
@@ -635,9 +633,7 @@ function uploadPhoto() {
     
     
     
-    /**
-     * �������� ���� ������� �� ������
-     */
+
     function sendShopLists(){
     	try{
 	    	var deferred = $.Deferred();
@@ -693,19 +689,15 @@ function uploadPhoto() {
 	
 		                beforeSend: function (request)
 		                {
-			            //    request.setRequestHeader("Authorization", "Bearer "+userToken);
+			            //
 			                request.setRequestHeader("Content-Type", "application/json; charset=utf-8");
 		                },
 		    	            data: jsonText,       
 		    	            success: function(response, textStatus, jqXHR) {
-		    	           //   if (debugMode==true) console.log(jqXHR.responseText);
-		    	         //  var json = jQuery.parseJSON(jqXHR.responseText);
-	                		//	alert("response text: "+jqXHR.responseText);
-	                		//	alert("http status is "+jqXHR.status);
-		    	           		//res = jqXHR.responseText.replace(/"/g,"");
 		    	            	$.mobile.loading("hide");
 		    	            	window.localStorage.setItem(SETTING_USER_LOGIN,email);
-		    	         	    showDialog("����������� ������� ���������","���������� ��� �� �����������. �� ��� ����� ����������� ����� �� ��������� ������, ����������� ��� ��� ����� � �������.");
+		    	         	    showDialog("Регистрация успешно пройдена",
+									"Благодарим Вас за регистрацию.На Ваш адрес электронный почты мы отправили пароль, используйте его для входа в систему.");
 		    	           		deferred.resolve("success");
 		    	            },
 		    	            error: function(jqXHR, textStatus, errorThrown) {
@@ -725,10 +717,7 @@ function uploadPhoto() {
     }
     
  
-    
-    /**
-     *  ������ �������������� ���������
-     */
+
     function requestGoodItems(){
     	try{
 	    	var deferred = $.Deferred();
@@ -888,15 +877,13 @@ function uploadPhoto() {
 
 	    	if (authCount>2){
 		    	    $.mobile.loading("hide");
-		    	  // alert("������ �����������");
+
 		    	    showErrorDialog(jqXHR.responseText);
 		    //	    getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
 		     //   		var log = login;
 		      //  		getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
 		       // 		var pass = password;
-		        		/*alert("�����: "+log);
-		        		alert("������: "+pass);
-		        		*/
+		        		
 		        		 deferred.resolve(SERVER_ERROR_NO_AUTH);
 		        		return deferred;
 		    //    		});
@@ -921,17 +908,17 @@ function uploadPhoto() {
 	   	    states[Connection.CELL]     = 'Cell generic connection';
 	   	    states[Connection.NONE]     = 'No network connection';
 	   	//	alert(  states[networkState]);
-	   	    // ��������� ����������� ���������
+	
 	    	if (networkState==Connection.NONE){
 	    		$.mobile.loading("hide");
 	    		deferred.resolve(SERVER_ERROR_NO_INTERNET);
-	    		//alert("��������� ����������� � ���������");
+	    	
 	    		showErrorDialog("Проверьте соединение с интернетом");
 	    		authCount = 0;
 	    		return deferred;
 	    	}
 	
-	    	// ��������� ����������� �������
+	
 	    /*	var isReachable = false;
 	    //	getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
 		    	$.get(getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT))
@@ -939,14 +926,13 @@ function uploadPhoto() {
 		    	    .fail( function(){ isReachable = false; 
 		    	    deferred.resolve(SERVER_ERROR_NO_CONNECTION_TO_HOST);
 		    	    $.mobile.loading("hide");
-		    	   // alert("��� ����� � ��������");
-		    	    showErrorDialog("��� ����� � ��������");
+		    	 
 		    	    authCount = 0;
 		    	    return deferred;
 		    	    } );
 		    	    */
 	    //	});
-	    	// ���������, �� ������ �� ���� ����������� � ���� ��� �������� ��������
+	    	
 	    	if ((errorThrown==="Unauthorized")|(errorThrown==="Bad Request")){
 	    	//	getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
 	        //		var log = login;
@@ -1002,7 +988,7 @@ function uploadPhoto() {
     	try{
 	    	var deferred = $.Deferred();
 	    	$.mobile.loading("show",{
-	    		text: "��������  ����",
+	    		text: "Тест",
 	    		textVisible: true,
 	    		theme: 'e',
 	    	});
@@ -1030,7 +1016,7 @@ function uploadPhoto() {
 	    	            
 	    	            /*	alert("error! error thrown is "+errorThrown);
 	    	            	alert("textStatus is "+textStatus);
-	    	            	/// ��� �����  ����� ������� �� ������
+	    	            	
 	    	            	alert("jqXHR is "+jqXHR.responseText);
 	    	            	*/
 	    	            	   $.mobile.loading("hide");
@@ -1049,10 +1035,7 @@ function uploadPhoto() {
     }
     
     
-    /** ��������� ������ ����
-     * @param uid ��� ������
-     * @returns
-     */
+
     function getImage(uid){
     	var deferred = $.Deferred();
     	try{
@@ -1155,14 +1138,9 @@ function uploadPhoto() {
 
 							  });
 
-						alert("TAGS are: "+JSON.stringify(json.Tags));
+
 							var tags = json.Tags;
-						//	alert(JSON.stringify(json.Tags));
-						/*	for (var k in tags){
-							alert(k);
-                          		alert(k.name+" "+k.value);
-                           }
-*/
+
 					 $.each(tags, function(key, value) {
 							$.each(value, function(key, value) {
 						//	alert("key: "+key+" "+value);
@@ -1242,7 +1220,7 @@ function uploadPhoto() {
   		    	        data:  JSON.stringify(feedback),
   		    	        success: function(response, textStatus, jqXHR) {
   		    	        console.log(jqXHR.responseText);
-  		    	      //   alert("c����� �������: "+jqXHR.responseText);
+  		    	    
   		    	          var json = jQuery.parseJSON(jqXHR.responseText);
 
   		    	           		$.mobile.loading("hide");
@@ -1349,7 +1327,7 @@ function changeSubCategory(transactionID, subcategory){
 	    		console.log("changeSubCategory server address: "+serverAddress+getTransactionsURL);
 	    		console.log("changeSubCategory user token: "+userToken);
 
-	    		// ��������� json ������ ��������� ��� �������� �� ������
+	    	
 	    		getTransaction(transactionID).done(function(res){
 	    		var js = jQuery.parseJSON(res.rows.item(0).transactionJSON);
 				js.SubCategory = subcategory;
@@ -1408,3 +1386,86 @@ function changeSubCategory(transactionID, subcategory){
 	    }
 
     }
+
+
+
+function changeCategory(transactionID, category){
+	try{
+		$.mobile.loading("show",{
+			text: "Смена категории транзакции",
+			textVisible: true,
+			theme: 'e',
+		});
+
+		var deferred = $.Deferred();
+		getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
+			var log = login;
+			getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
+				var pass = password;
+				requestUserToken(log, pass).done(function(uToken){
+
+					var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
+					getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
+						var userToken = uToken;
+						console.log("changeCategory server address: "+serverAddress+getTransactionsURL);
+						console.log("changeCategory user token: "+userToken);
+
+
+						getTransaction(transactionID).done(function(res){
+							var js = jQuery.parseJSON(res.rows.item(0).transactionJSON);
+							js.Category = category;
+
+							$.ajax({
+								url: serverAddress+getTransactionsURL,
+								type: "post",
+
+								beforeSend: function (request)
+								{
+									request.setRequestHeader("Authorization", "Bearer "+userToken);
+									request.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+								},
+								data: JSON.stringify(js),
+								success: function(response, textStatus, jqXHR) {
+
+									jqXHR.responseText=jqXHR.responseText.replace(/"/g,"");
+									if (jqXHR.responseText==transactionID){
+
+										addSeveralTransactions(js,0,undefined).done(function(r){
+											$.mobile.loading("hide");
+											deferred.resolve();
+										});
+									}
+									else{
+										//alert("errors while changing subcategrory");
+									}
+
+
+									$.mobile.loading("hide");
+									deferred.resolve(res);
+								},
+								error: function(jqXHR, textStatus, errorThrown) {
+									onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
+										if (res==SERVER_ERROR_TRY_AGAIN){
+											changeCategory(transactionID, category);
+											deferred.resolve();
+										}
+										else{
+											$.mobile.loading("hide");
+											showErrorDialog(getErrorMessage(res));
+											deferred.resolve();
+										}
+
+									});
+								}
+							});
+						});
+					});
+					//});
+				});});});
+		return deferred;
+	}
+	catch(e){
+		dumpError("changeCAtegory",e);
+	}
+
+}
