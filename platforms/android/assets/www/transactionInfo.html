@@ -1,0 +1,82 @@
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1 height=device-height">
+      <div id="pageTransactionInfo"  data-role="page"  >
+       <div class="background"></div>
+        <div class="topPanel">
+            <span> <a data-rel="back"><img class="topPanel_backButton" src="img/back.png" data-rel="back"/></a></span>
+            <div class="topPanel_title" id="categoryTitle">Данные транзакции</div>
+            <span><img class="topPanel_menuButton" src="img/menu.png"/></span>
+        </div>
+       <div class="scrollablecontent">
+	      <ul data-role="listview" id="ReceiptsListView">
+		     <li id = "name">Наименование: </li>
+		    <li id = "category">Категория: </li>
+		    <li id = "subcategory">Подкатегория: </li>
+		    <li id = "id">Идентификатор: </li>
+		    <li id = "amount">Итого: </li>
+		    <li id = "currency">Валюта: </li>
+		     <li id = "createdAt">Дата создания: </li>
+		      <li id = "transactionDate">Дата транзакции: </li>
+<!--       <li>
+		    	<div data-role="collapsible" data-theme="a" data-content-theme="a">
+				<h2>Данные чека</h2>
+				    <ul data-role="listview" id = "receiptsDataListView" >
+
+				    </ul>
+				</div>
+		    </li>
+		    
+	 	     
+		    <li>
+		    	<div data-role="collapsible" data-theme="a" data-content-theme="a" >
+				<h2>Теги</h2>
+				    <ul data-role="listview" id="tagsListView">
+				    </ul>
+				</div>
+		    </li>
+		    <li></li>
+		</ul>
+		 -->
+	
+		
+		<li id="receiptDataTemplate" style="display: none;">
+			<h2 id = "receiptHeader"></h2>
+			<ul data-role="listview" id="receiptItems">
+
+		    </ul>
+		</li>
+		
+		
+		
+		
+		
+	<table data-role="table" id="tableTransactionInfo" class="ui-responsive table-stroke" >
+     <thead>
+       <tr>
+         <th data-priority="2">Наименование</th>
+         <th>Кол-во</th>
+         <th data-priority="3">Цена</th>
+         <th data-priority="1">Стоимость</th>
+         <th data-priority="3">Тег</th>
+       </tr>
+     </thead>
+     <tbody>
+     </tbody>
+   </table>
+   
+ 
+
+   
+    <div id ="tableRowTemplate"  style="display: none;">
+	      <tr>
+	         <td>{goodName}</td>
+	         <td>{goodCount}</td>
+	         <td>{goodPrice}</td>
+	         <td>{goodTotalPrice}</td>
+	         <td>{goodTag}</td>
+	       </tr>
+      </div>
+      </div>
+      </div>	
+      
+    
