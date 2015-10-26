@@ -5,11 +5,28 @@
     <div class="background"></div>
 
     <div data-role="header" class="ui-header-w headerFixed">
+      <div class="headerBackground"></div>
         <a data-rel="back"><button class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all">No text</button></a>
         <span class="topPanel_title topPanel_title2" id="title"></span>
-
+        </div>
+    <div class="filter">
+      <table>
+            <tr>
+              <td class="expenses_favorites">
+                <div class="transactionIsFavorites-false">
+                  <img class="transactionFavorites" src="img/ico-favorites-white.png"/>
+                  <img class="transactionNotFavorites" src="img/ico-notFavorites-white.png"/>
+                </div>          
+              </td>
+              <td>
+                <input/>
+              </td>
+              <td>              
+                <input/>
+              </td>
+            </tr>
+          </table>
     </div>
-
     <div id="iscroll-wrapper" class="expenses contentFixed">
       <div>
         <ul data-role="listview" id="expensesList"></ul>
