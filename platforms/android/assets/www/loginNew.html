@@ -1,0 +1,32 @@
+	
+	<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="Content-Security-Policy" content="default-src *;
+style-src 'self' 'unsafe-inline';
+script-src 'self' 'unsafe-inline' 'unsafe-eval'
+ https://*.gstatic.com https://*.googleapis.com;"
+			>
+	<div data-role="page" id ="pageAuth" class="ui-mobile-viewport-main">
+		<div class="ui-container">
+	        <div data-role="header" class="logo-header">
+	        <a href="#" title="" class="login-logo"><img src="images/register-logo.png" onclick="showConnectionSettingsPage();"></a>
+	        </div>
+	        <div data-role="content">
+	        	<div id="registerPage">
+	        		<input id = "login" class="ui-input-reg" type="email" name="email" placeholder="Логин" autocomplete="off" required>
+	        		<input id ="password" class="ui-input-reg" type="password" name="name" placeholder="Пароль" autocomplete="off" required>
+	        		<button id="login_button" onclick = "getUserTokenAndShowMainPage( $('#login').val(),   $('#password').val());">Войти</button>
+	        	</div>
+	        </div>
+    	
+	    </div>
+	      <div class="socials">
+	        <!--	<ul>
+	        		<li><a href="#"  title=""><img src="images/fb.png"></a></li>
+	        		<li><a href="#" title=""><img src="images/vk.png"></a></li>
+	        		<li><a href="#" title=""><img src="images/tw.png"></a></li>
+	        		<li><a href="#" title=""><img src="images/gpl.png"></a></li>
+	        	</ul>-->
+	        	<a onclick = "showRegistrationPage();" class="to-register">Регистрация</a>
+	        </div> 
+    </div>

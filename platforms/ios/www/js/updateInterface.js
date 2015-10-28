@@ -1082,6 +1082,19 @@ function updateShopListsPage(reloadFromBase){
 
 
 
+	function updateHabitsPage(){
+		requestBadHabits().done(function(){
+			getBadHabits().done(function(res){
+				console.log("Bad habits json is: "+res);
+				alert ("Bad habits json is: "+res);
+
+			});
+		});
+
+
+	}
+
+
 	 function refreshSubCategoryCombo(subcategory){
 		 var html1 = $('#categoryRowTemplate').html();
 		 $('#select-native-1').html('');

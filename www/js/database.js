@@ -61,7 +61,8 @@
     
          tx.executeSql('CREATE TABLE IF NOT EXISTS Widgets' 
    		 		+' (id text primary key,json)');
-
+  		tx.executeSql('CREATE TABLE IF NOT EXISTS Habits'
+ 		 		+' (id integer primary key autoincrement,habits)');
 
          tx.executeSql('CREATE TABLE IF NOT EXISTS Settings' 
   		 +'(id integer primary key autoincrement,'
@@ -109,6 +110,18 @@
 	        	}
 	        	        	
 	    }, onError);
+
+			tx.executeSql('SELECT * FROM Habits;', [],
+				function(transaction, result) {
+					if (result.rows.length==0){
+						tx.executeSql('INSERT INTO Habits'
+							+'(habits) values '
+							+'("")'
+						);
+
+					}
+
+				}, onError);
          
          // таблица для списка покупок
          tx.executeSql('CREATE TABLE IF NOT EXISTS ShopLists' 
@@ -265,7 +278,25 @@
 			  dumpError("getUserEnvironment",e);
 		  }			
     }
-        
+
+
+         function getBadHabits(){
+            	try{
+        	    	var deferred = $.Deferred();
+        	    	db.transaction(
+        	  		    function(transaction) {
+        	  		        transaction.executeSql('SELECT * FROM Habits', [],
+        	  		        		function(transaction, result) {
+        	  		        	deferred.resolve( result.rows.item(0).habits);
+        	    		    }, onError);
+        	  		 });
+
+        	    	return deferred;
+            	}
+        		catch(e){
+        			  dumpError("getBadHabits",e);
+        		  }
+            }
     
     /**
      * пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
@@ -1366,3 +1397,17 @@
     		  }
 
 	}
+
+function addBadHabits(habits){
+    	try{
+	        db.transaction(
+	    		function(transaction) {
+	        		transaction.executeSql(
+	        		"UPDATE Habits set habits='"+habits+"'"
+	        		);},
+	        		 onError, onSuccess);
+    	}
+		catch(e){
+			  dumpError("addBadHabits",e);
+		  }
+   }

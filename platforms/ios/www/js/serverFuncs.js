@@ -351,7 +351,7 @@ function uploadPhoto() {
 	    	return deferred;
     	}
 	    catch(e){
-	    alert("exception caught while  userebvironment");
+
 	    	dumpError("requestUserEnvironment",e);
 	    	deferred.resolve();
 	    }
@@ -1469,3 +1469,66 @@ function changeCategory(transactionID, category){
 	}
 
 }
+
+
+
+
+ function requestBadHabits(){
+    	try{
+	    	var deferred = $.Deferred();
+	    	$.mobile.loading("show",{
+	    		text: "Загрузка статистики вредных привычек",
+	    		textVisible: true,
+	    		theme: 'e',
+	    	});
+
+	    		var serverAddress =getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
+	    		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
+	    		var userToken = uToken;
+	    	   $.ajax({
+	    	          url: serverAddress+getHabitsURL,
+	    	            type: "get",
+	                beforeSend: function (request)
+	                {
+	               	 request.setRequestHeader("Authorization", "Bearer "+userToken);
+	                },
+	    	            data: [],
+	    	            success: function(response, textStatus, jqXHR) {
+	    	            //	alert("user environment success!");
+	    	            //   alert(jqXHR.responseText);
+	    	            //	if (debugMode==true)
+	    	            		console.log("request user habts: "+jqXHR.responseText);
+							alert("request user habts: "+jqXHR.responseText);
+	    	               //putSetting(SETTING_USER_ENVIRONMENT,jqXHR.responseText);
+	    	               addBadHabits(jqXHR.responseText);
+
+	    	           		$.mobile.loading("hide");
+	    	               deferred.resolve();
+	    	            },
+	    	            error: function(jqXHR, textStatus, errorThrown) {
+	    	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
+	                        	   if (res==SERVER_ERROR_TRY_AGAIN){
+                                  	   requestBadHabits();
+                                  	    deferred.resolve();
+                                  	    }
+                                  	  else{
+                                  	       $.mobile.loading("hide");
+                                  	       showErrorDialog(getErrorMessage(res));
+                                  	        deferred.resolve();
+                                  	   }
+	                    	   });
+
+	    	            }
+	    	        });
+	    		});
+	    //	});
+
+	    	return deferred;
+    	}
+	    catch(e){
+
+	    	dumpError("requestBadHabits",e);
+	    	deferred.resolve();
+	    }
+
+    }
