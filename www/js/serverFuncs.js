@@ -296,6 +296,8 @@ function uploadPhoto() {
 
     function requestUserEnvironment(){
     	try{
+			var start = new Date().getTime();
+
 	    	var deferred = $.Deferred();
 	    	$.mobile.loading("show",{
 	    		text: "Загрузка окружения пользователя",
@@ -318,7 +320,10 @@ function uploadPhoto() {
 	    	            //	alert("user environment success!");
 	    	            //   alert(jqXHR.responseText);
 	    	            	if (debugMode==true)
-	    	            		console.log("request user environment: "+jqXHR.responseText);
+								var end = new Date().getTime();
+								var time = end - start;
+								console.log('user environment server requesttime: ' + time);
+							console.log("request user environment: "+jqXHR.responseText);
 	    	               //putSetting(SETTING_USER_ENVIRONMENT,jqXHR.responseText);
 	    	               addUserEnvironment(jqXHR.responseText);
 	    	           		var json = jQuery.parseJSON(jqXHR.responseText);
@@ -365,6 +370,7 @@ function uploadPhoto() {
      */
     function requestTransactions(){
     	try{
+			var start = new Date().getTime();
 	    	var deferred = $.Deferred();
 	    	$.mobile.loading("show",{
 	    		text: "Загрузка транзакций",
@@ -402,6 +408,9 @@ function uploadPhoto() {
 							success: function(response, textStatus, jqXHR) {
 							//   if (debugMode==true)
 								//   console.log(jqXHR.responseText);
+								var end = new Date().getTime();
+								var time = end - start;
+								console.log('transactions server requesttime: ' + time);
 
 								var dateString = jqXHR.getResponseHeader("Date");
 							//	alert(dateString);
@@ -418,14 +427,33 @@ function uploadPhoto() {
 								}
 								*/
 							//	alert("got transactions count: "+json.length);
-								if (json.length>0)
-									  addSeveralTransactions(json,0,undefined).done(function(r){
+								if (json.length>0){
+									console.log("time: transaction count: "+json.length);
+									  /*addSeveralTransactions(json,0,undefined).done(function(r){
 											$.mobile.loading("hide");
 											deferred.resolve();
-									  });
+										  var end = new Date().getTime();
+										  var time = end - start;
+										  console.log('getTransactions add to database time: ' + time);
+									  });*/
+									db.transaction(
+										function(tr) {
+											for (var i=0; i< json.length; i++) {
+
+												addTransactionInTransaction(json[i], tr);
+											}
+											}, onError,function onSuccess(){
+											$.mobile.loading("hide");
+											deferred.resolve();
+										});
+
+								}
 								else{
 										$.mobile.loading("hide");
 									   deferred.resolve();
+									var end = new Date().getTime();
+									var time = end - start;
+									console.log('getTransactions server add 0 tr to database time: ' + time);
 								}
 							},
 							error: function(jqXHR, textStatus, errorThrown) {
@@ -465,6 +493,7 @@ function uploadPhoto() {
     /*var getProductListsURL = "api/productlists";*/
     function requestShopLists(){
     	try{
+			var start = new Date().getTime();
 	    	var deferred = $.Deferred();
 	    	$.mobile.loading("show",{
 	    		text: "Загрузка списков покупок",
@@ -487,6 +516,9 @@ function uploadPhoto() {
 	    	            data: [],       
 	    	            success: function(response, textStatus, jqXHR) {
 	    	            	deleteShopListsTable();
+							var end = new Date().getTime();
+							var time = end - start;
+							console.log('shop lists server requesttime: ' + time);
 	    	               if (debugMode==true)console.log(jqXHR.responseText);
 	    	           		var json = jQuery.parseJSON(jqXHR.responseText);
 	    	           	//	for (var k in json) {
@@ -720,6 +752,8 @@ function uploadPhoto() {
 
     function requestGoodItems(){
     	try{
+			var start = new Date().getTime();
+
 	    	var deferred = $.Deferred();
 	    	$.mobile.loading("show",{
 	    		text: "Загрузка видов продуктов",
@@ -744,20 +778,27 @@ function uploadPhoto() {
 	 	            data: [],       
 	 	            success: function(response, textStatus, jqXHR) {
 	 	            	deleteGoodItemsTable();
+						var end = new Date().getTime();
+						var time = end - start;
+						console.log('good items server requesttime: ' + time);
 	 	               if(debugMode==true)console.log(jqXHR.responseText);
 	 	               
 	 	           		var json = jQuery.parseJSON(jqXHR.responseText);
-	 	           		for (var k in json) {
-	 	           		  var item = json[k];
-	 	           		  //+'(id integer primary key autoincrement,tag, value, measure, color,soundTranscription,json)');
-	 	           		  var tag = item.Tag;
-	 	           		  var value = item.Value;
-	 	           		  var measure = item.Measure;
-	 	           		  var color = item.Color;
-	 	           		  var soundTranscription = item.SoundTranscription;
-	 	           		  
-	 	           		  addGoodItem(tag,value,measure,color,soundTranscription,JSON.stringify(item));
-	 	           		}
+						db.transaction(
+							function(transaction) {
+								for (var k in json) {
+									var item = json[k];
+									//+'(id integer primary key autoincrement,tag, value, measure, color,soundTranscription,json)');
+									var tag = item.Tag;
+									var value = item.Value;
+									var measure = item.Measure;
+									var color = item.Color;
+									var soundTranscription = item.SoundTranscription;
+
+									addGoodItemInTransaction(tag, value, measure, color, soundTranscription, JSON.stringify(item), transaction);
+								};
+							}, onError, onSuccess);
+
 	 	           	$.mobile.loading("hide");
 	 	           		deferred.resolve();
 	 	            },
@@ -794,6 +835,8 @@ function uploadPhoto() {
     
     function requestGoodMeasures(){
     	try{
+			var start = new Date().getTime();
+
 	    	var deferred = $.Deferred();
 	    	$.mobile.loading("show",{
 	    		text: "Загрузка единиц измерения",
@@ -816,16 +859,23 @@ function uploadPhoto() {
 	              },
 	  	            data: [],       
 	  	            success: function(response, textStatus, jqXHR) {
+						var end = new Date().getTime();
+						var time = end - start;
+						console.log('good measures server requesttime: ' + time);
 	  	            	deleteGoodMeasuresTable();
 	  	               if (debugMode==true)console.log(jqXHR.responseText);
 	  	           		var json = jQuery.parseJSON(jqXHR.responseText);
-	  	           		for (var k in json) {
-	  	           		  var item = json[k];
-	  	           		//  alert(JSON.stringify(item));
-	  	           		  var index = item.Index;
-	  	           		  var name = item.name;
-	  	           		  addGoodMeasure(index, name);
-	  	           		}
+						db.transaction(
+							function(transaction) {
+								for (var k in json) {
+								  var item = json[k];
+								//  alert(JSON.stringify(item));
+								  var index = item.Index;
+								  var name = item.name;
+								  addGoodMeasureInTransaction(index, name,transaction);
+								};
+							}, onError, onSuccess);
+
 	  	           	$.mobile.loading("hide");
 	  	           		deferred.resolve();
 	  	            },
@@ -1093,6 +1143,7 @@ function uploadPhoto() {
 
    function requestDictionaries(){
       	try{
+			var start = new Date().getTime();
   	    	var deferred = $.Deferred();
   	    	$.mobile.loading("show",{
   	    		text: "Загрузка справочников",
@@ -1115,12 +1166,15 @@ function uploadPhoto() {
   	              },
   	  	            data: [],
   	  	            success: function(response, textStatus, jqXHR) {
+						var end = new Date().getTime();
+						var time = end - start;
+						console.log('dictionaries server requesttime: ' + time);
   	  	            	deleteDictionariesTable();
   	  	               if (debugMode==true)console.log(jqXHR.responseText);
   	  	           		var json = jQuery.parseJSON(jqXHR.responseText);
 
 
-  	  	           		  var categories = json.Categories;
+  	  	           	/*	  var categories = json.Categories;
 							 $.each(categories, function(key, value) {
 									$.each(value, function(key, value) {
 										var categoryID = key;
@@ -1137,16 +1191,47 @@ function uploadPhoto() {
 								});
 
 							  });
+*/
+
+
+
+						db.transaction(
+							function(transaction) {
+								var categories = json.Categories;
+								$.each(categories, function (key, value) {
+									$.each(value, function (key, value) {
+										var categoryID = key;
+										$.each(value, function (key, value) {
+											var categoryName = key;
+											$.each(value, function (key, value) {
+												addCategoryInTransaction(categoryID, categoryName, transaction);
+												$.each(value, function (key, value) {
+												//	addSubCategory(key, value, categoryID);
+													addSubCategoryInTransaction(key, value, categoryID, transaction);
+												});
+											});
+										});
+									});
+
+								});
+							},onError, onSuccess);
 
 
 							var tags = json.Tags;
+							db.transaction(
+								function(transaction) {
+									$.each(tags, function(key, value) {
+											$.each(value, function(key, value) {
+												//addTag(key,value);
+												addTagInTransaction(key, value, transaction);
+											});;
+									});
+								},
+								function onError(error){
+									console.log("Error trying to add tag item!");
+								},onSuccess);
 
-					 $.each(tags, function(key, value) {
-							$.each(value, function(key, value) {
-						//	alert("key: "+key+" "+value);
-							addTag(key,value);
-							});;
-  	  	           	});
+
 
   	  	           	$.mobile.loading("hide");
   	  	           		deferred.resolve();
@@ -1347,6 +1432,7 @@ function changeSubCategory(transactionID, subcategory){
 							jqXHR.responseText=jqXHR.responseText.replace(/"/g,"");
 							if (jqXHR.responseText==transactionID){
 
+
 							 addSeveralTransactions(js,0,undefined).done(function(r){
                             				    	           		$.mobile.loading("hide");
                             				    	           		deferred.resolve();
@@ -1475,6 +1561,7 @@ function changeCategory(transactionID, category){
 
  function requestBadHabits(){
     	try{
+			var start = new Date().getTime();
 	    	var deferred = $.Deferred();
 	    	$.mobile.loading("show",{
 	    		text: "Загрузка статистики вредных привычек",
@@ -1497,8 +1584,11 @@ function changeCategory(transactionID, category){
 	    	            //	alert("user environment success!");
 	    	            //   alert(jqXHR.responseText);
 	    	            //	if (debugMode==true)
+							var end = new Date().getTime();
+							var time = end - start;
+							console.log('habits server requesttime: ' + time);
 	    	            		console.log("request user habts: "+jqXHR.responseText);
-							alert("request user habts: "+jqXHR.responseText);
+							//alert("request user habts: "+jqXHR.responseText);
 	    	               //putSetting(SETTING_USER_ENVIRONMENT,jqXHR.responseText);
 	    	               addBadHabits(jqXHR.responseText);
 

@@ -2,19 +2,21 @@
 
 	function openDB(login){
      //   alert("open DB!");
-		try { 
-			 if (!window.openDatabase) {
+		try {
+			var dbName = login.replace('@','').replace('.','');
+			// if (!window.openDatabase) {
+			if (!window.sqlitePlugin.openDatabase({name: dbName+".db"})){
 	             alert('Databases are not supported in this browser.');
 	             return;
 	           } 
 			 console.log("db now is "+db);
-			 var dbName = login.replace('@','').replace('.','');
+
 			 if (db==0) {
 				 requestTransactionPageCount = 0;
 				 window.localStorage.removeItem("CurrentShopListNum");
 				  window.localStorage.removeItem(RECEIPT_ID_KEY);
 				  window.localStorage.removeItem(TRANSACTION_ID_KEY);
-			      db = window.openDatabase("Checomatic_"+dbName, "1.0", "Checkomatic_"+dbName, 200000);
+			      db = window.sqlitePlugin.openDatabase({name: dbName+".db"});
 				  db.transaction(populateDB, onError, onSuccess);
 			      putSetting(SETTING_DB_NAME, dbName);
 			    }
@@ -26,7 +28,7 @@
 					  window.localStorage.removeItem(TRANSACTION_ID_KEY);
 
 					 requestTransactionPageCount = 0;
-				      db = window.openDatabase("Checomatic_"+dbName, "1.0", "Checkomatic_"+dbName, 200000);
+				      db = window.sqlitePlugin.openDatabase({name: dbName+".db"});
 					  db.transaction(populateDB, onError, onSuccess);
 				      putSetting(SETTING_DB_NAME, dbName);
 				 }
@@ -365,6 +367,7 @@
      */
     function addTransaction(i,json,id,transactionJSON, purseID, transactionDate, categoryID, receiptImageID){
     	try{
+			var start = new Date().getTime();
 	    	var deferred = $.Deferred();
 	    	var sql=  "INSERT OR REPLACE INTO Transactions (id, transactionJSON, purseID,transactionDate, categoryID, receiptImageID) " +
 			" values ("
@@ -385,6 +388,9 @@
 	    		    	console.log("SQL: "+sql);
 	    		    	deferred.resolve(i,json);
 	    		    }, function onSuccess(res){
+					var end = new Date().getTime();
+					var time = end - start;
+					console.log('add transaction time: ' + time);
 	    		    	deferred.resolve(i,json);
 	    		    });
 	        return deferred;
@@ -393,6 +399,30 @@
 			  dumpError("addTransaction",e);
 		  }			
    }
+
+
+	function addTransactionInTransaction(json, transaction){
+		try{
+			var id = json.Id;
+			var purseID = json.PurseID;
+			var transactionDate = json.TransactionDate;
+			var categoryID = json.CategoryID;
+			var receiptImageID =  json.ReceiptImageID;
+			var sql=  "INSERT OR REPLACE INTO Transactions (id, transactionJSON, purseID,transactionDate, categoryID, receiptImageID) " +
+				" values ("
+				+"'"+id+"',"
+				+"'"+JSON.stringify(json).replace(/'/g,"''")+"',"
+				+"'"+purseID+"',"
+				+"'"+transactionDate+"',"
+				+"'"+categoryID+"',"
+				+"'"+receiptImageID+
+				"')";
+				transaction.executeSql(sql);
+		}
+		catch(e){
+			dumpError("addTransactionInTransaction",e);
+		}
+	}
     
     
     function addSeveralTransactions(json,i, deferred){
@@ -428,11 +458,15 @@
      */
     function getTransactions(){
     	try{
+			var start = new Date().getTime();
 		   	var deferred = $.Deferred();
 		    	db.transaction(
 		  		    function(transaction) {
-		  		        transaction.executeSql("SELECT * FROM Transactions order by datetime(transactionDate) desc", [],
+		  		        transaction.executeSql("SELECT * FROM Transactions order by date(transactionDate) desc", [],
 		  		        		function(transaction, result) {
+									var end = new Date().getTime();
+									var time = end - start;
+									console.log('getTransactions time: ' + time);
 		  		        	deferred.resolve(result);
 		    		    }, onError);
 		  		 });
@@ -443,19 +477,52 @@
 			  dumpError("getTransactions",e);
 		  }			
     }
-        
+
+
+
+	function getPeriodTransactions(period){
+		var p = "";
+		if (period=="week")
+			p="-7 day";
+		if (period=="month")
+			p="-1 month";
+		if (period=="year")
+			p="-1 year";
+		alert("period is "+period);
+		try{
+			var deferred = $.Deferred();
+			db.transaction(
+				function(transaction) {
+					transaction.executeSql("SELECT * FROM Transactions " +
+						" where date(transactionDate)>=(SELECT date('now','"+p+"'))"
+						+"order by date(transactionDate) desc", [],
+						function(transaction, result) {
+
+							deferred.resolve(result);
+						}, onError);
+				});
+
+			return deferred;
+		}
+		catch(e){
+			dumpError("getPeriodTransactions",e);
+		}
+	}
     
     /**
      * получение транзакций по категории
      */
     function getTransactionsByCategoryID(categoryID){
     	try{
+			var start = new Date().getTime();
 		   	var deferred = $.Deferred();
 		    	db.transaction(
 		  		    function(transaction) {
-		  		        transaction.executeSql("SELECT * FROM Transactions where categoryID='"+categoryID+"'  order by datetime(transactionDate) desc", [],
+		  		        transaction.executeSql("SELECT * FROM Transactions where categoryID='"+categoryID+"'  order by date(transactionDate) desc", [],
 		  		        		function(transaction, result) {
-		  		        	
+									var end = new Date().getTime();
+									var time = end - start;
+									console.log('getTransactionsByCategoryID time: ' + time);
 		  		        	deferred.resolve(result);
 		    		    }, onError);
 		  		 });
@@ -465,7 +532,37 @@
 			  dumpError("getTransactionsByCategoryID",e);
 		  }			
     }
-    
+
+
+	/**
+	 * получение транзакций по категории
+	 */
+	function getTransactionsByCategoryIDAndPeriod(categoryID, period){
+		try{
+			var p = "";
+			if (period=="week")
+				p="-7 day";
+			if (period=="month")
+				p="-1 month";
+			if (period=="year")
+				p="-1 year";
+			var deferred = $.Deferred();
+			db.transaction(
+				function(transaction) {
+					transaction.executeSql("SELECT * FROM Transactions where categoryID='"+categoryID+"'"
+						+" and date(transactionDate)>=(SELECT date('now','"+p+"'))"
+						+"  order by date(transactionDate) desc", [],
+						function(transaction, result) {
+
+							deferred.resolve(result);
+						}, onError);
+				});
+			return deferred;
+		}
+		catch(e){
+			dumpError("getTransactionsByCategoryIDAndPeriod",e);
+		}
+	}
     
     function getTransaction(transactionID){
     	try{
@@ -502,6 +599,21 @@
 			  dumpError("addWidget",e);
 		  }			
     }
+
+	function addWidgetInTransaction(id,json, transaction){
+		try{
+			transaction.executeSql(
+				"INSERT OR REPLACE INTO Widgets (id, json) " +
+				" values ("
+				+"'"+id+"',"
+				+"'"+json+
+				"')"
+			);
+		}
+		catch(e){
+			dumpError("addWidgetInTransaction",e);
+		}
+	}
     
     
     function getWidget(id){
@@ -540,21 +652,6 @@
     
     function addShopList(i,json,id,name, accountID,createdAt, fullJSON, itemsJSON){
     	try{
-	        // таблица для списка покупок
-	     	/*Пользователь может иметь несколько списков продуктов, идентифицируемых по ObjectId,  Name.
-	     	   В БД SQLite необходимо сделать табличку для хранения таких объектов.
-	     	каждый список имеет продуктов состоит из:
-	     	идентификатора (ObjectId)
-	     	наименования (Name)
-	     	перечня продуктов, каждый продукт из:
-	     	порядковый номер No,
-	     	Тег  (TAG_BEEF, например),  Tag
-	     	Наименование из классификатора (Говядина) , ItemName
-	     	Количество,   Quantity
-	     	Ед. измерения, Measure*/
-	
-	     /*  +'(id integer primary key,name, createdAt, fullJSON, itemsJSON)');
-	 		*/
 	
 	    	var deferred = $.Deferred();
 	    	 db.transaction(
@@ -743,22 +840,11 @@
      */
     function addToShopList(listID,product){
     	try{
-	    	//var listID = window.localStorage.getItem("ShopListID");
 	    	var deferred = $.Deferred();
-	    //	alert ("ListID: "+listID);
-	    //	alert ("Product String: "+product);
 	    	// обрабатываем строку продукта
 	    	//var expr = new RegExp('[0-9]*[.,/\*]*[0-9]*', 'i');
 	    	var expr = new RegExp('[0-9][.,\*]*[0-9]*');
-	    /*	var quantityPos = expr.search(product);
-	    	var quantity = expr.exec(product);
-	    	alert ("Quantity: "+quantity);
-	    	alert ("Quantity postition: "+quantityPos);
-	    	var value = product.substr(0, quantityPos);
-	    	var measure = product.substring((quantityPos+quantity.length), product.length);
-	    	console.log('Value: '+value);
-	    	console.log('Measure: '+measure);
-	    	*/
+
 	    	var value,measure ;
 	    	var quantityPos = product.search(expr);
 	    	var quantityArray = expr.exec(product);
@@ -780,16 +866,10 @@
 	    		quantity = "";
 	    		measure ="";
 	    	}
-	    /*	alert('Value:*'+value+"*");
-	    	alert('Quantity:*'+quantity+"*");
-	    	alert('Measure:*'+measure+"*");
-	    	*/
+
 	    	value = value.trim();
 	    	measure = measure.trim();
-	    	
-	    	/*value = value.replace(/\s/g, '');
-	    	measure = measure.replace(/\s/g, '');
-	    	*/
+
 	    	getShopList(listID).done(function(res){
 	    	var itemsJSON;
 	    	//alert(res.rows.item(0).id);
@@ -916,11 +996,7 @@
     }
     
     
-    // таблица  продуктов
- /*   tx.executeSql('CREATE TABLE IF NOT EXISTS Goods' 
-		 		+'(id integer primary key autoincrement,tag, value, measure, color,soundTranscription,json)');
-   
-    */
+
     
     function deleteGoodItemsTable(){
     	try{
@@ -1020,10 +1096,26 @@
 			  dumpError("addGoodItem",e);
 		  }			
     }
-    // таблица единиц измерения
- /*   tx.executeSql('CREATE TABLE IF NOT EXISTS Measures' 
-		 		+'(index integer primary key,name)');
-*/
+
+
+
+	function addGoodItemInTransaction(tag, value,measure,color,soundTranscription,json, transaction){
+		try{
+			transaction.executeSql(
+				"INSERT OR REPLACE INTO Goods (tag, value, measure, color,soundTranscription, json) " +
+				" values ('"
+				+tag+"',"
+				+"'"+value+"',"
+				+"'"+measure+"',"
+				+"'"+color+"',"
+				+"'"+soundTranscription+"',"
+				+"'"+json+"')"
+			);
+		}
+		catch(e){
+			dumpError("addGoodItemInTransaction",e);
+		}
+	}
 
   function addCategory(id,name){
   	try{
@@ -1045,6 +1137,21 @@
   }
 
 
+	function addCategoryInTransaction(id, name, transaction){
+		try{
+			transaction.executeSql(
+				"INSERT OR REPLACE INTO Categories (id, name) " +
+				" values ('"
+				+id+"',"
+				+"'"+name+"')"
+			);
+		}
+		catch(e){
+			dumpError("addCategoryInTransaction",e);
+		}
+	}
+
+
     function addTag(id,name){
     	try{
     	    	 db.transaction(
@@ -1063,6 +1170,24 @@
 				dumpError("addTag",e);
              }
     }
+
+
+	function addTagInTransaction(id,name, transaction){
+		try{
+			transaction.executeSql(
+				"INSERT OR REPLACE INTO Tags (id, name) " +
+				" values ('"
+				+id+"',"
+				+"'"+name+"')"
+			);
+		}
+		catch(e){
+			dumpError("addTagInTransaction",e);
+		}
+	}
+
+
+
 
       function addSubCategory(id,name,category){
       	try{
@@ -1084,6 +1209,23 @@
       		  }
       }
 
+	function addSubCategoryInTransaction(id,name,category, transaction){
+		try{
+
+			transaction.executeSql(
+				"INSERT OR REPLACE INTO SubCategories (id, name,category) " +
+				" values ('"
+				+id+"',"
+				+"'"+name+"',"
+				+"'"+category+"')"
+			);
+		}
+		catch(e){
+			dumpError("addsubCategoryInTransaction",e);
+		}
+	}
+
+
 
     function addGoodMeasure(index, name){
     	try{
@@ -1103,7 +1245,21 @@
 			  dumpError("addGoodMeasure",e);
 		  }			
 	   }
-    
+
+	function addGoodMeasureInTransaction(index, name, transaction){
+		try {
+			transaction.executeSql(
+				"INSERT OR REPLACE INTO Measures (id, name) " +
+				" values ("
+				+ index + ","
+				+ "'" + name + "')"
+			);
+		}
+		catch(e){
+			dumpError("addGoodMeasure",e);
+		}
+	}
+
     
     function getGoodItems(){
     	try{
@@ -1177,9 +1333,11 @@
 						requestGoodItems().done(function(){
 							requestGoodMeasures().done(function(){
 								requestDictionaries().done(function(){
-									requestUserEnvironment().done(function(){
+									requestBadHabits().done(function() {
+										requestUserEnvironment().done(function () {
 
-										updateMainPage();
+											updateMainPage();
+										});
 									});
 								});
 							});
@@ -1238,6 +1396,26 @@
          			  dumpError("getTagName",e);
          		  }
          }
+
+
+	function getTagNameInTransaction(tagID, pos, len, transaction){
+		try{
+			var deferred = $.Deferred();
+			transaction.executeSql('SELECT * FROM Tags where id="'+tagID+'";', [],
+				function(transaction, result) {
+					if (result.rows.length != 0) {
+						console.log("tag name is "+result.rows.item(0).name);
+						deferred.resolve(result.rows.item(0).name);
+					}
+					else deferred.resolve("");
+				});
+		}
+		catch(e){
+			dumpError("getTagName",e);
+			deferred.resolve("");
+		}
+		return deferred;
+	}
 
 
          function getCategoryName(categoryID){

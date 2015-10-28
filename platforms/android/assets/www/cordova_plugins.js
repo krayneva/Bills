@@ -242,6 +242,13 @@ module.exports = [
         "clobbers": [
             "device"
         ]
+    },
+    {
+        "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
+        "id": "cordova-sqlite-storage.SQLitePlugin",
+        "clobbers": [
+            "SQLitePlugin"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -259,7 +266,8 @@ module.exports.metadata =
     "com.appblade.cordova.plugin": "0.9.0",
     "com.phonegap.plugins.facebookconnect": "0.11.0",
     "org.apache.cordova.console": "0.2.13",
-    "cordova-plugin-device": "1.0.1"
+    "cordova-plugin-device": "1.0.1",
+    "cordova-sqlite-storage": "0.7.11"
 }
 // BOTTOM OF METADATA
 });
