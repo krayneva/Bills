@@ -141,7 +141,7 @@
                    		 		+' (id text primary key,name)');
 
          tx.executeSql('CREATE TABLE IF NOT EXISTS Tags'
-                  +' (id text primary key,name)');
+                  +' (id integer primary key,name)');
 
          tx.executeSql('CREATE TABLE IF NOT EXISTS SubCategories'
           	+' (id text primary key,name,category)');
@@ -1158,8 +1158,8 @@
     	  	    	   function(transaction) {
     	  	    	   		transaction.executeSql(
     	  	    	      		"INSERT OR REPLACE INTO Tags (id, name) " +
-    	  	    	      		" values ('"
-    	  	    	       		+id+"',"
+    	  	    	      		" values ("
+    	  	    	       		+id+","
     	  	    	       		+"'"+name+"')"
     	  	    	   		);},
     	  	    	     function onError(error){
@@ -1177,7 +1177,7 @@
 			transaction.executeSql(
 				"INSERT OR REPLACE INTO Tags (id, name) " +
 				" values ('"
-				+id+"',"
+				+hashCode(id)+"',"
 				+"'"+name+"')"
 			);
 		}
@@ -1381,7 +1381,7 @@
      			    }
      				db.transaction(
      						function(transaction) {
-     							transaction.executeSql('SELECT * FROM Tags where id="'+tagID+'";', [],
+     							transaction.executeSql('SELECT name FROM Tags where id='+hashCode(tagID)+';', [],
      									function(transaction, result) {
      									if (result.rows.length!=0) {
 											res = result.rows.item(0).name;
@@ -1398,10 +1398,40 @@
          }
 
 
+	/*function getTagNames(ids){
+		try{
+			var res = "";
+			var deferred = $.Deferred();
+			if (ids.size==0){
+				deferred.resolve();
+				return deferred;
+			}
+			var idsString = "(";
+			for (var i=0; i<ids.length; i++){
+				idsString = idsString+ids[i]+",";
+			}
+			idsString = idsString.substring(0,idsString.length-1);
+			idsString = idsString+")";
+			db.transaction(
+				function(transaction) {
+					transaction.executeSql('SELECT name FROM Tags where id in '+idsSting+';', [],
+						function(transaction, result) {
+
+							deferred.resolve(result);
+						}, onError);
+				});
+			return deferred;
+		}
+		catch(e){
+			dumpError("getTagNamea",e);
+		}
+
+	}*/
+
 	function getTagNameInTransaction(tagID, pos, len, transaction){
 		try{
 			var deferred = $.Deferred();
-			transaction.executeSql('SELECT * FROM Tags where id="'+tagID+'";', [],
+			transaction.executeSql('SELECT * FROM Tags where id="'+hashCode(tagID)+'";', [],
 				function(transaction, result) {
 					if (result.rows.length != 0) {
 						console.log("tag name is "+result.rows.item(0).name);
