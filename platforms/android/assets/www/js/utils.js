@@ -111,5 +111,7 @@ function hashCode(str){
 
 function formatPrice(price) {
     if (price==0) return price;
+    if (price==undefined) return 0;
+    if (price==null) return 0;
     return Math.round(price * 100) / 100;
 }

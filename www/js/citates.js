@@ -4,10 +4,10 @@
 function getRandomCitate(){
  var rand = 1 + Math.random() * (MarkEnum.size - 1)
  rand = Math.round(rand);
- return MarkEnum[rand].value;
+ return CitatesEnum[3].value;
 }
 
-var MarkEnum=
+var CitatesEnum=
 {
     1: {value: '«Пьянство – вражда на Бога…<br/>Пьянство – это добровольно накликаемый бес…<br/>Пьянство отгоняет святого Духа»	<br/><span class="author">святитель Василий Великий</span>'},
     2: {value: 'Пьянство — мать всех пороков<br/><span class="author">Абуль-Фарадж</span>'},

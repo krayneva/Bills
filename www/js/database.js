@@ -1370,6 +1370,33 @@
     }
 
 
+	function getTagNameSimple(tagID){
+		try{
+			var res = "";
+			var deferred = $.Deferred();
+			if ((tagID==undefined)||(tagID=="")){
+				deferred.resolve("");
+				return deferred;
+			}
+			db.transaction(
+				function(transaction) {
+					transaction.executeSql('SELECT name FROM Tags where id='+hashCode(tagID)+';', [],
+						function(transaction, result) {
+							if (result.rows.length!=0) {
+								res = result.rows.item(0).name;
+
+							}
+							else res="";
+							deferred.resolve(res);
+						}, onError);
+				});
+			return deferred;
+		}
+		catch(e){
+			dumpError("getTagNameSimple",e);
+		}
+	}
+
     function getTagName(tagID, pos, len){
              	try{
      				var res = "";
@@ -1397,24 +1424,25 @@
          		  }
          }
 
-
-	/*function getTagNames(ids){
+	function getTagNames(ids){
 		try{
 			var res = "";
 			var deferred = $.Deferred();
-			if (ids.size==0){
+			console.log("ids length is: "+ids.length);
+			if (ids.length==0){
 				deferred.resolve();
 				return deferred;
 			}
 			var idsString = "(";
 			for (var i=0; i<ids.length; i++){
-				idsString = idsString+ids[i]+",";
+				idsString = idsString+hashCode(ids[i])+",";
 			}
 			idsString = idsString.substring(0,idsString.length-1);
 			idsString = idsString+")";
+			console.log("ids string is: "+idsString);
 			db.transaction(
 				function(transaction) {
-					transaction.executeSql('SELECT name FROM Tags where id in '+idsSting+';', [],
+					transaction.executeSql('SELECT id,name FROM Tags where id in '+idsString+';', [],
 						function(transaction, result) {
 
 							deferred.resolve(result);
@@ -1426,7 +1454,7 @@
 			dumpError("getTagNamea",e);
 		}
 
-	}*/
+	}
 
 	function getTagNameInTransaction(tagID, pos, len, transaction){
 		try{

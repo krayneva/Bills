@@ -272,11 +272,13 @@ function updateTransactionPage(){
 					  html = html.replace(/\{transactionID\}/g,json.Id);
 
 					 	var tagKeys = "";
+
 					 	for (var j=0; j<json.receiptData.Items.length; j++){
 
 							tagArray[tagCounter] = json.receiptData.Items[j].Tag;
 							tagCounter=tagCounter+1;
-					 		tagKeys+=json.receiptData.Items[j].Tag;
+					 		//tagKeys+= ""+hashCode(json.receiptData.Items[j].Tag);
+							tagKeys+= fullTagsArray[json.receiptData.Items[j].Tag];
 					 		if (j!=json.receiptData.Items.length-1)
 					 			tagKeys = tagKeys+", ";
 					 	}
@@ -292,41 +294,14 @@ function updateTransactionPage(){
 
 					};
 				$("#total").html(Math.round(totalAmount));
-				for (var j=0; j<tagArray.length; j++){
+			/*	for (var j=0; j<tagArray.length; j++){
                 	getTagName(tagArray[j],j,tagArray.length).done(function(res, src,position,len){
 	                   	listHTML = listHTML.replace(src,res);
 
                     		if (position==len-1)$('#expensesList').html(listHTML);
                     	});
                    }
-
-
-				/*	getTagNames(tagArray).done(function(res){
-						for (var v=0; v<res.rows.length; v++) {
-							listHTML = listHTML.replace(res.rows.item(v).id, res.rows.item(v).name);
-						}
-
-						if (position==len-1)$('#expensesList').html(listHTML);
-					});
 */
-
-
-			/*	db.transaction(
-					function(transaction) {
-					for (var j=0; j<tagArray.length; j++) {
-						//getTagName(tagArray[j], j, tagArray.length).done(function (res, src, position, len) {
-							getTagNameInTransaction(tagArray[j], j, tagArray.length, transaction)
-								.done(function (res){
-									listHTML = listHTML.replace(tagArray[j], res);
-									$('#expensesList').html(listHTML);
-								});
-
-						}
-					}, onError, function onSuccess(){
-
-						});
-
-				*/
 				$('#expensesList').html(listHTML);
 				var end =  +new Date();  // log end timestamp
 				var diff = (end - start)/(20*result.rows.length);
@@ -1116,6 +1091,7 @@ function updateShopListsPage(reloadFromBase){
 		 var spentString="";
 		 var measure = "";
 		 var tabHeader="";
+	//	 alert("habit json.BulkList.length "+JSON.stringify(json.BulkList)+"   "+json.BulkList.length);
 		 if (tab==1) {
 			 spentString = "Потрачено на выпивку:";
 			 tabHeader = "ВЫПИТО";
@@ -1131,6 +1107,7 @@ function updateShopListsPage(reloadFromBase){
 			 tabHeader = "СЪЕДЕНО";
 			 measure = "гр.";
 		 }
+
 		 $("#spentHeader1").html(spentString);
 		 $("#spentHeader2").html(spentString);
 		 $("#spentHeader3").html(spentString);
@@ -1138,13 +1115,16 @@ function updateShopListsPage(reloadFromBase){
 		 $("#header").html(tabHeader);
 
 		 $("#citate").html(getRandomCitate());
-
+	//	 console.log('habit created onjects');
 			var monthJson = new Object();
 		 	var yearJson = new Object();
-		 	var futureJson = new Object();
+		 	var futureJson= new Object();
 
+	//	 console.log('habit created onjects');
 		 for (var i=0; i<json.BulkList.length; i++){
+
 			 var j = json.BulkList[i];
+
 			 if (j.BulkType==tab) {
 				 if (j.Period == 1) {
 				 	monthJson = j;
@@ -1160,7 +1140,7 @@ function updateShopListsPage(reloadFromBase){
 				 }
 			 }
 		 }
-
+		// console.log('habit filling amounts');
 		 $("#monthVolume").html(formatPrice(monthJson.Volume)+'<small> '+measure+'</small>');
 		 $("#yearVolume").html(formatPrice(yearJson.Volume) +'<small> '+measure+'</small>');
 		 $("#futureVolume").html(formatPrice(futureJson.Volume) +'<small> '+measure+'</small>');
@@ -1181,49 +1161,66 @@ function updateShopListsPage(reloadFromBase){
 
 		 $('#monthList').html('');
 
-		for (var i=0; i<monthJson.Items.length; i++){
-			console.log('habit monthJSON item '+i+': '+JSON.stringify(monthJson.Items[i]));
-			console.log('habit monthJSON item tag: '+JSON.stringify(monthJson.Items[i].Tag));
-			//<li><span>пива 18 л.</span>28 000 р.</li>
-			getTagName(monthJson.Items[i].Tag,0,1).done(function(res, src,position,len){
+		 var monthTags = new Array();
+		 for (var k=0; k<monthJson.Items.length; k++){
+			 monthTags[k]=monthJson.Items[k].Tag;
+			 var html = '<li><span>'+hashCode(monthJson.Items[k].Tag)+' '+formatPrice(monthJson.Items[k].Volume)+' '+measure
+				 +'</span>'+formatPrice(monthJson.Items[k].Amount) +'р.</li>';
+			 $('#monthList').append(html);
+			 $('#monthList').listview('refresh');
+		 }
+			if (monthTags.length>0)
+		 getTagNames(monthTags).done(function(res){
+			 var h =  $('#monthList').html();
+			 for (var i=0; i<res.rows.length; i++){
+				 h = h.replace(res.rows.item(i).id,res.rows.item(i).name);
+			 }
+			 $('#monthList').html(h);
+			 $('#monthList').listview('refresh');
+		 });
 
-				alert("tagid is "+monthJson.Items[i].Tag+ " result is "+res);
-				var html = '<li><span>'+res+' '+formatPrice(monthJson.Items[i].Volume)
-						+' '+measure+'</span>'+formatPrice(monthJson.Items[i].Amount) +'р.</li>';
-				$('#monthList').append(html);
-				$('#monthList').listview('refresh');
-			});
-
-		}
 
 
 		 $('#yearList').html('');
-		 for (var i=0; i<yearJson.Items.length; i++){
-			 console.log('habit yearJSON item '+i+': '+JSON.stringify(yearJson.Items[i]));
-			 console.log('habit yearJSON item tag: '+JSON.stringify(yearJson.Items[i].Tag));
-			 //<li><span>пива 18 л.</span>28 000 р.</li>
-			 getTagName(yearJson.Items[i].Tag,0,1).done(function(res, src,position,len){
-				 var html = '<li><span>'+res+' '+formatPrice(yearJson.Items[i].Volume)+' '+measure+
-					 +'</span>'+formatPrice(yearJson.Items[i].Amount) +'р.</li>';
-				 $('#yearList').append(html);
-				 $('#yearList').listview('refresh');
-			 });
 
+		 var yearTags = new Array();
+		 for (var k=0; k<yearJson.Items.length; k++){
+			 yearTags[k]=yearJson.Items[k].Tag;
+			 var html = '<li><span>'+hashCode(yearJson.Items[k].Tag)+' '+formatPrice(yearJson.Items[k].Volume)+' '+measure
+				 +'</span>'+formatPrice(yearJson.Items[k].Amount) +'р.</li>';
+			 $('#yearList').append(html);
+			 $('#yearList').listview('refresh');
 		 }
+		 if (yearTags.length>0)
+		 getTagNames(yearTags).done(function(res){
+			 var h =  $('#yearList').html();
+			 for (var i=0; i<res.rows.length; i++){
+				h = h.replace(res.rows.item(i).id,res.rows.item(i).name);
+			}
+			 $('#yearList').html(h);
+			 $('#yearList').listview('refresh');
+		 });
+
 
 
 		 $('#futureList').html('');
-		 for (var i=0; i<futureJson.Items.length; i++){
-			 //<li><span>пива 18 л.</span>28 000 р.</li>
-			 getTagName(futureJson.Items[i].Tag,0,1).done(function(res, src,position,len){
-				 var html = '<li><span>'+res+' '
-					 +formatPrice(futureJson.Items[i].Volume)+' '+measure
-					 +'</span>'+formatPrice(futureJson.Items[i].Amount) +'р.</li>';
-				 $('#futureList').append(html);
-				 $('#futureList').listview('refresh');
-			 });
-
+		 var futureTags = new Array();
+		 for (var k=0; k<futureJson.Items.length; k++){
+			 futureTags[k]=futureJson.Items[k].Tag;
+			 var html = '<li><span>'+hashCode(futureJson.Items[k].Tag)+' '+formatPrice(futureJson.Items[k].Volume)+' '+measure
+				 +'</span>'+formatPrice(futureJson.Items[k].Amount) +'р.</li>';
+			 $('#futureList').append(html);
+			 $('#futureList').listview('refresh');
 		 }
+		 if (futureTags.length>0)
+		 getTagNames(futureTags).done(function(res){
+			 var h =  $('#futureList').html();
+			 for (var i=0; i<res.rows.length; i++){
+				 h = h.replace(res.rows.item(i).id,res.rows.item(i).name);
+			 }
+			 $('#futureList').html(h);
+			 $('#futureList').listview('refresh');
+		 });
 
 	 }
 
@@ -1258,7 +1255,7 @@ function updateShopListsPage(reloadFromBase){
 			 });
 		 });
 		 $('#select-native-1').change(function() {
-
+			 var transactionID = window.localStorage.getItem(TRANSACTION_ID_KEY);
 			 changeSubCategory(transactionID, $('#select-native-1').val());
 		 });
 	 }

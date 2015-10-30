@@ -1224,6 +1224,7 @@ function uploadPhoto() {
 											$.each(value, function(key, value) {
 												//addTag(key,value);
 												addTagInTransaction(key, value, transaction);
+												fullTagsArray[key] = value;
 											});;
 									});
 								},
