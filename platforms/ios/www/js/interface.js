@@ -349,9 +349,11 @@ function refershBillSendStatus(rowID){
 								requestGoodItems().done(function(){
 									requestGoodMeasures().done(function(){
                                         requestDictionaries().done(function(){
+                                         requestBadHabits().done(function(){
                                         	requestUserEnvironment().done(function(){
 												showMainPage();
 										});
+									});
 									});
 								});
 							});

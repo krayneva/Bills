@@ -71,6 +71,10 @@
                         {
                             "xml": "<feature name=\"Device\"><param name=\"android-package\" value=\"org.apache.cordova.device.Device\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SQLitePlugin\"><param name=\"android-package\" value=\"io.liteglue.SQLitePlugin\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -171,6 +175,9 @@
             "PACKAGE_NAME": "com.checkomatic"
         },
         "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.checkomatic"
+        },
+        "cordova-sqlite-storage": {
             "PACKAGE_NAME": "com.checkomatic"
         }
     },

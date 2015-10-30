@@ -204,6 +204,7 @@ function requestAndUpdateTransactionPage(){
 function updateTransactionPage(){
 	try{
 		var deferred = $.Deferred();
+		var start = new Date().getTime();
 
 		getTransactions().done(function(result){
 			if ((result.rows.length==0)&(requestTransactionPageCount==0)){
@@ -215,7 +216,9 @@ function updateTransactionPage(){
 				return;
 			}
 		});
-
+		var end1 = new Date().getTime();
+		var time = end1 - start;
+		console.log('updateTransactionpage 1 time: ' + time);
 
 		 var categoryID =  window.localStorage.getItem(CATEGORY_ID_KEY);
 		 getWidget(categoryID).done(function(result){
@@ -223,9 +226,17 @@ function updateTransactionPage(){
 			  var titleHTML ='<span class="ui-btn ui-icon-coctail"></span>'	+ json.Name
 			  $('#title').html(titleHTML);
 			});
-			getTransactionsByCategoryID(categoryID).done(function(result){
-							  var tagArray = new Array();
-                              		var tagCounter = 0;
+			var period =$("#periodSelect").val();
+			$("#periodSelect").change(function () {
+				$('#expensesList').html("");
+				updateTransactionPage();
+			});
+			if (period==undefined) period ="month";
+		//	alert("period is  "+period);
+
+			getTransactionsByCategoryIDAndPeriod(categoryID, period).done(function(result){
+				var tagArray = new Array();
+                var tagCounter = 0;
 				var start = +new Date();  // log start timestamp
 	            var totalAmount = 0;
 	            var lastAmount = 0;
@@ -282,40 +293,53 @@ function updateTransactionPage(){
 					};
 				$("#total").html(Math.round(totalAmount));
 				for (var j=0; j<tagArray.length; j++){
-
                 	getTagName(tagArray[j],j,tagArray.length).done(function(res, src,position,len){
-	                    	listHTML = listHTML.replace(src,res);
+	                   	listHTML = listHTML.replace(src,res);
 
                     		if (position==len-1)$('#expensesList').html(listHTML);
                     	});
-
                    }
 
 
+				/*	getTagNames(tagArray).done(function(res){
+						for (var v=0; v<res.rows.length; v++) {
+							listHTML = listHTML.replace(res.rows.item(v).id, res.rows.item(v).name);
+						}
+
+						if (position==len-1)$('#expensesList').html(listHTML);
+					});
+*/
+
+
+			/*	db.transaction(
+					function(transaction) {
+					for (var j=0; j<tagArray.length; j++) {
+						//getTagName(tagArray[j], j, tagArray.length).done(function (res, src, position, len) {
+							getTagNameInTransaction(tagArray[j], j, tagArray.length, transaction)
+								.done(function (res){
+									listHTML = listHTML.replace(tagArray[j], res);
+									$('#expensesList').html(listHTML);
+								});
+
+						}
+					}, onError, function onSuccess(){
+
+						});
+
+				*/
+				$('#expensesList').html(listHTML);
 				var end =  +new Date();  // log end timestamp
 				var diff = (end - start)/(20*result.rows.length);
 				console.log("Time per row: "+diff);
 
-
-
-		//	});
-		//});
-
-		/*		html = $('#expensesList').html();
-					for (var j=0; j<tagArray.length; j++){
-						getTagName(tagArray[j]).done(function(res, src){
-							//console.log("replaced "+src+" with "+res);
-							html = html.replace(src,res);
-
-						});
-					}
- 				$('#expensesList').html(html);*/
   			});
-
+			var end2 = new Date().getTime();
+			var time = end2 - start;
+			console.log('updateTransactionpage 2 time: ' + time);
 			return deferred;
 	}
     catch(e){
-    	dumpError("nsactionPage",e);
+    	dumpError("updateTransactionPage",e);
     }
 
 }
@@ -918,17 +942,13 @@ function updateShopListsPage(reloadFromBase){
                 
                 $('#tagsList').html('');
                  for (var k=0; k<js.Tags.length; k++){
-
                      getTagName(js.Tags[k],k,js.Tags.length).done(function(res,src,position,len){
                     	 var html3 = $('#tagRowTemplate').html();
                          html3 = html3.replace(/\{tagName\}/g,res);
                         if (res!="") $('#tagsList').append(html3);
                      });
                  }
-                // $('#tagsList').html(html3);
 
-				//('#tagsList').listview("refresh");
-				// total
 
 
 				//checkDetails
@@ -1081,6 +1101,131 @@ function updateShopListsPage(reloadFromBase){
             }
 
 
+
+	function updateHabitsPage(tab){
+		requestBadHabits().done(function(){
+			getBadHabits().done(function(res){
+				console.log("Bad habits json is: "+res);
+				updateHabitsTab(tab,jQuery.parseJSON(res));
+			});
+		});
+	}
+
+
+	 function updateHabitsTab(tab, json){
+		 var spentString="";
+		 var measure = "";
+		 var tabHeader="";
+		 if (tab==1) {
+			 spentString = "Потрачено на выпивку:";
+			 tabHeader = "ВЫПИТО";
+			 measure = "л.";
+		 }
+		 if (tab==2) {
+			 spentString = "Потрачено на курение:";
+			 tabHeader = "ВЫКУРЕНО";
+			 measure = "";
+		 }
+		 if (tab==3) {
+			 spentString = "Потрачено на сладости:";
+			 tabHeader = "СЪЕДЕНО";
+			 measure = "гр.";
+		 }
+		 $("#spentHeader1").html(spentString);
+		 $("#spentHeader2").html(spentString);
+		 $("#spentHeader3").html(spentString);
+
+		 $("#header").html(tabHeader);
+
+		 $("#citate").html(getRandomCitate());
+
+			var monthJson = new Object();
+		 	var yearJson = new Object();
+		 	var futureJson = new Object();
+
+		 for (var i=0; i<json.BulkList.length; i++){
+			 var j = json.BulkList[i];
+			 if (j.BulkType==tab) {
+				 if (j.Period == 1) {
+				 	monthJson = j;
+					continue;
+			 	}
+				 if (j.Period == 2) {
+					 yearJson = j;
+					 continue;
+				 }
+				 if (j.Period == 3) {
+					 futureJson = j;
+					 continue;
+				 }
+			 }
+		 }
+
+		 $("#monthVolume").html(formatPrice(monthJson.Volume)+'<small> '+measure+'</small>');
+		 $("#yearVolume").html(formatPrice(yearJson.Volume) +'<small> '+measure+'</small>');
+		 $("#futureVolume").html(formatPrice(futureJson.Volume) +'<small> '+measure+'</small>');
+		 if (tab==1) {
+			 $("#absoluteMonthVolume").html('~ ' + formatPrice(monthJson.AbsoluteVolume) + ' '+measure+' чистого спирта');
+			 $("#absoluteYearVolume").html('~ ' + formatPrice(yearJson.AbsoluteVolume) + ' '+measure+' чистого спирта');
+			 $("#absoluteFutureVolume").html('~ ' + formatPrice(futureJson.AbsoluteVolume)+ ' '+measure+' чистого спирта');
+		 }
+		 else{
+			 $("#absoluteMonthVolume").html('');
+			 $("#absoluteYearVolume").html('');
+			 $("#absoluteFutureVolume").html('');
+		 }
+		 console.log('habit filling amounts');
+		 $("#monthAmount").html(formatPrice(monthJson.Amount)+' р.');
+		 $("#yearAmount").html(formatPrice(yearJson.Amount)+' р.');
+		 $("#futureAmount").html(formatPrice(futureJson.Amount)+' р.');
+
+		 $('#monthList').html('');
+
+		for (var i=0; i<monthJson.Items.length; i++){
+			console.log('habit monthJSON item '+i+': '+JSON.stringify(monthJson.Items[i]));
+			console.log('habit monthJSON item tag: '+JSON.stringify(monthJson.Items[i].Tag));
+			//<li><span>пива 18 л.</span>28 000 р.</li>
+			getTagName(monthJson.Items[i].Tag,0,1).done(function(res, src,position,len){
+
+				alert("tagid is "+monthJson.Items[i].Tag+ " result is "+res);
+				var html = '<li><span>'+res+' '+formatPrice(monthJson.Items[i].Volume)
+						+' '+measure+'</span>'+formatPrice(monthJson.Items[i].Amount) +'р.</li>';
+				$('#monthList').append(html);
+				$('#monthList').listview('refresh');
+			});
+
+		}
+
+
+		 $('#yearList').html('');
+		 for (var i=0; i<yearJson.Items.length; i++){
+			 console.log('habit yearJSON item '+i+': '+JSON.stringify(yearJson.Items[i]));
+			 console.log('habit yearJSON item tag: '+JSON.stringify(yearJson.Items[i].Tag));
+			 //<li><span>пива 18 л.</span>28 000 р.</li>
+			 getTagName(yearJson.Items[i].Tag,0,1).done(function(res, src,position,len){
+				 var html = '<li><span>'+res+' '+formatPrice(yearJson.Items[i].Volume)+' '+measure+
+					 +'</span>'+formatPrice(yearJson.Items[i].Amount) +'р.</li>';
+				 $('#yearList').append(html);
+				 $('#yearList').listview('refresh');
+			 });
+
+		 }
+
+
+		 $('#futureList').html('');
+		 for (var i=0; i<futureJson.Items.length; i++){
+			 //<li><span>пива 18 л.</span>28 000 р.</li>
+			 getTagName(futureJson.Items[i].Tag,0,1).done(function(res, src,position,len){
+				 var html = '<li><span>'+res+' '
+					 +formatPrice(futureJson.Items[i].Volume)+' '+measure
+					 +'</span>'+formatPrice(futureJson.Items[i].Amount) +'р.</li>';
+				 $('#futureList').append(html);
+				 $('#futureList').listview('refresh');
+			 });
+
+		 }
+
+	 }
 
 	 function refreshSubCategoryCombo(subcategory){
 		 var html1 = $('#categoryRowTemplate').html();
