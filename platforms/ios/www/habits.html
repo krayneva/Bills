@@ -3,8 +3,8 @@
 			<a data-rel="back">   <button class="ui-btn ui-icon-back ui-btn-icon-notext ui-corner-all">No text</button></a>
             <div class="buttons-container">
             	<button onclick = "updateHabitsPage(1)" class="ui-btn ui-icon-coctail ui-btn-icon-notext ui-corner-all" ></button><!--
-             --><button onclick = "updateHabitsPage(2)" class="ui-btn ui-icon-sigar ui-btn-icon-notext ui-corner-all"></button><!--
-             --><button onclick = "updateHabitsPage(3)" class="ui-btn ui-icon-icecream ui-btn-icon-notext ui-corner-all"></button>
+             --><button style="display: none;"  onclick = "updateHabitsPage(2)" class="ui-btn ui-icon-sigar ui-btn-icon-notext ui-corner-all"></button><!--
+             --><button style="display: none;" onclick = "updateHabitsPage(3)" class="ui-btn ui-icon-icecream ui-btn-icon-notext ui-corner-all"></button>
             </div>
             <button class="ui-btn ui-btn-menu ui-icon-delete ui-btn-right ui-btn-icon-notext ui-corner-all">No text</button>
         </div>
@@ -20,7 +20,7 @@
 					<dl>
 						<dt>из них:</dt>
 						<dd>
-							<ul id="monthList" data-role="listview">
+							<ul id="monthList">
 							</ul>
 						</dd>
 					</dl>
@@ -33,13 +33,13 @@
 					<dl>
 						<dt>из них:</dt>
 						<dd>
-							<ul id = "yearList" data-role="listview">
+							<ul id = "yearList">
 
 							</ul>
 						</dd>
 					</dl>
 				</div>
-				<div data-role="collapsible" data-collapsed="true"  data-collapsed-icon="collapsed" data-expanded-icon="expanded" data-iconpos="right">
+				<div style="display: none;"  data-role="collapsible" data-collapsed="true"  data-collapsed-icon="collapsed" data-expanded-icon="expanded" data-iconpos="right">
 					<h3><span class="info-term">К 2020 г.</span><span class="info-count" id="futureVolume">1200 <small>л</small></span></h3>
 					<p id = "absoluteFutureVolume"></p>
 					<h2 id="spentHeader3"></h2>
@@ -47,7 +47,7 @@
 					<dl>
 						<dt>из них:</dt>
 						<dd>
-							<ul id = "futureList" data-role="listview">
+							<ul id = "futureList">
 							</ul>
 						</dd>
 					</dl>

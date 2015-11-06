@@ -794,7 +794,7 @@ function uploadPhoto() {
 									var measure = item.Measure;
 									var color = item.Color;
 									var soundTranscription = item.SoundTranscription;
-
+								//	alert(JSON.stringify(item));
 									addGoodItemInTransaction(tag, value, measure, color, soundTranscription, JSON.stringify(item), transaction);
 								};
 							}, onError, onSuccess);
@@ -871,7 +871,7 @@ function uploadPhoto() {
 								  var item = json[k];
 								//  alert(JSON.stringify(item));
 								  var index = item.Index;
-								  var name = item.name;
+								  var name = item.Name;
 								  addGoodMeasureInTransaction(index, name,transaction);
 								};
 							}, onError, onSuccess);
@@ -1218,13 +1218,23 @@ function uploadPhoto() {
 
 
 							var tags = json.Tags;
+						$.each(tags, function(key, value) {
+							$.each(value, function(key, value) {
+								console.log("adding tag: "+key+" "+value);
+								fullTagsArray[hashCode(""+key)] = (""+value);
+
+							});;
+						});
+						//	alert(""+fullTagsArray.length);
+
 							db.transaction(
 								function(transaction) {
 									$.each(tags, function(key, value) {
 											$.each(value, function(key, value) {
 												//addTag(key,value);
 												addTagInTransaction(key, value, transaction);
-												fullTagsArray[key] = value;
+
+												//fullTagsArray[key] = value;
 											});;
 									});
 								},

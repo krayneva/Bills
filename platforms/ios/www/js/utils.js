@@ -115,3 +115,11 @@ function formatPrice(price) {
     if (price==null) return 0;
     return Math.round(price * 100) / 100;
 }
+
+function formatVolume(volume){
+    if (volume==0) return volume;
+    if (volume==undefined) return 0;
+    if (volume==null) return 0;
+    return Math.round(volume/10) / 100;
+
+}

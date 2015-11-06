@@ -9,6 +9,10 @@ function updateLoginPage(){
 	});
 */
 	//var login =  window.localStorage.getItem(SETTING_USER_LOGIN);
+
+
+
+
 	var login =  getSettingFromStorage(SETTING_USER_LOGIN,"");
 	$('#login').val(login);
 	var password = getSettingFromStorage(SETTING_USER_PASSWORD,"");
@@ -205,7 +209,9 @@ function updateTransactionPage(){
 	try{
 		var deferred = $.Deferred();
 		var start = new Date().getTime();
-
+		$('#title').html('');
+		$('#checkCount').html('');
+		$("#total").html('');
 		getTransactions().done(function(result){
 			if ((result.rows.length==0)&(requestTransactionPageCount==0)){
 				requestAndUpdateTransactionPage();
@@ -267,9 +273,19 @@ function updateTransactionPage(){
 
 					  html = html.replace(/\{transactionDate\}/g,(day<10?'0':'')+day+"."+(month<10?'0':'')+month+"."+year);
 					  html = html.replace(/\{transactionTime\}/g,(hours<10?'0':'')+hours+":"+(minutes<10?'0':'')+minutes);
-					  html = html.replace(/\{transactionPrice\}/g,json.Amount+getCurrencyString(json.Currency));
+					  html = html.replace(/\{transactionPrice\}/g,formatPrice(json.Amount)+getCurrencyString(json.Currency));
 					  html = html.replace(/\{transactionName\}/g,json.Name==null?"":json.Name);
 					  html = html.replace(/\{transactionID\}/g,json.Id);
+					  var style = 'isFavorites-false';
+					  if ((row.isFav==1)||(row.isFav=='1')){
+						  style = 'isFavorites-true';
+					  }
+
+					  html = html.replace(/\{isFavorites}/g,style);
+
+
+
+
 
 					 	var tagKeys = "";
 
@@ -277,15 +293,14 @@ function updateTransactionPage(){
 
 							tagArray[tagCounter] = json.receiptData.Items[j].Tag;
 							tagCounter=tagCounter+1;
-					 		//tagKeys+= ""+hashCode(json.receiptData.Items[j].Tag);
-							tagKeys+= fullTagsArray[json.receiptData.Items[j].Tag];
-					 		if (j!=json.receiptData.Items.length-1)
-					 			tagKeys = tagKeys+", ";
+							var tagValue = fullTagsArray[hashCode(json.receiptData.Items[j].Tag)];
+							if (tagKeys.indexOf(tagValue) <0){
+								tagKeys+= tagValue;
+								if (j!=json.receiptData.Items.length-1)
+									tagKeys = tagKeys+", ";
+								}
+
 					 	}
-
-					//  alert(JSON.stringify(json.receiptData.Items));
-					// collecting tags
-
 
 						html = html.replace(/\{transactionTags\}/g,tagKeys);
 						listHTML = listHTML+html;
@@ -293,7 +308,7 @@ function updateTransactionPage(){
 						totalAmount=totalAmount+json.Amount;
 
 					};
-				$("#total").html(Math.round(totalAmount));
+				$("#total").html(formatPrice(totalAmount));
 			/*	for (var j=0; j<tagArray.length; j++){
                 	getTagName(tagArray[j],j,tagArray.length).done(function(res, src,position,len){
 	                   	listHTML = listHTML.replace(src,res);
@@ -428,6 +443,7 @@ function updateTransactionInfoPage(){
 				 html = html.replace(/\{goodPrice\}/g,json.receiptData.Items[i].PricePerUnit);
 				 html = html.replace(/\{goodTotalPrice\}/g,json.receiptData.Items[i].Value);
 				 html = html.replace(/\{goodTag\}/g,json.receiptData.Items[i].Tag);
+
 				 listHTML+=html;
 			 }
 	
@@ -917,11 +933,15 @@ function updateShopListsPage(reloadFromBase){
                 
                 $('#tagsList').html('');
                  for (var k=0; k<js.Tags.length; k++){
-                     getTagName(js.Tags[k],k,js.Tags.length).done(function(res,src,position,len){
+						 var html3 = $('#tagRowTemplate').html();
+						 html3 = html3.replace(/\{tagName\}/g,fullTagsArray[hashCode(js.Tags[k])]);
+						$('#tagsList').append(html3);
+               /*      getTagName(js.Tags[k],k,js.Tags.length).done(function(res,src,position,len){
                     	 var html3 = $('#tagRowTemplate').html();
                          html3 = html3.replace(/\{tagName\}/g,res);
                         if (res!="") $('#tagsList').append(html3);
                      });
+                     */
                  }
 
 
@@ -934,16 +954,15 @@ function updateShopListsPage(reloadFromBase){
 
 					html5 = html5.replace(/\{positionName\}/g,js.receiptData.Items[p].ItemName);
 					html5 = html5.replace(/\{positionCost\}/g,js.receiptData.Items[p].Value);
-					html5 = html5.replace(/\{positionTag\}/g,js.receiptData.Items[p].Tag);
+					html5 = html5.replace(/\{positionTag\}/g,fullTagsArray[hashCode(js.receiptData.Items[p].Tag)]);
 						$('#checkDetailstable > tbody').append(html5);
-					getTagName(js.receiptData.Items[p].Tag,p,js.receiptData.Items.length).done(function(res, src, position,len){
-
-					//	html5 = html5.replace(/\{positionTag\}/g,res);
+					/*getTagName(js.receiptData.Items[p].Tag,p,js.receiptData.Items.length).done(function(res, src, position,len){
 						var ht = $('#checkDetailstable > tbody').html();
 						ht = ht.replace(src,res);
 						$('#checkDetailstable > tbody').html(ht);
+					});*/
 
-					});
+
 
 				}
 
@@ -1141,44 +1160,34 @@ function updateShopListsPage(reloadFromBase){
 			 }
 		 }
 		// console.log('habit filling amounts');
-		 $("#monthVolume").html(formatPrice(monthJson.Volume)+'<small> '+measure+'</small>');
-		 $("#yearVolume").html(formatPrice(yearJson.Volume) +'<small> '+measure+'</small>');
-		 $("#futureVolume").html(formatPrice(futureJson.Volume) +'<small> '+measure+'</small>');
+		 $("#monthVolume").html(formatVolume(monthJson.Volume)+'<small> '+measure+'</small>');
+		 $("#yearVolume").html(formatVolume(yearJson.Volume) +'<small> '+measure+'</small>');
+		 $("#futureVolume").html(formatVolume(futureJson.Volume) +'<small> '+measure+'</small>');
 		 if (tab==1) {
-			 $("#absoluteMonthVolume").html('~ ' + formatPrice(monthJson.AbsoluteVolume) + ' '+measure+' чистого спирта');
-			 $("#absoluteYearVolume").html('~ ' + formatPrice(yearJson.AbsoluteVolume) + ' '+measure+' чистого спирта');
-			 $("#absoluteFutureVolume").html('~ ' + formatPrice(futureJson.AbsoluteVolume)+ ' '+measure+' чистого спирта');
+			 $("#absoluteMonthVolume").html('~ ' + formatVolume(monthJson.AbsoluteVolume) + ' '+measure+' чистого спирта');
+			 $("#absoluteYearVolume").html('~ ' + formatVolume(yearJson.AbsoluteVolume) + ' '+measure+' чистого спирта');
+			// $("#absoluteFutureVolume").html('~ ' + formatVolume(futureJson.AbsoluteVolume)+ ' '+measure+' чистого спирта');
 		 }
 		 else{
 			 $("#absoluteMonthVolume").html('');
 			 $("#absoluteYearVolume").html('');
-			 $("#absoluteFutureVolume").html('');
+			// $("#absoluteFutureVolume").html('');
 		 }
 		 console.log('habit filling amounts');
 		 $("#monthAmount").html(formatPrice(monthJson.Amount)+' р.');
 		 $("#yearAmount").html(formatPrice(yearJson.Amount)+' р.');
-		 $("#futureAmount").html(formatPrice(futureJson.Amount)+' р.');
+		 //$("#futureAmount").html(formatPrice(futureJson.Amount)+' р.');
 
 		 $('#monthList').html('');
 
 		 var monthTags = new Array();
 		 for (var k=0; k<monthJson.Items.length; k++){
 			 monthTags[k]=monthJson.Items[k].Tag;
-			 var html = '<li><span>'+hashCode(monthJson.Items[k].Tag)+' '+formatPrice(monthJson.Items[k].Volume)+' '+measure
+			 var html = '<li><span>'+fullTagsArray[hashCode(monthJson.Items[k].Tag)]+' '+formatVolume(monthJson.Items[k].Volume)+' '+measure
 				 +'</span>'+formatPrice(monthJson.Items[k].Amount) +'р.</li>';
 			 $('#monthList').append(html);
-			 $('#monthList').listview('refresh');
+		//	 $('#monthList').listview('refresh');
 		 }
-			if (monthTags.length>0)
-		 getTagNames(monthTags).done(function(res){
-			 var h =  $('#monthList').html();
-			 for (var i=0; i<res.rows.length; i++){
-				 h = h.replace(res.rows.item(i).id,res.rows.item(i).name);
-			 }
-			 $('#monthList').html(h);
-			 $('#monthList').listview('refresh');
-		 });
-
 
 
 		 $('#yearList').html('');
@@ -1186,42 +1195,23 @@ function updateShopListsPage(reloadFromBase){
 		 var yearTags = new Array();
 		 for (var k=0; k<yearJson.Items.length; k++){
 			 yearTags[k]=yearJson.Items[k].Tag;
-			 var html = '<li><span>'+hashCode(yearJson.Items[k].Tag)+' '+formatPrice(yearJson.Items[k].Volume)+' '+measure
+			 var html = '<li><span>'+fullTagsArray[hashCode(yearJson.Items[k].Tag)]+' '+formatVolume(yearJson.Items[k].Volume)+' '+measure
 				 +'</span>'+formatPrice(yearJson.Items[k].Amount) +'р.</li>';
 			 $('#yearList').append(html);
-			 $('#yearList').listview('refresh');
+			// $('#yearList').listview('refresh');
 		 }
-		 if (yearTags.length>0)
-		 getTagNames(yearTags).done(function(res){
-			 var h =  $('#yearList').html();
-			 for (var i=0; i<res.rows.length; i++){
-				h = h.replace(res.rows.item(i).id,res.rows.item(i).name);
-			}
-			 $('#yearList').html(h);
-			 $('#yearList').listview('refresh');
-		 });
 
 
-
-		 $('#futureList').html('');
+		/* $('#futureList').html('');
 		 var futureTags = new Array();
 		 for (var k=0; k<futureJson.Items.length; k++){
 			 futureTags[k]=futureJson.Items[k].Tag;
-			 var html = '<li><span>'+hashCode(futureJson.Items[k].Tag)+' '+formatPrice(futureJson.Items[k].Volume)+' '+measure
+			 var html = '<li><span>'+fullTagsArray[hashCode(futureJson.Items[k].Tag)]+' '+formatPrice(futureJson.Items[k].Volume)+' '+measure
 				 +'</span>'+formatPrice(futureJson.Items[k].Amount) +'р.</li>';
 			 $('#futureList').append(html);
 			 $('#futureList').listview('refresh');
 		 }
-		 if (futureTags.length>0)
-		 getTagNames(futureTags).done(function(res){
-			 var h =  $('#futureList').html();
-			 for (var i=0; i<res.rows.length; i++){
-				 h = h.replace(res.rows.item(i).id,res.rows.item(i).name);
-			 }
-			 $('#futureList').html(h);
-			 $('#futureList').listview('refresh');
-		 });
-
+		*/
 	 }
 
 	 function refreshSubCategoryCombo(subcategory){

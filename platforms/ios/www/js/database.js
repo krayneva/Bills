@@ -33,6 +33,13 @@
 				      putSetting(SETTING_DB_NAME, dbName);
 				 }
 			 }
+
+			if ((fullTagsArray.length==0)|(fullTagsArray.length==undefined))
+				reloadTagsArray();
+			else{
+				console.log("tags len is "+fullTagsArray.length);
+			}
+
 			// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 		 } catch(e) { 
 			 onError("Error in database "+e);
@@ -59,7 +66,7 @@
          tx.executeSql('CREATE TABLE IF NOT EXISTS UserEnvironment'
  		 		+' (id integer primary key autoincrement,environment)');
          tx.executeSql('CREATE TABLE IF NOT EXISTS Transactions' 
-  		 		+' (id text primary key,transactionJSON, purseID, transactionDate, categoryID, receiptImageID)');
+  		 		+' (id text primary key,transactionJSON, purseID, transactionDate, categoryID, receiptImageID, isFav integer default 0, searchText text)');
     
          tx.executeSql('CREATE TABLE IF NOT EXISTS Widgets' 
    		 		+' (id text primary key,json)');
@@ -365,18 +372,20 @@
     /** добавление данных о транзакциях пользователя
      * @param transaction
      */
-    function addTransaction(i,json,id,transactionJSON, purseID, transactionDate, categoryID, receiptImageID){
+  /*  function addTransaction(i,json,id,transactionJSON, purseID, transactionDate, categoryID, receiptImageID){
     	try{
 			var start = new Date().getTime();
 	    	var deferred = $.Deferred();
-	    	var sql=  "INSERT OR REPLACE INTO Transactions (id, transactionJSON, purseID,transactionDate, categoryID, receiptImageID) " +
+	    	var sql=  "INSERT OR REPLACE INTO Transactions (id, transactionJSON, purseID,transactionDate,"
+			+"categoryID, receiptImageID, isFav) " +
 			" values ("
 			+"'"+id+"',"
 			+"'"+transactionJSON.replace(/'/g,"''")+"',"
 			+"'"+purseID+"',"
 			+"'"+transactionDate+"',"
 			+"'"+categoryID+"',"
-			+"'"+receiptImageID+
+			+"'"+receiptImageID
+
 			"')";
 	        db.transaction(
 	    		function(transaction) { 
@@ -390,7 +399,6 @@
 	    		    }, function onSuccess(res){
 					var end = new Date().getTime();
 					var time = end - start;
-					console.log('add transaction time: ' + time);
 	    		    	deferred.resolve(i,json);
 	    		    });
 	        return deferred;
@@ -399,7 +407,7 @@
 			  dumpError("addTransaction",e);
 		  }			
    }
-
+*/
 
 	function addTransactionInTransaction(json, transaction){
 		try{
@@ -408,15 +416,42 @@
 			var transactionDate = json.TransactionDate;
 			var categoryID = json.CategoryID;
 			var receiptImageID =  json.ReceiptImageID;
-			var sql=  "INSERT OR REPLACE INTO Transactions (id, transactionJSON, purseID,transactionDate, categoryID, receiptImageID) " +
+			var searchText = json.Name+" ";
+
+
+			for (var i=0; i<json.receiptData.Items.length; i++){
+				var item = json.receiptData.Items[i];
+				searchText = searchText+ " " + item.ItemName;
+			}
+			searchText = searchText+" ";
+			for (var i=0; i<json.Tags.length; i++){
+				searchText = searchText+ " " + fullTagsArray[hashCode(json.Tags[i])];
+			}
+			searchText = searchText.replace(/'/g,"''");
+			searchText = searchText.toString().replace('"', '\\"')
+			searchText = searchText.replace(/•/g,"''");
+			searchText = searchText.replace(/■/g,"''");
+			searchText = searchText.replace(/»/g,"''");
+			searchText = searchText.replace(/«/g,"''");
+		//	console.log("searchText is: "+searchText);
+
+
+			//alert(JSON.stringify(json));
+			//console.log(JSON.stringify(json));
+			var sql=  "INSERT OR REPLACE INTO Transactions (id, transactionJSON, purseID,transactionDate,"
+			+" categoryID, receiptImageID, isFav, searchText) " +
 				" values ("
 				+"'"+id+"',"
 				+"'"+JSON.stringify(json).replace(/'/g,"''")+"',"
 				+"'"+purseID+"',"
 				+"'"+transactionDate+"',"
 				+"'"+categoryID+"',"
-				+"'"+receiptImageID+
-				"')";
+				+"'"+receiptImageID+"',"
+				+"(select isFav from transactions where id='"+id+"' ),"
+				+"'"+searchText+"'"
+
+				+")";
+			console.log("sql is: "+sql);
 				transaction.executeSql(sql);
 		}
 		catch(e){
@@ -462,7 +497,7 @@
 		   	var deferred = $.Deferred();
 		    	db.transaction(
 		  		    function(transaction) {
-		  		        transaction.executeSql("SELECT * FROM Transactions order by date(transactionDate) desc", [],
+		  		        transaction.executeSql("SELECT transactionJSON,isFav FROM Transactions order by date(transactionDate) desc", [],
 		  		        		function(transaction, result) {
 									var end = new Date().getTime();
 									var time = end - start;
@@ -493,7 +528,7 @@
 			var deferred = $.Deferred();
 			db.transaction(
 				function(transaction) {
-					transaction.executeSql("SELECT * FROM Transactions " +
+					transaction.executeSql("SELECT transactionJSON,isFav FROM Transactions " +
 						" where date(transactionDate)>=(SELECT date('now','"+p+"'))"
 						+"order by date(transactionDate) desc", [],
 						function(transaction, result) {
@@ -518,7 +553,7 @@
 		   	var deferred = $.Deferred();
 		    	db.transaction(
 		  		    function(transaction) {
-		  		        transaction.executeSql("SELECT * FROM Transactions where categoryID='"+categoryID+"'  order by date(transactionDate) desc", [],
+		  		        transaction.executeSql("SELECT transactionJSON,isFav FROM Transactions where categoryID='"+categoryID+"'  order by date(transactionDate) desc", [],
 		  		        		function(transaction, result) {
 									var end = new Date().getTime();
 									var time = end - start;
@@ -549,7 +584,7 @@
 			var deferred = $.Deferred();
 			db.transaction(
 				function(transaction) {
-					transaction.executeSql("SELECT * FROM Transactions where categoryID='"+categoryID+"'"
+					transaction.executeSql("SELECT transactionJSON,isFav FROM Transactions where categoryID='"+categoryID+"'"
 						+" and date(transactionDate)>=(SELECT date('now','"+p+"'))"
 						+"  order by date(transactionDate) desc", [],
 						function(transaction, result) {
@@ -1647,3 +1682,86 @@ function addBadHabits(habits){
 			  dumpError("addBadHabits",e);
 		  }
    }
+
+
+
+
+	function reloadTagsArray(){
+		try{
+			console.log("reloading tags array");
+			fullTagsArray = {};
+			var deferred = $.Deferred();
+			if (!db) {
+				deferred.resolve();
+				return deferred;
+			}
+			db.transaction(
+				function(transaction) {
+					transaction.executeSql('SELECT * FROM Tags', [],
+						function(transaction, result) {
+
+							if (result.rows.length==0)
+								deferred.resolve();
+							else
+								for (var i=0; i< result.rows.length; i++){
+									fullTagsArray[result.rows.item(i).id] =result.rows.item(i).name;
+									console.log("added to tags: "+result.rows.item(i).id+" "+result.rows.item(i).name);
+								}
+							deferred.resolve();
+						}, onError);
+				});
+			console.log("reloading tags done");
+			return deferred;
+		}
+		catch(e){
+			dumpError("reloadTagsArray",e);
+		}
+	}
+
+
+	function changeTransactionFav(transactionID){
+			var isFav;
+		try{
+			db.transaction(
+				function(transaction) {
+
+					transaction.executeSql('SELECT isFav FROM Transactions where id="' + transactionID + '"', [],
+						function (transaction, result) {
+
+							if (result.rows.length == 0)
+								deferred.resolve();
+							else {
+								isFav = result.rows.item(0).isFav;
+								console.log("isFav was: "+isFav);
+								if ((isFav==null)||(isFav==undefined)||(isFav=="")||(isFav==0)){
+									isFav = 1;
+								}
+								else isFav = 0;
+
+								console.log("isFav is: "+isFav);
+								transaction.executeSql(
+									"UPDATE Transactions set isFav="+isFav+" where id='"+transactionID+"'"
+								);
+
+								if (isFav==1) {
+									$('#' + ('transactionIsFavorites' + transactionID)).removeClass("transactionIsFavorites-false")
+									$('#' + ('transactionIsFavorites' + transactionID)).addClass("transactionIsFavorites-true")
+								}
+								else {
+									$('#' + ('transactionIsFavorites' + transactionID)).removeClass("transactionIsFavorites-false")
+									$('#' + ('transactionIsFavorites' + transactionID)).addClass("transactionIsFavorites-true")
+								}
+							}
+						}, onError);
+
+					},
+				onError, onSuccess);
+
+
+
+		}
+		catch(e){
+			dumpError("changeTransactionFav",e);
+		}
+	}
+

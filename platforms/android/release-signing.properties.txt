@@ -1,5 +1,0 @@
-storeType=jks
-storeFile=D:/keys/billskey.keystore
-storePassword=ifnjvfhuj
-keyAlias=bills
-keyPassword=ifnjvfhuj
