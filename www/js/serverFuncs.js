@@ -1220,7 +1220,7 @@ function uploadPhoto() {
 							var tags = json.Tags;
 						$.each(tags, function(key, value) {
 							$.each(value, function(key, value) {
-								console.log("adding tag: "+key+" "+value);
+								//console.log("adding tag: "+key+" "+value);
 								fullTagsArray[hashCode(""+key)] = (""+value);
 
 							});;

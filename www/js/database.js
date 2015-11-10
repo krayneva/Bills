@@ -428,12 +428,10 @@
 				searchText = searchText+ " " + fullTagsArray[hashCode(json.Tags[i])];
 			}
 			searchText = searchText.replace(/'/g,"''");
-			searchText = searchText.toString().replace('"', '\\"')
-			searchText = searchText.replace(/•/g,"''");
-			searchText = searchText.replace(/■/g,"''");
-			searchText = searchText.replace(/»/g,"''");
-			searchText = searchText.replace(/«/g,"''");
-		//	console.log("searchText is: "+searchText);
+			searchText = searchText.replace('"', '')
+			searchText = searchText.replace(/»/g,"");
+			searchText = searchText.replace(/«/g,"");
+			console.log("searchText is: "+searchText);
 
 
 			//alert(JSON.stringify(json));
@@ -553,7 +551,7 @@
 		   	var deferred = $.Deferred();
 		    	db.transaction(
 		  		    function(transaction) {
-		  		        transaction.executeSql("SELECT transactionJSON,isFav FROM Transactions where categoryID='"+categoryID+"'  order by date(transactionDate) desc", [],
+		  		        transaction.executeSql("SELECT transactionJSON,isFav,searchText FROM Transactions where categoryID='"+categoryID+"'  order by date(transactionDate) desc", [],
 		  		        		function(transaction, result) {
 									var end = new Date().getTime();
 									var time = end - start;
@@ -574,6 +572,19 @@
 	 */
 	function getTransactionsByCategoryIDAndPeriod(categoryID, period){
 		try{
+
+			var isFav =  window.localStorage.getItem(TRANSACTIONS_FAVOURITES);
+			var isFavString;
+			if((isFav==true)|(isFav=="true")){
+				isFavString = "and isFav=1"
+				}
+			else{
+				isFavString = "";
+			}
+
+
+
+
 			var p = "";
 			if (period=="week")
 				p="-7 day";
@@ -581,11 +592,16 @@
 				p="-1 month";
 			if (period=="year")
 				p="-1 year";
+
+
+
+
 			var deferred = $.Deferred();
 			db.transaction(
 				function(transaction) {
-					transaction.executeSql("SELECT transactionJSON,isFav FROM Transactions where categoryID='"+categoryID+"'"
-						+" and date(transactionDate)>=(SELECT date('now','"+p+"'))"
+					transaction.executeSql("SELECT transactionJSON,isFav,searchText FROM Transactions where categoryID='"+categoryID+"'"
+						+" and date(transactionDate)>=(SELECT date('now','"+p+"')) "
+						+isFavString
 						+"  order by date(transactionDate) desc", [],
 						function(transaction, result) {
 
@@ -1748,8 +1764,8 @@ function addBadHabits(habits){
 									$('#' + ('transactionIsFavorites' + transactionID)).addClass("transactionIsFavorites-true")
 								}
 								else {
-									$('#' + ('transactionIsFavorites' + transactionID)).removeClass("transactionIsFavorites-false")
-									$('#' + ('transactionIsFavorites' + transactionID)).addClass("transactionIsFavorites-true")
+									$('#' + ('transactionIsFavorites' + transactionID)).removeClass("transactionIsFavorites-true")
+									$('#' + ('transactionIsFavorites' + transactionID)).addClass("transactionIsFavorites-false")
 								}
 							}
 						}, onError);

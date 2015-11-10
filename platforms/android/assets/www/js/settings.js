@@ -1,5 +1,5 @@
 
-// ключи настроек
+// пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 var SETTING_JPEG_QUALITY = "jpegQuality";
 var SETTING_COLOR_MODE = "colorMode";
 var SETTING_OUTPUT_WIDTH = "outputWidth";
@@ -14,7 +14,7 @@ var CATEGORY_ID_KEY = "CategoryIdKey";
 var TRANSACTION_ID_KEY = "TransactionIdKey";
 var RECEIPT_ID_KEY = "ReceiptIdKey";
 var ERROR_MESSAGE = "ErrorMessage";
-
+var TRANSACTIONS_FAVOURITES = "Transactionsfavourites";
 var DIALOG_MESSAGE = "DialogMessage";
 var DIALOG_HEADER = "DialogHeader";
 
@@ -27,7 +27,7 @@ var PROMO_KEY = "PromoKey";
 var LATITUDE_KEY = "LatitudeKey";
 var LONGITUDE_KEY = "LongitudeKey";
 
-// дефолтные значения
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 var JPEG_QUALITY_DEFAULT = "100";
 var COLOR_MODE_DEFAULT = "565";
 var OUTPUT_WIDTH_DEFAULT = "0";
@@ -48,7 +48,7 @@ function removeSetting(setting){
 
 }
 
-// сохранение всех настроек с экрана настроек
+// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
 function saveSettings(){
 	try{
 		var quality = document.getElementById("jpegQualitySetting").value;
@@ -72,7 +72,7 @@ function saveSettings(){
 
 
 /**
- * сохранение настройки адреса сервера
+ * пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
  */
 function saveConnectionSettings(){
 	try{

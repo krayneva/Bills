@@ -12,14 +12,17 @@
     <div class="filter">
       <table>
             <tr>
-              <td class="expenses_favorites">
-                <div class="transactionIsFavorites-false">
+              <td class="expenses_favorites" >
+                <div class="transactionIsFavorites-false" id ="favButton" onclick = " updateTransactionPageUsingFav();">
                   <img class="transactionFavorites" src="img/ico-favorites-white.png"/>
                   <img class="transactionNotFavorites" src="img/ico-notFavorites-white.png"/>
                 </div>          
               </td>
               <td>
-                <input/>
+
+                          <input id="searchInput" data-type="search">
+
+
               </td>
               <td>
                   <select name="periodSelect" id="periodSelect" data-mini="true">
@@ -32,8 +35,8 @@
           </table>
     </div>
     <div id="iscroll-wrapper" class="expenses contentFixed">
-      <div>
-        <ul data-role="listview" id="expensesList"></ul>
+      <div >
+        <ul data-role="listview" id="expensesList" data-filter="true" data-input="#searchInput"></ul>
       </div>
     </div>
 
@@ -45,7 +48,7 @@
 
 
     <div id="transactionRowTemplate" style="display: none;">
-        <li class="expenses_item"  id="transactionRow" >
+        <li class="expenses_item"  id="transactionRow" data-filtertext="{searchText}">
           <table>
             <tr>
               <td class="expenses_favorites" id="">
