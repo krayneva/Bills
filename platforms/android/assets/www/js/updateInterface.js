@@ -203,6 +203,21 @@ function requestAndUpdateTransactionPage(){
     }
 }
 
+	 function updateTransactionPageUsingFav(){
+		 var isFav =  window.localStorage.getItem(TRANSACTIONS_FAVOURITES);
+		// alert("isFav is "+isFav);
+		 if ((isFav==true)|(isFav=="true")){
+			 window.localStorage.setItem(TRANSACTIONS_FAVOURITES,false);
+			 $('#favButton').removeClass("transactionIsFavorites-true")
+			 $('#favButton').addClass("transactionIsFavorites-false")
+		 }
+		 else{
+			 window.localStorage.setItem(TRANSACTIONS_FAVOURITES,true);
+			 $('#favButton').removeClass("transactionIsFavorites-false")
+			 $('#favButton').addClass("transactionIsFavorites-true")
+		 }
+		 updateTransactionPage();
+	 }
 
 
 function updateTransactionPage(){
@@ -275,11 +290,15 @@ function updateTransactionPage(){
 					  html = html.replace(/\{transactionTime\}/g,(hours<10?'0':'')+hours+":"+(minutes<10?'0':'')+minutes);
 					  html = html.replace(/\{transactionPrice\}/g,formatPrice(json.Amount)+getCurrencyString(json.Currency));
 					  html = html.replace(/\{transactionName\}/g,json.Name==null?"":json.Name);
+					//  html = html.replace(/\{transactionName\}/g,row.searchText);
+					  console.log("search text is "+row.searchText);
 					  html = html.replace(/\{transactionID\}/g,json.Id);
-					  var style = 'isFavorites-false';
+					  html = html.replace(/\{searchText\}/g,row.searchText);
+					  var style = 'false';
 					  if ((row.isFav==1)||(row.isFav=='1')){
-						  style = 'isFavorites-true';
+						  style = 'true';
 					  }
+
 
 					  html = html.replace(/\{isFavorites}/g,style);
 
@@ -898,7 +917,7 @@ function updateShopListsPage(reloadFromBase){
 									if (js.Category==res.rows.item(j).id) continue;
 									var html111 = $('#categoryRowTemplate').html();
 									html111 = html111.replace(/\{catName\}/g,res.rows.item(j).name);
-									html111 = html111.replace(/\{catValue\}/g,res.rows.item(j).id);
+									html111 = html111.replace(/\{catValue\}/g,res.rows.item(j).idtext);
 									$('#select-native-0').append(html111);
 									if (j==res.rows.length-1){
 										$("#select-native-0 option:first").attr('selected','selected');
@@ -922,12 +941,10 @@ function updateShopListsPage(reloadFromBase){
 
 
                  var html2 = $('#purseRowTemplate').html();
-                // var subcategoryName = getCategoryName(json.SubCategory);
-                //alert(JSON.stringify(js));
                  html2 = html2.replace(/\{purseName\}/g,"Кошелёк");
                  $('#select-native-2').html(html2);
   				 $('#select-native-2').selectmenu( "refresh" );
-  				//$('#select-native-2').selectmenu({disabled: true });
+
 				// tags
 				 
                 
@@ -936,12 +953,6 @@ function updateShopListsPage(reloadFromBase){
 						 var html3 = $('#tagRowTemplate').html();
 						 html3 = html3.replace(/\{tagName\}/g,fullTagsArray[hashCode(js.Tags[k])]);
 						$('#tagsList').append(html3);
-               /*      getTagName(js.Tags[k],k,js.Tags.length).done(function(res,src,position,len){
-                    	 var html3 = $('#tagRowTemplate').html();
-                         html3 = html3.replace(/\{tagName\}/g,res);
-                        if (res!="") $('#tagsList').append(html3);
-                     });
-                     */
                  }
 
 
@@ -953,24 +964,19 @@ function updateShopListsPage(reloadFromBase){
 					var html5='<tr class="one-detail"><td>{positionName}</td><td><span>{positionCost}</span></td><td>{positionTag}</td></tr>' ;
 
 					html5 = html5.replace(/\{positionName\}/g,js.receiptData.Items[p].ItemName);
-					html5 = html5.replace(/\{positionCost\}/g,js.receiptData.Items[p].Value);
+					html5 = html5.replace(/\{positionCost\}/g,formatPrice(js.receiptData.Items[p].Value));
 					html5 = html5.replace(/\{positionTag\}/g,fullTagsArray[hashCode(js.receiptData.Items[p].Tag)]);
 						$('#checkDetailstable > tbody').append(html5);
-					/*getTagName(js.receiptData.Items[p].Tag,p,js.receiptData.Items.length).done(function(res, src, position,len){
-						var ht = $('#checkDetailstable > tbody').html();
-						ht = ht.replace(src,res);
-						$('#checkDetailstable > tbody').html(ht);
-					});*/
 
 
 
 				}
 
-			$('#spent').html(js.receiptData.Total);
-            $('#spent2').html(js.receiptData.Total);
+			$('#spent').html(formatPrice(js.receiptData.Total));
+            $('#spent2').html(formatPrice(js.receiptData.Total));
             // tax
-            $('#discount').html("Скидка "+js.receiptData.TotalTax +" "+getCurrencyString(js.Currency));
-            $('#discount2').html(js.receiptData.TotalTax);
+            $('#discount').html("Скидка "+formatPrice(js.receiptData.TotalTax) +" "+getCurrencyString(js.Currency));
+            $('#discount2').html(formatPrice(js.receiptData.TotalTax));
  			 $("#checkDetailstable").table("refresh");
 
 		       });
@@ -1229,15 +1235,13 @@ function updateShopListsPage(reloadFromBase){
 				 getSubCategories(catID).done(function(res){
 
 					 for (var j=0;j<res.rows.length;j++){
-
 						 if (subcategory==res.rows.item(j).id) continue;
 						 var html11 = $('#categoryRowTemplate').html();
 						 html11 = html11.replace(/\{catName\}/g,res.rows.item(j).name);
-						 html11 = html11.replace(/\{catValue\}/g,res.rows.item(j).id);
+						 html11 = html11.replace(/\{catValue\}/g,res.rows.item(j).idtext);
 						 $('#select-native-1').append(html11);
 						 if (j==res.rows.length-1){
 							 $("#select-native-1 option:first").attr('selected','selected');
-							 //	$("#select-native-1").trigger("change");
 							 $('#select-native-1').selectmenu("refresh", "true");
 						 }
 					 }

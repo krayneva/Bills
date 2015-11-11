@@ -1174,26 +1174,6 @@ function uploadPhoto() {
   	  	           		var json = jQuery.parseJSON(jqXHR.responseText);
 
 
-  	  	           	/*	  var categories = json.Categories;
-							 $.each(categories, function(key, value) {
-									$.each(value, function(key, value) {
-										var categoryID = key;
-										$.each(value, function(key, value) {
-											var categoryName = key;
-											$.each(value, function(key, value) {
-												addCategory(categoryID, categoryName);
-												$.each(value, function(key, value) {
-													addSubCategory(key,value,categoryID);
-												});
-										});
-										//addCategory(key,value);
-									  });
-								});
-
-							  });
-*/
-
-
 
 						db.transaction(
 							function(transaction) {
@@ -1208,6 +1188,7 @@ function uploadPhoto() {
 												$.each(value, function (key, value) {
 												//	addSubCategory(key, value, categoryID);
 													addSubCategoryInTransaction(key, value, categoryID, transaction);
+
 												});
 											});
 										});
@@ -1215,12 +1196,14 @@ function uploadPhoto() {
 
 								});
 							},onError, onSuccess);
-
-
+						try {
+							addIndexOnSubCategories();
+						}
+						catch (e){}
 							var tags = json.Tags;
 						$.each(tags, function(key, value) {
 							$.each(value, function(key, value) {
-								console.log("adding tag: "+key+" "+value);
+								//console.log("adding tag: "+key+" "+value);
 								fullTagsArray[hashCode(""+key)] = (""+value);
 
 							});;
@@ -1426,6 +1409,7 @@ function changeSubCategory(transactionID, subcategory){
 	    	
 	    		getTransaction(transactionID).done(function(res){
 	    		var js = jQuery.parseJSON(res.rows.item(0).transactionJSON);
+				getSubCat
 				js.SubCategory = subcategory;
 
 		    	   $.ajax({
@@ -1444,7 +1428,7 @@ function changeSubCategory(transactionID, subcategory){
 							if (jqXHR.responseText==transactionID){
 
 
-							 addSeveralTransactions(js,0,undefined).done(function(r){
+							 addTransaction(js).done(function(r){
                             				    	           		$.mobile.loading("hide");
                             				    	           		deferred.resolve();
                             			    	           	  });
@@ -1527,7 +1511,8 @@ function changeCategory(transactionID, category){
 									jqXHR.responseText=jqXHR.responseText.replace(/"/g,"");
 									if (jqXHR.responseText==transactionID){
 
-										addSeveralTransactions(js,0,undefined).done(function(r){
+										//addSeveralTransactions(js,0,undefined).done(function(r){
+										addTransaction(js,0,undefined).done(function(r){
 											$.mobile.loading("hide");
 											deferred.resolve();
 										});

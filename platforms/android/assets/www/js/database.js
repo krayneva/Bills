@@ -145,13 +145,13 @@
    		 		+'(id integer primary key,name)');
 
    		 tx.executeSql('CREATE TABLE IF NOT EXISTS Categories'
-                   		 		+' (id text primary key,name)');
+                   		 		+' (id integer primary key, idtext,name)');
 
          tx.executeSql('CREATE TABLE IF NOT EXISTS Tags'
                   +' (id integer primary key,name)');
 
          tx.executeSql('CREATE TABLE IF NOT EXISTS SubCategories'
-          	+' (id text primary key,name,category)');
+          	+' (id integer primary key,idtext, name,category integer)');
 
           tx.executeSql('CREATE TABLE IF NOT EXISTS Sync'
                    	+' (name text primary key,date)');
@@ -161,6 +161,20 @@
 		  }			
 
     }
+
+
+	function addIndexOnSubCategories(){
+		try {
+			db.transaction(
+				function (transaction) {
+					transaction.executeSql("CREATE INDEX subcategoryParent ON SubCategories (category);");
+				},
+				onError, onSuccess);
+		}
+		catch(e){
+			dumpError("addIndexOnSubCategories",e);
+		}
+	}
     
     /** пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅ
      * @param filePath пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅпїЅпїЅпїЅ
@@ -372,21 +386,44 @@
     /** добавление данных о транзакциях пользователя
      * @param transaction
      */
-  /*  function addTransaction(i,json,id,transactionJSON, purseID, transactionDate, categoryID, receiptImageID){
+    function addTransaction(json){
     	try{
 			var start = new Date().getTime();
 	    	var deferred = $.Deferred();
-	    	var sql=  "INSERT OR REPLACE INTO Transactions (id, transactionJSON, purseID,transactionDate,"
-			+"categoryID, receiptImageID, isFav) " +
-			" values ("
-			+"'"+id+"',"
-			+"'"+transactionJSON.replace(/'/g,"''")+"',"
-			+"'"+purseID+"',"
-			+"'"+transactionDate+"',"
-			+"'"+categoryID+"',"
-			+"'"+receiptImageID
+			var id = json.Id;
+			var purseID = json.PurseID;
+			var transactionDate = json.TransactionDate;
+			var categoryID = json.CategoryID;
+			var receiptImageID =  json.ReceiptImageID;
+			var searchText = json.Name+" ";
 
-			"')";
+			for (var i=0; i<json.receiptData.Items.length; i++){
+				var item = json.receiptData.Items[i];
+				searchText = searchText+ " " + item.ItemName;
+			}
+			searchText = searchText+" ";
+			for (var i=0; i<json.Tags.length; i++){
+				searchText = searchText+ " " + fullTagsArray[hashCode(json.Tags[i])];
+			}
+			searchText = searchText.replace(/'/g,"''");
+			searchText = searchText.replace('"', '')
+			searchText = searchText.replace(/»/g,"");
+			searchText = searchText.replace(/«/g,"");
+			console.log("searchText is: "+searchText);
+
+			var sql=  "INSERT OR REPLACE INTO Transactions (id, transactionJSON, purseID,transactionDate,"
+				+" categoryID, receiptImageID, isFav, searchText) " +
+				" values ("
+				+"'"+id+"',"
+				+"'"+JSON.stringify(json).replace(/'/g,"''")+"',"
+				+"'"+purseID+"',"
+				+"'"+transactionDate+"',"
+				+"'"+categoryID+"',"
+				+"'"+receiptImageID+"',"
+				+"(select isFav from transactions where id='"+id+"' ),"
+				+"'"+searchText+"'"
+
+				+")";
 	        db.transaction(
 	    		function(transaction) { 
 	        		transaction.executeSql(
@@ -407,7 +444,7 @@
 			  dumpError("addTransaction",e);
 		  }			
    }
-*/
+
 
 	function addTransactionInTransaction(json, transaction){
 		try{
@@ -428,12 +465,10 @@
 				searchText = searchText+ " " + fullTagsArray[hashCode(json.Tags[i])];
 			}
 			searchText = searchText.replace(/'/g,"''");
-			searchText = searchText.toString().replace('"', '\\"')
-			searchText = searchText.replace(/•/g,"''");
-			searchText = searchText.replace(/■/g,"''");
-			searchText = searchText.replace(/»/g,"''");
-			searchText = searchText.replace(/«/g,"''");
-		//	console.log("searchText is: "+searchText);
+			searchText = searchText.replace('"', '')
+			searchText = searchText.replace(/»/g,"");
+			searchText = searchText.replace(/«/g,"");
+			console.log("searchText is: "+searchText);
 
 
 			//alert(JSON.stringify(json));
@@ -553,7 +588,7 @@
 		   	var deferred = $.Deferred();
 		    	db.transaction(
 		  		    function(transaction) {
-		  		        transaction.executeSql("SELECT transactionJSON,isFav FROM Transactions where categoryID='"+categoryID+"'  order by date(transactionDate) desc", [],
+		  		        transaction.executeSql("SELECT transactionJSON,isFav,searchText FROM Transactions where categoryID='"+categoryID+"'  order by date(transactionDate) desc", [],
 		  		        		function(transaction, result) {
 									var end = new Date().getTime();
 									var time = end - start;
@@ -574,6 +609,19 @@
 	 */
 	function getTransactionsByCategoryIDAndPeriod(categoryID, period){
 		try{
+
+			var isFav =  window.localStorage.getItem(TRANSACTIONS_FAVOURITES);
+			var isFavString;
+			if((isFav==true)|(isFav=="true")){
+				isFavString = "and isFav=1"
+				}
+			else{
+				isFavString = "";
+			}
+
+
+
+
 			var p = "";
 			if (period=="week")
 				p="-7 day";
@@ -581,11 +629,16 @@
 				p="-1 month";
 			if (period=="year")
 				p="-1 year";
+
+
+
+
 			var deferred = $.Deferred();
 			db.transaction(
 				function(transaction) {
-					transaction.executeSql("SELECT transactionJSON,isFav FROM Transactions where categoryID='"+categoryID+"'"
-						+" and date(transactionDate)>=(SELECT date('now','"+p+"'))"
+					transaction.executeSql("SELECT transactionJSON,isFav,searchText FROM Transactions where categoryID='"+categoryID+"'"
+						+" and date(transactionDate)>=(SELECT date('now','"+p+"')) "
+						+isFavString
 						+"  order by date(transactionDate) desc", [],
 						function(transaction, result) {
 
@@ -1157,9 +1210,10 @@
   	    	 db.transaction(
   	  	    	   function(transaction) {
   	  	    	   		transaction.executeSql(
-  	  	    	      		"INSERT OR REPLACE INTO Categories (id, name) " +
-  	  	    	      		" values ('"
-  	  	    	       		+id+"',"
+  	  	    	      		"INSERT OR REPLACE INTO Categories (id,idtext, name) " +
+  	  	    	      		" values ("
+  	  	    	       		+hashCode(id)+","
+							+"'"+id+"',"
   	  	    	       		+"'"+name+"')"
   	  	    	   		);},
   	  	    	     function onError(error){
@@ -1174,11 +1228,14 @@
 
 	function addCategoryInTransaction(id, name, transaction){
 		try{
+			var sql = "INSERT OR REPLACE INTO Categories (id,idtext, name) " +
+				" values ("
+				+hashCode(id)+","
+				+"'"+id+"',"
+				+"'"+name+"')";
+			console.log("sql add category: "+sql);
 			transaction.executeSql(
-				"INSERT OR REPLACE INTO Categories (id, name) " +
-				" values ('"
-				+id+"',"
-				+"'"+name+"')"
+				sql
 			);
 		}
 		catch(e){
@@ -1229,11 +1286,12 @@
       	    	 db.transaction(
       	  	    	   function(transaction) {
       	  	    	   		transaction.executeSql(
-      	  	    	      		"INSERT OR REPLACE INTO SubCategories (id, name,category) " +
-      	  	    	      		" values ('"
-      	  	    	       		+id+"',"
+      	  	    	      		"INSERT OR REPLACE INTO SubCategories (id, idtext, name,category) " +
+      	  	    	      		" values ("
+      	  	    	       		+hashCode(id)+","
+								+"'"+id+"',"
       	  	    	       		+"'"+name+"',"
-      	  	    	       		+"'"+category+"')"
+      	  	    	       		+hashCode(category)+")"
       	  	    	   		);},
       	  	    	     function onError(error){
       	  	    		    	console.log("Error trying to add subcategory item!");
@@ -1248,11 +1306,12 @@
 		try{
 
 			transaction.executeSql(
-				"INSERT OR REPLACE INTO SubCategories (id, name,category) " +
-				" values ('"
-				+id+"',"
+				"INSERT OR REPLACE INTO SubCategories (id, idtext, name,category) " +
+				" values ("
+				+hashCode(id)+","
+				+"'"+id+"',"
 				+"'"+name+"',"
-				+"'"+category+"')"
+				+hashCode(category)+")"
 			);
 		}
 		catch(e){
@@ -1494,10 +1553,10 @@
 	function getTagNameInTransaction(tagID, pos, len, transaction){
 		try{
 			var deferred = $.Deferred();
-			transaction.executeSql('SELECT * FROM Tags where id="'+hashCode(tagID)+'";', [],
+			transaction.executeSql('SELECT name FROM Tags where id="'+hashCode(tagID)+'";', [],
 				function(transaction, result) {
 					if (result.rows.length != 0) {
-						console.log("tag name is "+result.rows.item(0).name);
+					//	console.log("tag name is "+result.rows.item(0).name);
 						deferred.resolve(result.rows.item(0).name);
 					}
 					else deferred.resolve("");
@@ -1513,11 +1572,13 @@
 
          function getCategoryName(categoryID){
                  	try{
+					//	alert("categoryID "+categoryID);
          				var res = "";
          			    var deferred = $.Deferred();
+						var sql = 'SELECT name FROM Categories where id ='+(hashCode(categoryID))+';';
          				db.transaction(
          						function(transaction) {
-         							transaction.executeSql('SELECT * FROM Categories where id ="'+categoryID+'";', [],
+         							transaction.executeSql(sql, [],
          									function(transaction, result) {
          									if (result.rows.length!=0)
          										res =  result.rows.item(0).name;
@@ -1532,12 +1593,14 @@
              }
 
 	function getSubCategoryName(subcategoryID){
+		//alert("subcategoryID "+subcategoryID);
                  	try{
          				var res = "";
-         			    var deferred = $.Deferred();
+						var sql ='SELECT name FROM SubCategories where id ='+(hashCode(subcategoryID))+';';
+						var deferred = $.Deferred();
          				db.transaction(
          						function(transaction) {
-         							transaction.executeSql('SELECT * FROM SubCategories where id ="'+subcategoryID+'";', [],
+         							transaction.executeSql(sql, [],
          									function(transaction, result) {
          									var res =  result.rows.item(0).name;
          									deferred.resolve(res);
@@ -1555,7 +1618,7 @@
     			    var deferred = $.Deferred();
     				db.transaction(
     						function(transaction) {
-    							transaction.executeSql('SELECT category FROM SubCategories where id ="'+subcategoryID+'";', [],
+    							transaction.executeSql('SELECT category FROM SubCategories where id ='+(hashCode(subcategoryID))+';', [],
     									function(transaction, res) {
     									res = res.rows.item(0).category;
     									deferred.resolve(res);
@@ -1568,14 +1631,14 @@
      		  }
 	}
 
-
+	/* REQUIRES HASH OF CATEGORY ID !!!!!!!!!!!*/
 	function getSubCategories(categoryID){
 		try{
 				var res = "";
 			    var deferred = $.Deferred();
 				db.transaction(
 						function(transaction) {
-							transaction.executeSql('SELECT * FROM SubCategories where category ="'+categoryID+'";', [],
+							transaction.executeSql('SELECT * FROM SubCategories where category ='+categoryID+';', [],
 									function(transaction, res) {
 									
 									deferred.resolve(res);
@@ -1614,10 +1677,10 @@
 			var deferred = $.Deferred();
 			db.transaction(
 				function (transaction) {
-					transaction.executeSql('SELECT * FROM SubCategories where category ="' + categoryID + '";', [],
+					transaction.executeSql('SELECT idtext FROM SubCategories where category ='+(hashCode(categoryID)) + ';', [],
 						function (transaction, res) {
 							if (res.rows.length==0) deferred.resolve("");
-							deferred.resolve(res.rows.item(0).id);
+							deferred.resolve(res.rows.item(0).idtext);
 						}, onError);
 				});
 			return deferred;
@@ -1748,8 +1811,8 @@ function addBadHabits(habits){
 									$('#' + ('transactionIsFavorites' + transactionID)).addClass("transactionIsFavorites-true")
 								}
 								else {
-									$('#' + ('transactionIsFavorites' + transactionID)).removeClass("transactionIsFavorites-false")
-									$('#' + ('transactionIsFavorites' + transactionID)).addClass("transactionIsFavorites-true")
+									$('#' + ('transactionIsFavorites' + transactionID)).removeClass("transactionIsFavorites-true")
+									$('#' + ('transactionIsFavorites' + transactionID)).addClass("transactionIsFavorites-false")
 								}
 							}
 						}, onError);
