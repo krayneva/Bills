@@ -18,10 +18,16 @@
 		</ul>
        
 </div>
-        <div class="backgroundColor"></div>
-       <div class="backgroundImg"> </div>
-        <div class="header">
+        <div data-role="header" class="ui-header-w headerFixed">
+            <div class="headerBackground"></div>
+            <div class="balance">
+                <span>В наличии: </span><span>30 568</span><br/>
+                <span>Расходы: </span><span>30 568</span>
+            </div>
+        </div>
+        <!--<div class="header headerFixed">            
             <div class="topBar">
+                <div class="headerBackground"></div>
                 <table>
                     <tbody>
                         <tr style="opacity:0.6; display:none;">
@@ -31,7 +37,7 @@
                         </tr>
                     </tbody>
                 </table> 
-             <!--    <div class="menu">
+                 <div class="menu">
                     <img src="img/ico_menu.png"/>
                     <div class="menuPanel">
                         <img class="ico" src="img/ico_6.png" onclick="showBillsList()"/>
@@ -40,113 +46,86 @@
                         <img class="ico" src="img/ico_9.png"/>
                     </div>
                 </div>
-                 -->
-            </div> 
-            <div class="widgetMenu">
-                <div class="widgetMenuBackground"></div>
-                <div class="widgetMenuPanel">
-                    <table>
-                        <tbody>
-                            <tr>
-                                <td><img class="ico" src="img/statistics.png"/></td>
-                                <td><img class="ico" src="img/ok.png"/></td>
-                                <td><img class="ico" src="img/ico_3.png"/></td>
-                                <td><img class="ico" src="img/settings.png"/></td>
-                                <td><img class="ico" src="img/ico_1.png"/></td>
-                            </tr>
-                        </tbody>
-                    </table>              
+                 
+            </div>
+        </div>-->
+        <div class="menuCategory filter">
+            <span class="filterCategoryLabel">Расходы</span>
+            <span class="filterCategoryLink">все</span>
+            <span class="shopListLink">Список покупок<span> ></span></span>
+        </div>
+        <div class="contentFixed">
+            <div class="categorys">
+            <div class="category">
+                <img class="icoCategory" src="images/ico-coctail.png"/>
+                <div class="categoryInfo">
+                    <span class="categoryAmount">10 500 р</span>
+                    <br/>
+                    <span class="categoryName">Питание</span>
+                </div>                
+            </div>            
+            <div class="category">
+                <img class="icoCategory" src="images/ico-usd.png"/>
+                <div class="categoryInfo">
+                    <span class="categoryAmount">10 500 р</span>
+                    <br/>
+                    <span class="categoryName">Здоровье и красота</span>
+                </div>                
+            </div>
+            <div class="category">
+                <img class="icoCategory" src="images/ico-home.png"/>
+                <div class="categoryInfo">
+                    <span class="categoryAmount">10 500 р</span>
+                    <br/>
+                    <span class="categoryName">Дом</span>
                 </div>
+            </div>
+            <div class="category">
+                <img class="icoCategory" src="images/ico-hanger.png"/>
+                <div class="categoryInfo">
+                    <span class="categoryAmount">10 500 р</span>
+                    <br/>
+                    <span class="categoryName">Одежда и красота</span>
+                </div>                
+            </div>
+            <div class="category">
+                <img class="icoCategory" src="images/ico-cross.png"/>
+                <div class="categoryInfo">
+                    <span class="categoryAmount">10 500 р</span>
+                    <br/>
+                    <span class="categoryName">Сбережения</span>
+                </div>
+            </div>
+            <div class="category">
+                <img class="icoCategory" src="images/ico-umbrella.png"/>
+                <div class="categoryInfo">
+                    <span class="categoryAmount">10 500 р</span>
+                    <br/>
+                    <span class="categoryName">Другое</span>
+                </div>                
             </div>
         </div>
-        <div class="content">
-            <div class="leftCol" id = "leftColumn">
-                <div class="category " style="visibility:hidden" id="widget11">
-                    <div class="interest" id = "interest" name = "interest">15%</div>
-                    <img class="icoCategory" src="img/pixel.png"  id = "icon"/>
-                    <img class="categoryMenu" src="img/widget_menu.png" id = "menuIcon"/>
-                </div>
-                <div class="category"  style="display:none;" id="widget12">
-                    <div class="interest" id = "interest" name = "interest">15%</div>
-                    <img class="icoCategory" id = "icon"/>
-                    <img class="categoryMenu" src="img/widget_menu.png" id = "menuIcon"/>
-                </div>
-                <div class="category"  style="display:none;" id="widget13">
-                    <div class="interest" id = "interest" name = "interest">15%</div>
-                    <img class="icoCategory"  id = "icon"/>
-                    <img class="categoryMenu" src="img/widget_menu.png" id = "menuIcon"/>
-                </div>
-                <div class="category"  style="display:none;" id="widget14">
-                    <div class="interest" id = "interest" name = "interest">15%</div>
-                    <img class="icoCategory"  id = "icon"/>
-                    <img class="categoryMenu" src="img/widget_menu.png" id = "menuIcon"/>
-                </div>
-              
-                
-            </div>
-            <div class="centerCol" id = "centerColumn">
- 			    <div class="category " style="visibility:hidden" id="widget21">
-                    <div class="interest" id = "interest" name = "interest">15%</div>
-                    <img class="icoCategory" src="img/pixel.png" id = "icon"/>
-                    <img class="categoryMenu" src="img/widget_menu.png" id = "menuIcon"/>
-                </div>
-                <div class="category"  style="display:none;" id="widget22">
-                    <div class="interest" id = "interest" name = "interest">15%</div>
-                    <img class="icoCategory" id = "icon"/>
-                    <img class="categoryMenu" src="img/widget_menu.png" id = "menuIcon"/>
-                </div>
-                <div class="category"  style="display:none;" id="widget23">
-                    <div class="interest" id = "interest" name = "interest">15%</div>
-                    <img class="icoCategory"  id = "icon"/>
-                    <img class="categoryMenu" src="img/widget_menu.png" id = "menuIcon"/>
-                </div>
-                <div class="category"  style="display:none;" id="widget24">
-                    <div class="interest" id = "interest" name = "interest">15%</div>
-                    <img class="icoCategory"  id = "icon"/>
-                    <img class="categoryMenu" src="img/widget_menu.png" id = "menuIcon"/>
-                </div>
-            </div>
-            <div class="rightCol" id = "rightColumn">
-		        <div class="category " style="visibility:hidden" id="widget31">
-                    <div class="interest" id = "interest" name = "interest">15%</div>
-                    <img class="icoCategory" src="img/pixel.png" id = "icon"/>
-                    <img class="categoryMenu" src="img/widget_menu.png" id = "menuIcon"/>
-                </div>
-                <div class="category"  style="display: none;" id="widget32">
-                    <div class="interest" id = "interest" name = "interest">15%</div>
-                    <img class="icoCategory" id = "icon"/>
-                    <img class="categoryMenu" src="img/widget_menu.png" id = "menuIcon"/>
-                </div>
-                <div class="category"  style="display: none;" id="widget33">
-                    <div class="interest" id = "interest" name = "interest">15%</div>
-                    <img class="icoCategory"  id = "icon"/>
-                    <img class="categoryMenu" src="img/widget_menu.png" id = "menuIcon"/>
-                </div>
-                <div class="category"  style="display: none;" id="widget34">
-                    <div class="interest" id = "interest" name = "interest">15%</div>
-                    <img class="icoCategory"  id = "icon"/>
-                    <img class="categoryMenu" src="img/widget_menu.png" id = "menuIcon"/>
-                </div>
-            </div>
         </div>
-        
-        <div class="footer">
-            <table>
+        <div class="footerFixed">
+            <div class="headerBackground"></div>
+            <table style="width:100%; height:100%;">
                 <tbody>
                     <tr>
-                         <td>
-                            <div class="footerLeft">
+                         <td style="width:35%">
+                            <!--<div class="footerLeft">
                                 <img class="icoLogin" src="img/logout.png" onclick = "showAuthPage()"/>
-                               <!--  <img class="monitor" src="img/site.png" onclick = "requestAndGetError()"; />  -->
+                                <img class="monitor" src="img/site.png" onclick = "requestAndGetError()"; />  
                                
-                            </div>
+                            </div>-->
                         </td>                            
-                         <td><img src="img/camera393_cut.png" class="camera" onclick="captureCustomPhoto();"/></td>
-                        <td ><div class="footerRight"><span class="bigFontSize">РАСХОД: </span><img class="currency" src="img/ruble.png"/><span class="bigFontSize" id = "expenses"> </span></div></td>
+                        <td style="width:30%"></td>
+                        <td style="width:35%">
+                            <div class="addCheck">Добавить чек</div>
+                        </td>
                     </tr>
                 </tbody>
-            </table>
+            </table>            
         </div>   
-       
+        <img src="img/camera393_cut.png" class="camera" onclick="captureCustomPhoto();"/>
         </div>
 
