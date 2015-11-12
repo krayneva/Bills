@@ -82,7 +82,7 @@
     <preference name="android-installLocation" value="auto" />
     <preference name="DisallowOverScroll" value="true" />
     <preference name="android-windowSoftInputMode" value="adjustResize" />
-    <preference name="xwalkVersion" value="13+" />
+    <preference name="xwalkVersion" value="14+" />
     <gap:plugin name="org.apache.cordova.battery-status" />
     <gap:plugin name="org.apache.cordova.camera" />
     <gap:plugin name="org.apache.cordova.media-capture" />
@@ -132,4 +132,7 @@
     <content src="index.html" />
     <plugins>
     </plugins>
+    <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect" />
+    <preference name="xwalkMode" value="embedded" />
+    <preference name="xwalkMultipleApk" value="true" />
 </widget>

@@ -1041,20 +1041,19 @@ li.expenses_item{
 
 .errorDialog{
   background: #fff !important;
-
-
   margin: 1em 1em 1em 1em;
-  padding-top: 0.5em;
-  padding-bottom: 0.5em;
+  padding-top: 1em;
+  padding-bottom: 1em;
   text-align: center;
-  padding-left: 0.5em;
-  padding-right: 0.5em;
+  padding-left: 2em;
+  padding-right: 2em;
   align: center;
+  border: 1px solid #333;
 }
 
 
 .ui-dialog-background {
-opacity: 0.5;
+opacity: 0.4;
 display: block !important;
 /*-webkit-transition: opacity 0.5s ease-in;*/
 }

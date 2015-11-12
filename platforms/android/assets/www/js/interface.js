@@ -301,9 +301,9 @@ function refershBillSendStatus(rowID){
 	function showDialog(header,message){
 		try{
 			currentPage = "pageError";
+			message = message.replace ('"','');
 			window.localStorage.setItem(DIALOG_HEADER, header);
 			window.localStorage.setItem(DIALOG_MESSAGE, message);
-			message = message.replace ('"','');
 			$.mobile.pageContainer.pagecontainer( "change", "dialog.html" ,{transition:"none",role: "dialog"});
 		}
 		catch(e){
@@ -338,6 +338,7 @@ function refershBillSendStatus(rowID){
 			var json = new Object();
 
 			//facebookConnectPlugin.logEvent("Login event", json);
+
 			dumpEvent("Login event", json);
         //    alert("getusertoken");
 			requestUserToken(login,password).done(function(res){

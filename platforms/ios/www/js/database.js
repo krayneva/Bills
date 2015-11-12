@@ -16,7 +16,7 @@
 				 window.localStorage.removeItem("CurrentShopListNum");
 				  window.localStorage.removeItem(RECEIPT_ID_KEY);
 				  window.localStorage.removeItem(TRANSACTION_ID_KEY);
-			      db = window.sqlitePlugin.openDatabase({name: dbName+".db"});
+			      db = window.sqlitePlugin.openDatabase({name: dbName+".db",androidDatabaseImplementation: 2});
 				  db.transaction(populateDB, onError, onSuccess);
 			      putSetting(SETTING_DB_NAME, dbName);
 			    }
@@ -164,7 +164,7 @@
 
 
 	function addIndexOnSubCategories(){
-		try {
+	/*	try {
 			db.transaction(
 				function (transaction) {
 					transaction.executeSql("CREATE INDEX subcategoryParent ON SubCategories (category);");
@@ -174,6 +174,7 @@
 		catch(e){
 			dumpError("addIndexOnSubCategories",e);
 		}
+		*/
 	}
     
     /** пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅ пїЅ пїЅпїЅ
@@ -405,14 +406,23 @@
 			for (var i=0; i<json.Tags.length; i++){
 				searchText = searchText+ " " + fullTagsArray[hashCode(json.Tags[i])];
 			}
-			searchText = searchText.replace(/'/g,"''");
-			searchText = searchText.replace('"', '')
-			searchText = searchText.replace(/»/g,"");
-			searchText = searchText.replace(/«/g,"");
+			searchText = searchText.replace(/['"]+/mgi, '')
+
+			searchText = searchText.replace(/\'/mgi,"");
+			searchText = searchText.replace(/\"/mgi, "")
+			searchText = searchText.replace(/»/mgi,"");
+			searchText = searchText.replace(/«/mgi,"");
+			searchText = searchText.replace(/</mgi,"");
+			searchText = searchText.replace(/>/mgi,"");
+			searchText = searchText.replace(/\>/mgi,"");
+			searchText = searchText.replace(/\</mgi,"");
+
 			console.log("searchText is: "+searchText);
 
+
+
 			var sql=  "INSERT OR REPLACE INTO Transactions (id, transactionJSON, purseID,transactionDate,"
-				+" categoryID, receiptImageID, isFav, searchText) " +
+				+" categoryID, receiptImageID, isFav) " +
 				" values ("
 				+"'"+id+"',"
 				+"'"+JSON.stringify(json).replace(/'/g,"''")+"',"
@@ -420,15 +430,20 @@
 				+"'"+transactionDate+"',"
 				+"'"+categoryID+"',"
 				+"'"+receiptImageID+"',"
-				+"(select isFav from transactions where id='"+id+"' ),"
-				+"'"+searchText+"'"
+				+"(select isFav from transactions where id='"+id+"' )"
+			//",'"+searchText+"'"
 
 				+")";
+			var updatesql = "update  Transactions set searchText='"+searchText+"' where id= '"+id+"'";
 	        db.transaction(
 	    		function(transaction) { 
 	        		transaction.executeSql(
 	        		sql
-	        		);},
+	        		);
+					transaction.executeSql(
+						updatesql
+					);
+				},
 	        		function onError(error){
 	    		    	console.log("Error trying to add transaction!");
 	    		    	console.log("SQL: "+sql);

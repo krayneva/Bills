@@ -208,9 +208,6 @@
             "PACKAGE_NAME": "ru.krayneva.bills"
         },
         "org.apache.cordova.splashscreen": {},
-        "cordova-plugin-crosswalk-webview": {
-            "PACKAGE_NAME": "com.checkomatic"
-        },
         "com.ionic.keyboard": {
             "PACKAGE_NAME": "com.checkomatic"
         },
@@ -229,6 +226,9 @@
             "PACKAGE_NAME": "com.checkomatic"
         },
         "cordova-sqlite-storage": {
+            "PACKAGE_NAME": "com.checkomatic"
+        },
+        "cordova-plugin-crosswalk-webview": {
             "PACKAGE_NAME": "com.checkomatic"
         }
     },

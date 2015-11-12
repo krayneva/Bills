@@ -7,32 +7,24 @@
     <author email="simonita1@yandex.ru">
         Kodeks Team
     </author>
-    
     <feature name="Camera">
-    <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
-	</feature>
-    
+        <param name="android-package" value="org.apache.cordova.camera.CameraLauncher" />
+    </feature>
     <feature name="File">
-    <param name="android-package" value="org.apache.cordova.file.FileUtils" />
-	</feature>
-
-    
+        <param name="android-package" value="org.apache.cordova.file.FileUtils" />
+    </feature>
     <feature name="FileTransfer">
-    <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
-	</feature>
-	
+        <param name="android-package" value="org.apache.cordova.filetransfer.FileTransfer" />
+    </feature>
     <feature name="CustomCamera">
-    <param name="android-package" value="com.performanceactive.plugins.camera.customCamera" />
-	</feature>
-    
+        <param name="android-package" value="com.performanceactive.plugins.camera.customCamera" />
+    </feature>
     <feature name="NetworkStatus">
-    <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager" />
-	</feature>
-
-	<feature name="AppBlade">
-    <param name="android-package" value="com.appblade.cordova.plugin" />
-	</feature>
-    
+        <param name="android-package" value="org.apache.cordova.networkinformation.NetworkManager" />
+    </feature>
+    <feature name="AppBlade">
+        <param name="android-package" value="com.appblade.cordova.plugin" />
+    </feature>
     <feature name="FacebookConnectPlugin">
         <param name="ios-package" value="FacebookConnectPlugin" />
         <param name="onload" value="true" />
@@ -43,8 +35,6 @@
     <access origin="https://api.facebook.com" />
     <access origin="https://*.fbcdn.net" />
     <access origin="https://*.akamaihd.net" />
-
-
     <preference name="permissions" value="none" />
     <preference name="BackupWebStorage" value="local" />
     <preference name="phonegap-version" value="3.5.0" />
@@ -62,10 +52,9 @@
     <preference name="disable-cursor" value="false" />
     <preference name="android-minSdkVersion" value="10" />
     <preference name="android-installLocation" value="auto" />
-    <preference name="DisallowOverScroll" value="true"/>
-    <preference name="android-windowSoftInputMode" value="adjustResize"/>
-    <preference name="xwalkVersion" value="13+" />
-    
+    <preference name="DisallowOverScroll" value="true" />
+    <preference name="android-windowSoftInputMode" value="adjustResize" />
+    <preference name="xwalkVersion" value="14+" />
     <gap:plugin name="org.apache.cordova.battery-status" />
     <gap:plugin name="org.apache.cordova.camera" />
     <gap:plugin name="org.apache.cordova.media-capture" />
@@ -85,10 +74,7 @@
     <gap:plugin name="org.apache.cordova.splashscreen" />
     <gap:plugin name="org.apache.cordova.vibration" />
     <gap:plugin name="com.performanceactive.plugins.camera" />
-  	<gap:plugin name="com.appblade.cordova.plugin" />
-
-  	  
-
+    <gap:plugin name="com.appblade.cordova.plugin" />
     <icon src="icon.png" />
     <icon gap:platform="android" gap:qualifier="ldpi" src="www/res/icon/android/icon-36-ldpi.png" />
     <icon gap:platform="android" gap:qualifier="mdpi" src="www/res/icon/android/icon-48-mdpi.png" />
@@ -114,12 +100,12 @@
     <gap:splash gap:platform="ios" height="1024" src="www/res/screen/ios/screen-ipad-portrait.png" width="768" />
     <gap:splash gap:platform="ios" height="768" src="www/res/screen/ios/screen-ipad-landscape.png" width="1024" />
     <gap:splash gap:platform="winphone" src="www/res/screen/windows-phone/screen-portrait.jpg" />
-    
     <access origin="*" />
-        <content src="index.html" /> 
-    <plugins> 
-        <plugin name="AppBlade" value="AppBladePlugin"/>
+    <content src="index.html" />
+    <plugins>
+        <plugin name="AppBlade" value="AppBladePlugin" />
     </plugins>
-    
+    <preference name="xwalkCommandLine" value="--disable-pull-to-refresh-effect" />
+    <preference name="xwalkMode" value="embedded" />
+    <preference name="xwalkMultipleApk" value="true" />
 </widget>
-

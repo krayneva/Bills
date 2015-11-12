@@ -64,7 +64,8 @@ import android.net.Uri;
 import android.os.Build;
 import android.util.Log;
 //import android.webkit.CookieManager;
-import org.xwalk.core.internal.XWalkCookieManager;
+//import org.xwalk.core.internal.XWalkCordovaCookieManager;
+import org.crosswalk.engine.XWalkCordovaCookieManager;
 
 public class FileTransfer extends CordovaPlugin {
 
@@ -82,9 +83,9 @@ public class FileTransfer extends CordovaPlugin {
     private static HashMap<String, RequestContext> activeRequests = new HashMap<String, RequestContext>();
     private static final int MAX_BUFFER_SIZE = 16 * 1024;
 
-    private XWalkCookieManager mCookieManager = null; 
+    private XWalkCordovaCookieManager mCookieManager = null;
     public FileTransfer() { 
-        mCookieManager = new XWalkCookieManager(); 
+        mCookieManager = new XWalkCordovaCookieManager();
     }
     
     private static final class RequestContext {

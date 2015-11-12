@@ -1618,3 +1618,59 @@ function changeCategory(transactionID, category){
 	    }
 
     }
+
+
+
+function requestDiscount(){
+	try{
+		var deferred = $.Deferred();
+		$.mobile.loading("show",{
+			text: "Запрос кодового слова",
+			textVisible: true,
+			theme: 'e',
+		});
+		var serverAddress =getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
+		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
+			var userToken = uToken;
+			$.ajax({
+				url: serverAddress+getDiscountURL,
+				type: "get",
+				beforeSend: function (request)
+				{
+					request.setRequestHeader("Authorization", "Bearer "+userToken);
+				},
+				data: [],
+				success: function(response, textStatus, jqXHR) {
+					showDialog("Кодовое слово",response);
+					$.mobile.loading("hide");
+					deferred.resolve();
+				},
+				error: function(jqXHR, textStatus, errorThrown) {
+					onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
+						if (res==SERVER_ERROR_TRY_AGAIN){
+							requestDiscount();
+							deferred.resolve();
+
+
+						}
+						else{
+							$.mobile.loading("hide");
+							showErrorDialog(getErrorMessage(res));
+							deferred.resolve();
+						}
+					});
+
+				}
+			});
+		});
+		//	});
+
+		return deferred;
+	}
+	catch(e){
+
+		dumpError("requestUserEnvironment",e);
+		deferred.resolve();
+	}
+
+}

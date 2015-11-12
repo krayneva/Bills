@@ -136,45 +136,9 @@ function updateMainPage(){
 
 			}
 			else{
+
 				var json = jQuery.parseJSON(res);
-
-
-				var incomeRublesTD = document.getElementById("incomeRublesTD");
-				var incomeDollarsTD = document.getElementById("incomeDollarsTD");
-				//var incomeEurosTD = document.getElementById("incomeRublesTD");
-
-
-				var showRublesIncome = json.IsAmount1Visible;
-				var showDollarsIncome = json.IsAmount2Visible;
-				//var showEurosIncome = json.IsAmount3Visible;
-
-				if (showRublesIncome===true){
-					incomeRublesTD.style.display = "block";
-					var incomeRubles = document.getElementById("incomeRubles");
-					incomeRubles.innerHTML = json.Amount1;
-
-				}
-				else{
-					incomeRublesTD.style.display = "none";
-				}
-
-
-				if (showDollarsIncome===true){
-					incomeDollarsTD.style.display = "block";
-					var incomeDollars = document.getElementById("incomeDollars");
-					incomeDollars.innerHTML = json.Amount2;
-
-				}
-				else{
-					incomeDollarsTD.style.display = "none";
-				}
-
-
-
-				var expenses = document.getElementById("expenses");
-				expenses.innerHTML = json.ExpencesAmountStr;
-
-
+				$('#cash').html(json.Amount1);
 				updateWidgets();
 				}
 			});
@@ -298,13 +262,7 @@ function updateTransactionPage(){
 					  if ((row.isFav==1)||(row.isFav=='1')){
 						  style = 'true';
 					  }
-
-
 					  html = html.replace(/\{isFavorites}/g,style);
-
-
-
-
 
 					 	var tagKeys = "";
 
@@ -323,19 +281,11 @@ function updateTransactionPage(){
 
 						html = html.replace(/\{transactionTags\}/g,tagKeys);
 						listHTML = listHTML+html;
-
 						totalAmount=totalAmount+json.Amount;
 
 					};
 				$("#total").html(formatPrice(totalAmount));
-			/*	for (var j=0; j<tagArray.length; j++){
-                	getTagName(tagArray[j],j,tagArray.length).done(function(res, src,position,len){
-	                   	listHTML = listHTML.replace(src,res);
 
-                    		if (position==len-1)$('#expensesList').html(listHTML);
-                    	});
-                   }
-*/
 				$('#expensesList').html(listHTML);
 				var end =  +new Date();  // log end timestamp
 				var diff = (end - start)/(20*result.rows.length);
@@ -344,6 +294,7 @@ function updateTransactionPage(){
   			});
 			var end2 = new Date().getTime();
 			var time = end2 - start;
+			$('#expensesList').listview('refresh');
 			console.log('updateTransactionpage 2 time: ' + time);
 			return deferred;
 	}
@@ -358,74 +309,62 @@ function updateTransactionPage(){
 
 
 function updateWidgets(){
-	try{
-		getWidgets().done(function(res){
-			for (var j=0;j<res.rows.length;j++){
-			var w = jQuery.parseJSON(res.rows.item(j).json);
+	try {
 
-			if (w.Type==0) continue;
-			  //var w = json.Widgets[k];
-			 // alert("Widget "+w.Name+" left: "+w.Left+" top:"+w.Top+" interest:"+w.Percent);
-			  var widget = document.getElementById("widget".concat(w.Left,w.Top));
-			
-			 widget.style.display = "block";
-			 widget.style.visibility = "visible";
-			 //console.log("Setting categoryID for widget: "+w.VisualObjectId);
-			 widget.setAttribute("categoryID", w.VisualObjectId);
-			 var s = "showExpensesPage('"+ w.VisualObjectId+"')";
-			 //console.log("Setting onclick categoryID "+s);
-			 widget.setAttribute("onclick",s);
-			  var arr=widget.childNodes;
-			  for (var i=0;i<arr.length;i++){
-		            if (arr[i].id == "interest"){
-		                   arr[i].innerHTML = w.Percent.replace(/\s/g, '');//+" "+w.Name;
-		            }
-		            if (arr[i].id == "icon"){
-		            	var src = "img/";
-		            	if (debugMode==true){
-		            		console.log("GOT ICON IDENTIFIER "+w.IconIdentifier+" for kind "+w.Kind );
-		            	}
-		            	switch(w.IconIdentifier){
-		            	
-			            	case "ico_purse":
-			            		src = src.concat("cash396.png");
-			            		break;
-			            	case "ico_food":
-			            		src = src.concat("food396.png");
-			            		break;
-			            	case "ico_medicine":
-			            		src = src.concat("medicine396.png");
-			            		break;
-			            	case "ico_education":
-			            		src = src.concat("education396.png");
-			            		break;
-			            	case "ico_entertainment":
-			            		src = src.concat("entertainment396.png");
-			            		break;
-			            	case "ico_house":
-			            		src = src.concat("house396.png");
-			            		break;
-			            	case "ico_auto":
-			            		src = src.concat("auto396.png");
-			            		break;
-			            	case "ico_other":
-			            		src = src.concat("other396.png");
-			            		break;
-			            	case "ico_clothing":
-			            		src = src.concat("clothing396.png");
-			            		break;
-			            	default:
-			            		src = src.concat("food396.png");
-			            		console.log("GOT ICON IDENTIFIER "+w.IconIdentifier);
-			            		break;
-		            	}
-		            //	console.log("Setting src="+src,"iconID: ");//+w.IconIdentifier);
-		                arr[i].setAttribute("src",src);
-		            }
-			  }
-			//  console.log("Widget "+w.WidgetID+" left: "+w.Left+" top:"+w.Top+" interest:"+w.Percent);
+		getWidgets().done(function (res) {
+			$('#categories').html('');
+
+			for (var j = 0; j < res.rows.length; j++) {
+				var w = jQuery.parseJSON(res.rows.item(j).json);
+
+				if (w.Type == 0) continue;
+
+
+				var html = $('#categoryTemplate').html();
+				html = html.replace(/\{categoryID\}/g, w.VisualObjectId);
+				var src = "images/";
+				switch (w.IconIdentifier) {
+					case "ico_purse":
+						src = src.concat("ico_usd.png");
+						break;
+				/*	case "ico_food":
+						src = src.concat(".png");
+						break;
+						*/
+					case "ico_medicine":
+						src = src.concat("ico-cross.png");
+						break;
+				/*	case "ico_education":
+						src = src.concat("education396.png");
+						break;
+						*/
+					case "ico_entertainment":
+						src = src.concat("ico-coctail.png");
+						break;
+					case "ico_house":
+						src = src.concat("ico-home.png");
+						break;
+				/*	case "ico_auto":
+						src = src.concat("auto396.png");
+						break;
+						*/
+					case "ico_other":
+						src = src.concat("ico-umbrella.png");
+						break;
+					case "ico_clothing":
+						src = src.concat("ico-hanger.png");
+						break;
+					default:
+						src = src.concat("ico-usd.png");
+						console.log("GOT ICON IDENTIFIER " + w.IconIdentifier);
+						break;
+				}
+
+				html = html.replace(/\{catImage\}/g, src);
+				html = html.replace(/\{catAmount\}/g, w.Amount);
+				html = html.replace(/\{catName\}/g, w.Name);
+				$('#categories').append(html);
 			}
-	
 		});
 	}
     catch(e){
