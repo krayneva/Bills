@@ -93,8 +93,24 @@
 }
 
 }
-
-
+@font-face {
+    font-family: 'OpenSans-Regular';
+    src: url('fonts/OpenSans-Regular.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'OpenSans-Light';
+    src: url('fonts/OpenSans-Light.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'OpenSans-Semibold';
+    src: url('fonts/OpenSans-Semibold.ttf');
+    font-weight: normal;
+    font-style: normal;
+}
 
 * {  
   text-shadow: none!important;
@@ -453,8 +469,8 @@ font-size: 1.2em;
   vertical-align: middle;
 }
 .categoryInfo{
-  width: 50%;
-  margin: 10% 5% 0;
+  width: 55%;
+  margin: 10% 5% 0 0;
   float: left;
   height: 100%;
   min-height: 100%;
@@ -822,37 +838,7 @@ li.expenses_item{
   width:100% !important;   
   max-width: 100%;
 }
-.myPanel{  
-  background-color: #59a6b2!important;
-}
-.myPanel li{
-  font-size: 1.4em !important;
-  font-weight: bold;
-  padding: 1.5em 1em 0em 4.5em!important;  
-  color:#ffffff!important;
-  background-color: #59a6b2!important;
-  position: relative;
-  height: 2.5em!important;
-  min-height: 1em!important;
-  margin: 0!important;
-  border: none!important;
-}
-.myPanel li.myPanelTitle:hover,
-.myPanel li.myPanelTitle{
-  background-color: #97c045!important;
-  margin-right: 1em!important;
-  border: 0 1px 1px 0!important;
-  border-color: #2b686b!important;
-}
-.myPanel li:hover{
-  background-color: #2b686b!important;
-}
-.myPanel li img{
-  position: absolute!important;
-  height: 3em!important;
-  top:0.5em!important;
-  left: 1em!important;
-}
+
 .scrollablecontent{
     left: 0;
     top:5em;
@@ -1154,6 +1140,83 @@ div.footerFixed{
   bottom: 0!important;
   height: 75px!important;
 }
+div.myPanel{
+  background-color: #125568!important;
+  margin: 0!important;
+  padding: 0!important;
+}
+div.myPanel>div{
+  position: absolute!important;
+  top:0!important;
+  bottom: 0!important;
+  margin: 0!important;
+  padding: 0!important;
+  left: 0!important;
+  right: 0!important;
+  background-color: #125568!important;
+}
+div.myPanel ul{
+  margin: 0!important;
+  padding: 0!important;
+}
+.menuLogo{
+  width: 100%!important;
+  height: 75px;
+  margin: 0 !important;
+  border: 0!important;
+  padding: 0!important;
+  background-color: none!important;
+}
+.menuLogo div{  
+  margin: 0!important;
+  background-color: #125568!important;
+}
+.menuLogo img{
+  font-size: 1.4em !important;
+  margin:0 0 0 1.5em!important;
+  height: 100%!important; 
+}
+
+.myPanel li,
+.myPanel .logout{
+  font-size: 1.4em !important;
+  font-weight: normal!important;
+  padding: 1em 1.5em 0 1.5em!important;   
+  color: #b1d7df!important;
+  background-color: #125568!important;
+  position: relative;
+  height: 2.5em!important;
+  min-height: 1em!important;
+  margin: 0!important;
+  border: none!important;
+  font-family: 'OpenSans-Regular'!important;
+  text-shadow: 1px 1px 1px rgba(0, 0, 0, 0.5)!important;
+}
+.myPanel li:first-child{  
+  font-family: 'OpenSans-Semibold'!important;
+  background-color: #1e363c!important;
+  color: #dfeff1!important;
+}
+.myPanel div.logout{
+  position: absolute!important;
+  bottom: 0!important;
+  right: 0!important;
+  left: 0!important;
+  padding: 0 1.5em 1.4em 1.5em!important;
+}
+.myPanel li:hover,
+.myPanel .logout:hover{
+  background-color: #1e363c!important;
+}
+
+.myPanel .logout hr{
+  margin: 0  0 1.6em!important;
+  border-color: #26a5b8!important;
+  border-style: solid!important;
+  border-width: 1px 0 0 0!important;
+  background: #26a5b8!important;
+}
+
 .filter{
   position: absolute;
   z-index: 999;
@@ -1219,7 +1282,8 @@ div.footerFixed{
   padding-top: 100px!important;
   padding-bottom: 50px!important;
 }
-.footerFixed{
+.footerFixed,
+.menuLogo{
   height: 50px!important;
 }
 .filter{
@@ -1240,7 +1304,8 @@ div.footerFixed{
   padding-top: 80px!important;
   padding-bottom: 40px!important;
 }
-.footerFixed{
+.footerFixed,
+.menuLogo{
   height: 40px!important;
 }
 .filter{
