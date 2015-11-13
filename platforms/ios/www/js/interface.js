@@ -196,6 +196,7 @@ function refershBillSendStatus(rowID){
 	
 	function showMainPage(){
 		try{
+			requestUserEnvironmentCount = 0;
 		currentPage = "pageMain";
 			$.mobile.pageContainer.pagecontainer( "change", 'main.html' ,{transition:"none"});
 		//	$.mobile.pageContainer.pagecontainer( "change", "pull.html" ,{transition:"none"});
@@ -218,6 +219,7 @@ function refershBillSendStatus(rowID){
 	function showExpensesPage(categoryID){
 		try{
 			window.localStorage.setItem(CATEGORY_ID_KEY, categoryID);
+			requestTransactionPageCount = 0;
 			currentPage = "pageExpenses";
 			$.mobile.pageContainer.pagecontainer( "change", "expenses.html" ,{transition:"none"});
 	    //    $.mobile.pageContainer.pagecontainer( "change", "pull.html" ,{transition:"none"});
@@ -301,9 +303,9 @@ function refershBillSendStatus(rowID){
 	function showDialog(header,message){
 		try{
 			currentPage = "pageError";
+			message = message.replace ('"','');
 			window.localStorage.setItem(DIALOG_HEADER, header);
 			window.localStorage.setItem(DIALOG_MESSAGE, message);
-			message = message.replace ('"','');
 			$.mobile.pageContainer.pagecontainer( "change", "dialog.html" ,{transition:"none",role: "dialog"});
 		}
 		catch(e){
@@ -334,36 +336,57 @@ function refershBillSendStatus(rowID){
 	}
 	
 	function getUserTokenAndShowMainPage(login, password){
-		try{
+		try {
 			var json = new Object();
-
-			//facebookConnectPlugin.logEvent("Login event", json);
+			window.localStorage.setItem(SETTING_USER_LOGIN, login);
+			window.localStorage.setItem(SETTING_USER_PASSWORD, password);
 			dumpEvent("Login event", json);
-        //    alert("getusertoken");
-			requestUserToken(login,password).done(function(res){
-           //     alert("request user token returned "+res);
-				if (res!=""){
-					getGoodItemsCount().done(function(res){
-						if (res==0){
-							requestShopLists().done(function(){
-								requestGoodItems().done(function(){
-									requestGoodMeasures().done(function(){
-                                        requestDictionaries().done(function(){
-                                        	requestUserEnvironment().done(function(){
-												showMainPage();
+			var networkState = navigator.connection.type;
+			if (networkState == Connection.NONE) {
+
+				openDB(login);
+				getSetting(SETTING_USER_PASSWORD, USER_PASSWORD_DEFAULT).done(function (res) {
+					if (res == password) {
+						showMainPage();
+					}
+					else if (res == "") {
+						showErrorDialog("Проверьте соединение с интернетом");
+					}
+					else {
+						putSetting(SETTING_USER_TOKEN, "");
+						showErrorDialog(getErrorMessage(SERVER_ERROR_NO_AUTH));
+					}
+				});
+
+			}
+
+			else {
+
+				requestUserToken(login, password).done(function (res) {
+					if (res != "") {
+						getGoodItemsCount().done(function (res) {
+							if (res == 0) {
+								requestShopLists().done(function () {
+									requestGoodItems().done(function () {
+										requestGoodMeasures().done(function () {
+											requestDictionaries().done(function () {
+												requestBadHabits().done(function () {
+													requestUserEnvironment().done(function () {
+														showMainPage();
+													});
+												});
+											});
 										});
 									});
 								});
-							});
-                                                       // });
+							}
+							else {
+								showMainPage();
+							}
 						});
-						}
-						else{
-							showMainPage();						
-						}
-					});
-				}
-			});
+					}
+				});
+			}
 		}
 		catch(e){
 			  dumpError("getUserTokenAndShowMainPage",e);

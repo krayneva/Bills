@@ -251,6 +251,13 @@ module.exports = [
         "clobbers": [
             "device"
         ]
+    },
+    {
+        "file": "plugins/cordova-sqlite-storage/www/SQLitePlugin.js",
+        "id": "cordova-sqlite-storage.SQLitePlugin",
+        "clobbers": [
+            "SQLitePlugin"
+        ]
     }
 ];
 module.exports.metadata = 
@@ -262,12 +269,13 @@ module.exports.metadata =
     "org.apache.cordova.file-transfer": "0.4.8",
     "org.apache.cordova.network-information": "0.2.14",
     "org.apache.cordova.splashscreen": "0.3.5",
-    "cordova-plugin-crosswalk-webview": "1.2.0",
     "com.ionic.keyboard": "1.0.4",
     "com.appblade.cordova.plugin": "0.9.0",
     "com.phonegap.plugins.facebookconnect": "0.11.0",
     "org.apache.cordova.console": "0.2.13",
-    "cordova-plugin-device": "1.0.1"
+    "cordova-plugin-device": "1.0.1",
+    "cordova-sqlite-storage": "0.7.11",
+    "cordova-plugin-crosswalk-webview": "1.4.0"
 }
 // BOTTOM OF METADATA
 });

@@ -9,6 +9,10 @@ function updateLoginPage(){
 	});
 */
 	//var login =  window.localStorage.getItem(SETTING_USER_LOGIN);
+
+
+
+
 	var login =  getSettingFromStorage(SETTING_USER_LOGIN,"");
 	$('#login').val(login);
 	var password = getSettingFromStorage(SETTING_USER_PASSWORD,"");
@@ -109,6 +113,13 @@ function updateLoginPage(){
 
 function requestAndUpdateMainPage(){
 	try{
+		requestUserEnvironmentCount =requestUserEnvironmentCount + 1;
+		var networkState = navigator.connection.type;
+		if (networkState==Connection.NONE){
+
+				updateMainPage();
+		}
+		else
 		requestUserEnvironment().done(function(){
 			updateMainPage();
 		});
@@ -124,53 +135,18 @@ function requestAndUpdateMainPage(){
 function updateMainPage(){
 	try{
 		getUserEnvironment().done(function(res){
+
 			if (debugMode==true)
 			console.log("Update main page json :"+res);
-			if (res=="") {
+			if ((res=="")&(requestUserEnvironmentCount==0)){
 				console.log("updateMainPage: requesting environment From server");
 				requestAndUpdateMainPage();
 
 			}
 			else{
+				requestUserEnvironmentCount = 0;
 				var json = jQuery.parseJSON(res);
-
-
-				var incomeRublesTD = document.getElementById("incomeRublesTD");
-				var incomeDollarsTD = document.getElementById("incomeDollarsTD");
-				//var incomeEurosTD = document.getElementById("incomeRublesTD");
-
-
-				var showRublesIncome = json.IsAmount1Visible;
-				var showDollarsIncome = json.IsAmount2Visible;
-				//var showEurosIncome = json.IsAmount3Visible;
-
-				if (showRublesIncome===true){
-					incomeRublesTD.style.display = "block";
-					var incomeRubles = document.getElementById("incomeRubles");
-					incomeRubles.innerHTML = json.Amount1;
-
-				}
-				else{
-					incomeRublesTD.style.display = "none";
-				}
-
-
-				if (showDollarsIncome===true){
-					incomeDollarsTD.style.display = "block";
-					var incomeDollars = document.getElementById("incomeDollars");
-					incomeDollars.innerHTML = json.Amount2;
-
-				}
-				else{
-					incomeDollarsTD.style.display = "none";
-				}
-
-
-
-				var expenses = document.getElementById("expenses");
-				expenses.innerHTML = json.ExpencesAmountStr;
-
-
+				$('#cash').html(json.Amount1);
 				updateWidgets();
 				}
 			});
@@ -186,12 +162,27 @@ function updateMainPage(){
 function requestAndUpdateTransactionPage(){
 	try{
 		var deferred = $.Deferred();
-		requestTransactions().done(function(){
-			 requestTransactionPageCount = requestTransactionPageCount+1;
-			 updateTransactionPage().done(function(){
+		var networkState = navigator.connection.type;
+		if (networkState==Connection.NONE){
+			if (requestTransactionPageCount==0) {
+				requestTransactionPageCount = requestTransactionPageCount + 1;
+
+				updateTransactionPage().done(function () {
+					deferred.resolve();
+				});
+			}
+			else
 				deferred.resolve();
+		}
+
+	else {
+			requestTransactions().done(function () {
+				requestTransactionPageCount = requestTransactionPageCount + 1;
+				updateTransactionPage().done(function () {
+					deferred.resolve();
+				});
 			});
-		});
+		}
 		return deferred;
 	}
     catch(e){
@@ -199,12 +190,30 @@ function requestAndUpdateTransactionPage(){
     }
 }
 
+	 function updateTransactionPageUsingFav(){
+		 var isFav =  window.localStorage.getItem(TRANSACTIONS_FAVOURITES);
+		// alert("isFav is "+isFav);
+		 if ((isFav==true)|(isFav=="true")){
+			 window.localStorage.setItem(TRANSACTIONS_FAVOURITES,false);
+			 $('#favButton').removeClass("transactionIsFavorites-true")
+			 $('#favButton').addClass("transactionIsFavorites-false")
+		 }
+		 else{
+			 window.localStorage.setItem(TRANSACTIONS_FAVOURITES,true);
+			 $('#favButton').removeClass("transactionIsFavorites-false")
+			 $('#favButton').addClass("transactionIsFavorites-true")
+		 }
+		 updateTransactionPage();
+	 }
 
 
 function updateTransactionPage(){
 	try{
 		var deferred = $.Deferred();
-
+		var start = new Date().getTime();
+		$('#title').html('');
+		$('#checkCount').html('');
+		$("#total").html('');
 		getTransactions().done(function(result){
 			if ((result.rows.length==0)&(requestTransactionPageCount==0)){
 				requestAndUpdateTransactionPage();
@@ -215,7 +224,9 @@ function updateTransactionPage(){
 				return;
 			}
 		});
-
+		var end1 = new Date().getTime();
+		var time = end1 - start;
+		console.log('updateTransactionpage 1 time: ' + time);
 
 		 var categoryID =  window.localStorage.getItem(CATEGORY_ID_KEY);
 		 getWidget(categoryID).done(function(result){
@@ -223,9 +234,17 @@ function updateTransactionPage(){
 			  var titleHTML ='<span class="ui-btn ui-icon-coctail"></span>'	+ json.Name
 			  $('#title').html(titleHTML);
 			});
-			getTransactionsByCategoryID(categoryID).done(function(result){
-							  var tagArray = new Array();
-                              		var tagCounter = 0;
+			var period =$("#periodSelect").val();
+			$("#periodSelect").change(function () {
+				$('#expensesList').html("");
+				updateTransactionPage();
+			});
+			if (period==undefined) period ="month";
+		//	alert("period is  "+period);
+
+			getTransactionsByCategoryIDAndPeriod(categoryID, period).done(function(result){
+				var tagArray = new Array();
+                var tagCounter = 0;
 				var start = +new Date();  // log start timestamp
 	            var totalAmount = 0;
 	            var lastAmount = 0;
@@ -256,66 +275,54 @@ function updateTransactionPage(){
 
 					  html = html.replace(/\{transactionDate\}/g,(day<10?'0':'')+day+"."+(month<10?'0':'')+month+"."+year);
 					  html = html.replace(/\{transactionTime\}/g,(hours<10?'0':'')+hours+":"+(minutes<10?'0':'')+minutes);
-					  html = html.replace(/\{transactionPrice\}/g,json.Amount+getCurrencyString(json.Currency));
+					  html = html.replace(/\{transactionPrice\}/g,formatPrice(json.Amount)+getCurrencyString(json.Currency));
 					  html = html.replace(/\{transactionName\}/g,json.Name==null?"":json.Name);
+					//  html = html.replace(/\{transactionName\}/g,row.searchText);
+					  console.log("search text is "+row.searchText);
 					  html = html.replace(/\{transactionID\}/g,json.Id);
+					  html = html.replace(/\{searchText\}/g,row.searchText);
+					  var style = 'false';
+					  if ((row.isFav==1)||(row.isFav=='1')){
+						  style = 'true';
+					  }
+					  html = html.replace(/\{isFavorites}/g,style);
 
 					 	var tagKeys = "";
+
 					 	for (var j=0; j<json.receiptData.Items.length; j++){
 
 							tagArray[tagCounter] = json.receiptData.Items[j].Tag;
 							tagCounter=tagCounter+1;
-					 		tagKeys+=json.receiptData.Items[j].Tag;
-					 		if (j!=json.receiptData.Items.length-1)
-					 			tagKeys = tagKeys+", ";
+							var tagValue = fullTagsArray[hashCode(json.receiptData.Items[j].Tag)];
+							if (tagKeys.indexOf(tagValue) <0){
+								tagKeys+= tagValue;
+								if (j!=json.receiptData.Items.length-1)
+									tagKeys = tagKeys+", ";
+								}
+
 					 	}
-
-					//  alert(JSON.stringify(json.receiptData.Items));
-					// collecting tags
-
 
 						html = html.replace(/\{transactionTags\}/g,tagKeys);
 						listHTML = listHTML+html;
-
 						totalAmount=totalAmount+json.Amount;
 
 					};
-				$("#total").html(Math.round(totalAmount));
-				for (var j=0; j<tagArray.length; j++){
+				$("#total").html(formatPrice(totalAmount));
 
-                	getTagName(tagArray[j],j,tagArray.length).done(function(res, src,position,len){
-	                    	listHTML = listHTML.replace(src,res);
-
-                    		if (position==len-1)$('#expensesList').html(listHTML);
-                    	});
-
-                   }
-
-
+				$('#expensesList').html(listHTML);
 				var end =  +new Date();  // log end timestamp
 				var diff = (end - start)/(20*result.rows.length);
 				console.log("Time per row: "+diff);
 
-
-
-		//	});
-		//});
-
-		/*		html = $('#expensesList').html();
-					for (var j=0; j<tagArray.length; j++){
-						getTagName(tagArray[j]).done(function(res, src){
-							//console.log("replaced "+src+" with "+res);
-							html = html.replace(src,res);
-
-						});
-					}
- 				$('#expensesList').html(html);*/
   			});
-
+			var end2 = new Date().getTime();
+			var time = end2 - start;
+			$('#expensesList').listview('refresh');
+			console.log('updateTransactionpage 2 time: ' + time);
 			return deferred;
 	}
     catch(e){
-    	dumpError("nsactionPage",e);
+    	dumpError("updateTransactionPage",e);
     }
 
 }
@@ -325,74 +332,62 @@ function updateTransactionPage(){
 
 
 function updateWidgets(){
-	try{
-		getWidgets().done(function(res){
-			for (var j=0;j<res.rows.length;j++){
-			var w = jQuery.parseJSON(res.rows.item(j).json);
+	try {
 
-			if (w.Type==0) continue;
-			  //var w = json.Widgets[k];
-			 // alert("Widget "+w.Name+" left: "+w.Left+" top:"+w.Top+" interest:"+w.Percent);
-			  var widget = document.getElementById("widget".concat(w.Left,w.Top));
-			
-			 widget.style.display = "block";
-			 widget.style.visibility = "visible";
-			 //console.log("Setting categoryID for widget: "+w.VisualObjectId);
-			 widget.setAttribute("categoryID", w.VisualObjectId);
-			 var s = "showExpensesPage('"+ w.VisualObjectId+"')";
-			 //console.log("Setting onclick categoryID "+s);
-			 widget.setAttribute("onclick",s);
-			  var arr=widget.childNodes;
-			  for (var i=0;i<arr.length;i++){
-		            if (arr[i].id == "interest"){
-		                   arr[i].innerHTML = w.Percent.replace(/\s/g, '');//+" "+w.Name;
-		            }
-		            if (arr[i].id == "icon"){
-		            	var src = "img/";
-		            	if (debugMode==true){
-		            		console.log("GOT ICON IDENTIFIER "+w.IconIdentifier+" for kind "+w.Kind );
-		            	}
-		            	switch(w.IconIdentifier){
-		            	
-			            	case "ico_purse":
-			            		src = src.concat("cash396.png");
-			            		break;
-			            	case "ico_food":
-			            		src = src.concat("food396.png");
-			            		break;
-			            	case "ico_medicine":
-			            		src = src.concat("medicine396.png");
-			            		break;
-			            	case "ico_education":
-			            		src = src.concat("education396.png");
-			            		break;
-			            	case "ico_entertainment":
-			            		src = src.concat("entertainment396.png");
-			            		break;
-			            	case "ico_house":
-			            		src = src.concat("house396.png");
-			            		break;
-			            	case "ico_auto":
-			            		src = src.concat("auto396.png");
-			            		break;
-			            	case "ico_other":
-			            		src = src.concat("other396.png");
-			            		break;
-			            	case "ico_clothing":
-			            		src = src.concat("clothing396.png");
-			            		break;
-			            	default:
-			            		src = src.concat("food396.png");
-			            		console.log("GOT ICON IDENTIFIER "+w.IconIdentifier);
-			            		break;
-		            	}
-		            //	console.log("Setting src="+src,"iconID: ");//+w.IconIdentifier);
-		                arr[i].setAttribute("src",src);
-		            }
-			  }
-			//  console.log("Widget "+w.WidgetID+" left: "+w.Left+" top:"+w.Top+" interest:"+w.Percent);
+		getWidgets().done(function (res) {
+			$('#categories').html('');
+
+			for (var j = 0; j < res.rows.length; j++) {
+				var w = jQuery.parseJSON(res.rows.item(j).json);
+
+				if (w.Type == 0) continue;
+
+
+				var html = $('#categoryTemplate').html();
+				html = html.replace(/\{categoryID\}/g, w.VisualObjectId);
+				var src = "images/";
+				switch (w.IconIdentifier) {
+					case "ico_purse":
+						src = src.concat("ico_usd.png");
+						break;
+				/*	case "ico_food":
+						src = src.concat(".png");
+						break;
+						*/
+					case "ico_medicine":
+						src = src.concat("ico-cross.png");
+						break;
+				/*	case "ico_education":
+						src = src.concat("education396.png");
+						break;
+						*/
+					case "ico_entertainment":
+						src = src.concat("ico-coctail.png");
+						break;
+					case "ico_house":
+						src = src.concat("ico-home.png");
+						break;
+				/*	case "ico_auto":
+						src = src.concat("auto396.png");
+						break;
+						*/
+					case "ico_other":
+						src = src.concat("ico-umbrella.png");
+						break;
+					case "ico_clothing":
+						src = src.concat("ico-hanger.png");
+						break;
+					default:
+						src = src.concat("ico-usd.png");
+						console.log("GOT ICON IDENTIFIER " + w.IconIdentifier);
+						break;
+				}
+
+				html = html.replace(/\{catImage\}/g, src);
+				html = html.replace(/\{catAmount\}/g, w.Amount);
+				html = html.replace(/\{catName\}/g, w.Name);
+				$('#categories').append(html);
 			}
-	
 		});
 	}
     catch(e){
@@ -429,6 +424,7 @@ function updateTransactionInfoPage(){
 				 html = html.replace(/\{goodPrice\}/g,json.receiptData.Items[i].PricePerUnit);
 				 html = html.replace(/\{goodTotalPrice\}/g,json.receiptData.Items[i].Value);
 				 html = html.replace(/\{goodTag\}/g,json.receiptData.Items[i].Tag);
+
 				 listHTML+=html;
 			 }
 	
@@ -883,7 +879,7 @@ function updateShopListsPage(reloadFromBase){
 									if (js.Category==res.rows.item(j).id) continue;
 									var html111 = $('#categoryRowTemplate').html();
 									html111 = html111.replace(/\{catName\}/g,res.rows.item(j).name);
-									html111 = html111.replace(/\{catValue\}/g,res.rows.item(j).id);
+									html111 = html111.replace(/\{catValue\}/g,res.rows.item(j).idtext);
 									$('#select-native-0').append(html111);
 									if (j==res.rows.length-1){
 										$("#select-native-0 option:first").attr('selected','selected');
@@ -907,28 +903,20 @@ function updateShopListsPage(reloadFromBase){
 
 
                  var html2 = $('#purseRowTemplate').html();
-                // var subcategoryName = getCategoryName(json.SubCategory);
-                //alert(JSON.stringify(js));
                  html2 = html2.replace(/\{purseName\}/g,"Кошелёк");
                  $('#select-native-2').html(html2);
   				 $('#select-native-2').selectmenu( "refresh" );
-  				//$('#select-native-2').selectmenu({disabled: true });
+
 				// tags
 				 
                 
                 $('#tagsList').html('');
                  for (var k=0; k<js.Tags.length; k++){
-
-                     getTagName(js.Tags[k],k,js.Tags.length).done(function(res,src,position,len){
-                    	 var html3 = $('#tagRowTemplate').html();
-                         html3 = html3.replace(/\{tagName\}/g,res);
-                        if (res!="") $('#tagsList').append(html3);
-                     });
+						 var html3 = $('#tagRowTemplate').html();
+						 html3 = html3.replace(/\{tagName\}/g,fullTagsArray[hashCode(js.Tags[k])]);
+						$('#tagsList').append(html3);
                  }
-                // $('#tagsList').html(html3);
 
-				//('#tagsList').listview("refresh");
-				// total
 
 
 				//checkDetails
@@ -938,25 +926,22 @@ function updateShopListsPage(reloadFromBase){
 					var html5='<tr class="one-detail"><td>{positionName}</td><td><span>{positionCost}</span></td><td>{positionTag}</td></tr>' ;
 
 					html5 = html5.replace(/\{positionName\}/g,js.receiptData.Items[p].ItemName);
-					html5 = html5.replace(/\{positionCost\}/g,js.receiptData.Items[p].Value);
-					html5 = html5.replace(/\{positionTag\}/g,js.receiptData.Items[p].Tag);
+					html5 = html5.replace(/\{positionCost\}/g,formatPrice(js.receiptData.Items[p].Value));
+					html5 = html5.replace(/\{positionTag\}/g,fullTagsArray[hashCode(js.receiptData.Items[p].Tag)]);
 						$('#checkDetailstable > tbody').append(html5);
-					getTagName(js.receiptData.Items[p].Tag,p,js.receiptData.Items.length).done(function(res, src, position,len){
 
-					//	html5 = html5.replace(/\{positionTag\}/g,res);
-						var ht = $('#checkDetailstable > tbody').html();
-						ht = ht.replace(src,res);
-						$('#checkDetailstable > tbody').html(ht);
 
-					});
 
 				}
 
-			$('#spent').html(js.receiptData.Total);
-            $('#spent2').html(js.receiptData.Total);
-            // tax
-            $('#discount').html("Скидка "+js.receiptData.TotalTax +" "+getCurrencyString(js.Currency));
-            $('#discount2').html(js.receiptData.TotalTax);
+			//$('#spent').html(formatPrice(js.receiptData.Total));
+           // $('#spent2').html(formatPrice(js.receiptData.Total));
+			$('#spent').html(formatPrice(js.Amount));
+			 $('#spent2').html(formatPrice(js.Amount));
+
+					// tax
+            $('#discount').html("Скидка "+formatPrice(js.receiptData.TotalTax) +" "+getCurrencyString(js.Currency));
+            $('#discount2').html(formatPrice(js.receiptData.TotalTax));
  			 $("#checkDetailstable").table("refresh");
 
 		       });
@@ -1082,6 +1067,131 @@ function updateShopListsPage(reloadFromBase){
 
 
 
+	function updateHabitsPage(tab){
+		var networkState = navigator.connection.type;
+		if (networkState==Connection.NONE) {
+			getBadHabits().done(function (res) {
+				updateHabitsTab(tab, jQuery.parseJSON(res));
+			});
+		}
+		else {
+			requestBadHabits().done(function () {
+				getBadHabits().done(function (res) {
+					updateHabitsTab(tab, jQuery.parseJSON(res));
+				});
+			});
+		}
+	}
+
+
+	 function updateHabitsTab(tab, json){
+		 var spentString="";
+		 var measure = "";
+		 var tabHeader="";
+	//	 alert("habit json.BulkList.length "+JSON.stringify(json.BulkList)+"   "+json.BulkList.length);
+		 if (tab==1) {
+			 spentString = "Потрачено на выпивку:";
+			 tabHeader = "ВЫПИТО";
+			 measure = "л.";
+		 }
+		 if (tab==2) {
+			 spentString = "Потрачено на курение:";
+			 tabHeader = "ВЫКУРЕНО";
+			 measure = "";
+		 }
+		 if (tab==3) {
+			 spentString = "Потрачено на сладости:";
+			 tabHeader = "СЪЕДЕНО";
+			 measure = "гр.";
+		 }
+
+		 $("#spentHeader1").html(spentString);
+		 $("#spentHeader2").html(spentString);
+		 $("#spentHeader3").html(spentString);
+
+		 $("#header").html(tabHeader);
+
+		 $("#citate").html(getRandomCitate());
+	//	 console.log('habit created onjects');
+			var monthJson = new Object();
+		 	var yearJson = new Object();
+		 	var futureJson= new Object();
+
+	//	 console.log('habit created onjects');
+		 for (var i=0; i<json.BulkList.length; i++){
+
+			 var j = json.BulkList[i];
+
+			 if (j.BulkType==tab) {
+				 if (j.Period == 1) {
+				 	monthJson = j;
+					continue;
+			 	}
+				 if (j.Period == 2) {
+					 yearJson = j;
+					 continue;
+				 }
+				 if (j.Period == 3) {
+					 futureJson = j;
+					 continue;
+				 }
+			 }
+		 }
+		// console.log('habit filling amounts');
+		 $("#monthVolume").html(formatVolume(monthJson.Volume)+'<small> '+measure+'</small>');
+		 $("#yearVolume").html(formatVolume(yearJson.Volume) +'<small> '+measure+'</small>');
+		 $("#futureVolume").html(formatVolume(futureJson.Volume) +'<small> '+measure+'</small>');
+		 if (tab==1) {
+			 $("#absoluteMonthVolume").html('~ ' + formatVolume(monthJson.AbsoluteVolume) + ' '+measure+' чистого спирта');
+			 $("#absoluteYearVolume").html('~ ' + formatVolume(yearJson.AbsoluteVolume) + ' '+measure+' чистого спирта');
+			// $("#absoluteFutureVolume").html('~ ' + formatVolume(futureJson.AbsoluteVolume)+ ' '+measure+' чистого спирта');
+		 }
+		 else{
+			 $("#absoluteMonthVolume").html('');
+			 $("#absoluteYearVolume").html('');
+			// $("#absoluteFutureVolume").html('');
+		 }
+		 console.log('habit filling amounts');
+		 $("#monthAmount").html(formatPrice(monthJson.Amount)+' р.');
+		 $("#yearAmount").html(formatPrice(yearJson.Amount)+' р.');
+		 //$("#futureAmount").html(formatPrice(futureJson.Amount)+' р.');
+
+		 $('#monthList').html('');
+
+		 var monthTags = new Array();
+		 for (var k=0; k<monthJson.Items.length; k++){
+			 monthTags[k]=monthJson.Items[k].Tag;
+			 var html = '<li><span>'+fullTagsArray[hashCode(monthJson.Items[k].Tag)]+' '+formatVolume(monthJson.Items[k].Volume)+' '+measure
+				 +'</span>'+formatPrice(monthJson.Items[k].Amount) +'р.</li>';
+			 $('#monthList').append(html);
+		//	 $('#monthList').listview('refresh');
+		 }
+
+
+		 $('#yearList').html('');
+
+		 var yearTags = new Array();
+		 for (var k=0; k<yearJson.Items.length; k++){
+			 yearTags[k]=yearJson.Items[k].Tag;
+			 var html = '<li><span>'+fullTagsArray[hashCode(yearJson.Items[k].Tag)]+' '+formatVolume(yearJson.Items[k].Volume)+' '+measure
+				 +'</span>'+formatPrice(yearJson.Items[k].Amount) +'р.</li>';
+			 $('#yearList').append(html);
+			// $('#yearList').listview('refresh');
+		 }
+
+
+		/* $('#futureList').html('');
+		 var futureTags = new Array();
+		 for (var k=0; k<futureJson.Items.length; k++){
+			 futureTags[k]=futureJson.Items[k].Tag;
+			 var html = '<li><span>'+fullTagsArray[hashCode(futureJson.Items[k].Tag)]+' '+formatPrice(futureJson.Items[k].Volume)+' '+measure
+				 +'</span>'+formatPrice(futureJson.Items[k].Amount) +'р.</li>';
+			 $('#futureList').append(html);
+			 $('#futureList').listview('refresh');
+		 }
+		*/
+	 }
+
 	 function refreshSubCategoryCombo(subcategory){
 		 var html1 = $('#categoryRowTemplate').html();
 		 $('#select-native-1').html('');
@@ -1097,15 +1207,13 @@ function updateShopListsPage(reloadFromBase){
 				 getSubCategories(catID).done(function(res){
 
 					 for (var j=0;j<res.rows.length;j++){
-
 						 if (subcategory==res.rows.item(j).id) continue;
 						 var html11 = $('#categoryRowTemplate').html();
 						 html11 = html11.replace(/\{catName\}/g,res.rows.item(j).name);
-						 html11 = html11.replace(/\{catValue\}/g,res.rows.item(j).id);
+						 html11 = html11.replace(/\{catValue\}/g,res.rows.item(j).idtext);
 						 $('#select-native-1').append(html11);
 						 if (j==res.rows.length-1){
 							 $("#select-native-1 option:first").attr('selected','selected');
-							 //	$("#select-native-1").trigger("change");
 							 $('#select-native-1').selectmenu("refresh", "true");
 						 }
 					 }
@@ -1113,6 +1221,8 @@ function updateShopListsPage(reloadFromBase){
 			 });
 		 });
 		 $('#select-native-1').change(function() {
+			 var transactionID = window.localStorage.getItem(TRANSACTION_ID_KEY);
+			// alert ("changeSubCategory to "+ $('#select-native-1').val());
 
 			 changeSubCategory(transactionID, $('#select-native-1').val());
 		 });

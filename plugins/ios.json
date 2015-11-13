@@ -153,6 +153,10 @@
                         {
                             "xml": "<feature name=\"Device\"><param name=\"ios-package\" value=\"CDVDevice\" /></feature>",
                             "count": 1
+                        },
+                        {
+                            "xml": "<feature name=\"SQLitePlugin\"><param name=\"ios-package\" value=\"SQLitePlugin\" /></feature>",
+                            "count": 1
                         }
                     ]
                 }
@@ -204,9 +208,6 @@
             "PACKAGE_NAME": "ru.krayneva.bills"
         },
         "org.apache.cordova.splashscreen": {},
-        "cordova-plugin-crosswalk-webview": {
-            "PACKAGE_NAME": "com.checkomatic"
-        },
         "com.ionic.keyboard": {
             "PACKAGE_NAME": "com.checkomatic"
         },
@@ -222,6 +223,12 @@
             "PACKAGE_NAME": "com.checkomatic"
         },
         "cordova-plugin-device": {
+            "PACKAGE_NAME": "com.checkomatic"
+        },
+        "cordova-sqlite-storage": {
+            "PACKAGE_NAME": "com.checkomatic"
+        },
+        "cordova-plugin-crosswalk-webview": {
             "PACKAGE_NAME": "com.checkomatic"
         }
     },
