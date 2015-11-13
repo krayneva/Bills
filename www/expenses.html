@@ -10,7 +10,7 @@
         <span class="topPanel_title topPanel_title2" id="title"></span>
         </div>
     <div class="filter">
-      <table>
+      <table style="max-width:100%;">
             <tr>
               <td class="expenses_favorites" >
                 <div class="transactionIsFavorites-false" id ="favButton" onclick = " updateTransactionPageUsingFav();">
@@ -18,23 +18,20 @@
                   <img class="transactionNotFavorites" src="img/ico-notFavorites-white.png"/>
                 </div>          
               </td>
-              <td>
-
-                          <input id="searchInput" data-type="search">
-
-
-              </td>
-              <td>
+              <td class='filterControl' style="width:40%; max-width:40%!important;">
                   <select name="periodSelect" id="periodSelect" data-mini="true">
                       <option value="week">Неделя</option>
                       <option value="month">Месяц</option>
                       <option value="year">Год</option>
                   </select>
               </td>
+              <td class='filterControl' style="width:60%; padding-right:0!important;">
+                <input id="searchInput" data-type="search">
+              </td>
             </tr>
           </table>
     </div>
-    <div id="iscroll-wrapper" class="expenses contentFixed">
+    <div id="iscroll-wrapper" class="expenses contentFixed contentFixed2">
       <div >
         <ul data-role="listview" id="expensesList" data-filter="true" data-input="#searchInput"></ul>
       </div>

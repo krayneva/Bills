@@ -29,7 +29,8 @@ body {
 
 
 .ui-field-contain,
-.ui-select {
+.ui-select,
+.ui-input-search {
 	margin: 0;
 	margin-top: 10px;
 }
@@ -403,6 +404,8 @@ label.error {
 	position: relative;
 }
 .ui-select > div,
+.ui-select > a,
+.ui-input-search,
 .ui-collapsible-heading-toggle {
 	background: #ecf1f1;
 	border: none;
@@ -426,15 +429,22 @@ label.error {
 .ui-collapsible-heading-toggle {
 	padding: 0 40px 0 16px !important;
 }
-.ui-select span {
-	display: inline-block !important;
+
+.ui-input-search,
+.ui-select span {	
 	vertical-align: middle;
 	font-size: 1.125rem;
 	line-height: 18px;
 	color: #0090a6;
 	font-family: 'OpenSans-Semibold';
 	min-width: 122px;
+}
+.ui-select span {
 	margin-left: 6em;
+}
+.ui-input-search input{
+	display: inline-block !important;	
+	height: 100%!important;
 }
 .info-count {
 	color: #0090a6;
@@ -1041,6 +1051,7 @@ div.my-modal-bg {
 	.ui-header-w,
 	.ui-collapsible-heading,
 	.ui-select > div,
+	.ui-input-search,
 	.ui-collapsible-heading-toggle,
 	.spent span {
 		height: 50px !important;
@@ -1164,6 +1175,7 @@ div.my-modal-bg {
 	.ui-header-w,
 	.ui-collapsible-heading,
 	.ui-select > div,
+	.ui-input-search,
 	.ui-collapsible-heading-toggle,
 	.spent span {
 		height: 40px !important;
