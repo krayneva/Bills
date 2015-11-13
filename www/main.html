@@ -4,7 +4,7 @@
 	
 
     <div id="pageMain"  data-role="page"  >
-        <div class="myPanel" data-role="panel" id="mypanel" data-position="left" data-display="overlay" width = "600px" >
+        <div class="myPanel" data-role="panel" id="mypanel" data-position="left" data-display="overlay" style="width: 80%; max-width: 600px;" >
             <div class="menuLogo"><div class="headerBackground"></div><img src="images/menu-logo.png"/></div>
             <ul data-role="listview" >
               <li>Расходы</li>
@@ -23,7 +23,7 @@
             <div class="headerBackground"></div>
             <div class="balance">
                 <span>В наличии: </span><span id="cash"></span><br/>
-                <span>Расходы: </span><span>30 568</span>
+            <!--    <span>Расходы: </span><span>30 568</span>-->
             </div>
         </div>
         <!--<div class="header headerFixed">            
@@ -51,8 +51,8 @@
             </div>
         </div>-->
         <div class="menuCategory filter">
-            <span class="filterCategoryLabel">Расходы</span>
-            <span class="filterCategoryLink">все</span>
+            <!--<span class="filterCategoryLabel">Расходы</span>
+            <span class="filterCategoryLink">все</span>-->
             <span class="shopListLink" onclick = "showShopListPage();">Список покупок<span> ></span></span>
         </div>
         <div class="contentFixed">
@@ -115,7 +115,7 @@
                         </td>                            
                         <td style="width:30%"></td>
                         <td style="width:35%;">
-                            <div class="addCheck">Добавить чек</div>
+                          <!--  <div class="addCheck">Добавить чек</div>-->
                         </td>
                     </tr>
                 </tbody>
@@ -127,7 +127,8 @@
           <div class="category" onclick = "showExpensesPage('{categoryID}')">
               <img class="icoCategory" src="{catImage}" />
               <div class="categoryInfo">
-                  <span class="categoryAmount">{catAmount}</span>
+                <!--  <span class="categoryAmount">{catAmount}</span>-->
+                  <span class="categoryAmount"></span>
                   <br/>
                   <span class="categoryName">{catName}</span>
               </div>

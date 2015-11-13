@@ -9,6 +9,7 @@
 			 var dbName = login.replace('@','').replace('.','');
 			 if (db==0) {
 				 requestTransactionPageCount = 0;
+				 requestUserEnvironmentCount = 0;
 				 window.localStorage.removeItem("CurrentShopListNum");
 				  window.localStorage.removeItem(RECEIPT_ID_KEY);
 				  window.localStorage.removeItem(TRANSACTION_ID_KEY);
@@ -24,6 +25,7 @@
 					  window.localStorage.removeItem(TRANSACTION_ID_KEY);
 
 					 requestTransactionPageCount = 0;
+					 requestUserEnvironmentCount = 0;
 				      db = window.openDatabase("Checomatic_"+dbName, "1.0", "Checkomatic_"+dbName, 200000);
 					  db.transaction(populateDB, onError, onSuccess);
 				      putSetting(SETTING_DB_NAME, dbName);

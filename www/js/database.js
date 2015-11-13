@@ -26,9 +26,8 @@
 					 window.localStorage.removeItem("CurrentShopListNum");
 					  window.localStorage.removeItem(RECEIPT_ID_KEY);
 					  window.localStorage.removeItem(TRANSACTION_ID_KEY);
-
 					 requestTransactionPageCount = 0;
-				      db = window.sqlitePlugin.openDatabase({name: dbName+".db"});
+					 db = window.sqlitePlugin.openDatabase({name: dbName+".db",androidDatabaseImplementation: 2});
 					  db.transaction(populateDB, onError, onSuccess);
 				      putSetting(SETTING_DB_NAME, dbName);
 				 }
@@ -333,11 +332,11 @@
     function putSetting(setting, value){
     	try{
 	    	console.log("SQL: "+'UPDATE Settings set '+setting+'="'+value+'" where id=1');
-	    	if (setting==SETTING_USER_LOGIN)
+	    /*	if (setting==SETTING_USER_LOGIN)
 	    		window.localStorage.setItem(SETTING_USER_LOGIN,value);
 	    	if (setting==SETTING_USER_PASSWORD)
 	    		window.localStorage.setItem(SETTING_USER_PASSWORD,value);
-	
+		*/
 	       db.transaction(
 	      		function(transaction) { 
 	          		transaction.executeSql(
@@ -365,12 +364,12 @@
 			        	$.each(row, function(columnName, value) {
 			        			res = value;
 			        			deferred.resolve(res);
-			        			if (res==="") res = defValue;
+			        			if (res=="") res = defValue;
 			        			console.log("Get setting "+setting+" returned "+res );
 	        	        });
 			        	        	
 			    },  function onError(error){
-			    	alert("GetSetting: "+setting+" error: "+error);
+			    //	alert("GetSetting: "+setting+" error: "+error);
 			    	console.log(error);
 			    });
 			 });
@@ -389,8 +388,7 @@
      */
     function addTransaction(json){
     	try{
-			var start = new Date().getTime();
-	    	var deferred = $.Deferred();
+			var deferred = $.Deferred();
 			var id = json.Id;
 			var purseID = json.PurseID;
 			var transactionDate = json.TransactionDate;
@@ -403,13 +401,14 @@
 				searchText = searchText+ " " + item.ItemName;
 			}
 			searchText = searchText+" ";
-			for (var i=0; i<json.Tags.length; i++){
-				searchText = searchText+ " " + fullTagsArray[hashCode(json.Tags[i])];
+			for (var i=0; i<json.Tags.length; i++) {
+				searchText = searchText + " " + fullTagsArray[hashCode(json.Tags[i])];
 			}
-			searchText = searchText.replace(/['"]+/mgi, '')
-
+			searchText = searchText.replace(/['"]+/mgi, '');
+			searchText = searchText.replace(/'/mgi,"");
+			searchText = searchText.replace(/"/mgi, "");
 			searchText = searchText.replace(/\'/mgi,"");
-			searchText = searchText.replace(/\"/mgi, "")
+			searchText = searchText.replace(/\"/mgi, "");
 			searchText = searchText.replace(/»/mgi,"");
 			searchText = searchText.replace(/«/mgi,"");
 			searchText = searchText.replace(/</mgi,"");
@@ -417,41 +416,30 @@
 			searchText = searchText.replace(/\>/mgi,"");
 			searchText = searchText.replace(/\</mgi,"");
 
-			console.log("searchText is: "+searchText);
 
-
-
-			var sql=  "INSERT OR REPLACE INTO Transactions (id, transactionJSON, purseID,transactionDate,"
-				+" categoryID, receiptImageID, isFav) " +
-				" values ("
-				+"'"+id+"',"
-				+"'"+JSON.stringify(json).replace(/'/g,"''")+"',"
-				+"'"+purseID+"',"
-				+"'"+transactionDate+"',"
-				+"'"+categoryID+"',"
-				+"'"+receiptImageID+"',"
-				+"(select isFav from transactions where id='"+id+"' )"
-			//",'"+searchText+"'"
-
-				+")";
-			var updatesql = "update  Transactions set searchText='"+searchText+"' where id= '"+id+"'";
 	        db.transaction(
-	    		function(transaction) { 
-	        		transaction.executeSql(
-	        		sql
-	        		);
-					transaction.executeSql(
-						updatesql
-					);
+	    		function(transaction) {
+					var sql=  "INSERT OR REPLACE INTO Transactions (id, transactionJSON, purseID,transactionDate,"
+						+" categoryID, receiptImageID, isFav, searchText) " +
+						" values ("
+						+"'"+id+"',"
+						+"'"+JSON.stringify(json).replace(/'/g,"''")+"',"
+						+"'"+purseID+"',"
+						+"'"+transactionDate+"',"
+						+"'"+categoryID+"',"
+						+"'"+receiptImageID+"',"
+						+"(select isFav from transactions where id='"+id+"' ),"
+						+"'"+searchText+"'"
+						+")";
+
+	        		transaction.executeSql(sql);
 				},
 	        		function onError(error){
 	    		    	console.log("Error trying to add transaction!");
 	    		    	console.log("SQL: "+sql);
-	    		    	deferred.resolve(i,json);
+	    		    	deferred.resolve(json);
 	    		    }, function onSuccess(res){
-					var end = new Date().getTime();
-					var time = end - start;
-	    		    	deferred.resolve(i,json);
+	    		    	deferred.resolve(json);
 	    		    });
 	        return deferred;
     	}
@@ -476,13 +464,20 @@
 				searchText = searchText+ " " + item.ItemName;
 			}
 			searchText = searchText+" ";
-			for (var i=0; i<json.Tags.length; i++){
-				searchText = searchText+ " " + fullTagsArray[hashCode(json.Tags[i])];
+			for (var i=0; i<json.Tags.length; i++) {
+				searchText = searchText + " " + fullTagsArray[hashCode(json.Tags[i])];
 			}
-			searchText = searchText.replace(/'/g,"''");
-			searchText = searchText.replace('"', '')
-			searchText = searchText.replace(/»/g,"");
-			searchText = searchText.replace(/«/g,"");
+				searchText = searchText.replace(/['"]+/mgi, '');
+				searchText = searchText.replace(/'/mgi,"");
+				searchText = searchText.replace(/"/mgi, "")
+				searchText = searchText.replace(/\'/mgi,"");
+				searchText = searchText.replace(/\"/mgi, "")
+				searchText = searchText.replace(/»/mgi,"");
+				searchText = searchText.replace(/«/mgi,"");
+				searchText = searchText.replace(/</mgi,"");
+				searchText = searchText.replace(/>/mgi,"");
+				searchText = searchText.replace(/\>/mgi,"");
+				searchText = searchText.replace(/\</mgi,"");
 			console.log("searchText is: "+searchText);
 
 
@@ -510,34 +505,7 @@
 	}
     
     
-    function addSeveralTransactions(json,i, deferred){
-    	try{
-	    	if (deferred==undefined) deferred = $.Deferred();
-	       	var transaction = json[i];
-	       	// на случай если у анс не массив а одна единственная транзакция в json
-	       	if (transaction==undefined)
-	       		transaction = json;
-	       	var id = transaction.Id;
-	    	var purseID = transaction.PurseID;
-	    	var transactionDate = transaction.TransactionDate;
-	    	var categoryID = transaction.CategoryID;
-	    	var receiptImageID =  transaction.ReceiptImageID;
-	       	addTransaction(i,json,id,JSON.stringify(transaction), purseID, transactionDate, categoryID, receiptImageID).done(function(i, json){
-	       		if (i==json.length-1) {
-	  	   			deferred.resolve(''); 
-	  	   			return deferred;
-	  	   		}
-	  	   		else{
-	  	   			addSeveralTransactions(json, i+1, deferred);
-	  	   		}
-	  	   	});
-	     	return deferred;
-    	}
-		catch(e){
-			  dumpError("addSeveralTransactinos",e);
-		  }			
-    }
-    
+
     /**
      * получение всех транзацкций
      */
@@ -1783,7 +1751,6 @@ function addBadHabits(habits){
 							else
 								for (var i=0; i< result.rows.length; i++){
 									fullTagsArray[result.rows.item(i).id] =result.rows.item(i).name;
-									console.log("added to tags: "+result.rows.item(i).id+" "+result.rows.item(i).name);
 								}
 							deferred.resolve();
 						}, onError);

@@ -113,6 +113,13 @@ function updateLoginPage(){
 
 function requestAndUpdateMainPage(){
 	try{
+		requestUserEnvironmentCount =requestUserEnvironmentCount + 1;
+		var networkState = navigator.connection.type;
+		if (networkState==Connection.NONE){
+
+				updateMainPage();
+		}
+		else
 		requestUserEnvironment().done(function(){
 			updateMainPage();
 		});
@@ -128,15 +135,16 @@ function requestAndUpdateMainPage(){
 function updateMainPage(){
 	try{
 		getUserEnvironment().done(function(res){
+
 			if (debugMode==true)
 			console.log("Update main page json :"+res);
-			if (res=="") {
+			if ((res=="")&(requestUserEnvironmentCount==0)){
 				console.log("updateMainPage: requesting environment From server");
 				requestAndUpdateMainPage();
 
 			}
 			else{
-
+				requestUserEnvironmentCount = 0;
 				var json = jQuery.parseJSON(res);
 				$('#cash').html(json.Amount1);
 				updateWidgets();
@@ -154,12 +162,27 @@ function updateMainPage(){
 function requestAndUpdateTransactionPage(){
 	try{
 		var deferred = $.Deferred();
-		requestTransactions().done(function(){
-			 requestTransactionPageCount = requestTransactionPageCount+1;
-			 updateTransactionPage().done(function(){
+		var networkState = navigator.connection.type;
+		if (networkState==Connection.NONE){
+			if (requestTransactionPageCount==0) {
+				requestTransactionPageCount = requestTransactionPageCount + 1;
+
+				updateTransactionPage().done(function () {
+					deferred.resolve();
+				});
+			}
+			else
 				deferred.resolve();
+		}
+
+	else {
+			requestTransactions().done(function () {
+				requestTransactionPageCount = requestTransactionPageCount + 1;
+				updateTransactionPage().done(function () {
+					deferred.resolve();
+				});
 			});
-		});
+		}
 		return deferred;
 	}
     catch(e){
@@ -911,9 +934,12 @@ function updateShopListsPage(reloadFromBase){
 
 				}
 
-			$('#spent').html(formatPrice(js.receiptData.Total));
-            $('#spent2').html(formatPrice(js.receiptData.Total));
-            // tax
+			//$('#spent').html(formatPrice(js.receiptData.Total));
+           // $('#spent2').html(formatPrice(js.receiptData.Total));
+			$('#spent').html(formatPrice(js.Amount));
+			 $('#spent2').html(formatPrice(js.Amount));
+
+					// tax
             $('#discount').html("Скидка "+formatPrice(js.receiptData.TotalTax) +" "+getCurrencyString(js.Currency));
             $('#discount2').html(formatPrice(js.receiptData.TotalTax));
  			 $("#checkDetailstable").table("refresh");
@@ -1042,12 +1068,19 @@ function updateShopListsPage(reloadFromBase){
 
 
 	function updateHabitsPage(tab){
-		requestBadHabits().done(function(){
-			getBadHabits().done(function(res){
-				console.log("Bad habits json is: "+res);
-				updateHabitsTab(tab,jQuery.parseJSON(res));
+		var networkState = navigator.connection.type;
+		if (networkState==Connection.NONE) {
+			getBadHabits().done(function (res) {
+				updateHabitsTab(tab, jQuery.parseJSON(res));
 			});
-		});
+		}
+		else {
+			requestBadHabits().done(function () {
+				getBadHabits().done(function (res) {
+					updateHabitsTab(tab, jQuery.parseJSON(res));
+				});
+			});
+		}
 	}
 
 
@@ -1189,6 +1222,8 @@ function updateShopListsPage(reloadFromBase){
 		 });
 		 $('#select-native-1').change(function() {
 			 var transactionID = window.localStorage.getItem(TRANSACTION_ID_KEY);
+			// alert ("changeSubCategory to "+ $('#select-native-1').val());
+
 			 changeSubCategory(transactionID, $('#select-native-1').val());
 		 });
 	 }
