@@ -304,7 +304,7 @@ function refershBillSendStatus(rowID){
 			message = message.replace ('"','');
 			window.localStorage.setItem(DIALOG_HEADER, header);
 			window.localStorage.setItem(DIALOG_MESSAGE, message);
-			$.mobile.pageContainer.pagecontainer( "change", "dialog.html" ,{transition:"none",role: "dialog"});
+			$.mobile.pageContainer.pagecontainer( "change", "dialog.html" ,{transition:"pop",role: "dialog"});
 		}
 		catch(e){
 			  dumpError("showDialog",e);
@@ -315,7 +315,7 @@ function refershBillSendStatus(rowID){
 	function showFeedbackDialog(){
 		try{
 			currentPage = "pageFeedbackDialog";
-        	$.mobile.pageContainer.pagecontainer( "change", "feedbackdialog.html" ,{transition:"none",role: "dialog"});
+        	$.mobile.pageContainer.pagecontainer( "change", "feedbackdialog.html" ,{transition:"pop",role: "dialog"});
 		}
 		catch(e){
         	  dumpError("showFeedbackDialog",e);
