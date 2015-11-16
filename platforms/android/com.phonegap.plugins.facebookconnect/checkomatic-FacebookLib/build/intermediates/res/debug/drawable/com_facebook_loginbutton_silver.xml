@@ -21,4 +21,4 @@
           android:drawable="@drawable/com_facebook_button_grey_focused" />
     <item android:drawable="@drawable/com_facebook_button_grey_normal" />
 </selector>
-<!-- From: file:/D:/_Receipts/mobileProject/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/res/drawable/com_facebook_loginbutton_silver.xml -->
+<!-- From: file:/D:/Projects/Krayneva/Android/Bills/platforms/android/com.phonegap.plugins.facebookconnect/checkomatic-FacebookLib/res/drawable/com_facebook_loginbutton_silver.xml -->

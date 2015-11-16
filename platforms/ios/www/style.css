@@ -245,11 +245,12 @@ body {
 	text-align: center;
 	font-size: 0;
 }
-.ui-btn-star {
+.ui-btn-star, .ui-btn-nostar {
 	right: 0 !important;
 	left: auto !important;
 }
 .ui-btn-star,
+.ui-btn-nostar,
 .buttons-container button {
 	display: inline-block;
 	vertical-align: middle;
@@ -268,6 +269,7 @@ body {
 	background-image: url("images/hovered-button.jpg") !important;
 }
 .ui-btn-star:after,
+.ui-btn-nostar:after,
 .buttons-container button:after {
 	width: 100%;
 	height: 100%;
@@ -306,7 +308,12 @@ body {
 	background-position: center center;
 }
 .ui-btn-star:after {
-	background-image: url("images/star.png");
+	background-image: url("img/ico-favorites.png");
+	background-position: center center;
+}
+
+.ui-btn-nostar:after {
+	background-image: url("img/ico-notFavorites.png") !important;
 	background-position: center center;
 }
 button.ui-btn {
@@ -404,8 +411,6 @@ label.error {
 	position: relative;
 }
 .ui-select > div,
-.ui-select > a,
-.ui-input-search,
 .ui-collapsible-heading-toggle {
 	background: #ecf1f1;
 	border: none;
@@ -418,6 +423,13 @@ label.error {
 	white-space: nowrap;
 	text-align: left;
 	padding: 0 !important;
+}
+.ui-input-search{
+	border: none;
+	line-height: 75px;
+	height: 75px;
+	background: #ecf1f1;
+	white-space: nowrap;
 }
 .ui-select > div img,
 .ui-collapsible-heading-toggle img {
@@ -432,7 +444,7 @@ label.error {
 
 .ui-input-search,
 .ui-select span {	
-	vertical-align: middle;
+		vertical-align: middle;
 	font-size: 1.125rem;
 	line-height: 18px;
 	color: #0090a6;
@@ -441,6 +453,7 @@ label.error {
 }
 .ui-select span {
 	margin-left: 6em;
+	display: inline-block !important;	
 }
 .ui-input-search input{
 	display: inline-block !important;	
@@ -1072,7 +1085,7 @@ div.my-modal-bg {
 	.ui-icon-expanded:after  {
 		background-position: 0 -50px;
 	}
-	.ui-btn-star, .buttons-container button {
+	.ui-btn-star, .ui-btn-nostar,.buttons-container button {
 		height: 50px !important;
 		width: 60px !important;
 	}
@@ -1089,6 +1102,9 @@ div.my-modal-bg {
 		background-size: 44%;
 	}
 	.ui-btn-star:after {
+		background-size: 43%;
+	}
+	.ui-btn-nostar:after {
 		background-size: 43%;
 	}
 	.ui-icon-edit {
@@ -1196,7 +1212,7 @@ div.my-modal-bg {
 	.ui-icon-expanded:after  {
 		background-position: 0 -40px;
 	}
-	.ui-btn-star, .buttons-container button {
+	.ui-btn-star, .ui-btn-nostar,.buttons-container button {
 		height: 40px !important;
 		width: 50px !important;
 	}
@@ -1213,6 +1229,9 @@ div.my-modal-bg {
 		background-size: 44%;
 	}
 	.ui-btn-star:after {
+		background-size: 43%;
+	}
+	.ui-btn-nostar:after {
 		background-size: 43%;
 	}
 	.ui-icon-edit {

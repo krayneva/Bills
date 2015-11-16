@@ -1293,11 +1293,15 @@ div.myPanel ul{
 }
 .filter>table td.filterControl>div,
 .filter>table td.filterControl>.ui-select,
+.filter>table td.filterControl>.ui-select div,
+.filter>table td.filterControl>.ui-select span,
 .filter>table td.filterControl>.ui-input-search{
-  width: 100%!important;
+  width: auto!important;
   min-width: 1px!important;
 }
-
+.filterControl .ui-select span {
+  margin-left: 1.5em;
+}
 @media (max-width: 640px) and (min-width: 400px){
 
 .contentFixed>div{

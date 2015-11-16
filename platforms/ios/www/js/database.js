@@ -1764,8 +1764,9 @@ function addBadHabits(habits){
 	}
 
 
-	function changeTransactionFav(transactionID){
+	function changeTransactionFav(){
 			var isFav;
+		var transactionID =  window.localStorage.getItem(TRANSACTION_ID_KEY);
 		try{
 			db.transaction(
 				function(transaction) {
@@ -1791,10 +1792,14 @@ function addBadHabits(habits){
 								if (isFav==1) {
 									$('#' + ('transactionIsFavorites' + transactionID)).removeClass("transactionIsFavorites-false")
 									$('#' + ('transactionIsFavorites' + transactionID)).addClass("transactionIsFavorites-true")
+									$('#checkFavouriteButton').removeClass('ui-btn-nostar');
+									$('#checkFavouriteButton').addClass('ui-btn-star')	;
 								}
 								else {
 									$('#' + ('transactionIsFavorites' + transactionID)).removeClass("transactionIsFavorites-true")
 									$('#' + ('transactionIsFavorites' + transactionID)).addClass("transactionIsFavorites-false")
+									$('#checkFavouriteButton').removeClass('ui-btn-star');
+									$('#checkFavouriteButton').addClass('ui-btn-nostar')	;
 								}
 							}
 						}, onError);

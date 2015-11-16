@@ -335,6 +335,7 @@ function updateWidgets(){
 	try {
 
 		getWidgets().done(function (res) {
+			var spent = 0;
 			$('#categories').html('');
 
 			for (var j = 0; j < res.rows.length; j++) {
@@ -384,10 +385,12 @@ function updateWidgets(){
 				}
 
 				html = html.replace(/\{catImage\}/g, src);
-				html = html.replace(/\{catAmount\}/g, w.Amount);
+				html = html.replace(/\{catAmount\}/g, formatPrice(w.Amount));
+				spent = spent+ w.Amount;
 				html = html.replace(/\{catName\}/g, w.Name);
 				$('#categories').append(html);
 			}
+			$("#spent").html(formatPrice(spent));
 		});
 	}
     catch(e){
@@ -823,6 +826,9 @@ function updateShopListsPage(reloadFromBase){
 
             	var receiptID = window.localStorage.getItem(RECEIPT_ID_KEY);
         		var transactionID = window.localStorage.getItem(TRANSACTION_ID_KEY);
+
+
+
         		$('#sendFeedbackButton').click(function()
                            {
                            var mark=5;
@@ -859,7 +865,14 @@ function updateShopListsPage(reloadFromBase){
             			$('#shopName').html(js.Shop==null?"":js.Shop);
             			$('#shopName2').html(js.Shop==null?"":js.Shop);
 
-            
+						if ((row.isFav==1)||(row.isFav=='1')){
+							$('#checkFavouriteButton').removeClass('ui-btn-nostar');
+							$('#checkFavouriteButton').addClass('ui-btn-star')	;
+						}
+						else{
+							$('#checkFavouriteButton').removeClass('ui-btn-star');
+							$('#checkFavouriteButton').addClass('ui-btn-nostar')	;
+						}
 
                
                //subcategorys and purses
@@ -984,6 +997,7 @@ function updateShopListsPage(reloadFromBase){
                          	});
                          });
                     }
+
         		});
 
 
@@ -1112,7 +1126,7 @@ function updateShopListsPage(reloadFromBase){
 		 $("#header").html(tabHeader);
 
 		 $("#citate").html(getRandomCitate());
-	//	 console.log('habit created onjects');
+
 			var monthJson = new Object();
 		 	var yearJson = new Object();
 		 	var futureJson= new Object();
