@@ -5,6 +5,7 @@
 	};
 	objectVersion = 46;
 	objects = {
+
 /* Begin PBXBuildFile section */
 		10FE6A2B5A0A4B3CA76050CF /* SQLitePlugin.m in Sources */ = {isa = PBXBuildFile; fileRef = 187930FBBA0B40489775ADE5 /* SQLitePlugin.m */; };
 		1424D240ADE24DD6AE04446F /* CDVLocalFilesystem.m in Sources */ = {isa = PBXBuildFile; fileRef = F813CD83DACE42BD8CBA3609 /* CDVLocalFilesystem.m */; };
@@ -171,7 +172,7 @@
 		187930FBBA0B40489775ADE5 /* SQLitePlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SQLitePlugin.m; path = "cordova-sqlite-storage/SQLitePlugin.m"; sourceTree = "<group>"; };
 		1D3623240D0F684500981E51 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		1D6058910D05DD3D006BFB54 /* Bills.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Bills.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* Check-A-Matic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Check-A-Matic.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		205D23B257EB46ABB8D90C4E /* CDVAssetLibraryFilesystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVAssetLibraryFilesystem.m; path = org.apache.cordova.file/CDVAssetLibraryFilesystem.m; sourceTree = "<group>"; };
 		2853CE39E1F44D3CAD837C28 /* AppBladePlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppBladePlugin.h; path = com.appblade.cordova.plugin/AppBladePlugin.h; sourceTree = "<group>"; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -337,7 +338,7 @@
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				1D6058910D05DD3D006BFB54 /* Bills.app */,
+				1D6058910D05DD3D006BFB54 /* Check-A-Matic.app */,
 				8C6AB9451B6FC5BD004B6672 /* Bills copy.app */,
 			);
 			name = Products;
@@ -534,7 +535,7 @@
 			);
 			name = Bills;
 			productName = Bills;
-			productReference = 1D6058910D05DD3D006BFB54 /* Bills.app */;
+			productReference = 1D6058910D05DD3D006BFB54 /* Check-A-Matic.app */;
 			productType = "com.apple.product-type.application";
 		};
 		8C6AB8FD1B6FC5BD004B6672 /* Distribution */ = {
@@ -832,7 +833,7 @@
 					"$(OTHER_LDFLAGS)",
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
-				PRODUCT_NAME = Bills;
+				PRODUCT_NAME = "Check-A-Matic";
 				PROVISIONING_PROFILE = "23ff7f86-9033-4dd4-86fe-f816b407c018";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
@@ -882,7 +883,7 @@
 					"$(OTHER_LDFLAGS)",
 				);
 				PRECOMPS_INCLUDE_HEADERS_FROM_BUILT_PRODUCTS_DIR = YES;
-				PRODUCT_NAME = Bills;
+				PRODUCT_NAME = "Check-A-Matic";
 				PROVISIONING_PROFILE = "23ff7f86-9033-4dd4-86fe-f816b407c018";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALID_ARCHS = "armv7 armv7s arm64";
