@@ -42,7 +42,7 @@
     <preference default="--disable-pull-to-refresh-effect" name="xwalkCommandLine" />
     <preference default="embedded" name="xwalkMode" />
     <preference default="true" name="xwalkMultipleApk" />
-    <name>Bills</name>
+    <name>Check-A-Matic</name>
     <description>
         Application for financial accounting
     </description>
