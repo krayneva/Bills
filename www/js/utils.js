@@ -81,23 +81,25 @@ var MeasureEnum = {
     }
 */
 
+
 function getCurrencyString(currency){
-	try{
-		switch(currency){
-		case 2:
-			return "р.";
-		case 1:
-			return "$";
-		case 3:
-			return "&#8364;";
-		}
-	}
+    try{
+        switch(currency){
+            case 2:
+                //return "р.";
+4
+                return'<span style="font-family:rouble; font-size: 1em">a</span>';
+            case 1:
+                return "$";
+            case 3:
+                return "&#8364;";
+        }
+    }
     catch(e){
-    	dumpError("getCurrencyString",e);
+        dumpError("getCurrencyString",e);
     }
 
 }
-
 function hashCode(str){
     var hash = 0;
     if (str.length == 0) return hash;
@@ -111,9 +113,17 @@ function hashCode(str){
 
 function formatPrice(price) {
     if (price==0) return price;
+    if (price=='0') return price;
     if (price==undefined) return 0;
     if (price==null) return 0;
     return Math.round(price * 100) / 100;
+}
+
+function formatPriceRound(price) {
+    if (price==0) return price;
+    if (price==undefined) return 0;
+    if (price==null) return 0;
+    return Math.round(price);
 }
 
 function formatVolume(volume){

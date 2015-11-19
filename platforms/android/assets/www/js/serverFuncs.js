@@ -269,16 +269,17 @@ function uploadPhoto() {
     }
 
 
-    function requestUserEnvironment(){
+    function requestUserEnvironment(showToUser){
     	try{
 			var start = new Date().getTime();
 
 	    	var deferred = $.Deferred();
-	    	$.mobile.loading("show",{
-	    		text: "Загрузка окружения пользователя",
-	    		textVisible: true,
-	    		theme: 'e',
-	    	});
+			if (showToUser==true)
+				$.mobile.loading("show",{
+					text: "Загрузка окружения пользователя",
+					textVisible: true,
+					theme: 'e',
+				});
 	   // 	getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT).done(function(res){
 	    		var serverAddress =getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
 	    		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
@@ -312,15 +313,17 @@ function uploadPhoto() {
 	    	            },
 	    	            error: function(jqXHR, textStatus, errorThrown) {
 	    	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){  	              		
-	                        	   if (res==SERVER_ERROR_TRY_AGAIN){
+	                        	  /* if (res==SERVER_ERROR_TRY_AGAIN){
 	                        		   requestUserEnvironment();
 	                        	   	   deferred.resolve();
 	                        	   }
 	                        	   else{
-	                        		   $.mobile.loading("hide");
-	                        		     showErrorDialog(getErrorMessage(res));
-	                        		   deferred.resolve();
-	                        	   }
+	                        	   */if (showToUser==true) {
+									   $.mobile.loading("hide");
+									   showErrorDialog(getErrorMessage(res));
+									   deferred.resolve();
+								   }
+	                        	   //}
 	                    	   });
 	     
 	    	            }
@@ -966,9 +969,9 @@ function uploadPhoto() {
 	    	else{
 		    	$.mobile.loading("hide");
 		    	deferred.resolve(SERVER_ERROR_OTHER);
-		    	alert("Сервер ответил "+jqXHR.reponseText);
-		        alert(textStatus + " " + errorThrown);
-		        alert("Код ошибки " + errorThrown.code);
+		     //	alert("Сервер ответил "+jqXHR.reponseText);
+		     //   alert(textStatus + " " + errorThrown);
+		      //  alert("Код ошибки " + errorThrown.code);
 		       
 	    	}
 	    	
