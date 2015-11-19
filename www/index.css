@@ -111,6 +111,13 @@
     font-weight: normal;
     font-style: normal;
 }
+/*http://tema.livejournal.com/241645.html*/
+@font-face {
+  font-family: 'rouble';
+  src: url('fonts/rouble.ttf');
+  font-weight: normal;
+  font-style: normal;
+}
 
 * {  
   text-shadow: none!important;

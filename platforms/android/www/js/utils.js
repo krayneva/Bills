@@ -1,6 +1,6 @@
 /*
  *  /// <summary>
-  /// Типы валют счета 
+  /// пїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ 
   /// </summary>
   public enum CurrenciesEnum
   {
@@ -21,7 +21,7 @@
 
   }
   
-  // цвета строк списка покупок
+  // пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
     public enum ColorSchemasEnum : byte
   {
     
@@ -34,16 +34,16 @@
   }
  */
 var MeasureEnum = {
-  0 : {valueRus:"шт", code: "Piece", defaultAmount:"1"}, 
-  1 : {valueRus:"л.", code: "Liter", defaultAmount:"1"},
-  2 : {valueRus:"бан.", code: "Jar", defaultAmount:"1"},
-  3 : {valueRus:"бут.", code: "Bottle", defaultAmount:"1"},
-  4 : {valueRus:"гр", code: "Gram", defaultAmount:"500"},
-  5 : {valueRus:"кг", code: "Kilogram", defaultAmount:"1"},
-  6 : {valueRus:"м", code: "Meter", defaultAmount:"1"},
-  7 : {valueRus:"упак.", code: "Pack", defaultAmount:"1"},
-  8 : {valueRus:"час.", code: "Hour", defaultAmount:"1"},
-  9 : {valueRus:"сут.", code: "Day", defaultAmount:"1"}
+  0 : {valueRus:"пїЅпїЅ", code: "Piece", defaultAmount:"1"}, 
+  1 : {valueRus:"пїЅ.", code: "Liter", defaultAmount:"1"},
+  2 : {valueRus:"пїЅпїЅпїЅ.", code: "Jar", defaultAmount:"1"},
+  3 : {valueRus:"пїЅпїЅпїЅ.", code: "Bottle", defaultAmount:"1"},
+  4 : {valueRus:"пїЅпїЅ", code: "Gram", defaultAmount:"500"},
+  5 : {valueRus:"пїЅпїЅ", code: "Kilogram", defaultAmount:"1"},
+  6 : {valueRus:"пїЅ", code: "Meter", defaultAmount:"1"},
+  7 : {valueRus:"пїЅпїЅпїЅпїЅ.", code: "Pack", defaultAmount:"1"},
+  8 : {valueRus:"пїЅпїЅпїЅ.", code: "Hour", defaultAmount:"1"},
+  9 : {valueRus:"пїЅпїЅпїЅ.", code: "Day", defaultAmount:"1"}
 };
 
 
@@ -58,25 +58,25 @@ var MeasureEnum = {
 /*
  Enum MeasureType = 
     {
-        /// Штуки
+        /// пїЅпїЅпїЅпїЅпїЅ
         Piece = 0,
-        /// Литр
+        /// пїЅпїЅпїЅпїЅ
         Liter = 1,
-        /// Банка
+        /// пїЅпїЅпїЅпїЅпїЅ
         Jar = 2,
-        /// Бутылка
+        /// пїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         Bottle = 3,
-        /// Грамм        
+        /// пїЅпїЅпїЅпїЅпїЅ        
         Gram = 4,
-        /// Килограмм
+        /// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         Kilogram = 5,
-        /// Метр
+        /// пїЅпїЅпїЅпїЅ
         Meter = 6,
-        /// Упаковка
+        /// пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         Pack = 7,
-        /// Час, для обозначения времени проката/парковки
+        /// пїЅпїЅпїЅ, пїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ пїЅпїЅпїЅпїЅпїЅпїЅпїЅ/пїЅпїЅпїЅпїЅпїЅпїЅпїЅпїЅ
         Hour = 8,
-        /// Сутки
+        /// пїЅпїЅпїЅпїЅпїЅ
         /// </summary>
         Day = 9
     }
@@ -85,8 +85,9 @@ var MeasureEnum = {
 function getCurrencyString(currency){
 	try{
 		switch(currency){
-		case 2:
-			return "р.";
+            case 2:
+			//return "СЂ.";
+            return'<span style="font-family:Verdana,SansSerif,Arial,Times,TimesNewRoman;">&#8381;</span>';
 		case 1:
 			return "$";
 		case 3:
