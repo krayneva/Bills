@@ -171,7 +171,7 @@
 		187930FBBA0B40489775ADE5 /* SQLitePlugin.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SQLitePlugin.m; path = "cordova-sqlite-storage/SQLitePlugin.m"; sourceTree = "<group>"; };
 		1D3623240D0F684500981E51 /* AppDelegate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		1D3623250D0F684500981E51 /* AppDelegate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
-		1D6058910D05DD3D006BFB54 /* Check-A-Matic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Check-A-Matic.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D6058910D05DD3D006BFB54 /* Check-A-Matic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Check-A-Matic.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		205D23B257EB46ABB8D90C4E /* CDVAssetLibraryFilesystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVAssetLibraryFilesystem.m; path = org.apache.cordova.file/CDVAssetLibraryFilesystem.m; sourceTree = "<group>"; };
 		2853CE39E1F44D3CAD837C28 /* AppBladePlugin.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AppBladePlugin.h; path = com.appblade.cordova.plugin/AppBladePlugin.h; sourceTree = "<group>"; };
 		288765FC0DF74451002DB57D /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
@@ -227,11 +227,11 @@
 		814D7BD627D64B4F827086E9 /* CDVLogger.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVLogger.m; path = org.apache.cordova.console/CDVLogger.m; sourceTree = "<group>"; };
 		8184053A8109472694F1C355 /* CDVReachability.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = CDVReachability.h; path = "org.apache.cordova.network-information/CDVReachability.h"; sourceTree = "<group>"; };
 		86F9055713F64B82AE209A7C /* Accounts.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = Accounts.framework; path = System/Library/Frameworks/Accounts.framework; sourceTree = SDKROOT; };
-		8C2095D11B20869B007E6B00 /* AppBladeKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = AppBladeKeys.plist; path = Check-A-Matic/Resources/AppBladeKeys.plist; sourceTree = "<group>"; };
+		8C2095D11B20869B007E6B00 /* AppBladeKeys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = AppBladeKeys.plist; path = "Check-A-Matic/Resources/AppBladeKeys.plist"; sourceTree = "<group>"; };
 		8C5292031BB0588400A25FF7 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		8C5292051BB05AFC00A25FF7 /* FacebookSDK.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FacebookSDK.framework; path = ../../FacebookSDK.framework; sourceTree = "<group>"; };
 		8C6957F81B74FE69008EBFB1 /* libAppBladeUniversal.a */ = {isa = PBXFileReference; lastKnownFileType = archive.ar; name = libAppBladeUniversal.a; path = iOS/libAppBladeUniversal.a; sourceTree = "<group>"; };
-		8C6AB9451B6FC5BD004B6672 /* Check-A-Matic copy.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Check-A-Matic copy.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		8C6AB9451B6FC5BD004B6672 /* Check-A-Matic.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "Check-A-Matic.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		8C6AB9461B6FC5BD004B6672 /* Check-A-Matic copy-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = "Check-A-Matic copy-Info.plist"; path = "/Users/irina/Check-A-Matic/platforms/ios/Check-A-Matic copy-Info.plist"; sourceTree = "<absolute>"; };
 		8CBE515E1B4FCB8A00E16289 /* FBSDKCoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = FBSDKCoreKit.framework; path = ../../../Documents/FacebookSDK/FBSDKCoreKit.framework; sourceTree = "<group>"; };
 		8CBE51671B4FCF7000E16289 /* FacebookSDKStrings.bundle */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.plug-in"; name = FacebookSDKStrings.bundle; path = ../../../Documents/FacebookSDK/FacebookSDKStrings.bundle; sourceTree = "<group>"; };
@@ -265,7 +265,7 @@
 		F1DBCA3ACF8B40F4B48DDF07 /* sqlite3.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = unknown; name = sqlite3.c; path = "cordova-sqlite-storage/sqlite3.c"; sourceTree = "<group>"; };
 		F2B8962A130C441AA60DA6B2 /* SystemConfiguration.framework */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
 		F813CD83DACE42BD8CBA3609 /* CDVLocalFilesystem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = CDVLocalFilesystem.m; path = org.apache.cordova.file/CDVLocalFilesystem.m; sourceTree = "<group>"; };
-		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = Check-A-Matic/config.xml; sourceTree = "<group>"; };
+		F840E1F0165FE0F500CFE078 /* config.xml */ = {isa = PBXFileReference; lastKnownFileType = text.xml; name = config.xml; path = "Check-A-Matic/config.xml"; sourceTree = "<group>"; };
 		FD95B564A7674A72AF75F837 /* UIWebViewExtension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = UIWebViewExtension.m; path = com.ionic.keyboard/UIWebViewExtension.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -331,14 +331,14 @@
 				1D3623250D0F684500981E51 /* AppDelegate.m */,
 			);
 			name = Classes;
-			path = Check-A-Matic/Classes;
+			path = "Check-A-Matic/Classes";
 			sourceTree = SOURCE_ROOT;
 		};
 		19C28FACFE9D520D11CA2CBB /* Products */ = {
 			isa = PBXGroup;
 			children = (
 				1D6058910D05DD3D006BFB54 /* Check-A-Matic.app */,
-				8C6AB9451B6FC5BD004B6672 /* Check-A-Matic copy.app */,
+				8C6AB9451B6FC5BD004B6672 /* Check-A-Matic.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -370,7 +370,7 @@
 				29B97316FDCFA39411CA2CEA /* main.m */,
 			);
 			name = "Other Sources";
-			path = Check-A-Matic;
+			path = "Check-A-Matic";
 			sourceTree = "<group>";
 		};
 		29B97317FDCFA39411CA2CEA /* Resources */ = {
@@ -383,7 +383,7 @@
 				BBD9AAFABF3C447E83546782 /* ResourceRules.plist */,
 			);
 			name = Resources;
-			path = Check-A-Matic/Resources;
+			path = "Check-A-Matic/Resources";
 			sourceTree = "<group>";
 		};
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
@@ -464,7 +464,7 @@
 				B2ADA3BA071E4EFDB5A94F42 /* sqlite3.h */,
 			);
 			name = Plugins;
-			path = Check-A-Matic/Plugins;
+			path = "Check-A-Matic/Plugins";
 			sourceTree = SOURCE_ROOT;
 		};
 		308D052D1370CCF300D202BF /* icons */ = {
@@ -532,8 +532,8 @@
 			dependencies = (
 				301BF551109A68C00062928A /* PBXTargetDependency */,
 			);
-			name = Check-A-Matic;
-			productName = Check-A-Matic;
+			name = "Check-A-Matic";
+			productName = "Check-A-Matic";
 			productReference = 1D6058910D05DD3D006BFB54 /* Check-A-Matic.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -552,8 +552,8 @@
 				8C6AB8FE1B6FC5BD004B6672 /* PBXTargetDependency */,
 			);
 			name = Distribution;
-			productName = Check-A-Matic;
-			productReference = 8C6AB9451B6FC5BD004B6672 /* Check-A-Matic copy.app */;
+			productName = "Check-A-Matic";
+			productReference = 8C6AB9451B6FC5BD004B6672 /* Check-A-Matic.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -800,7 +800,7 @@
 					"$(PROJECT_DIR)",
 					"/Users/irina/Downloads/phonegap-facebook-plugin-master/platforms/ios",
 					/Users/irina/Documents/FacebookSDK,
-					/Users/irina/Check-A-Matic,
+					"/Users/irina/Check-A-Matic",
 				);
 				GCC_DYNAMIC_NO_PIC = NO;
 				GCC_OPTIMIZATION_LEVEL = 0;
@@ -852,7 +852,7 @@
 					"$(PROJECT_DIR)",
 					"/Users/irina/Downloads/phonegap-facebook-plugin-master/platforms/ios",
 					/Users/irina/Documents/FacebookSDK,
-					/Users/irina/Check-A-Matic,
+					"/Users/irina/Check-A-Matic",
 				);
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "Check-A-Matic/Check-A-Matic-Prefix.pch";
