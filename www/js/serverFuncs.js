@@ -303,6 +303,8 @@ function uploadPhoto() {
 	    	               //putSetting(SETTING_USER_ENVIRONMENT,jqXHR.responseText);
 	    	               addUserEnvironment(jqXHR.responseText);
 	    	           		var json = jQuery.parseJSON(jqXHR.responseText);
+//							alert ("userEnvironment count odf widgets: "+json.Widgets.length);
+
 	    	           		for (var k in json.Widgets) {
 	    	  				  var w = json.Widgets[k];
 	    	  				  	addWidget(w.VisualObjectId, JSON.stringify(w));
@@ -312,7 +314,7 @@ function uploadPhoto() {
 	    	               deferred.resolve();
 	    	            },
 	    	            error: function(jqXHR, textStatus, errorThrown) {
-	    	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){  	              		
+	    	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
 	                        	  /* if (res==SERVER_ERROR_TRY_AGAIN){
 	                        		   requestUserEnvironment();
 	                        	   	   deferred.resolve();

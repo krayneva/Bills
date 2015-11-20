@@ -116,9 +116,11 @@ function requestAndUpdateMainPage(){
 
 		var networkState = navigator.connection.type;
 		if (networkState==Connection.NONE){
+			alert("nerwork is none!");
 				updateMainPage();
 		}
 		else
+			alert("requesting environment!");
 			requestUserEnvironment(false).done(function(){
 			updateMainPage();
 		});
