@@ -303,7 +303,7 @@ function uploadPhoto() {
 	    	               //putSetting(SETTING_USER_ENVIRONMENT,jqXHR.responseText);
 	    	               addUserEnvironment(jqXHR.responseText);
 	    	           		var json = jQuery.parseJSON(jqXHR.responseText);
-//							alert ("userEnvironment count odf widgets: "+json.Widgets.length);
+							alert ("userEnvironment count odf widgets: "+json.Widgets.length);
 
 	    	           		for (var k in json.Widgets) {
 	    	  				  var w = json.Widgets[k];
