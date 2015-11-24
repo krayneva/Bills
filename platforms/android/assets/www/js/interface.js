@@ -371,7 +371,7 @@ function refershBillSendStatus(rowID){
 										requestGoodMeasures().done(function () {
 											requestDictionaries().done(function () {
 												requestBadHabits().done(function () {
-													requestUserEnvironment().done(function () {
+													requestUserEnvironment(true).done(function () {
 														showMainPage();
 													});
 												});

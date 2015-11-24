@@ -113,14 +113,13 @@ function updateLoginPage(){
 
 function requestAndUpdateMainPage(){
 	try{
-		requestUserEnvironmentCount =requestUserEnvironmentCount + 1;
+
 		var networkState = navigator.connection.type;
 		if (networkState==Connection.NONE){
-
 				updateMainPage();
 		}
 		else
-		requestUserEnvironment().done(function(){
+			requestUserEnvironment(false).done(function(){
 			updateMainPage();
 		});
 	}
@@ -135,19 +134,10 @@ function requestAndUpdateMainPage(){
 function updateMainPage(){
 	try{
 		getUserEnvironment().done(function(res){
-
-			if (debugMode==true)
-			console.log("Update main page json :"+res);
-			if ((res=="")&(requestUserEnvironmentCount==0)){
-				console.log("updateMainPage: requesting environment From server");
-				requestAndUpdateMainPage();
-
-			}
-			else{
-				requestUserEnvironmentCount = 0;
 				var json = jQuery.parseJSON(res);
-				$('#cash').html(json.Amount1);
-				updateWidgets();
+				if (res!="") {
+					$('#cash').html(formatPriceRound(json.Amount1));
+					updateWidgets();
 				}
 			});
 	}
@@ -275,7 +265,7 @@ function updateTransactionPage(){
 
 					  html = html.replace(/\{transactionDate\}/g,(day<10?'0':'')+day+"."+(month<10?'0':'')+month+"."+year);
 					  html = html.replace(/\{transactionTime\}/g,(hours<10?'0':'')+hours+":"+(minutes<10?'0':'')+minutes);
-					  html = html.replace(/\{transactionPrice\}/g,formatPrice(json.Amount)+getCurrencyString(json.Currency));
+					  html = html.replace(/\{transactionPrice\}/g,getCurrencyString(json.Currency)+formatPriceRound(json.Amount));
 					  html = html.replace(/\{transactionName\}/g,json.Name==null?"":json.Name);
 					//  html = html.replace(/\{transactionName\}/g,row.searchText);
 					  console.log("search text is "+row.searchText);
@@ -307,7 +297,7 @@ function updateTransactionPage(){
 						totalAmount=totalAmount+json.Amount;
 
 					};
-				$("#total").html(formatPrice(totalAmount));
+				$("#total").html(getCurrencyString(json.Currency)+formatPriceRound(totalAmount));
 
 				$('#expensesList').html(listHTML);
 				var end =  +new Date();  // log end timestamp
@@ -385,12 +375,12 @@ function updateWidgets(){
 				}
 
 				html = html.replace(/\{catImage\}/g, src);
-				html = html.replace(/\{catAmount\}/g, formatPrice(w.Amount));
+				html = html.replace(/\{catAmount\}/g, formatPriceRound(w.Amount));
 				spent = spent+ w.Amount;
 				html = html.replace(/\{catName\}/g, w.Name);
 				$('#categories').append(html);
 			}
-			$("#spent").html(formatPrice(spent));
+			$("#spent").html(formatPriceRound(spent));
 		});
 	}
     catch(e){
@@ -841,6 +831,7 @@ function updateShopListsPage(reloadFromBase){
                             		.done(function(){
                             				$('#modal').hide();
                                             $('.my-modal').hide();
+                                            $('.my-modal').hide();
                             		});
                                 });
 				$('#okButton').click(function(){
@@ -947,17 +938,27 @@ function updateShopListsPage(reloadFromBase){
 
 				}
 
-			//$('#spent').html(formatPrice(js.receiptData.Total));
-           // $('#spent2').html(formatPrice(js.receiptData.Total));
-			$('#spent').html(formatPrice(js.Amount));
+
+
+
+			$('#spent1').html(formatPrice(js.Amount));
 			 $('#spent2').html(formatPrice(js.Amount));
-
-					// tax
-            $('#discount').html("Скидка "+formatPrice(js.receiptData.TotalTax) +" "+getCurrencyString(js.Currency));
+			// tax
+            $('#discount').html("Скидка "+formatPrice(js.receiptData.TotalTax));
             $('#discount2').html(formatPrice(js.receiptData.TotalTax));
- 			 $("#checkDetailstable").table("refresh");
+			//$('#spentdiv').html('<span>'+formatPrice(js.Amount)+'</span><div>Скидка: '
+			//			+formatPrice(js.receiptData.TotalTax)+'</div>');
 
-		       });
+
+			var date = new Date(js.TransactionDate);
+			var hours = date.getHours();
+			var minutes = date.getMinutes();
+			var month = date.getMonth()+1;
+			var day =  date.getDate();
+			var year = date.getYear()+1900;
+			$('#checkDate').html((hours<10?'0':'')+hours+":"+(minutes<10?'0':'')+minutes+" | "+ (day<10?'0':'')+day+"."+(month<10?'0':'')+month+"."+year )
+ 			 $("#checkDetailstable").table("refresh");
+	       });
 
 
 	//$( "#table" ).table( "rebuild" );
