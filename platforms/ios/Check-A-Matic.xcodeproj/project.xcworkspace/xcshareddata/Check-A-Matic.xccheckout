@@ -7,14 +7,14 @@
 	<key>IDESourceControlProjectIdentifier</key>
 	<string>067695AA-3C86-4C7E-87AF-309F93DC9A99</string>
 	<key>IDESourceControlProjectName</key>
-	<string>Check-A-Matic</string>
+	<string>project</string>
 	<key>IDESourceControlProjectOriginsDictionary</key>
 	<dict>
 		<key>438CEDCC7F9A242E896243DEEF5DCCFBD6AC8A4D</key>
 		<string>https://github.com/krayneva/Bills.git</string>
 	</dict>
 	<key>IDESourceControlProjectPath</key>
-	<string>platforms/ios/Check-A-Matic.xcodeproj</string>
+	<string>platforms/ios/Check-A-Matic.xcodeproj/project.xcworkspace</string>
 	<key>IDESourceControlProjectRelativeInstallPathDictionary</key>
 	<dict>
 		<key>438CEDCC7F9A242E896243DEEF5DCCFBD6AC8A4D</key>
