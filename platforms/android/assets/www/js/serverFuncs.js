@@ -1148,7 +1148,6 @@ function uploadPhoto() {
 											$.each(value, function (key, value) {
 												addCategoryInTransaction(categoryID, categoryName, transaction);
 												$.each(value, function (key, value) {
-												//	addSubCategory(key, value, categoryID);
 													addSubCategoryInTransaction(key, value, categoryID, transaction);
 
 												});
