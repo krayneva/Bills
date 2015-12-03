@@ -330,7 +330,8 @@ function updateWidgets(){
 
 			for (var j = 0; j < res.rows.length; j++) {
 				var w = jQuery.parseJSON(res.rows.item(j).json);
-
+			//	alert(JSON.stringify(w));
+			//	console.log(JSON.stringify(w));
 				if (w.Type == 0) continue;
 
 
@@ -1238,7 +1239,7 @@ function updateShopListsPage(reloadFromBase){
 		 $('#select-native-1').change(function() {
 			 var transactionID = window.localStorage.getItem(TRANSACTION_ID_KEY);
 			// alert ("changeSubCategory to "+ $('#select-native-1').val());
-
+			 alert("changeSubCategory transatcion ID is "+transactionID);
 			 changeSubCategory(transactionID, $('#select-native-1').val());
 		 });
 	 }

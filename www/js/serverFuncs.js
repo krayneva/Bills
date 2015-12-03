@@ -303,8 +303,6 @@ function uploadPhoto() {
 	    	               //putSetting(SETTING_USER_ENVIRONMENT,jqXHR.responseText);
 	    	               addUserEnvironment(jqXHR.responseText);
 	    	           		var json = jQuery.parseJSON(jqXHR.responseText);
-							alert ("userEnvironment count odf widgets: "+json.Widgets.length);
-
 	    	           		for (var k in json.Widgets) {
 	    	  				  var w = json.Widgets[k];
 	    	  				  	addWidget(w.VisualObjectId, JSON.stringify(w));
@@ -1362,7 +1360,7 @@ function changeSubCategory(transactionID, subcategory){
 	    		console.log("changeSubCategory server address: "+serverAddress+getTransactionsURL);
 	    		console.log("changeSubCategory user token: "+userToken);
 
-	    	
+					alert("changeSubCategory transatcion ID is "+transactionID);
 	    		getTransaction(transactionID).done(function(res){
 	    		var js = jQuery.parseJSON(res.rows.item(0).transactionJSON);
 
