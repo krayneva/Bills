@@ -86,50 +86,130 @@ function getCurrencyString(currency){
     try{
         switch(currency){
             case 2:
+            case"2":
                 //return "р.";
-4
                 return'<span style="font-family:rouble; font-size: 1em">a</span>';
             case 1:
+            case "1":
                 return "$";
             case 3:
+            case "3":
                 return "&#8364;";
         }
     }
     catch(e){
         dumpError("getCurrencyString",e);
-    }
+            }
+    console.log("getCurrencyString for  "+currency+"failed ");
+    return "";
 
 }
 function hashCode(str){
-    var hash = 0;
-    if (str.length == 0) return hash;
-    for (i = 0; i < str.length; i++) {
-        char = str.charCodeAt(i);
-        hash = ((hash<<5)-hash)+char;
-        hash = hash & hash; // Convert to 32bit integer
+    try {
+        var hash = 0;
+        if (str.length == 0) return hash;
+        for (var i = 0; i < str.length; i++) {
+            var char = str.charCodeAt(i);
+            hash = ((hash << 5) - hash) + char;
+            hash = hash & hash; // Convert to 32bit integer
+        }
     }
+    catch(e){
+       dumpError("hashCode",e);
+        }
     return hash;
 }
 
 function formatPrice(price) {
-    if (price==0) return price;
-    if (price=='0') return price;
-    if (price==undefined) return 0;
-    if (price==null) return 0;
-    return Math.round(price * 100) / 100;
+    try{
+        if (price==0) return price;
+        if (price=='0') return price;
+        if (price==undefined) return 0;
+        if (price==null) return 0;
+        return Math.round(price * 100) / 100;
+        }
+    catch(e){
+        dumpError("formatPrice",e);
+        return price;
+    }
 }
 
 function formatPriceRound(price) {
-    if (price==0) return price;
-    if (price==undefined) return 0;
-    if (price==null) return 0;
-    return Math.round(price);
+    try {
+        if (price == 0) return price;
+        if (price == undefined) return 0;
+        if (price == null) return 0;
+        return Math.round(price);
+    }
+    catch(e){
+            dumpError(" formatVolume",e);
+        return price;
+        }
+
 }
 
 function formatVolume(volume){
-    if (volume==0) return volume;
-    if (volume==undefined) return 0;
-    if (volume==null) return 0;
-    return Math.round(volume/10) / 100;
+    try{
+        if (volume==0) return volume;
+        if (volume==undefined) return 0;
+        if (volume==null) return 0;
+        return Math.round(volume/10) / 100;
+        }
+    catch(e){
+        dumpError(" formatVolume",e);
+        return volume;
+    }
+}
 
+function getCategoryImage(categoryID){
+    try {
+     //   var src = '<img src="images/';
+        var src = 'images/';
+            switch (categoryID) {
+            case "CAT_FOOD":
+                src = src.concat("ico-cross.png");
+                break;
+            case "CAT_SAVINGS":
+                src = src.concat("ico-cross.png");
+                break;
+            case "CAT_MEDICINE":
+                src = src.concat("ico-cross.png");
+                break;
+            case "CAT_TRAVELS":
+                src = src.concat("ico-cross.png");
+                break;
+            case "CAT_FUN":
+                src = src.concat("ico-coctail.png");
+                break;
+            case "CAT_HOUSE":
+                src = src.concat("ico-home.png");
+                break;
+            case "CAT_OTHER":
+                src = src.concat("ico-umbrella.png");
+                break;
+            case "CAT_WEAR":
+                src = src.concat("ico-hanger.png");
+                break;
+            case "CAT_AUTO":
+                src = src.concat("ico-hanger.png");
+                break;
+            case "CAT_PRIVATE":
+                src = src.concat("ico-hanger.png");
+                break;
+            case "CAT_EDU":
+                src = src.concat("ico-hanger.png");
+                break;
+            default:
+                src = src.concat("img.jpg");
+        //       alert("GOT categoryID " + categoryID);
+                break;
+        }
+
+     //   src = src.concat('" alt="">');
+        return src;
+    }
+    catch(e){
+        dumpError("getCategoryImage",e);
+        return "images/img.jpg";
+    }
 }

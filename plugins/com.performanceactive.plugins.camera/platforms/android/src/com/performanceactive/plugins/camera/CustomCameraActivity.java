@@ -23,11 +23,13 @@ import android.view.View;
 import android.view.ViewGroup.LayoutParams;
 import android.view.Window;
 import android.view.WindowManager;
+import android.widget.*;
 import android.widget.FrameLayout;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ImageView.ScaleType;
 import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -119,6 +121,7 @@ public class CustomCameraActivity extends Activity {
         layoutBottomBorderImagesRespectingAspectRatio();
         createCaptureButton();
         setContentView(layout);
+
     }
 
     private void createCameraPreview() {

@@ -116,6 +116,9 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     private static Camera camera;
     private RelativeLayout layout;
     private FrameLayout cameraPreviewView;
+    private LinearLayout imagePreviewLayout;
+    private ImageView imagePreview;
+    private ImageButton acceptPreview, recapturePreview;
     private ImageView borderTopLeft;
     private ImageView borderTopRight;
     private ImageView borderBottomLeft;
@@ -251,6 +254,19 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
            // finishWithError("Camera is not accessible");
             finishWithError(e.getMessage());
         }
+
+        if (imagePreviewLayout==null) {
+            imagePreviewLayout = getLayoutInflater().inflate(R.layout.check_preview);
+            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+            imagePreviewLayout.setLayoutParams(layoutParams);
+            layout.addView(imagePreviewLayout);
+            imagePreviewLayout.setVisibility(View.VISIBLE);
+
+            acceptPreview = (ImageButton) imagePreviewView.findViewById(R.id.buttonAccept);
+            recapturePreview = (ImageButton) imagePreviewView.findViewById(R.id.buttonRecapture);
+            imagePreview  = (imageView) findViewById(R.id.previewImage);
+
+        }
     }
 
     private static  void configureCamera(Context context) {
@@ -374,7 +390,15 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         cameraPreviewView.removeAllViews();
         customCameraPreview = new CustomCameraPreview(this, camera);
         cameraPreviewView.addView(customCameraPreview);
+        if (imagePreviewLayout!=null)
+            imagePreviewLayout.setVisibility(View.GONE);
     }
+
+    private void displayImagePreviewView(){
+
+
+    }
+
 
     @Override
     protected void onPause() {
@@ -696,6 +720,8 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
                   previousBitmap = Bitmap.createBitmap(b, 0, b.getHeight() - currentMarginTop, b.getWidth(), currentMarginTop);
                   previousImage.setScaleType(ScaleType.FIT_END);
                   previousImage.setImageBitmap(previousBitmap);
+                  imagePreview.setImageBitmap(previousBitmap);
+                  imagePreviewLayout.setVisibility(View.VISIBLE);
                   b.recycle();
                   System.gc();
               } catch (Exception e) {
