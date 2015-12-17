@@ -13,10 +13,11 @@
         <div class="check-tab active-tab" id="main-check">
 	        <div class="check-content">
 	        	<div class="check-head">
-	        		<h1 id = "checkName">Наименование</h1>
+	        		<!--<h1 id = "checkName">Наименование</h1>-->
+	        		<input class="check-title" type="text" value="Наименование"/>
 	        		<span id = "shopName">Магазин</span><br/>
-	        		<span id = "checkDate">21:12 | 05.07.2015</span>
-	        		<a href="#" title="" class="ui-btn ui-icon-edit ui-btn-icon-notext ui-corner-all"></a>
+	        		<!--<span id = "checkDate">21:12 | 05.07.2015</span>	<br/><br/>     -->   		
+	        		<div class="check-date"><input type="time" value="21:12"/><div>|&nbsp;&nbsp;&nbsp;</div><input type="date" value="15.12.2015"/></div><br/>
 	        	</div>
 	        	<!--Родительский аккордеон-->
 				<div class="ui-field-contain"><select name="select-native-0" id="select-native-0">
@@ -34,8 +35,9 @@
 				    </select>
 				</div>
 				<div class="spent">
-					<span id="spent1" ></span>
-					<div id = "discount"></div>
+					<input type="number" value="10245"/>
+					<!--<span id="spent1" ></span>-->
+					<div class="discount" id = "discount"></div>
 				</div>
 				<div class="shopping-list" id = "tagsList">
 				<!--	<a href="javsdcript:void(0)">пиво</a>

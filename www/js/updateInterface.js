@@ -347,24 +347,24 @@ function updateWidgets(){
 						break;
 						*/
 					case "ico_medicine":
-						src = src.concat("ico-cross.png");
+						src = src.concat("svg/ico-cross.svg");
 						break;
 				/*	case "ico_education":
 						src = src.concat("education396.png");
 						break;
 						*/
 					case "ico_entertainment":
-						src = src.concat("ico-coctail.png");
+						src = src.concat("svg/ico-coctail.svg");
 						break;
 					case "ico_house":
-						src = src.concat("ico-home.png");
+						src = src.concat("svg/ico-home.svg");
 						break;
 				/*	case "ico_auto":
 						src = src.concat("auto396.png");
 						break;
 						*/
 					case "ico_other":
-						src = src.concat("ico-umbrella.png");
+						src = src.concat("svg/ico-umbrella.svg");
 						break;
 					case "ico_clothing":
 						src = src.concat("ico-hanger.png");
