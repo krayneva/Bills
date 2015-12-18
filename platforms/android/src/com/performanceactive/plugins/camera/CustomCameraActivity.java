@@ -116,7 +116,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     private static Camera camera;
     private RelativeLayout layout;
     private FrameLayout cameraPreviewView;
-    private LinearLayout imagePreviewLayout;
+    private RelativeLayout imagePreviewLayout;
     private ImageView imagePreview;
     private ImageButton acceptPreview, recapturePreview;
     private ImageView borderTopLeft;
@@ -152,6 +152,8 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     double latitude=-1, longitude=-1, altitude=-1 ;  
     private ProgressBar progress;
     private static Context context;
+
+    private  Bitmap b;
     @Override
     protected void onResume() {
         super.onResume();
@@ -256,15 +258,15 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         }
 
         if (imagePreviewLayout==null) {
-            imagePreviewLayout = getLayoutInflater().inflate(R.layout.check_preview);
-            LinearLayout.LayoutParams layoutParams = new LinearLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+            imagePreviewLayout = (RelativeLayout)getLayoutInflater().inflate(R.layout.check_preview, null);
+            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
             imagePreviewLayout.setLayoutParams(layoutParams);
             layout.addView(imagePreviewLayout);
             imagePreviewLayout.setVisibility(View.VISIBLE);
 
-            acceptPreview = (ImageButton) imagePreviewView.findViewById(R.id.buttonAccept);
-            recapturePreview = (ImageButton) imagePreviewView.findViewById(R.id.buttonRecapture);
-            imagePreview  = (imageView) findViewById(R.id.previewImage);
+            acceptPreview = (ImageButton) imagePreviewLayout.findViewById(R.id.buttonAccept);
+            recapturePreview = (ImageButton) imagePreviewLayout.findViewById(R.id.buttonRecapture);
+            imagePreview  = (ImageView) findViewById(R.id.previewImage);
 
         }
     }
@@ -714,15 +716,16 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
                   fileInputStream = new FileInputStream(Environment.getExternalStorageDirectory() + "/" + bitmaps.get(bitmaps.size() - 1));
                   BitmapFactory.Options options = new BitmapFactory.Options();
                   options.inJustDecodeBounds = false;
-                  Bitmap b = BitmapFactory.decodeStream(fileInputStream, null, options);
+                 b = BitmapFactory.decodeStream(fileInputStream, null, options);
                   fileInputStream.close();
                 //  previousBitmap = Bitmap.createBitmap(b, 0, b.getHeight() - currentMarginTop * 2, b.getWidth(), currentMarginTop * 2);
                   previousBitmap = Bitmap.createBitmap(b, 0, b.getHeight() - currentMarginTop, b.getWidth(), currentMarginTop);
                   previousImage.setScaleType(ScaleType.FIT_END);
                   previousImage.setImageBitmap(previousBitmap);
-                  imagePreview.setImageBitmap(previousBitmap);
+                  imagePreview.setImageBitmap(b);
                   imagePreviewLayout.setVisibility(View.VISIBLE);
-                  b.recycle();
+                  //;!!!!!!!!!!!!!!!!!!!!!!!
+                  //b.recycle();
                   System.gc();
               } catch (Exception e) {
                   e.printStackTrace();

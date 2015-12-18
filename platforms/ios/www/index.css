@@ -458,6 +458,7 @@ font-size: 1.2em;
 .category{
   width: 46%;
   margin: 2%;
+  height:16%;
   border: 1px solid #adcb35;
   float: left;
   box-sizing: border-box;
@@ -470,8 +471,8 @@ font-size: 1.2em;
   height: 100%;
 }
 .icoCategory{
-  width: 38%;
-  margin: 0 1%;
+  width: 28%;
+  margin: 10% 6%;
   float: left;
   vertical-align: middle;
 }

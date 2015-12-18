@@ -525,20 +525,53 @@ label.error {
 }
 .check-head {
 	position: relative;
-	padding-left: 8em;
 	margin-bottom: 20px;
 	padding-top: 20px;
 }
-.check-head h1 {
+.check-head h1, .check-title {
 	font-family: 'OpenSans-Semibold';
 	font-size: 1.9375rem;
 	margin-bottom: 5px;
 	margin-top: 0;
+	border: none!important;
+	padding-top: 0px;
+	padding-bottom: 0px;
 }
 .check-head span {
 	color: #0090a6;
 	font-family: 'OpenSans-Semibold';
 	font-size: 1.625rem;
+}
+.check-head div.ui-input-text, .check-head div.ui-input-text input,
+.check-head div.ui-input-text.ui-focus, .check-head div.ui-input-text.ui-focus input{
+	border-color: none!important;
+	line-height: 1em!important!;
+	box-shadow: none!important;
+	border-width: 0!important;
+	margin: 0!important;
+	padding: 0px!important;
+	width: auto!important;
+}
+.check-head .check-date>div.ui-input-text,
+.check-head .check-date>div{
+	float: left!important;
+	overflow: hidden!important;
+}
+.check-head .check-date>div.ui-input-text:first-child,
+.check-head .check-date>div.ui-input-text:first-child input{
+	min-width: 60px!important; 
+}
+.check-head .check-date>div.ui-input-text:last-child,
+.check-head .check-date>div.ui-input-text:last-child input{
+	min-width: 120px!important; 
+}
+.check-head .check-date>div, .check-head .check-date>div>input{
+	color: #0090a6;
+	font-family: 'OpenSans-Semibold';
+	font-size: 1.625rem;
+}
+.check-head>span>*{
+	display: inline!important;
 }
 .check-content {
 	min-height: 100%;
@@ -589,30 +622,44 @@ label.error {
 .spent {
 	margin-top: 10px;
 }
-.spent div {
+.spent .discount {
 	font-size: 1.375rem;
 	padding-left: 7.3rem;
 	padding-top: 10px;
 }
-.spent span {
-	display: block;
-	height: 77px;
-	line-height: 77px;
-	position: relative;
-	background: #cee085; /* Old browsers */
-	background: -moz-linear-gradient(top,  #cee085 0%, #cee085 47%, #bad763 48%, #bad763 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cee085), color-stop(49%,#cee085), color-stop(51%,#bad763), color-stop(100%,#bad763)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #cee085 0%,#cee085 47%,#bad763 48%,#bad763 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #cee085 0%,#cee085 47%,#bad763 48%,#bad763 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #cee085 0%,#27aabd 47%,#bad763 48%,#bad763 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  #cee085 0%,#cee085 47%,#bad763 48%,#bad763 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cee085', endColorstr='#bad763',GradientType=0 ); /* IE6-9 */
-	padding-left: 2.3em;
-	font-size: 3.25rem;
-	color: #fff;
-	text-shadow: 1px 1px 0 #95b24f;
+.spent div.ui-input-text {
+	display: block!important;
+	position: relative!important;
+	background: #cee085!important;/* Old browsers */
+	background: -moz-linear-gradient(top,  #cee085 0%, #cee085 47%, #bad763 48%, #bad763 100%)!important;/* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cee085), color-stop(49%,#cee085), color-stop(51%,#bad763), color-stop(100%,#bad763))!important; /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #cee085 0%,#cee085 47%,#bad763 48%,#bad763 100%)!important; /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #cee085 0%,#cee085 47%,#bad763 48%,#bad763 100%)!important; /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #cee085 0%,#27aabd 47%,#bad763 48%,#bad763 100%)!important; /* IE10+ */
+	background: linear-gradient(to bottom,  #cee085 0%,#cee085 47%,#bad763 48%,#bad763 100%)!important; /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cee085', endColorstr='#bad763',GradientType=0 )!important; /* IE6-9 */
+	padding: 0!important;
+	margin: 0!important;
+	border:0!important;
+	box-shadow: none!important;
 }
-.spent span:after {
+.spent div.ui-input-text.ui-focus{
+	border:0!important;
+	box-shadow: none!important;	
+}
+.spent div.ui-input-text input{
+	height: 77px!important;
+	font-size: 3rem!important;
+	color: #fff!important;
+	text-shadow: 1px 1px 0 #95b24f!important;
+	line-height: 77px!important;
+	padding: 0!important;
+	min-height: 0px!important;
+	margin: 0!important;
+	text-align: center!important;
+	width: 100%;
+}
+.spent .ui-input-text:after {
 	position: absolute;
 	content: "";
 	top: 0;
@@ -1066,7 +1113,7 @@ div.my-modal-bg {
 	.ui-select > div,
 	.ui-input-search,
 	.ui-collapsible-heading-toggle,
-	.spent span {
+	.spent div.ui-input-text input{
 		height: 50px !important;
 		line-height: 50px !important;
 	}
@@ -1193,7 +1240,7 @@ div.my-modal-bg {
 	.ui-select > div,
 	.ui-input-search,
 	.ui-collapsible-heading-toggle,
-	.spent span {
+	.spent div.ui-input-text input{
 		height: 40px !important;
 		line-height: 40px !important;
 	}

@@ -2,12 +2,14 @@
  * Created by Irina on 14.12.2015.
  */
 
+
+var transactionID;
 function updateCheckPage(){
 
     try{
 
         var receiptID = window.localStorage.getItem(RECEIPT_ID_KEY);
-        var transactionID = window.localStorage.getItem(TRANSACTION_ID_KEY);
+       transactionID = window.localStorage.getItem(TRANSACTION_ID_KEY);
         $('#sendFeedbackButton').click(function()
         {
             var mark=5;
@@ -289,6 +291,40 @@ function updateCheckPage(){
 
 }
 
+
+
+function refreshSubCategoryCombo(subcategory){
+    var html1 = $('#categoryRowTemplate').html();
+    $('#select-native-1').html('');
+    if (subcategory==0){
+        $('#select-native-1').selectmenu("refresh", "true");
+    }
+    getSubCategoryName(subcategory).done(function(subcategoryName){
+        html1 = html1.replace(/\{catName\}/g,subcategoryName);
+        html1 = html1.replace(/\{catValue\}/g,subcategory);
+        $('#select-native-1').append(html1);
+
+        getSubCategoryParent(subcategory).done(function(catID){
+            getSubCategories(catID).done(function(res){
+
+                for (var j=0;j<res.rows.length;j++){
+                    if (subcategory==res.rows.item(j).id) continue;
+                    var html11 = $('#categoryRowTemplate').html();
+                    html11 = html11.replace(/\{catName\}/g,res.rows.item(j).name);
+                    html11 = html11.replace(/\{catValue\}/g,res.rows.item(j).idtext);
+                    $('#select-native-1').append(html11);
+                    if (j==res.rows.length-1){
+                        $("#select-native-1 option:first").attr('selected','selected');
+                        $('#select-native-1').selectmenu("refresh", "true");
+                    }
+                }
+            });
+        });
+    });
+    $('#select-native-1').change(function() {
+        changeSubCategory(transactionID, $('#select-native-1').val());
+    });
+}
 
 
 
