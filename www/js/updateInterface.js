@@ -346,40 +346,38 @@ function updateWidgets(){
 
 				var html = $('#categoryTemplate').html();
 				html = html.replace(/\{categoryID\}/g, w.VisualObjectId);
-				var src = "images/";
+				var src = "images/svg/";
 				switch (w.IconIdentifier) {
 					case "ico_purse":
-						src = src.concat("ico_usd.png");
+						src = src.concat("ico_saving.svg");
 						break;
-				/*	case "ico_food":
-						src = src.concat(".png");
-						break;
-						*/
+					case "ico_food":
+						src = src.concat("ico-food.svg");
+						break;						
 					case "ico_medicine":
-						src = src.concat("svg/ico-cross.svg");
+						src = src.concat("ico-health.svg");
 						break;
-				/*	case "ico_education":
-						src = src.concat("education396.png");
+					case "ico_education":
+						src = src.concat("ico-training.svg");
 						break;
-						*/
 					case "ico_entertainment":
-						src = src.concat("svg/ico-coctail.svg");
+						src = src.concat("ico-entertainment.svg");
 						break;
 					case "ico_house":
-						src = src.concat("svg/ico-home.svg");
+						src = src.concat("ico-home.svg");
 						break;
-				/*	case "ico_auto":
-						src = src.concat("auto396.png");
+					case "ico_auto":
+						src = src.concat("ico-cars.svg");
 						break;
-						*/
+						
 					case "ico_other":
-						src = src.concat("svg/ico-umbrella.svg");
+						src = src.concat("ico-other.svg");
 						break;
 					case "ico_clothing":
-						src = src.concat("ico-hanger.png");
+						src = src.concat("ico-clothes.svg");
 						break;
 					default:
-						src = src.concat("ico-usd.png");
+						src = src.concat("ico-other.svg");
 						console.log("GOT ICON IDENTIFIER " + w.IconIdentifier);
 						break;
 				}
@@ -951,12 +949,46 @@ function updateShopListsPage(reloadFromBase){
 		*/
 	 }
 
+	 function refreshSubCategoryCombo(subcategory){
+		 var html1 = $('#categoryRowTemplate').html();
+		 $('#select-native-1').html('');
+		 if (subcategory==0){
+			 $('#select-native-1').selectmenu("refresh", "true");
+		 }
+		 getSubCategoryName(subcategory).done(function(subcategoryName){
+			 html1 = html1.replace(/\{catName\}/g,subcategoryName);
+			 html1 = html1.replace(/\{catValue\}/g,subcategory);
+			 $('#select-native-1').append(html1);
 
+			 getSubCategoryParent(subcategory).done(function(catID){
+				 getSubCategories(catID).done(function(res){
+
+					 for (var j=0;j<res.rows.length;j++){
+						 if (subcategory==res.rows.item(j).id) continue;
+						 var html11 = $('#categoryRowTemplate').html();
+						 html11 = html11.replace(/\{catName\}/g,res.rows.item(j).name);
+						 html11 = html11.replace(/\{catValue\}/g,res.rows.item(j).idtext);
+						 $('#select-native-1').append(html11);
+						 if (j==res.rows.length-1){
+							 $("#select-native-1 option:first").attr('selected','selected');
+							 $('#select-native-1').selectmenu("refresh", "true");
+						 }
+					 }
+				 });
+			 });
+		 });
+		 $('#select-native-1').change(function() {
+			 var transactionID = window.localStorage.getItem(TRANSACTION_ID_KEY);
+			// alert ("changeSubCategory to "+ $('#select-native-1').val());
+			 alert("changeSubCategory transatcion ID is "+transactionID);
+			 changeSubCategory(transactionID, $('#select-native-1').val());
+		 });
+	 }
 
 function takeHeight()
 		{
 		try{
-			var parent = $(window).outerHeight(),
+			/*var parent = $(window).outerHeight(),
 				childs = $('.check-head').outerHeight(),
 				height = 0,
 				height2 = 0;
@@ -967,13 +999,21 @@ function takeHeight()
 
 				height = parent-childs-280;
 
-				height2 = parent - $('.check-details h3').height()-250;
+				
 
 			$('.shopping-list').height(height);
 
-			$('.check-details-scroll').height(height2);
+			
+			*/
+				var parent = $(window).outerHeight(),
+					height = $('.check-content').height() - $('.shopping-list').position().top - $('.message').height(),
+					height2 = parent - $('.check-details h3').height()-250;
+
+				$('.shopping-list').css('height', height);
+				$('.check-details-scroll').height(height2);
 			}
             catch(e){
                 dumpError("takeHeight",e);
             }
 		}
+
