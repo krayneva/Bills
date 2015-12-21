@@ -56,6 +56,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.Override;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -124,6 +125,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     private ImageView borderBottomLeft;
     private ImageView borderBottomRight;
     private TextView billText;
+    private TextView previewText;
     private ImageButton captureButton, sendButton, recaptureButton, flashButton, exitButton, settingsButton; 
     
     private RelativeLayout controlsLayout;
@@ -267,7 +269,28 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
             acceptPreview = (ImageButton) imagePreviewLayout.findViewById(R.id.buttonAccept);
             recapturePreview = (ImageButton) imagePreviewLayout.findViewById(R.id.buttonRecapture);
             imagePreview  = (ImageView) findViewById(R.id.previewImage);
+            previewText = (TextView) findViewById(R.id.textViewPreview);
+            previewText.setTextSize(30);
+            previewText.setTextColor(Color.WHITE);
 
+            acceptPreview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    imagePreviewLayout.setVisibility(View.GONE);
+                    b.recycle();
+                    b = null;
+                }
+            });
+
+            recapturePreview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    imagePreviewLayout.setVisibility(View.GONE);
+                    imagePreview.setImageBitmap(null);
+                    recaptureLast();
+                }
+            });
+            imagePreviewLayout.setVisibility(View.GONE);
         }
     }
 
@@ -457,10 +480,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 
         
  		if (!isGPSActive ) {
- 				
  			location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
- 			//Toast.makeText(this, ""+location.getLongitude(), Toast.LENGTH_LONG).show();
- 			
  		}
  		else{
 
@@ -473,14 +493,12 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
  		}
  		
  		if (location!=null){
- 		//	Toast.makeText(this, ""+location.getLongitude(), Toast.LENGTH_LONG).show();
- 		//	Toast.makeText(this, ""+location.getAltitude(), Toast.LENGTH_LONG).show();
-
 	 		latitude = location.getLatitude();
 	 	 	longitude = location.getLongitude();
 	 	 	altitude = location.getAltitude();
  		}
         camera = Camera.open();
+
     }
     
     

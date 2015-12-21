@@ -266,6 +266,13 @@ function updateCheckPage(){
             });
         });
 
+        $('.save').click(function()
+        {
+            saveTransaction();
+        }
+
+
+
         $(document).on('click','#modal',function(event)
         {
             $('#modal').hide();

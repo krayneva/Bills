@@ -1623,3 +1623,8 @@ function requestDiscount(){
 	}
 
 }
+
+
+function saveTransaction(){
+
+}
