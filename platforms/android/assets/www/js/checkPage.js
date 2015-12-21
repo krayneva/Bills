@@ -269,7 +269,7 @@ function updateCheckPage(){
         $('.save').click(function()
         {
             saveTransaction();
-        }
+        });
 
 
 

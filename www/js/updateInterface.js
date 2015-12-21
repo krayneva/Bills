@@ -988,23 +988,6 @@ function updateShopListsPage(reloadFromBase){
 function takeHeight()
 		{
 		try{
-			/*var parent = $(window).outerHeight(),
-				childs = $('.check-head').outerHeight(),
-				height = 0,
-				height2 = 0;
-
-				childs += $('.ui-field-contain').outerHeight()*2;
-
-				childs += $('.spent').outerHeight();
-
-				height = parent-childs-280;
-
-				
-
-			$('.shopping-list').height(height);
-
-			
-			*/
 				var parent = $(window).outerHeight(),
 					height = $('.check-content').height() - $('.shopping-list').position().top - $('.message').height(),
 					height2 = parent - $('.check-details h3').height()-250;

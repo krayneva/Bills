@@ -379,7 +379,9 @@ button.ui-btn {
 label.error {
 	display: none !important;
 }
-
+.info-content{
+	padding: 0px 15px;
+}
 .info-content h1 {
 	display: block;
 	text-align: center;
@@ -402,6 +404,9 @@ label.error {
 
 .info-content > p {
 	text-align: center;
+}
+.habitsPeriod{
+	font-size: 2rem;
 }
 .ui-collapsible-set {
 	margin-top: 0 !important;
@@ -563,12 +568,16 @@ label.error {
 	overflow: hidden!important;
 }
 .check-head .check-date>div.ui-input-text:first-child,
-.check-head .check-date>div.ui-input-text:first-child input{
+.check-head .check-date>div.ui-input-text:nth-child(2),
+.check-head .check-date>div.ui-input-text:first-child input,
+.check-head .check-date>div.ui-input-text:nth-child(2) input{
 	min-width: 60px!important; 
 }
 .check-head .check-date>div.ui-input-text:last-child,
-.check-head .check-date>div.ui-input-text:last-child input{
-	min-width: 120px!important; 
+.check-head .check-date>div.ui-input-text:nth-child(3),
+.check-head .check-date>div.ui-input-text:last-child input,
+.check-head .check-date>div.ui-input-text:nth-child(3) input{
+	min-width: 120px!important;
 }
 .check-head .check-date>div, .check-head .check-date>div>input{
 	color: #0090a6;
@@ -701,7 +710,7 @@ label.error {
 	box-sizing: border-box;
 	overflow-x: hidden;
 	overflow-y: scroll;
-	padding: 15px 0!important;
+	padding:  0!important;
 	margin: 0!important;
 }
 .shopping-list:after {
@@ -759,10 +768,10 @@ label.error {
 	position: fixed;
 	left: 50%;
 	bottom: 0;
-	margin-left: -52px;
+	margin-left: -104px;
 }
 
-.message {
+.save{
 	display: block;
 	background-image: url("images/button_save.png");
 	background-repeat: no-repeat;
@@ -772,7 +781,7 @@ label.error {
 	position: fixed;
 	left: 50%;
 	bottom: 0;
-	margin-left: -52px;
+	margin-left: 0px;
 }
 
 .check-tab{
