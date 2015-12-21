@@ -528,19 +528,24 @@ label.error {
 	margin-bottom: 20px;
 	padding-top: 20px;
 }
-.check-head h1, .check-title {
+.check-title {
 	font-family: 'OpenSans-Semibold';
 	font-size: 1.9375rem;
-	margin-bottom: 5px;
+	margin-bottom: 0px;
 	margin-top: 0;
 	border: none!important;
 	padding-top: 0px;
 	padding-bottom: 0px;
 }
-.check-head span {
+.check-head .check-shopName {
 	color: #0090a6;
 	font-family: 'OpenSans-Semibold';
 	font-size: 1.625rem;
+	margin-bottom: 0px;
+	margin-top: 0;
+	border: none!important;
+	padding-top: 0px;
+	padding-bottom: 0px;
 }
 .check-head div.ui-input-text, .check-head div.ui-input-text input,
 .check-head div.ui-input-text.ui-focus, .check-head div.ui-input-text.ui-focus input{
@@ -622,12 +627,37 @@ label.error {
 .spent {
 	margin-top: 10px;
 }
-.spent .discount {
-	font-size: 1.375rem;
-	padding-left: 7.3rem;
-	padding-top: 10px;
+.spent div.ui-input-text, .spent .check-discount div.ui-input-text input{
+	border-color: none!important;
+	line-height: 1em!important!;
+	box-shadow: none!important;
+	border-width: 0!important;
+	margin: 0!important;
+	padding: 0px!important;
+	width: auto!important;
+	border: none!important;
 }
-.spent div.ui-input-text {
+
+.spent .check-discount div.ui-input-text:after, .check-discount div.ui-input-text input{
+	float: left!important;
+	font-size: 1.375rem!important;
+	line-height: 1em!important;
+	color: #0090a6;
+	font-family: 'OpenSans-Semibold';
+	
+}
+.spent .check-discount div.ui-input-text {
+	padding-left: 6.5rem!important;
+	text-align: center;
+}
+.spent .check-discount div.ui-input-text:after{
+	text-align: center;
+	position: absolute;
+	content: "Скидка: ";
+	top: 0.67em;
+	left: 0;
+}
+.spent .check-spent .ui-input-text input{
 	display: block!important;
 	position: relative!important;
 	background: #cee085!important;/* Old browsers */
@@ -638,18 +668,14 @@ label.error {
 	background: -ms-linear-gradient(top,  #cee085 0%,#27aabd 47%,#bad763 48%,#bad763 100%)!important; /* IE10+ */
 	background: linear-gradient(to bottom,  #cee085 0%,#cee085 47%,#bad763 48%,#bad763 100%)!important; /* W3C */
 	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cee085', endColorstr='#bad763',GradientType=0 )!important; /* IE6-9 */
-	padding: 0!important;
-	margin: 0!important;
-	border:0!important;
-	box-shadow: none!important;
 }
 .spent div.ui-input-text.ui-focus{
 	border:0!important;
 	box-shadow: none!important;	
 }
-.spent div.ui-input-text input{
+.spent .check-spent input {
 	height: 77px!important;
-	font-size: 3rem!important;
+	font-size: 2.6rem!important;
 	color: #fff!important;
 	text-shadow: 1px 1px 0 #95b24f!important;
 	line-height: 77px!important;
@@ -659,7 +685,7 @@ label.error {
 	text-align: center!important;
 	width: 100%;
 }
-.spent .ui-input-text:after {
+.spent .check-spent div.ui-input-text:after {
 	position: absolute;
 	content: "";
 	top: 0;
@@ -672,11 +698,11 @@ label.error {
 	background-position: right center;
 }
 .shopping-list {
-	margin-top: 0px;
-	padding: 15px;
 	box-sizing: border-box;
 	overflow-x: hidden;
 	overflow-y: scroll;
+	padding: 15px 0!important;
+	margin: 0!important;
 }
 .shopping-list:after {
 	clear: both;
@@ -689,8 +715,8 @@ label.error {
 .shopping-list a {
 	display: block;
 	float: left;
-	margin-right: 15px;
-	margin-bottom: 15px;
+	margin-right: 0.5em;
+	margin-bottom: 0.5em;
 	padding: .4em 2.5em .4em 1.8em;
 	text-decoration: none;
 	color: #8c8b8b;

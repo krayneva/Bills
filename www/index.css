@@ -436,7 +436,7 @@ font-size: 1.2em;
   margin-top: 0.3em;
 }
 .shopListLink>span{
-  font-size: 1.4em;
+  font-size: 2em;
 }
 .menuCategory.filter{
   vertical-align: middle;
@@ -899,7 +899,7 @@ li.expenses_item{
     float: left!important;
     padding: 0!important;
     width: 100%!important;
-    font-size: 1.4em;
+    font-size: 2em;
 }
 .shopList_needToBbuy>ul{  
     margin: 0 0 0.7em 0!important;
@@ -1014,7 +1014,7 @@ li.expenses_item{
   color: #fff!important;
   text-shadow: none;
   border: none!important;
-  font-size: 1.4em!important;
+  font-size: 2em!important;
 }
 
 
