@@ -694,7 +694,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 
        // previousImage.setScaleType(ScaleType.MATRIX);
        controlsLayout.addView(previousImage,params);   
-       updateDynamicLayout();
+       updateDynamicLayout(true);
 
         progress = new ProgressBar(this);
         progress.setVisibility(View.INVISIBLE);
@@ -706,7 +706,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     }
     
 	
-	private void updateDynamicLayout(){
+	private void updateDynamicLayout(boolean showPreview){
 		if (bitmaps.size()==0){
 			billText.setText("Фото чека");
 			recaptureButton.setVisibility(View.GONE);
@@ -741,7 +741,8 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
                   previousImage.setScaleType(ScaleType.FIT_END);
                   previousImage.setImageBitmap(previousBitmap);
                   imagePreview.setImageBitmap(b);
-                  imagePreviewLayout.setVisibility(View.VISIBLE);
+                  if (showPreview)
+                    imagePreviewLayout.setVisibility(View.VISIBLE);
                   //;!!!!!!!!!!!!!!!!!!!!!!!
                   //b.recycle();
                   System.gc();
@@ -851,7 +852,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     private void recaptureLast(){
     	if (bitmaps.size()==0) return;
     	bitmaps.remove(bitmaps.size()-1);
-    	updateDynamicLayout();
+    	updateDynamicLayout(false);
     }
     
     private void createTopLeftBorder() {
@@ -1176,7 +1177,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
                    showCameraSettings();
                    displayCameraPreview();
                    enableButtons();
-                   updateDynamicLayout();
+                   updateDynamicLayout(true);
                } catch (Exception e) {
                    finishWithError("Camera is not accessible");
                }

@@ -5,7 +5,7 @@
 
 var transactionID;
 
-var transactionJSON;
+var transactionJSON ;
 var editedJSON;
 
 function updateCheckPage(){
@@ -13,7 +13,7 @@ function updateCheckPage(){
     try{
 
         var receiptID = window.localStorage.getItem(RECEIPT_ID_KEY);
-       transactionID = window.localStorage.getItem(TRANSACTION_ID_KEY);
+        transactionID  = window.localStorage.getItem(TRANSACTION_ID_KEY);
         $('#sendFeedbackButton').click(function()
         {
             var mark=5;
@@ -43,8 +43,8 @@ function updateCheckPage(){
             else
                 js.isFav = false;
 
-            transactionJSON = js;
-            editedJSON = js;
+            transactionJSON = JSON.parse(JSON.stringify(js));
+            editedJSON = JSON.parse(JSON.stringify(js));;
             refreshPage(transactionJSON);
         });
 
@@ -131,7 +131,7 @@ function updateCheckPage(){
             saveChanges();
         });
 
-        $('delete').click(function()
+        $('.discard').click(function()
         {
             discardChanges();
         });
@@ -143,18 +143,14 @@ function updateCheckPage(){
             $('.my-modal').hide();
         });
 
-
-       /* $('#checkDate').click(function() {
-
+        // не сработало!!
+      /*  $('.editor').bind("keydown", function(e) {
+            if (e.which == 13) {
+                this.blur();
+            }
         });
+*/
 
-        $('#checkName').click(function() {
-
-        });
-        $('#shopName').click(function() {
-
-        });
-        */
         $('#checkName').on("blur",function(event){
             changeName($('#checkName').val());
         });
@@ -166,6 +162,42 @@ function updateCheckPage(){
 
         $('#shopName').on("blur",function(event){
             changeShop($('#shopName').val());
+        });
+        $('#shopName').bind("keydown", function(e) {
+            if (e.which == 13) {
+                $('#shopName').blur();
+            }
+        });
+
+        $('#spent1').on("blur",function(event){
+            changeAmount($('#spent1').val());
+        });
+        $('#spent1').bind("keydown", function(e) {
+            if (e.which == 13) {
+                $('#spent1').blur();
+            }
+        });
+
+
+        $('#discount').on("blur",function(event){
+            changeTax($('#discount').val());
+        });
+        $('#discount').bind("keydown", function(e) {
+            if (e.which == 13) {
+                $('#discount').blur();
+            }
+        });
+
+
+        $('#checkDate').change(function() {
+            changeDate($('#checkDate').val());
+        });
+        $('#checkTime').change(function() {
+            changeTime($('#checkTime').val());
+        });
+
+        $('.editor').change(function() {
+          showSaveButtons();
         });
 
     }
@@ -268,12 +300,10 @@ function refreshPage(js){
     }
 
 
-
-
-    $('#spent1').html(formatPrice(js.Amount));
+    $('#spent1').val(formatPrice(js.Amount));
     $('#spent2').html(formatPrice(js.Amount));
     // tax
-    $('#discount').html("Скидка "+formatPrice(js.receiptData.TotalTax));
+    $('#discount').val(formatPrice(js.receiptData.TotalTax));
     $('#discount2').html(formatPrice(js.receiptData.TotalTax));
 
     var date = new Date(js.TransactionDate);
@@ -282,7 +312,10 @@ function refreshPage(js){
     var month = date.getMonth()+1;
     var day =  date.getDate();
     var year = date.getYear()+1900;
-    $('#checkDate').html((hours<10?'0':'')+hours+":"+(minutes<10?'0':'')+minutes+" | "+ (day<10?'0':'')+day+"."+(month<10?'0':'')+month+"."+year )
+    //$('#checkDate').val((day<10?'0':'')+day+"."+(month<10?'0':'')+month+"."+year );
+    $('#checkDate').val(year+"-"+(month<10?'0':'')+month+"-"+ (day<10?'0':'')+day);
+    $('#checkTime').val((hours<10?'0':'')+hours+":"+(minutes<10?'0':'')+minutes);
+
     $("#checkDetailstable").table("refresh");
 
 
@@ -368,45 +401,51 @@ function refreshSubCategoryCombo(subcategory){
 
 
 function changeName(name){
-    alert("editName!");
     editedJSON.Name = name;
 }
 
 // shops are not visible yet (no value from server)
 function changeShop(shop){
-    alert("editShop!");
     editedJSON.Shop = shop;
 }
 
 
-function changeDate(date){
-    alert("editDate!");
-    editedJSON.TransactionDate = date;
+function changeDate(newDate){
+    var date = new Date(editedJSON.TransactionDate);
+    var d = new Date(newDate);
+    date.setYear(d.getYear()+1900);
+    date.setMonth(d.getMonth());
+    date.setDate(d.getDate());
+    // TODO разобраться с таймзоной
+    var s = date.toISOString().substr(0,date.toISOString().length-1)+"+00:00";
+    editedJSON.TransactionDate = s;
 }
 
-function editTime(time){
-    alert("editTime!");
-    editedJSON.TransactionDate = time;
+function changeTime(time){
+    var date = new Date(editedJSON.TransactionDate);
+    date.setMinutes(time.substr(3,5));
+    date.setHours(time.substr(0,2));
+    // TODO разобраться с таймзоной
+    var s = date.toISOString().substr(0,date.toISOString().length-1)+"+00:00";
+    editedJSON.TransactionDate = s;
+
 }
 
 
 function changeAmount(amount){
-    alert("editAmount!");
     editedJSON.Amount =amount;
 }
 
 function changeTax(tax){
-    alert("editTax!");
     editedJSON.receiptData.TotalTax = tax;
 }
 
 function changeCategory(category){
-    alert("editCatgory!");
     editedJSON.Category = category;
+
 }
 
 function changeSubCategory(subCategory){
-    alert("editSuccategory!");
     editedJSON.SubCategory = subCategory;
 }
 
@@ -420,15 +459,41 @@ function deleteTag(){
 
 
 function saveChanges(){
-    addTransaction(editedJSON);
-    transactionJSON = editedJSON;
-    saveTransaction(transactionID, transactionJSON);
+    if (editedJSON.Name==""){
+        alert("Необходимо заполнить наименование транзакции!");
+        return;
+    }
+    if ((editedJSON.Amount=="")||(editedJSON.Amount==0)){
+        alert("Необходимо заполнить сумму");
+        return;
+    }
+    transactionJSON = JSON.parse(JSON.stringify(editedJSON));
+    saveTransaction(transactionID,transactionJSON);
+
+    hideSaveButtons();
 }
 
 function discardChanges(){
-    editedJSON = transactionJSON;
+    // TODO СПросить у Сережи
+    editedJSON = JSON.parse(JSON.stringify(transactionJSON));
     refreshPage(transactionJSON);
+    hideSaveButtons();
 }
+
+//TODO переделать на toggle!!!
+function showSaveButtons(){
+    $('.message').css('display','none');
+    $('.save').css('display','block');
+    $('.discard').css('display','block');
+}
+
+function hideSaveButtons(){
+    $('.message').css('display','block');
+    $('.save').css('display','none');
+    $('.discard').css('display','none');
+}
+
+
 
 
 

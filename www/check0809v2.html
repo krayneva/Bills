@@ -14,27 +14,27 @@
 	        <div class="check-content">
 	        	<div class="check-head">
 	        		<!--<h1 id = "checkName">Наименование</h1>-->
-	        		<input class="check-title" type="text" value="Наименование" id = "checkName"/>
-	        		<input class="check-shopName" type="text" value="Магазин" id = "shopName"/>
+	        		<input class="check-title" type="text" value="Наименование" id = "checkName" class = "editor"/>
+	        		<input class="check-shopName" type="text" value="Магазин" id = "shopName" class = "editor"/>
 	        		<!--<span id = "shopName">Магазин</span><br/>
 	        		<span id = "checkDate">21:12 | 05.07.2015</span>	<br/><br/>     -->   		
 	        		<div class="check-date">
-						<input type="time"  id = "checkTime"/>
+						<input type="time"  id = "checkTime" class = "editor"/>
 				<!--		<input type="text" value="Время не задано" id = "checkTimeText"/>-->
 						<div>|&nbsp;&nbsp;&nbsp;</div>
-						<input type="date" id = "checkDate"/>
+						<input type="date" id = "checkDate" class = "editor"/>
 			<!--			<input type="date" value="Дата не задана" id = "checkDateText"/>-->
 					</div><br/>
 
 	        	</div>
 	        	<!--Родительский аккордеон-->
-				<div class="ui-field-contain"><select name="select-native-0" id="select-native-0">
+				<div class="ui-field-contain"><select name="select-native-0" id="select-native-0" class = "editor">
 					    </select>
 				</div>
-	        	<div class="ui-field-contain"><select name="select-native-1" id="select-native-1">
+	        	<div class="ui-field-contain"><select name="select-native-1" id="select-native-1" class = "editor">
 				    </select>
 				</div>
-				<div class="ui-field-contain"><select name="select-native-2" id="select-native-2">
+				<div class="ui-field-contain"><select name="select-native-2" id="select-native-2" class = "editor">
 				    <!--    <option value="1">4545 8989 2323 5487</option>
 				        <option value="2">4545 8989 2323 2345</option>
 				        <option value="3">4545 8989 2323 1234</option>
@@ -43,9 +43,9 @@
 				    </select>
 				</div>
 				<div class="spent">
-					<div  class="check-spent"><input type="number" value="10245" id = "spent1"/></div>
+					<div  class="check-spent"><input type="number"id = "spent1" class = "editor"/></div>
 					<!--<span id="spent1" ></span>-->
-					<div  class="check-discount"><input  type="number" value="200" id = "discount"/></div>
+					<div  class="check-discount"><input  type="number"  id = "discount" class = "editor"/></div>
 					<!--<div id = "discount"></div>-->
 					<div style="clear: both;"></div>
 				</div>
@@ -58,8 +58,10 @@
 				</div>
 				<!--Родительский аккордеон-->
 	       		<a href="javascript:void(0)" class="message"></a>
-				<a href="javascript:void(0)" class="save"></a>
-				<a href="javascript:void(0)" class="deleteTransaction"></a>
+				<a href="javascript:void(0)" class="save" ></a>
+				<a href="javascript:void(0)" class="discard"></a>
+
+				<!--<a href="javascript:void(0)" class="deleteTransaction"></a>-->
 	        </div>
 	    </div>
 	    <div class="check-tab" id="check-details">

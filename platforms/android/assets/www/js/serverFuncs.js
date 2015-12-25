@@ -1653,7 +1653,7 @@ function saveTransaction(transactionID, js){
 						data: JSON.stringify(js),
 						success: function(response, textStatus, jqXHR) {
 							jqXHR.responseText=jqXHR.responseText.replace(/"/g,"");
-							alert("transationID was: "+transactionID+" server response is "+jqXHR.responseText);
+							//alert("transationID was: "+transactionID+" server response is "+jqXHR.responseText);
 							if (jqXHR.responseText==transactionID){
 								addTransaction(js).done(function(r){
 									$.mobile.loading("hide");
@@ -1668,7 +1668,7 @@ function saveTransaction(transactionID, js){
 						error: function(jqXHR, textStatus, errorThrown) {
 							onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
 								if (res==SERVER_ERROR_TRY_AGAIN){
-									changeSubCategory(transactionID, subcategory);
+									saveTransaction(transactionID);
 									deferred.resolve();
 								}
 								else{

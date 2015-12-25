@@ -772,8 +772,8 @@ label.error {
 }
 
 .save{
-	display: block;
-	background-image: url("images/button_save.png");
+	display: none;
+	background-image: url("images/button_ok.png");
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	width: 104px;
@@ -783,9 +783,21 @@ label.error {
 	bottom: 0;
 	margin-left: 0px;
 }
+.discard{
+	display: none;
+	background-image: url("images/button_cancel.png");
+	ackground-repeat: no-repeat;
+	background-size: 100% 100%;
+	width: 104px;
+	height: 104px;
+	position: fixed;
+	left: 50%;
+	bottom: 0;
+	margin-left: -104px;
+}
 .deleteTransaction{
 	display: block;
-	background-image: url("images/button_save.png");
+	background-image: url("images/button_cancel.png");
 	background-repeat: no-repeat;
 	background-size: 100% 100%;
 	width: 104px;
