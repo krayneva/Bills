@@ -4,6 +4,10 @@
 
 
 var transactionID;
+
+var transactionJSON;
+var editedJSON;
+
 function updateCheckPage(){
 
     try{
@@ -30,178 +34,19 @@ function updateCheckPage(){
             $('.my-modal').hide();
         });
 
-        getTransaction(transactionID).done(function(res){
+        getTransaction(transactionID).done(function(res) {
             var js = jQuery.parseJSON(res.rows.item(0).transactionJSON);
             var row = res.rows.item(0);
-            var jsonText = row.transactionJSON;
-            if ((js.Coords!=undefined)&(js.Coords!=null)&(js.Coords!="null")) {
-                var lat = js.Coords.Latitude;
-                var lon = js.Coords.Longitude;
-                window.localStorage.setItem(LATITUDE_KEY, lat);
-                window.localStorage.setItem(LONGITUDE_KEY, lon);
-                preInitMap();
-            }
 
-            var now = new Date();
-            $('#checkName').html(js.Name==null?"":js.Name);
-            $('#shopName').html(js.Shop==null?"":js.Shop);
-            $('#shopName2').html(js.Shop==null?"":js.Shop);
+            if ((row.isFav == 1) || (row.isFav == '1'))
+                js.isFav = true;
+            else
+                js.isFav = false;
 
-
-            if ((row.isFav==1)||(row.isFav=='1')){
-                $('#checkFavouriteButton').removeClass('ui-btn-nostar');
-                $('#checkFavouriteButton').addClass('ui-btn-star')	;
-            }
-            else{
-                $('#checkFavouriteButton').removeClass('ui-btn-star');
-                $('#checkFavouriteButton').addClass('ui-btn-nostar')	;
-            }
-
-
-            //subcategorys and purses
-
-            refreshSubCategoryCombo(js.SubCategory);
-
-            var html13 = $('#categoryRowTemplate').html();
-            //------------combobox for category-----------////////
-            $('#select-native-0').html('');
-            getCategoryName(js.Category).done(function(categoryName){
-                html13 = html13.replace(/\{catName\}/g,categoryName);
-                html13 = html13.replace(/\{catValue\}/g,js.Category);
-                $('#select-native-0').append(html13);
-
-                getCategories().done(function(res){
-                    for (var j=0;j<res.rows.length;j++){
-                        if (js.Category==res.rows.item(j).id) continue;
-                        var html111 = $('#categoryRowTemplate').html();
-                        html111 = html111.replace(/\{catName\}/g,res.rows.item(j).name);
-                        html111 = html111.replace(/\{catValue\}/g,res.rows.item(j).idtext);
-                        $('#select-native-0').append(html111);
-                        if (j==res.rows.length-1){
-                            $("#select-native-0 option:first").attr('selected','selected');
-                            $('#select-native-0').selectmenu("refresh", "true");
-                        }
-                    }
-                });
-            });
-            var image = getCategoryImage(js.Category);
-            $('#leftImage').attr("src",image);
-
-            $('#select-native-0').change(function() {
-
-                changeCategory(transactionID, $('#select-native-0').val()).done(function(){
-                    var category = $('#select-native-0').val();
-                    var image = getCategoryImage(category);
-                    $('#leftImage').attr("src",image);
-                    $('#select-native-0').selectmenu("refresh", "true");
-                    getFirstSubCategory(category).done(function (res){
-                        refreshSubCategoryCombo(res);
-                    });
-
-                });
-
-            });
-
-            ///----------------------------------------//
-
-
-
-            var html2 = $('#purseRowTemplate').html();
-            html2 = html2.replace(/\{purseName\}/g,"Кошелёк");
-            $('#select-native-2').html(html2);
-            $('#select-native-2').selectmenu( "refresh" );
-
-
-            // tags
-
-
-            $('#tagsList').html('');
-            for (var k=0; k<js.Tags.length; k++){
-                var html3 = $('#tagRowTemplate').html();
-                html3 = html3.replace(/\{tagName\}/g,fullTagsArray[hashCode(js.Tags[k])]);
-                $('#tagsList').append(html3);
-            }
-
-
-
-            //checkDetails
-            var tableHTML="";
-            $("#checkDetailstable > tbody").html('');
-            for (var p=0; p< js.receiptData.Items.length; p++){
-                var html5='<tr class="one-detail"><td>{positionName}</td><td><span>{positionCost}</span></td><td>{positionTag}</td></tr>' ;
-
-                html5 = html5.replace(/\{positionName\}/g,js.receiptData.Items[p].ItemName);
-                html5 = html5.replace(/\{positionCost\}/g,formatPrice(js.receiptData.Items[p].Value));
-                html5 = html5.replace(/\{positionTag\}/g,fullTagsArray[hashCode(js.receiptData.Items[p].Tag)]);
-                $('#checkDetailstable > tbody').append(html5);
-
-
-
-            }
-
-
-
-
-            $('#spent1').html(formatPrice(js.Amount));
-            $('#spent2').html(formatPrice(js.Amount));
-            // tax
-            $('#discount').html("Скидка "+formatPrice(js.receiptData.TotalTax));
-            $('#discount2').html(formatPrice(js.receiptData.TotalTax));
-            //$('#spentdiv').html('<span>'+formatPrice(js.Amount)+'</span><div>Скидка: '
-            //			+formatPrice(js.receiptData.TotalTax)+'</div>');
-
-
-            var date = new Date(js.TransactionDate);
-            var hours = date.getHours();
-            var minutes = date.getMinutes();
-            var month = date.getMonth()+1;
-            var day =  date.getDate();
-            var year = date.getYear()+1900;
-            $('#checkDate').html((hours<10?'0':'')+hours+":"+(minutes<10?'0':'')+minutes+" | "+ (day<10?'0':'')+day+"."+(month<10?'0':'')+month+"."+year )
-            $("#checkDetailstable").table("refresh");
+            transactionJSON = js;
+            editedJSON = js;
+            refreshPage(transactionJSON);
         });
-
-
-        //$( "#table" ).table( "rebuild" );
-        var flag = false;
-        $('.buttons-container button').click(function()
-        {
-            var id = $(this).data('href');
-            $('.check-tab').hide();
-            $(id).show();
-
-            $('.active-icon-tab').removeClass('active-icon-tab');
-            $(this).addClass('active-icon-tab');
-
-            takeHeight();
-
-            if(id == '#check-map')
-            {
-                if(flag) return 0;
-
-                flag = true;
-                initMap();
-
-            }
-            if (id== '#check-photo'){
-                var receiptID = window.localStorage.getItem(RECEIPT_ID_KEY);
-                var now2 = new Date();
-                window.resolveLocalFileSystemURL(receivedPhotoDir +receiptID,
-                    function success(fileEntry){
-                        //	alert("success");
-                        $('#checkImage').attr('src',receivedPhotoDir +receiptID+ '?' + now2.getTime());
-                    },
-                    function fail(error){
-                        getImage(receiptID).done(function(res){
-                            //alert("getImage done!");
-
-                            $('#checkImage').attr('src',receivedPhotoDir +receiptID+ '?' + now2.getTime());
-                        });
-                    });
-            }
-
-        });
-
 
         $(document).ready(function()
         {
@@ -266,11 +111,30 @@ function updateCheckPage(){
             });
         });
 
-        $('.save').click(function()
-        {
-            saveTransaction();
+
+            $('#select-native-0').change(function() {
+
+                changeCategory($('#select-native-0').val());
+                    var category = $('#select-native-0').val();
+                    var image = getCategoryImage(category);
+                    $('#leftImage').attr("src",image);
+                    $('#select-native-0').selectmenu("refresh", "true");
+                    getFirstSubCategory(category).done(function (res){
+                        //refreshSubCategoryCombo(res);
+                        changeSubCategory(res);
+                        refreshPage(editedJSON);
+                    });
         });
 
+        $('.save').click(function()
+        {
+            saveChanges();
+        });
+
+        $('delete').click(function()
+        {
+            discardChanges();
+        });
 
 
         $(document).on('click','#modal',function(event)
@@ -280,15 +144,28 @@ function updateCheckPage(){
         });
 
 
-        $('#checkDate').click(function() {
-            changeDate();
+       /* $('#checkDate').click(function() {
+
         });
 
         $('#checkName').click(function() {
-            changeName();
+
         });
         $('#shopName').click(function() {
-            changeShop();
+
+        });
+        */
+        $('#checkName').on("blur",function(event){
+            changeName($('#checkName').val());
+        });
+        $('#checkName').bind("keydown", function(e) {
+            if (e.which == 13) {
+                $('#checkName').blur();
+            }
+        });
+
+        $('#shopName').on("blur",function(event){
+            changeShop($('#shopName').val());
         });
 
     }
@@ -299,6 +176,158 @@ function updateCheckPage(){
 }
 
 
+function refreshPage(js){
+    if ((js.Coords!=undefined)&(js.Coords!=null)&(js.Coords!="null")) {
+        var lat = js.Coords.Latitude;
+        var lon = js.Coords.Longitude;
+        window.localStorage.setItem(LATITUDE_KEY, lat);
+        window.localStorage.setItem(LONGITUDE_KEY, lon);
+        preInitMap();
+    }
+
+    if (js.isFav==true){
+        $('#checkFavouriteButton').removeClass('ui-btn-nostar');
+        $('#checkFavouriteButton').addClass('ui-btn-star')	;
+    }
+    else{
+        $('#checkFavouriteButton').removeClass('ui-btn-star');
+        $('#checkFavouriteButton').addClass('ui-btn-nostar')	;
+    }
+
+
+    var now = new Date();
+    $('#checkName').val(js.Name==null?"":js.Name);
+    $('#shopName').val(js.Shop==null?"":js.Shop);
+    $('#shopName2').html(js.Shop==null?"":js.Shop);
+
+    //subcategorys and purses
+
+    refreshSubCategoryCombo(js.SubCategory);
+
+    var html13 = $('#categoryRowTemplate').html();
+    //------------combobox for category-----------////////
+    $('#select-native-0').html('');
+    getCategoryName(js.Category).done(function(categoryName){
+        html13 = html13.replace(/\{catName\}/g,categoryName);
+        html13 = html13.replace(/\{catValue\}/g,js.Category);
+        $('#select-native-0').append(html13);
+
+        getCategories().done(function(res){
+            for (var j=0;j<res.rows.length;j++){
+                if (js.Category==res.rows.item(j).id) continue;
+                var html111 = $('#categoryRowTemplate').html();
+                html111 = html111.replace(/\{catName\}/g,res.rows.item(j).name);
+                html111 = html111.replace(/\{catValue\}/g,res.rows.item(j).idtext);
+                $('#select-native-0').append(html111);
+                if (j==res.rows.length-1){
+                    $("#select-native-0 option:first").attr('selected','selected');
+                    $('#select-native-0').selectmenu("refresh", "true");
+                }
+            }
+        });
+    });
+    var image = getCategoryImage(js.Category);
+    $('#leftImage').attr("src",image);
+
+
+    ///----------------------------------------//
+
+
+
+    var html2 = $('#purseRowTemplate').html();
+    html2 = html2.replace(/\{purseName\}/g,"Кошелёк");
+    $('#select-native-2').html(html2);
+    $('#select-native-2').selectmenu( "refresh" );
+
+
+    // tags
+
+
+    $('#tagsList').html('');
+    for (var k=0; k<js.Tags.length; k++){
+        var html3 = $('#tagRowTemplate').html();
+        html3 = html3.replace(/\{tagName\}/g,fullTagsArray[hashCode(js.Tags[k])]);
+        $('#tagsList').append(html3);
+    }
+
+
+
+    //checkDetails
+    var tableHTML="";
+    $("#checkDetailstable > tbody").html('');
+    for (var p=0; p< js.receiptData.Items.length; p++){
+        var html5='<tr class="one-detail"><td>{positionName}</td><td><span>{positionCost}</span></td><td>{positionTag}</td></tr>' ;
+
+        html5 = html5.replace(/\{positionName\}/g,js.receiptData.Items[p].ItemName);
+        html5 = html5.replace(/\{positionCost\}/g,formatPrice(js.receiptData.Items[p].Value));
+        html5 = html5.replace(/\{positionTag\}/g,fullTagsArray[hashCode(js.receiptData.Items[p].Tag)]);
+        $('#checkDetailstable > tbody').append(html5);
+
+
+
+    }
+
+
+
+
+    $('#spent1').html(formatPrice(js.Amount));
+    $('#spent2').html(formatPrice(js.Amount));
+    // tax
+    $('#discount').html("Скидка "+formatPrice(js.receiptData.TotalTax));
+    $('#discount2').html(formatPrice(js.receiptData.TotalTax));
+
+    var date = new Date(js.TransactionDate);
+    var hours = date.getHours();
+    var minutes = date.getMinutes();
+    var month = date.getMonth()+1;
+    var day =  date.getDate();
+    var year = date.getYear()+1900;
+    $('#checkDate').html((hours<10?'0':'')+hours+":"+(minutes<10?'0':'')+minutes+" | "+ (day<10?'0':'')+day+"."+(month<10?'0':'')+month+"."+year )
+    $("#checkDetailstable").table("refresh");
+
+
+    //$( "#table" ).table( "rebuild" );
+    var flag = false;
+    $('.buttons-container button').click(function()
+    {
+        var id = $(this).data('href');
+        $('.check-tab').hide();
+        $(id).show();
+
+        $('.active-icon-tab').removeClass('active-icon-tab');
+        $(this).addClass('active-icon-tab');
+
+        takeHeight();
+
+        if(id == '#check-map')
+        {
+            if(flag) return 0;
+
+            flag = true;
+            initMap();
+
+        }
+        if (id== '#check-photo'){
+            var receiptID = window.localStorage.getItem(RECEIPT_ID_KEY);
+            var now2 = new Date();
+            window.resolveLocalFileSystemURL(receivedPhotoDir +receiptID,
+                function success(fileEntry){
+                    //	alert("success");
+                    $('#checkImage').attr('src',receivedPhotoDir +receiptID+ '?' + now2.getTime());
+                },
+                function fail(error){
+                    getImage(receiptID).done(function(res){
+                        //alert("getImage done!");
+
+                        $('#checkImage').attr('src',receivedPhotoDir +receiptID+ '?' + now2.getTime());
+                    });
+                });
+        }
+
+    });
+
+
+}
 
 function refreshSubCategoryCombo(subcategory){
     var html1 = $('#categoryRowTemplate').html();
@@ -328,27 +357,81 @@ function refreshSubCategoryCombo(subcategory){
             });
         });
     });
+
     $('#select-native-1').change(function() {
-        changeSubCategory(transactionID, $('#select-native-1').val());
+       //changeSubCategory(transactionID, $('#select-native-1').val());
+        editedJSON.Subcategory =  $('#select-native-1').val();
+        refreshPage(editedJSON);
     });
 }
 
 
 
-function changeName(){
+function changeName(name){
     alert("editName!");
+    editedJSON.Name = name;
 }
 
 // shops are not visible yet (no value from server)
-function changeShop(){
-  //  alert("editShop!");
+function changeShop(shop){
+    alert("editShop!");
+    editedJSON.Shop = shop;
 }
 
 
-function changeDate(){
+function changeDate(date){
     alert("editDate!");
+    editedJSON.TransactionDate = date;
 }
+
+function editTime(time){
+    alert("editTime!");
+    editedJSON.TransactionDate = time;
+}
+
+
+function changeAmount(amount){
+    alert("editAmount!");
+    editedJSON.Amount =amount;
+}
+
+function changeTax(tax){
+    alert("editTax!");
+    editedJSON.receiptData.TotalTax = tax;
+}
+
+function changeCategory(category){
+    alert("editCatgory!");
+    editedJSON.Category = category;
+}
+
+function changeSubCategory(subCategory){
+    alert("editSuccategory!");
+    editedJSON.SubCategory = subCategory;
+}
+
+
 
 function deleteTag(){
-    alert("deleteTag");
+
 }
+
+
+
+
+function saveChanges(){
+    addTransaction(editedJSON);
+    transactionJSON = editedJSON;
+    saveTransaction(transactionID, transactionJSON);
+}
+
+function discardChanges(){
+    editedJSON = transactionJSON;
+    refreshPage(transactionJSON);
+}
+
+
+
+
+
+

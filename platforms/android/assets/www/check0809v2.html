@@ -14,16 +14,16 @@
 	        <div class="check-content">
 	        	<div class="check-head">
 	        		<!--<h1 id = "checkName">Наименование</h1>-->
-	        		<input class="check-title" type="text" value="Наименование"/>
-	        		<input class="check-shopName" type="text" value="Магазин"/>
+	        		<input class="check-title" type="text" value="Наименование" id = "checkName"/>
+	        		<input class="check-shopName" type="text" value="Магазин" id = "shopName"/>
 	        		<!--<span id = "shopName">Магазин</span><br/>
 	        		<span id = "checkDate">21:12 | 05.07.2015</span>	<br/><br/>     -->   		
 	        		<div class="check-date">
-						<input type="time" value="21:25"/>
-						<input type="text" value="Время не задано"/>
+						<input type="time" value="21:25" id = "checkTime"/>
+						<input type="text" value="Время не задано" id = "checkTimeText"/>
 						<div>|&nbsp;&nbsp;&nbsp;</div>
-						<input type="date" value="Дата не задана"/>
-						<input type="date" value="Дата не задана"/>
+						<input type="date" value="Дата не задана" id = "checkDate"/>
+						<input type="date" value="Дата не задана" id = "checkDateText"/>
 					</div><br/>
 
 	        	</div>
@@ -43,9 +43,9 @@
 				    </select>
 				</div>
 				<div class="spent">
-					<div  class="check-spent"><input type="number" value="10245"/></div>
+					<div  class="check-spent"><input type="number" value="10245" id = "spent1"/></div>
 					<!--<span id="spent1" ></span>-->
-					<div  class="check-discount"><input  type="number" value="200"/></div>
+					<div  class="check-discount"><input  type="number" value="200" id = "discount"/></div>
 					<!--<div id = "discount"></div>-->
 					<div style="clear: both;"></div>
 				</div>
@@ -59,6 +59,7 @@
 				<!--Родительский аккордеон-->
 	       		<a href="javascript:void(0)" class="message"></a>
 				<a href="javascript:void(0)" class="save"></a>
+				<a href="javascript:void(0)" class="deleteTransaction"></a>
 	        </div>
 	    </div>
 	    <div class="check-tab" id="check-details">

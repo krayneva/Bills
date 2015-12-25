@@ -369,13 +369,10 @@ function updateWidgets(){
 					case "ico_auto":
 						src = src.concat("ico-cars.svg");
 						break;
-						
-					case "ico_other":
-						src = src.concat("ico-other.svg");
-						break;
 					case "ico_clothing":
 						src = src.concat("ico-clothes.svg");
 						break;
+					case "ico_other":
 					default:
 						src = src.concat("ico-other.svg");
 						console.log("GOT ICON IDENTIFIER " + w.IconIdentifier);

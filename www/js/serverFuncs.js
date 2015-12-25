@@ -1341,7 +1341,7 @@ function uploadPhoto() {
       	    }
 
           }
-
+/*
 
 function changeSubCategory(transactionID, subcategory){
     	try{
@@ -1416,9 +1416,9 @@ function changeSubCategory(transactionID, subcategory){
 	    }
 
     }
+*/
 
-
-
+/*
 function changeCategory(transactionID, category){
 	try{
 		$.mobile.loading("show",{
@@ -1500,7 +1500,7 @@ function changeCategory(transactionID, category){
 	}
 
 }
-
+*/
 
 
 
@@ -1625,6 +1625,67 @@ function requestDiscount(){
 }
 
 
-function saveTransaction(){
+function saveTransaction(transactionID, js){
+	try{
+		$.mobile.loading("show",{
+			text: "Сохранение транзакции",
+			textVisible: true,
+			theme: 'e',
+		});
+
+		var deferred = $.Deferred();
+		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
+			var userToken = uToken;
+			var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
+			getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
+				var userToken = uToken;
+				console.log("saveTransation server address: "+serverAddress+getTransactionsURL);
+				console.log("saveTransationuser token: "+userToken);
+					$.ajax({
+						url: serverAddress+getTransactionsURL,
+						type: "post",
+
+						beforeSend: function (request)
+						{
+							request.setRequestHeader("Authorization", "Bearer "+userToken);
+							request.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+						},
+						data: JSON.stringify(js),
+						success: function(response, textStatus, jqXHR) {
+							jqXHR.responseText=jqXHR.responseText.replace(/"/g,"");
+							alert("transationID was: "+transactionID+" server response is "+jqXHR.responseText);
+							if (jqXHR.responseText==transactionID){
+								addTransaction(js).done(function(r){
+									$.mobile.loading("hide");
+									deferred.resolve();
+								});
+							}
+							else{
+							}
+							$.mobile.loading("hide");
+							deferred.resolve(res);
+						},
+						error: function(jqXHR, textStatus, errorThrown) {
+							onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
+								if (res==SERVER_ERROR_TRY_AGAIN){
+									changeSubCategory(transactionID, subcategory);
+									deferred.resolve();
+								}
+								else{
+									$.mobile.loading("hide");
+									showErrorDialog(getErrorMessage(res));
+									deferred.resolve();
+								}
+
+							});
+						}
+					});
+
+				});});
+		return deferred;
+	}
+	catch(e){
+		dumpError("saveTransaction",e);
+	}
 
 }
