@@ -379,7 +379,9 @@ button.ui-btn {
 label.error {
 	display: none !important;
 }
-
+.info-content{
+	padding: 0px 15px;
+}
 .info-content h1 {
 	display: block;
 	text-align: center;
@@ -402,6 +404,9 @@ label.error {
 
 .info-content > p {
 	text-align: center;
+}
+.habitsPeriod{
+	font-size: 2rem;
 }
 .ui-collapsible-set {
 	margin-top: 0 !important;
@@ -525,20 +530,62 @@ label.error {
 }
 .check-head {
 	position: relative;
-	padding-left: 8em;
 	margin-bottom: 20px;
 	padding-top: 20px;
 }
-.check-head h1 {
+.check-title {
 	font-family: 'OpenSans-Semibold';
 	font-size: 1.9375rem;
-	margin-bottom: 5px;
+	margin-bottom: 0px;
 	margin-top: 0;
+	border: none!important;
+	padding-top: 0px;
+	padding-bottom: 0px;
 }
-.check-head span {
+.check-head .check-shopName {
 	color: #0090a6;
 	font-family: 'OpenSans-Semibold';
 	font-size: 1.625rem;
+	margin-bottom: 0px;
+	margin-top: 0;
+	border: none!important;
+	padding-top: 0px;
+	padding-bottom: 0px;
+}
+.check-head div.ui-input-text, .check-head div.ui-input-text input,
+.check-head div.ui-input-text.ui-focus, .check-head div.ui-input-text.ui-focus input{
+	border-color: none!important;
+	line-height: 1em!important!;
+	box-shadow: none!important;
+	border-width: 0!important;
+	margin: 0!important;
+	padding: 0px!important;
+	width: auto!important;
+}
+.check-head .check-date>div.ui-input-text,
+.check-head .check-date>div{
+	float: left!important;
+	overflow: hidden!important;
+}
+.check-head .check-date>div.ui-input-text:first-child,
+.check-head .check-date>div.ui-input-text:nth-child(2),
+.check-head .check-date>div.ui-input-text:first-child input,
+.check-head .check-date>div.ui-input-text:nth-child(2) input{
+	min-width: 60px!important; 
+}
+.check-head .check-date>div.ui-input-text:last-child,
+.check-head .check-date>div.ui-input-text:nth-child(3),
+.check-head .check-date>div.ui-input-text:last-child input,
+.check-head .check-date>div.ui-input-text:nth-child(3) input{
+	min-width: 120px!important;
+}
+.check-head .check-date>div, .check-head .check-date>div>input{
+	color: #0090a6;
+	font-family: 'OpenSans-Semibold';
+	font-size: 1.625rem;
+}
+.check-head>span>*{
+	display: inline!important;
 }
 .check-content {
 	min-height: 100%;
@@ -589,30 +636,65 @@ label.error {
 .spent {
 	margin-top: 10px;
 }
-.spent div {
-	font-size: 1.375rem;
-	padding-left: 7.3rem;
-	padding-top: 10px;
+.spent div.ui-input-text, .spent .check-discount div.ui-input-text input{
+	border-color: none!important;
+	line-height: 1em!important!;
+	box-shadow: none!important;
+	border-width: 0!important;
+	margin: 0!important;
+	padding: 0px!important;
+	width: auto!important;
+	border: none!important;
 }
-.spent span {
-	display: block;
-	height: 77px;
-	line-height: 77px;
-	position: relative;
-	background: #cee085; /* Old browsers */
-	background: -moz-linear-gradient(top,  #cee085 0%, #cee085 47%, #bad763 48%, #bad763 100%); /* FF3.6+ */
-	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cee085), color-stop(49%,#cee085), color-stop(51%,#bad763), color-stop(100%,#bad763)); /* Chrome,Safari4+ */
-	background: -webkit-linear-gradient(top,  #cee085 0%,#cee085 47%,#bad763 48%,#bad763 100%); /* Chrome10+,Safari5.1+ */
-	background: -o-linear-gradient(top,  #cee085 0%,#cee085 47%,#bad763 48%,#bad763 100%); /* Opera 11.10+ */
-	background: -ms-linear-gradient(top,  #cee085 0%,#27aabd 47%,#bad763 48%,#bad763 100%); /* IE10+ */
-	background: linear-gradient(to bottom,  #cee085 0%,#cee085 47%,#bad763 48%,#bad763 100%); /* W3C */
-	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cee085', endColorstr='#bad763',GradientType=0 ); /* IE6-9 */
-	padding-left: 2.3em;
-	font-size: 3.25rem;
-	color: #fff;
-	text-shadow: 1px 1px 0 #95b24f;
+
+.spent .check-discount div.ui-input-text:after, .check-discount div.ui-input-text input{
+	float: left!important;
+	font-size: 1.375rem!important;
+	line-height: 1em!important;
+	color: #0090a6;
+	font-family: 'OpenSans-Semibold';
+	
 }
-.spent span:after {
+.spent .check-discount div.ui-input-text {
+	padding-left: 6.5rem!important;
+	text-align: center;
+}
+.spent .check-discount div.ui-input-text:after{
+	text-align: center;
+	position: absolute;
+	content: "Скидка: ";
+	top: 0.67em;
+	left: 0;
+}
+.spent .check-spent .ui-input-text input{
+	display: block!important;
+	position: relative!important;
+	background: #cee085!important;/* Old browsers */
+	background: -moz-linear-gradient(top,  #cee085 0%, #cee085 47%, #bad763 48%, #bad763 100%)!important;/* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#cee085), color-stop(49%,#cee085), color-stop(51%,#bad763), color-stop(100%,#bad763))!important; /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #cee085 0%,#cee085 47%,#bad763 48%,#bad763 100%)!important; /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #cee085 0%,#cee085 47%,#bad763 48%,#bad763 100%)!important; /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #cee085 0%,#27aabd 47%,#bad763 48%,#bad763 100%)!important; /* IE10+ */
+	background: linear-gradient(to bottom,  #cee085 0%,#cee085 47%,#bad763 48%,#bad763 100%)!important; /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#cee085', endColorstr='#bad763',GradientType=0 )!important; /* IE6-9 */
+}
+.spent div.ui-input-text.ui-focus{
+	border:0!important;
+	box-shadow: none!important;	
+}
+.spent .check-spent input {
+	height: 77px!important;
+	font-size: 2.6rem!important;
+	color: #fff!important;
+	text-shadow: 1px 1px 0 #95b24f!important;
+	line-height: 77px!important;
+	padding: 0!important;
+	min-height: 0px!important;
+	margin: 0!important;
+	text-align: center!important;
+	width: 100%;
+}
+.spent .check-spent div.ui-input-text:after {
 	position: absolute;
 	content: "";
 	top: 0;
@@ -625,11 +707,11 @@ label.error {
 	background-position: right center;
 }
 .shopping-list {
-	margin-top: 0px;
-	padding: 15px;
 	box-sizing: border-box;
 	overflow-x: hidden;
 	overflow-y: scroll;
+	padding:  0!important;
+	margin: 0!important;
 }
 .shopping-list:after {
 	clear: both;
@@ -642,8 +724,8 @@ label.error {
 .shopping-list a {
 	display: block;
 	float: left;
-	margin-right: 15px;
-	margin-bottom: 15px;
+	margin-right: 0.5em;
+	margin-bottom: 0.5em;
 	padding: .4em 2.5em .4em 1.8em;
 	text-decoration: none;
 	color: #8c8b8b;
@@ -686,7 +768,44 @@ label.error {
 	position: fixed;
 	left: 50%;
 	bottom: 0;
-	margin-left: -52px;
+	margin-left: -104px;
+}
+
+.save{
+	display: none;
+	background-image: url("images/button_ok.png");
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	width: 104px;
+	height: 104px;
+	position: fixed;
+	left: 50%;
+	bottom: 0;
+	margin-left: 0px;
+}
+.discard{
+	display: none;
+	background-image: url("images/button_cancel.png");
+	ackground-repeat: no-repeat;
+	background-size: 100% 100%;
+	width: 104px;
+	height: 104px;
+	position: fixed;
+	left: 50%;
+	bottom: 0;
+	margin-left: -104px;
+}
+.deleteTransaction{
+	display: block;
+	background-image: url("images/button_cancel.png");
+	background-repeat: no-repeat;
+	background-size: 100% 100%;
+	width: 104px;
+	height: 104px;
+	position: fixed;
+	right: 0%;
+	bottom: 0;
+	margin-left: 0px;
 }
 .check-tab{
 	height: 100%;
@@ -1066,7 +1185,7 @@ div.my-modal-bg {
 	.ui-select > div,
 	.ui-input-search,
 	.ui-collapsible-heading-toggle,
-	.spent span {
+	.spent div.ui-input-text input{
 		height: 50px !important;
 		line-height: 50px !important;
 	}
@@ -1193,7 +1312,7 @@ div.my-modal-bg {
 	.ui-select > div,
 	.ui-input-search,
 	.ui-collapsible-heading-toggle,
-	.spent span {
+	.spent div.ui-input-text input{
 		height: 40px !important;
 		line-height: 40px !important;
 	}

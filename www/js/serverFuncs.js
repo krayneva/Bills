@@ -92,7 +92,7 @@ function uploadPhoto() {
 							    }
 							};
 
-					    		var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT)
+					    		var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
 					    		console.log("ImageURI: ",imageURI);
 					    		ft.upload(imageURI, encodeURI(serverAddress.concat(addPhotoURL)), onFileUploadSuccess, onFileUploadError, options,true);
 
@@ -303,8 +303,6 @@ function uploadPhoto() {
 	    	               //putSetting(SETTING_USER_ENVIRONMENT,jqXHR.responseText);
 	    	               addUserEnvironment(jqXHR.responseText);
 	    	           		var json = jQuery.parseJSON(jqXHR.responseText);
-							alert ("userEnvironment count odf widgets: "+json.Widgets.length);
-
 	    	           		for (var k in json.Widgets) {
 	    	  				  var w = json.Widgets[k];
 	    	  				  	addWidget(w.VisualObjectId, JSON.stringify(w));
@@ -1148,7 +1146,6 @@ function uploadPhoto() {
 											$.each(value, function (key, value) {
 												addCategoryInTransaction(categoryID, categoryName, transaction);
 												$.each(value, function (key, value) {
-												//	addSubCategory(key, value, categoryID);
 													addSubCategoryInTransaction(key, value, categoryID, transaction);
 
 												});
@@ -1344,7 +1341,7 @@ function uploadPhoto() {
       	    }
 
           }
-
+/*
 
 function changeSubCategory(transactionID, subcategory){
     	try{
@@ -1363,7 +1360,7 @@ function changeSubCategory(transactionID, subcategory){
 	    		console.log("changeSubCategory server address: "+serverAddress+getTransactionsURL);
 	    		console.log("changeSubCategory user token: "+userToken);
 
-	    	
+					alert("changeSubCategory transatcion ID is "+transactionID);
 	    		getTransaction(transactionID).done(function(res){
 	    		var js = jQuery.parseJSON(res.rows.item(0).transactionJSON);
 
@@ -1419,9 +1416,9 @@ function changeSubCategory(transactionID, subcategory){
 	    }
 
     }
+*/
 
-
-
+/*
 function changeCategory(transactionID, category){
 	try{
 		$.mobile.loading("show",{
@@ -1503,7 +1500,7 @@ function changeCategory(transactionID, category){
 	}
 
 }
-
+*/
 
 
 
@@ -1623,6 +1620,72 @@ function requestDiscount(){
 
 		dumpError("requestUserEnvironment",e);
 		deferred.resolve();
+	}
+
+}
+
+
+function saveTransaction(transactionID, js){
+	try{
+		$.mobile.loading("show",{
+			text: "Сохранение транзакции",
+			textVisible: true,
+			theme: 'e',
+		});
+
+		var deferred = $.Deferred();
+		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
+			var userToken = uToken;
+			var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
+			getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
+				var userToken = uToken;
+				console.log("saveTransation server address: "+serverAddress+getTransactionsURL);
+				console.log("saveTransationuser token: "+userToken);
+					$.ajax({
+						url: serverAddress+getTransactionsURL,
+						type: "post",
+
+						beforeSend: function (request)
+						{
+							request.setRequestHeader("Authorization", "Bearer "+userToken);
+							request.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+						},
+						data: JSON.stringify(js),
+						success: function(response, textStatus, jqXHR) {
+							jqXHR.responseText=jqXHR.responseText.replace(/"/g,"");
+							//alert("transationID was: "+transactionID+" server response is "+jqXHR.responseText);
+							if (jqXHR.responseText==transactionID){
+								addTransaction(js).done(function(r){
+									$.mobile.loading("hide");
+									deferred.resolve();
+								});
+							}
+							else{
+							}
+							$.mobile.loading("hide");
+							deferred.resolve(res);
+						},
+						error: function(jqXHR, textStatus, errorThrown) {
+							onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
+								if (res==SERVER_ERROR_TRY_AGAIN){
+									saveTransaction(transactionID);
+									deferred.resolve();
+								}
+								else{
+									$.mobile.loading("hide");
+									showErrorDialog(getErrorMessage(res));
+									deferred.resolve();
+								}
+
+							});
+						}
+					});
+
+				});});
+		return deferred;
+	}
+	catch(e){
+		dumpError("saveTransaction",e);
 	}
 
 }

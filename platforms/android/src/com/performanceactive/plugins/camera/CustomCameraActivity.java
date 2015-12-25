@@ -56,6 +56,7 @@ import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
+import java.lang.Override;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -116,11 +117,15 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     private static Camera camera;
     private RelativeLayout layout;
     private FrameLayout cameraPreviewView;
+    private RelativeLayout imagePreviewLayout;
+    private ImageView imagePreview;
+    private ImageButton acceptPreview, recapturePreview;
     private ImageView borderTopLeft;
     private ImageView borderTopRight;
     private ImageView borderBottomLeft;
     private ImageView borderBottomRight;
     private TextView billText;
+    private TextView previewText;
     private ImageButton captureButton, sendButton, recaptureButton, flashButton, exitButton, settingsButton; 
     
     private RelativeLayout controlsLayout;
@@ -149,6 +154,8 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     double latitude=-1, longitude=-1, altitude=-1 ;  
     private ProgressBar progress;
     private static Context context;
+
+    private  Bitmap b;
     @Override
     protected void onResume() {
         super.onResume();
@@ -250,6 +257,40 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         } catch (Exception e) {
            // finishWithError("Camera is not accessible");
             finishWithError(e.getMessage());
+        }
+
+        if (imagePreviewLayout==null) {
+            imagePreviewLayout = (RelativeLayout)getLayoutInflater().inflate(R.layout.check_preview, null);
+            RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(LayoutParams.MATCH_PARENT, LayoutParams.MATCH_PARENT);
+            imagePreviewLayout.setLayoutParams(layoutParams);
+            layout.addView(imagePreviewLayout);
+            imagePreviewLayout.setVisibility(View.VISIBLE);
+
+            acceptPreview = (ImageButton) imagePreviewLayout.findViewById(R.id.buttonAccept);
+            recapturePreview = (ImageButton) imagePreviewLayout.findViewById(R.id.buttonRecapture);
+            imagePreview  = (ImageView) findViewById(R.id.previewImage);
+            previewText = (TextView) findViewById(R.id.textViewPreview);
+            previewText.setTextSize(30);
+            previewText.setTextColor(Color.WHITE);
+
+            acceptPreview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    imagePreviewLayout.setVisibility(View.GONE);
+                    b.recycle();
+                    b = null;
+                }
+            });
+
+            recapturePreview.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+                    imagePreviewLayout.setVisibility(View.GONE);
+                    imagePreview.setImageBitmap(null);
+                    recaptureLast();
+                }
+            });
+            imagePreviewLayout.setVisibility(View.GONE);
         }
     }
 
@@ -374,7 +415,15 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         cameraPreviewView.removeAllViews();
         customCameraPreview = new CustomCameraPreview(this, camera);
         cameraPreviewView.addView(customCameraPreview);
+        if (imagePreviewLayout!=null)
+            imagePreviewLayout.setVisibility(View.GONE);
     }
+
+    private void displayImagePreviewView(){
+
+
+    }
+
 
     @Override
     protected void onPause() {
@@ -431,10 +480,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 
         
  		if (!isGPSActive ) {
- 				
  			location = lm.getLastKnownLocation(LocationManager.NETWORK_PROVIDER);
- 			//Toast.makeText(this, ""+location.getLongitude(), Toast.LENGTH_LONG).show();
- 			
  		}
  		else{
 
@@ -447,14 +493,12 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
  		}
  		
  		if (location!=null){
- 		//	Toast.makeText(this, ""+location.getLongitude(), Toast.LENGTH_LONG).show();
- 		//	Toast.makeText(this, ""+location.getAltitude(), Toast.LENGTH_LONG).show();
-
 	 		latitude = location.getLatitude();
 	 	 	longitude = location.getLongitude();
 	 	 	altitude = location.getAltitude();
  		}
         camera = Camera.open();
+
     }
     
     
@@ -650,7 +694,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
 
        // previousImage.setScaleType(ScaleType.MATRIX);
        controlsLayout.addView(previousImage,params);   
-       updateDynamicLayout();
+       updateDynamicLayout(true);
 
         progress = new ProgressBar(this);
         progress.setVisibility(View.INVISIBLE);
@@ -662,7 +706,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     }
     
 	
-	private void updateDynamicLayout(){
+	private void updateDynamicLayout(boolean showPreview){
 		if (bitmaps.size()==0){
 			billText.setText("Фото чека");
 			recaptureButton.setVisibility(View.GONE);
@@ -690,13 +734,17 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
                   fileInputStream = new FileInputStream(Environment.getExternalStorageDirectory() + "/" + bitmaps.get(bitmaps.size() - 1));
                   BitmapFactory.Options options = new BitmapFactory.Options();
                   options.inJustDecodeBounds = false;
-                  Bitmap b = BitmapFactory.decodeStream(fileInputStream, null, options);
+                 b = BitmapFactory.decodeStream(fileInputStream, null, options);
                   fileInputStream.close();
                 //  previousBitmap = Bitmap.createBitmap(b, 0, b.getHeight() - currentMarginTop * 2, b.getWidth(), currentMarginTop * 2);
                   previousBitmap = Bitmap.createBitmap(b, 0, b.getHeight() - currentMarginTop, b.getWidth(), currentMarginTop);
                   previousImage.setScaleType(ScaleType.FIT_END);
                   previousImage.setImageBitmap(previousBitmap);
-                  b.recycle();
+                  imagePreview.setImageBitmap(b);
+                  if (showPreview)
+                    imagePreviewLayout.setVisibility(View.VISIBLE);
+                  //;!!!!!!!!!!!!!!!!!!!!!!!
+                  //b.recycle();
                   System.gc();
               } catch (Exception e) {
                   e.printStackTrace();
@@ -804,7 +852,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     private void recaptureLast(){
     	if (bitmaps.size()==0) return;
     	bitmaps.remove(bitmaps.size()-1);
-    	updateDynamicLayout();
+    	updateDynamicLayout(false);
     }
     
     private void createTopLeftBorder() {
@@ -1129,7 +1177,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
                    showCameraSettings();
                    displayCameraPreview();
                    enableButtons();
-                   updateDynamicLayout();
+                   updateDynamicLayout(true);
                } catch (Exception e) {
                    finishWithError("Camera is not accessible");
                }

@@ -8,6 +8,8 @@ var SETTING_USER_PASSWORD = "userPassword";
 var SETTING_USER_TOKEN = "userToken";
 var SETTING_SERVER_ADDRESS = "ServerAddress";
 var SETTING_DB_NAME = "DBName";
+var SETTING_SAVE_LAST_PAGE = "saveLastPage";
+var SETTING_PREVIEW_CHECK = "previewCheck";
 
 var BILL_ID_KEY = "BillIdKey";
 var CATEGORY_ID_KEY = "CategoryIdKey";
@@ -36,6 +38,8 @@ var USER_PASSWORD_DEFAULT= "";
 var USER_TOKEN_DEFAULT = "";
 var DB_NAME_DEFAULT = "";
 var SERVER_ADDRESS_DEFAULT = "https://billview.cloudapp.net/rec/";
+var PREVIEW_CHECK_DEAFULT = true;
+var SAVE_LAST_PAGE_DEFAULT = true;
 //http://ryoga.esed.kodeks.ru/ReceiptsAPI/
 
 function removeSetting(setting){
@@ -78,8 +82,11 @@ function saveConnectionSettings(){
 	try{
 		var serverAddress = document.getElementById("serverAddress").value;
 		if (serverAddress =="") serverAddress = SERVER_ADDRESS_DEFAULT;
-		//putSetting(SETTING_SERVER_ADDRESS, serverAddress);
 		window.localStorage.setItem(SETTING_SERVER_ADDRESS, serverAddress);
+		var preview = $("#previewCheck").prop("checked");
+		var lastPage = $("#saveLastPage").prop("checked");
+		window.localStorage.setItem(SETTING_SAVE_LAST_PAGE, lastPage);
+		window.localStorage.setItem(SETTING_PREVIEW_CHECK, preview);
 	}
     catch(e){
     	dumpError("saveConnectionSettings",e);

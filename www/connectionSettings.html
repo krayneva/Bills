@@ -5,9 +5,17 @@
 			<h1>Настройки</h1>
 		</div>
 		<div role="main" class="ui-content">
-		 <label for="serverAddress">Адрес сервера</label>
-     	<input type="text" data-clear-btn="true" name="serverAddress" id="serverAddress" >
-	    <a data-rel="back"><button>Назад</button></a>
+			<label for="serverAddress">Адрес сервера</label>
+			<input type="text" data-clear-btn="true" name="serverAddress" id="serverAddress" >
+			<label >Настройки интерфейса</label>
+			<label for="saveLastPage"  style="display: none;" >Сохранять последнюю просмотренную страницу</label>
+			<input type="checkbox" name="saveLastpage" id="saveLastPage"   style="display: none;">
+
+			<label for="previewCheck">Показывать чек после фото</label>
+			<input type="checkbox" name="previewCheck" id="previewCheck" >
+
+
+			<a data-rel="back"> <button style=" background-color:#27aabd;">OK</button></a>
 		    
 		</div>
 		<!-- /content -->
