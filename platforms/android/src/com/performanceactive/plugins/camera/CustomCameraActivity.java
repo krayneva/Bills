@@ -499,6 +499,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
  		}
         camera = Camera.open();
 
+
     }
     
     

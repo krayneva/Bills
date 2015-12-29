@@ -458,7 +458,6 @@
 			var receiptImageID =  json.ReceiptImageID;
 			var searchText = json.Name+" ";
 
-
 			for (var i=0; i<json.receiptData.Items.length; i++){
 				var item = json.receiptData.Items[i];
 				searchText = searchText+ " " + item.ItemName;
@@ -1815,3 +1814,26 @@ function addBadHabits(habits){
 		}
 	}
 
+
+
+function deleteTransaction(transactionID){
+	var def = $.Deferred();
+	try{
+
+		db.transaction(
+			function(transaction) {
+				transaction.executeSql("delete from Transactions where id='" + transactionID + "'", [],
+					function (transaction, result) {
+						def.resolve();
+
+					}, onError);
+
+			},
+			onError, onSuccess);
+	}
+	catch(e){
+		dumpError("deleteTransaction",e);
+		def.resolve();
+		}
+	return def;
+}

@@ -136,6 +136,12 @@ function updateCheckPage(){
             discardChanges();
         });
 
+        $('.deleteTransaction').click(function()
+        {
+            requestDeleteTransaction(window.localStorage.getItem(TRANSACTION_ID_KEY));
+        });
+
+
 
         $(document).on('click','#modal',function(event)
         {

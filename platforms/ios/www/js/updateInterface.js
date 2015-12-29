@@ -206,14 +206,19 @@ function updateTransactionPage(){
 		$('#title').html('');
 		$('#checkCount').html('');
 		$("#total").html('');
+		$('#expensesList').html('').listview("refresh");
 		getTransactions().done(function(result){
+			//alert("tr count: "+result.rows.length+" requestTransactionPageCount " +requestTransactionPageCount);
 			if ((result.rows.length==0)&(requestTransactionPageCount==0)){
 				requestAndUpdateTransactionPage();
 				return;
 			}
-			else{
+			else {
+				if (requestTransactionPageCount > 2) {
+
 				deferred.resolve();
 				return;
+				}
 			}
 		});
 		var end1 = new Date().getTime();
@@ -302,23 +307,24 @@ function updateTransactionPage(){
 
 				if (result.rows.length==0){
 					$("#noTransactions").css('display','block');
+					listHTML="";
 				}
 				else{
 					$("#noTransactions").css('display','none');
 				}
 				$("#total").html(getCurrencyString(json.Currency)+formatPriceRound(totalAmount));
-
+			//	alert("listHTML is "+listHTML);
 				$('#expensesList').html(listHTML);
 				var end =  +new Date();  // log end timestamp
 				var diff = (end - start)/(20*result.rows.length);
 				console.log("Time per row: "+diff);
-
+				var end2 = new Date().getTime();
+				var time = end2 - start;
+				$('#expensesList').listview('refresh');
+				console.log('updateTransactionpage 2 time: ' + time);
+				return deferred;
   			});
-			var end2 = new Date().getTime();
-			var time = end2 - start;
-			$('#expensesList').listview('refresh');
-			console.log('updateTransactionpage 2 time: ' + time);
-			return deferred;
+
 	}
     catch(e){
     	dumpError("updateTransactionPage",e);
@@ -977,7 +983,7 @@ function updateShopListsPage(reloadFromBase){
 		 $('#select-native-1').change(function() {
 			 var transactionID = window.localStorage.getItem(TRANSACTION_ID_KEY);
 			// alert ("changeSubCategory to "+ $('#select-native-1').val());
-			 alert("changeSubCategory transatcion ID is "+transactionID);
+		//	 alert("changeSubCategory transatcion ID is "+transactionID);
 			 changeSubCategory(transactionID, $('#select-native-1').val());
 		 });
 	 }
