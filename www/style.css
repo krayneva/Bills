@@ -783,10 +783,12 @@ label.error {
 	text-decoration: none;
 	line-height: 75px;
 	font-size: 1.2em;
+	vertical-align: middle;
 }
-.buttonHasIcon span{
-	width: 40px;
-	height: 100%;
+.buttonHasIcon img{
+	height:70%;
+	padding-bottom: 7%;
+	display: inline;
 }
 .save,
 .discard{
