@@ -267,7 +267,8 @@ function updateTransactionPage(){
 					  var day =  date.getDate();
 					  var year = date.getYear()+1900;
 
-
+					//  alert("categoryID is: "+json.CategoryID);
+					//  alert("category is: "+json.Category);
 
 
 					  html = html.replace(/\{transactionDate\}/g,(day<10?'0':'')+day+"."+(month<10?'0':'')+month+"."+year);

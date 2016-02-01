@@ -1837,3 +1837,34 @@ function deleteTransaction(transactionID){
 		}
 	return def;
 }
+
+	function getCategoryID(categoryName){
+		try{
+			var res = "";
+			var deferred = $.Deferred();
+			alert("categoryName is: " + categoryName);
+		//	var sql = "SELECT idtext FROM Categories where name='"+categoryName+"';";
+			var sql = "SELECT * FROM Categories;";
+			alert("sql is: " + sql);
+			db.transaction(
+				function(transaction) {
+					transaction.executeSql(sql, [],
+						function(transaction, result) {
+							if (result.rows.length!=0) {
+								res = result.rows.item(0).idtext;
+								/*for (var i=0; i<result.rows.length; i++){
+									alert("name is : " + result.rows.item(i).name);
+									alert("id is : " + result.rows.item(i).id);
+									alert("idtext is : " + result.rows.item(i).idtext);
+								}*/
+
+							}
+							deferred.resolve(res);
+						}, onError);
+				});
+			return deferred;
+		}
+		catch(e){
+			dumpError("getCategoryID",e);
+		}
+	}

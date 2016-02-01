@@ -381,6 +381,7 @@ function uploadPhoto() {
 						beforeSend: function (request)
 						{
 						request.setRequestHeader("Authorization", "Bearer "+userToken);
+						//	alert( serverAddress+getTransactionsURL+"?dateFrom="+startDate+"&dateTo=null");
 						},
 							data: [],
 							success: function(response, textStatus, jqXHR) {
@@ -393,6 +394,7 @@ function uploadPhoto() {
 								var dateString = jqXHR.getResponseHeader("Date");
 								addSyncDate(SYNC_TRANSACTIONS,dateString);
 								var json = jQuery.parseJSON(jqXHR.responseText);
+								//alert("Количество транзакций за период: "+json.length);
 								if (json.length>0){
 									console.log("time: transaction count: "+json.length);
 
@@ -1142,7 +1144,7 @@ function uploadPhoto() {
   	  	           		var json = jQuery.parseJSON(jqXHR.responseText);
 
 
-
+						alert(JSON.stringify(json.Categories));
 						db.transaction(
 							function(transaction) {
 								var categories = json.Categories;
@@ -1349,166 +1351,6 @@ function uploadPhoto() {
       	    }
 
           }
-/*
-
-function changeSubCategory(transactionID, subcategory){
-    	try{
-	    	$.mobile.loading("show",{
-	    		text: "Смена подкатегории транзакции",
-	    		textVisible: true,
-	    		theme: 'e',
-	    	});
-
-	    	var deferred = $.Deferred();
-			getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
-				var userToken = uToken;
-	    		var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
-	    		getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
-	    		var userToken = uToken;
-	    		console.log("changeSubCategory server address: "+serverAddress+getTransactionsURL);
-	    		console.log("changeSubCategory user token: "+userToken);
-
-					alert("changeSubCategory transatcion ID is "+transactionID);
-	    		getTransaction(transactionID).done(function(res){
-	    		var js = jQuery.parseJSON(res.rows.item(0).transactionJSON);
-
-				js.SubCategory = subcategory;
-
-		    	   $.ajax({
-		    	          url: serverAddress+getTransactionsURL,
-		    	          type: "post",
-
-		                beforeSend: function (request)
-		                {
-			                request.setRequestHeader("Authorization", "Bearer "+userToken);
-			                request.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-		                },
-		    	            data: JSON.stringify(js),
-		    	            success: function(response, textStatus, jqXHR) {
-
-							jqXHR.responseText=jqXHR.responseText.replace(/"/g,"");
-							if (jqXHR.responseText==transactionID){
-							 addTransaction(js).done(function(r){
-								 $.mobile.loading("hide");
-                            	deferred.resolve();
-                            		  });
-							}
-							else{
-							}
-
-
-		    	           		$.mobile.loading("hide");
-		    	           		deferred.resolve(res);
-		    	            },
-		    	            error: function(jqXHR, textStatus, errorThrown) {
-		    	              	   onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
-		                        	   if (res==SERVER_ERROR_TRY_AGAIN){
-		                        		   changeSubCategory(transactionID, subcategory);
-		                        	   	   deferred.resolve();
-		                        	   }
-		                        	   else{
-		                        		   $.mobile.loading("hide");
-		                        		     showErrorDialog(getErrorMessage(res));
-		                        		   deferred.resolve();
-		                        	   }
-
-		                    	   });
-		    	            }
-		    	        });
-
-	    	});});});
-	    	return deferred;
-    	}
-	    catch(e){
-	    	dumpError("changeSubCAtegory",e);
-	    }
-
-    }
-*/
-
-/*
-function changeCategory(transactionID, category){
-	try{
-		$.mobile.loading("show",{
-			text: "Смена категории транзакции",
-			textVisible: true,
-			theme: 'e',
-		});
-
-		var deferred = $.Deferred();
-		getSetting(SETTING_USER_LOGIN, USER_LOGIN_DEFAULT).done(function(login){
-			var log = login;
-			getSetting(SETTING_USER_PASSWORD,USER_PASSWORD_DEFAULT).done(function(password){
-				var pass = password;
-				requestUserToken(log, pass).done(function(uToken){
-
-					var serverAddress = getSettingFromStorage(SETTING_SERVER_ADDRESS, SERVER_ADDRESS_DEFAULT);
-					getSetting(SETTING_USER_TOKEN,USER_TOKEN_DEFAULT).done(function(uToken){
-						var userToken = uToken;
-						console.log("changeCategory server address: "+serverAddress+getTransactionsURL);
-						console.log("changeCategory user token: "+userToken);
-
-
-						getTransaction(transactionID).done(function(res){
-							var js = jQuery.parseJSON(res.rows.item(0).transactionJSON);
-							js.Category = category;
-
-							$.ajax({
-								url: serverAddress+getTransactionsURL,
-								type: "post",
-
-								beforeSend: function (request)
-								{
-									request.setRequestHeader("Authorization", "Bearer "+userToken);
-									request.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-								},
-								data: JSON.stringify(js),
-								success: function(response, textStatus, jqXHR) {
-
-									jqXHR.responseText=jqXHR.responseText.replace(/"/g,"");
-									if (jqXHR.responseText==transactionID){
-
-										//addSeveralTransactions(js,0,undefined).done(function(r){
-										addTransaction(js).done(function(r){
-											$.mobile.loading("hide");
-											deferred.resolve();
-										});
-									}
-									else{
-										//alert("errors while changing subcategrory");
-									}
-
-
-									$.mobile.loading("hide");
-									deferred.resolve(res);
-								},
-								error: function(jqXHR, textStatus, errorThrown) {
-									onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
-										if (res==SERVER_ERROR_TRY_AGAIN){
-											changeCategory(transactionID, category);
-											deferred.resolve();
-										}
-										else{
-											$.mobile.loading("hide");
-											showErrorDialog(getErrorMessage(res));
-											deferred.resolve();
-										}
-
-									});
-								}
-							});
-						});
-					});
-					//});
-				});});});
-		return deferred;
-	}
-	catch(e){
-		dumpError("changeCAtegory",e);
-	}
-
-}
-*/
 
 
 
@@ -1654,6 +1496,9 @@ function saveTransaction(transactionID, js){
 						{
 							request.setRequestHeader("Authorization", "Bearer "+userToken);
 							request.setRequestHeader("Content-Type", "application/json; charset=utf-8");
+							alert("transaction category is: "+js.Category);
+							alert(JSON.stringify(js));
+	//						alert("transaction categoryID is: "+js.CategoryID);
 						},
 
 						data: JSON.stringify(js),
@@ -1674,7 +1519,7 @@ function saveTransaction(transactionID, js){
 						error: function(jqXHR, textStatus, errorThrown) {
 							onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
 								if (res==SERVER_ERROR_TRY_AGAIN){
-									saveTransaction(transactionID);
+									saveTransaction(transactionID, js);
 									deferred.resolve();
 								}
 								else{

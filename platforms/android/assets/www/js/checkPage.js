@@ -448,7 +448,10 @@ function changeTax(tax){
 
 function changeCategory(category){
     editedJSON.Category = category;
-
+    getCategoryID(category).done(function(res){
+        alert("changed category to "+res);
+        editedJSON.CategoryID = res;
+    });
 }
 
 function changeSubCategory(subCategory){
