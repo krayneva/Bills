@@ -114,6 +114,7 @@
         android:text="Значение экспозиции"/>
 
     <SeekBar
+        android:text="Коррекция экспозиции"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/seekBarExposureCompensation" />

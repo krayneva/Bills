@@ -758,54 +758,41 @@ label.error {
 	background-repeat: no-repeat;
 	background-position: center center;
 }
-.message {
+.bottomPanel{
+	position: fixed;
+	left: 0;
+	right: 0;
+	bottom: 0;
+}
+.buttonLink{
 	display: block;
-	background-image: url("images/message.jpg");
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
-	width: 104px;
-	height: 104px;
-	position: fixed;
-	left: 50%;
-	bottom: 0;
-	margin-left: -104px;
+	background: #27aabd; /* Old browsers */
+	background: -moz-linear-gradient(top,  #27aabd 0%, #27aabd 49%, #0090a6 50%, #0090a6 100%); /* FF3.6+ */
+	background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,#27aabd), color-stop(50%,#27aabd), color-stop(48%,#0090a6), color-stop(100%,#0090a6)); /* Chrome,Safari4+ */
+	background: -webkit-linear-gradient(top,  #27aabd 0%,#27aabd 49%,#0090a6 50%,#0090a6 100%); /* Chrome10+,Safari5.1+ */
+	background: -o-linear-gradient(top,  #27aabd 0%,#27aabd 49%,#0090a6 50%,#0090a6 100%); /* Opera 11.10+ */
+	background: -ms-linear-gradient(top,  #27aabd 0%,#27aabd 49%,#0090a6 50%,#0090a6 100%); /* IE10+ */
+	background: linear-gradient(to bottom,  #27aabd 0%,#27aabd 49%,#0090a6 50%,#0090a6 100%); /* W3C */
+	filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#27aabd', endColorstr='#0090a6',GradientType=0 ); /* IE6-9 */
+	height: 75px;
+	text-align: center;
+	width: calc(50% - 10px);
+	color: #fff;
+	float: left;
+	margin: 5px;
+	text-decoration: none;
+	line-height: 75px;
+	font-size: 1.2em;
+	vertical-align: middle;
 }
-
-.save{
-	display: none;
-	background-image: url("images/button_ok.png");
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
-	width: 104px;
-	height: 104px;
-	position: fixed;
-	left: 50%;
-	bottom: 0;
-	margin-left: 0px;
+.buttonHasIcon img{
+	height:70%;
+	padding-bottom: 7%;
+	display: inline;
 }
+.save,
 .discard{
 	display: none;
-	background-image: url("images/button_cancel.png");
-	ackground-repeat: no-repeat;
-	background-size: 100% 100%;
-	width: 104px;
-	height: 104px;
-	position: fixed;
-	left: 50%;
-	bottom: 0;
-	margin-left: -104px;
-}
-.deleteTransaction{
-	display: block;
-	background-image: url("images/button_cancel.png");
-	background-repeat: no-repeat;
-	background-size: 100% 100%;
-	width: 104px;
-	height: 104px;
-	position: fixed;
-	right: 0%;
-	bottom: 0;
-	margin-left: 0px;
 }
 .check-tab{
 	height: 100%;
@@ -1235,10 +1222,9 @@ div.my-modal-bg {
 	.shopping-list a {
 		padding: .3em 2.5em .3em 1.3em;
 	}
-	.message {
-		width: 65px;
-		height: 65px;
-		margin-left: -32px;
+	.buttonLink {
+		height: 50px;
+		line-height: 50px;
 	}
 	.ui-icon-edit {
 		width: 95px;
@@ -1363,10 +1349,9 @@ div.my-modal-bg {
 	.shopping-list a {
 		padding: .3em 2.5em .3em 1.3em;
 	}
-	.message {
-		width: 52px;
-		height: 52px;
-		margin-left: -26px;
+	.buttonLink {
+		height: 40px;
+		line-height: 40px;
 	}
 	.ui-icon-edit {
 		width: 70px;
