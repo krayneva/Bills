@@ -1519,7 +1519,7 @@ function saveTransaction(transactionID, js){
 						error: function(jqXHR, textStatus, errorThrown) {
 							onServerRequestError(jqXHR, textStatus, errorThrown).done(function(res){
 								if (res==SERVER_ERROR_TRY_AGAIN){
-									saveTransaction(transactionID);
+									saveTransaction(transactionID, js);
 									deferred.resolve();
 								}
 								else{
