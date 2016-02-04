@@ -9,9 +9,7 @@ var transactionJSON ;
 var editedJSON;
 
 function updateCheckPage(){
-
     try{
-
         var receiptID = window.localStorage.getItem(RECEIPT_ID_KEY);
         transactionID  = window.localStorage.getItem(TRANSACTION_ID_KEY);
         $('#sendFeedbackButton').click(function()
@@ -33,21 +31,28 @@ function updateCheckPage(){
             $('#modal').hide();
             $('.my-modal').hide();
         });
-
-        getTransaction(transactionID).done(function(res) {
-            var js = jQuery.parseJSON(res.rows.item(0).transactionJSON);
-            var row = res.rows.item(0);
-
-            if ((row.isFav == 1) || (row.isFav == '1'))
-                js.isFav = true;
-            else
-                js.isFav = false;
-
-            transactionJSON = JSON.parse(JSON.stringify(js));
-            editedJSON = JSON.parse(JSON.stringify(js));;
+        if ((transactionID!="null")&(transactionID!=null)) {
+            initEditMode();
+            getTransaction(transactionID).done(function (res) {
+                var js = jQuery.parseJSON(res.rows.item(0).transactionJSON);
+                var row = res.rows.item(0);
+                if ((row.isFav == 1) || (row.isFav == '1'))
+                    js.isFav = true;
+                else
+                    js.isFav = false;
+                transactionJSON = JSON.parse(JSON.stringify(js));
+                editedJSON = JSON.parse(JSON.stringify(js));
+                ;
+                refreshPage(transactionJSON);
+            });
+        }
+        else{
+            initCreateMode();
+            getDummyJSON();
+            editedJSON = transactionJSON;
             refreshPage(transactionJSON);
-        });
 
+        }
         $(document).ready(function()
         {
             $('#select-native-0-button').prepend('<img src="images/img.jpg" alt="" id = "leftImage">');
@@ -364,9 +369,77 @@ function refreshPage(js){
         }
 
     });
+}
 
+
+function getDummyJSON(){
+    transactionJSON = new Object();
+    transactionJSON.isFav = false;
+    transactionJSON.Name = "Наименование транзакции";
+    transactionJSON.Shop = "Наименование магазина";
+    transactionJSON.Amount = 0;
+    transactionJSON.receiptData = new Object();
+    transactionJSON.receiptData.TotalTax=0;
+    getFirstCategory().done(function(res) {
+        transactionJSON.Category = res;
+    });
+    getFirstSubCategory(transactionJSON.Category).done(function(res){
+        transactionJSON.SubCategory = res;
+    });
+    var date = new Date();
+    // TODO разобраться с таймзоной
+    var s = date.toISOString().substr(0,date.toISOString().length-1)+"+00:00";
+    transactionJSON.TransactionDate = s;
+
+    alert(JSON.stringify(transactionJSON));
+}
+
+
+
+function initEditMode(){
+    $("#autocomplete").hide();
+}
+
+
+function initCreateMode(){
+    $("#autocomplete").show();
+    $("#autocomplete").html('');
+
+    getGoodItems().done(function(res){
+        for (var i=0; i<res.rows.length; i++){
+            var row = res.rows.item(i);
+            $('#autocomplete').append("<li id='autoRow"+i+"'class = 'autoLi' tagid="+row.id+">"+row.name+"</li>");
+        }
+        $( "#autocomplete").hide();
+        $( "#autocomplete" ).on( "filterablebeforefilter", function ( e, data ) {
+            var $ul = $( this ),
+                $input = $( data.input ),
+                value = $input.val();
+            if ( value && value.length > 1 ) {
+                $( "#autocomplete").show();
+            }
+        });
+
+        $('#autocomplete').listview('refresh');
+        $(".autoLi").click(function(){
+           /* var measureId = this.getAttribute("measure");
+            var measure = MeasureEnum[measureId].valueRus;
+            var amount = MeasureEnum[measureId].defaultAmount;
+            var value = this.innerHTML;
+            if (measure!=undefined){
+                value = value+" "+amount+" "+measure;
+            }
+            $( "#inset-autocomplete-input").val(value);
+            $( "#autocomplete").hide();
+            $("#pageShopList").css({'top': 0});
+            return false;*/
+            alert("selected tag is "+this.innerHTML+this.getAttribute("tagid"));
+        });
+
+    });
 
 }
+
 
 function refreshSubCategoryCombo(subcategory){
     var html1 = $('#categoryRowTemplate').html();

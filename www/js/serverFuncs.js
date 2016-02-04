@@ -1144,7 +1144,7 @@ function uploadPhoto() {
   	  	           		var json = jQuery.parseJSON(jqXHR.responseText);
 
 
-						alert(JSON.stringify(json.Categories));
+					//	alert(JSON.stringify(json.Categories));
 						db.transaction(
 							function(transaction) {
 								var categories = json.Categories;
