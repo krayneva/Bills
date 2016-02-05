@@ -8,6 +8,8 @@ var transactionID;
 var transactionJSON ;
 var editedJSON;
 
+var isInCreateMode = false;
+
 function updateCheckPage(){
     try{
         var receiptID = window.localStorage.getItem(RECEIPT_ID_KEY);
@@ -48,10 +50,11 @@ function updateCheckPage(){
         }
         else{
             initCreateMode();
-            getDummyJSON();
-            editedJSON = transactionJSON;
-            refreshPage(transactionJSON);
-
+            getDummyJSON().done(function(res){
+                transactionJSON = res;
+                editedJSON = transactionJSON;
+                refreshPage(transactionJSON);
+            });
         }
         $(document).ready(function()
         {
@@ -220,6 +223,7 @@ function updateCheckPage(){
 
 
 function refreshPage(js){
+    alert(JSON.stringify(js));
     if ((js.Coords!=undefined)&(js.Coords!=null)&(js.Coords!="null")) {
         var lat = js.Coords.Latitude;
         var lon = js.Coords.Longitude;
@@ -286,28 +290,30 @@ function refreshPage(js){
     // tags
 
 
-    $('#tagsList').html('');
-    for (var k=0; k<js.Tags.length; k++){
-        var html3 = $('#tagRowTemplate').html();
-        html3 = html3.replace(/\{tagName\}/g,fullTagsArray[hashCode(js.Tags[k])]);
-        $('#tagsList').append(html3);
+    if (js.Tags!=undefined) {
+        $('#tagsList').html('');
+        for (var k = 0; k < js.Tags.length; k++) {
+            var html3 = $('#tagRowTemplate').html();
+            html3 = html3.replace(/\{tagName\}/g, fullTagsArray[hashCode(js.Tags[k])]);
+            $('#tagsList').append(html3);
+        }
     }
 
 
 
+
     //checkDetails
-    var tableHTML="";
-    $("#checkDetailstable > tbody").html('');
-    for (var p=0; p< js.receiptData.Items.length; p++){
-        var html5='<tr class="one-detail"><td>{positionName}</td><td><span>{positionCost}</span></td><td>{positionTag}</td></tr>' ;
+    if (js.receiptData.Items!=undefined) {
+        var tableHTML = "";
+        $("#checkDetailstable > tbody").html('');
+        for (var p = 0; p < js.receiptData.Items.length; p++) {
+            var html5 = '<tr class="one-detail"><td>{positionName}</td><td><span>{positionCost}</span></td><td>{positionTag}</td></tr>';
 
-        html5 = html5.replace(/\{positionName\}/g,js.receiptData.Items[p].ItemName);
-        html5 = html5.replace(/\{positionCost\}/g,formatPrice(js.receiptData.Items[p].Value));
-        html5 = html5.replace(/\{positionTag\}/g,fullTagsArray[hashCode(js.receiptData.Items[p].Tag)]);
-        $('#checkDetailstable > tbody').append(html5);
-
-
-
+            html5 = html5.replace(/\{positionName\}/g, js.receiptData.Items[p].ItemName);
+            html5 = html5.replace(/\{positionCost\}/g, formatPrice(js.receiptData.Items[p].Value));
+            html5 = html5.replace(/\{positionTag\}/g, fullTagsArray[hashCode(js.receiptData.Items[p].Tag)]);
+            $('#checkDetailstable > tbody').append(html5);
+        }
     }
 
 
@@ -373,36 +379,46 @@ function refreshPage(js){
 
 
 function getDummyJSON(){
-    transactionJSON = new Object();
-    transactionJSON.isFav = false;
-    transactionJSON.Name = "Наименование транзакции";
-    transactionJSON.Shop = "Наименование магазина";
-    transactionJSON.Amount = 0;
-    transactionJSON.receiptData = new Object();
-    transactionJSON.receiptData.TotalTax=0;
-    getFirstCategory().done(function(res) {
-        transactionJSON.Category = res;
-    });
-    getFirstSubCategory(transactionJSON.Category).done(function(res){
-        transactionJSON.SubCategory = res;
-    });
-    var date = new Date();
-    // TODO разобраться с таймзоной
-    var s = date.toISOString().substr(0,date.toISOString().length-1)+"+00:00";
-    transactionJSON.TransactionDate = s;
+    var deferred = $.Deferred();
 
-    alert(JSON.stringify(transactionJSON));
+    getFirstCategory().done(function(res) {
+        transactionJSON = new Object();
+        transactionJSON.isFav = false;
+        transactionJSON.Name = "Наименование транзакции";
+        transactionJSON.Shop = "Наименование магазина";
+        transactionJSON.Amount = 0;
+        transactionJSON.receiptData = new Object();
+        transactionJSON.receiptData.TotalTax=0;
+        transactionJSON.Category = res;
+        var date = new Date();
+        // TODO разобраться с таймзоной
+        var s = date.toISOString().substr(0,date.toISOString().length-1)+"+00:00";
+        transactionJSON.TransactionDate = s;
+        getFirstSubCategory(transactionJSON.Category).done(function(res){
+            transactionJSON.SubCategory = res;
+            getCategoryID(transactionJSON.Category).done(function(res){
+                transactionJSON.CategoryID = res;
+                getAccountID().done(function(res){
+                    transactionJSON.AccountID = res;
+                    deferred.resolve(transactionJSON);
+                });
+            });
+        });
+    });
+    return deferred;
 }
 
 
 
 function initEditMode(){
-    $("#autocomplete").hide();
+    isInCreateMode = false;
 }
 
 
 function initCreateMode(){
-    $("#autocomplete").show();
+    isInCreateMode = true;
+
+   showButtonsForCreateMode();
     $("#autocomplete").html('');
 
     getGoodItems().done(function(res){
@@ -472,7 +488,7 @@ function refreshSubCategoryCombo(subcategory){
 
     $('#select-native-1').change(function() {
        //changeSubCategory(transactionID, $('#select-native-1').val());
-        editedJSON.Subcategory =  $('#select-native-1').val();
+        editedJSON.SubCategory =  $('#select-native-1').val();
         refreshPage(editedJSON);
     });
 }
@@ -550,8 +566,10 @@ function saveChanges(){
         return;
     }
     transactionJSON = JSON.parse(JSON.stringify(editedJSON));
-    saveTransaction(transactionID,transactionJSON);
-
+    if (isInCreateMode)
+        saveTransaction(-1,transactionJSON);
+    else
+        saveTransaction(transactionID,transactionJSON);
     hideSaveButtons();
 }
 
@@ -562,11 +580,29 @@ function discardChanges(){
     hideSaveButtons();
 }
 
-//TODO переделать на toggle!!!
-function showSaveButtons(){
+
+function showButtonsForCreateMode(){
+    $("#autocompletediv").css('display','block');
+    $("#autocomplete").html();
+    $('.discard').css('display','none');
     $('.message').css('display','none');
     $('.save').css('display','block');
-    $('.discard').css('display','block');
+    $('.deleteTransaction').css('display','none');
+    $("#check-photo").css('display','none');
+    $("#check-details").css('display','none');
+    $("#check-map").css('display','none');
+
+}
+
+
+
+//TODO переделать на toggle!!!
+function showSaveButtons() {
+    if (!isInCreateMode) {
+        $('.message').css('display', 'none');
+        $('.save').css('display', 'block');
+        $('.discard').css('display', 'block');
+    }
 }
 
 function hideSaveButtons(){

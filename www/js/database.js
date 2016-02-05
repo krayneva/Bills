@@ -401,8 +401,10 @@
 				searchText = searchText+ " " + item.ItemName;
 			}
 			searchText = searchText+" ";
-			for (var i=0; i<json.Tags.length; i++) {
-				searchText = searchText + " " + fullTagsArray[hashCode(json.Tags[i])];
+			if (json.Tags!=undefined) {
+				for (var i = 0; i < json.Tags.length; i++) {
+					searchText = searchText + " " + fullTagsArray[hashCode(json.Tags[i])];
+				}
 			}
 			searchText = searchText.replace(/['"]+/mgi, '');
 			searchText = searchText.replace(/'/mgi,"");
@@ -540,7 +542,7 @@
 			p="-1 month";
 		if (period=="year")
 			p="-1 year";
-		alert("period is "+period);
+	//	alert("period is "+period);
 		try{
 			var deferred = $.Deferred();
 			db.transaction(
@@ -777,7 +779,22 @@
 			  dumpError("addSeveralShopLists",e);
 		  }			
     }
-    
+
+
+	function getAccountID(){
+		try{
+			var deferred = $.Deferred();
+			var accountID = "";
+			getUserEnvironment().done(function(res) {
+				accountID = jQuery.parseJSON(res).AccountID;
+				deferred.resolve(accountID);
+				});
+			}
+		catch(e){
+				dumpError("addSeveralShopLists",e);
+			}
+		return deferred;
+	}
     
     function createShopList(name){
     	try{
@@ -1550,25 +1567,6 @@
 
 	}
 
-	function getTagNameInTransaction(tagID, pos, len, transaction){
-		try{
-			var deferred = $.Deferred();
-			transaction.executeSql('SELECT name FROM Tags where id="'+hashCode(tagID)+'";', [],
-				function(transaction, result) {
-					if (result.rows.length != 0) {
-					//	console.log("tag name is "+result.rows.item(0).name);
-						deferred.resolve(result.rows.item(0).name);
-					}
-					else deferred.resolve("");
-				});
-		}
-		catch(e){
-			dumpError("getTagName",e);
-			deferred.resolve("");
-		}
-		return deferred;
-	}
-
 
          function getCategoryName(categoryID){
                  	try{
@@ -1682,7 +1680,7 @@
 					transaction.executeSql('SELECT idtext FROM Categories limit 1;', [],
 						function (transaction, res) {
 							if (res.rows.length==0) deferred.resolve("");
-							alert(res.rows.item(0).idtext);
+						//	alert(res.rows.item(0).idtext);
 							deferred.resolve(res.rows.item(0).idtext);
 						}, onError);
 				});
@@ -1884,22 +1882,24 @@ function deleteTransaction(transactionID){
 			var res = "";
 			var deferred = $.Deferred();
 			alert("categoryName is: " + categoryName);
-		//	var sql = "SELECT idtext FROM Categories where name='"+categoryName+"';";
+		//	var sql = "SELECT * FROM Categories where name='"+categoryName+"';";
 			var sql = "SELECT * FROM Categories;";
-			alert("sql is: " + sql);
+		//	alert("sql is: " + sql);
 			db.transaction(
 				function(transaction) {
 					transaction.executeSql(sql, [],
 						function(transaction, result) {
 							if (result.rows.length!=0) {
 								res = result.rows.item(0).idtext;
-								/*for (var i=0; i<result.rows.length; i++){
+								for (var i=0; i<result.rows.length; i++){
 									alert("name is : " + result.rows.item(i).name);
 									alert("id is : " + result.rows.item(i).id);
 									alert("idtext is : " + result.rows.item(i).idtext);
-								}*/
+								}
 
 							}
+							else
+								alert("getCategoryName returned 0 rows");
 							deferred.resolve(res);
 						}, onError);
 				});

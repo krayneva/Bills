@@ -1144,7 +1144,7 @@ function uploadPhoto() {
   	  	           		var json = jQuery.parseJSON(jqXHR.responseText);
 
 
-					//	alert(JSON.stringify(json.Categories));
+						alert(JSON.stringify(json.Categories));
 						db.transaction(
 							function(transaction) {
 								var categories = json.Categories;
@@ -1505,13 +1505,19 @@ function saveTransaction(transactionID, js){
 						success: function(response, textStatus, jqXHR) {
 							jqXHR.responseText=jqXHR.responseText.replace(/"/g,"");
 							//alert("transationID was: "+transactionID+" server response is "+jqXHR.responseText);
-							if (jqXHR.responseText==transactionID){
+							if ((transactionID!=-1)&&(jqXHR.responseText==transactionID)){
 								addTransaction(js).done(function(r){
 									$.mobile.loading("hide");
 									deferred.resolve();
 								});
 							}
 							else{
+								alert(jqXHR.responseText);
+								js.Id = jqXHR.responseText;
+								addTransaction(js).done(function(r){
+									$.mobile.loading("hide");
+									deferred.resolve();
+								});
 							}
 							$.mobile.loading("hide");
 							deferred.resolve(res);
