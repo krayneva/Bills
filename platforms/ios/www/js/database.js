@@ -1353,6 +1353,24 @@
 			  dumpError("getGoodItems",e);
 		  }			
     }
+
+	function getTags(){
+		try{
+			var deferred = $.Deferred();
+			db.transaction(
+				function(transaction) {
+					transaction.executeSql("SELECT * FROM Tags", [],
+						function(transaction, result) {
+							deferred.resolve(result);
+						}, onError);
+				});
+			return deferred;
+		}
+		catch(e){
+			dumpError("getTags",e);
+		}
+	}
+
     
     
     function getGoodItemsCount(){
@@ -1652,6 +1670,29 @@
 			dumpError("getCategories",e);
 		}
 	}
+
+
+
+	function getFirstCategory() {
+		try {
+			var res = "";
+			var deferred = $.Deferred();
+			db.transaction(
+				function (transaction) {
+					transaction.executeSql('SELECT idtext FROM Categories limit 1;', [],
+						function (transaction, res) {
+							if (res.rows.length==0) deferred.resolve("");
+							alert(res.rows.item(0).idtext);
+							deferred.resolve(res.rows.item(0).idtext);
+						}, onError);
+				});
+			return deferred;
+		}
+		catch (e) {
+			dumpError("getFirstCategory", e);
+		}
+	}
+
 
 	function getFirstSubCategory(categoryID) {
 		try {
