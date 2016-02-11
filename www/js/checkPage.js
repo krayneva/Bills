@@ -223,7 +223,7 @@ function updateCheckPage(){
 
 
 function refreshPage(js){
-    alert(JSON.stringify(js));
+  //  alert(JSON.stringify(js));
     if ((js.Coords!=undefined)&(js.Coords!=null)&(js.Coords!="null")) {
         var lat = js.Coords.Latitude;
         var lon = js.Coords.Longitude;
@@ -449,7 +449,7 @@ function initCreateMode(){
             $( "#autocomplete").hide();
             $("#pageShopList").css({'top': 0});
             return false;*/
-            alert("selected tag is "+this.innerHTML+this.getAttribute("tagid"));
+         //   alert("selected tag is "+this.innerHTML+this.getAttribute("tagid"));
         });
 
     });
@@ -538,7 +538,7 @@ function changeTax(tax){
 function changeCategory(category){
     editedJSON.Category = category;
     getCategoryID(category).done(function(res){
-        alert("changed category to "+res);
+     //   alert("changed category to "+res);
         editedJSON.CategoryID = res;
     });
 }
