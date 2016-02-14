@@ -49,16 +49,7 @@
 					<!--<div id = "discount"></div>-->
 					<div style="clear: both;"></div>
 				</div>
-				<div class="shopping-list" id = "tagsList">
-				<!--	<a href="javsdcript:void(0)">пиво</a>
-					<a href="javsdcript:void(0)">хлеб</a>
-					<a href="javsdcript:void(0)">говядина</a>
-					<a href="javsdcript:void(0)">cтиральный порошек</a>
-					<a href="javsdcript:void(0)">яйца</a>-->
-				</div>
-				<!--Родительский аккордеон-->
-
-				<div class="shopList_addItem" id="autocompletediv" style="display: none;">
+				<div class="" id="autocompletediv" style="display: none;">
 					<form class="ui-filterable">
 						<input id="inset-autocomplete-input" placeholder="Введите тег..." >
 						<ul  id="autocomplete"data-role="listview" data-inset="true" data-filter="true" data-filter-reveal="true" data-input="#inset-autocomplete-input" >
@@ -73,6 +64,16 @@
 						</ul>
 					</form>
 				</div>
+				<div class="shopping-list" id = "tagsList">
+				<!--	<a href="javsdcript:void(0)">пиво</a>
+					<a href="javsdcript:void(0)">хлеб</a>
+					<a href="javsdcript:void(0)">говядина</a>
+					<a href="javsdcript:void(0)">cтиральный порошек</a>
+					<a href="javsdcript:void(0)">яйца</a>-->
+				</div>
+				<!--Родительский аккордеон-->
+
+				
 
 				<div class="bottomPanel">
 		       		<a href="javascript:void(0)" class="buttonLink buttonHasIcon message"><img src="images/message.png" align="middle" />&nbsp;Отзыв</a>
@@ -106,12 +107,12 @@
 	        	</div>
 	        </div>
 	    </div>
-	    <div class="check-tab" id="check-photo">
+	    <div class="check-tab" id="check-photo"  style="display: block;">
 	    	<div class="check-photo">
 	    		<img  alt="" id = "checkImage">
 	    	</div>
 	    </div>
-	    <div class="check-tab" id="check-map">
+	    <div class="check-tab" id="check-map"  style="display: block;">
 	    	<div class="map" id="map"></div>
 			<label id="noCoords" style="display: none; width:100%; text-align:center;" >Координаты не заданы</label>
 	    	<label id="noConnection" style="display: none; width:100%; text-align:center;">Нет соединения с интернетом</label>
@@ -200,7 +201,7 @@
         </div>
         
         <div id ="tagRowTemplate" style="display: none;">
-            <a href="javascript:void(0)">{tagName}</a>
+            <a href="javascript:void(0)" onclick="deleteTag('{tagID}')">{tagName}</a>
         </div>
         <div id ="checkRowTemplate" style="display: none;">
 			<tr class="one-detail">

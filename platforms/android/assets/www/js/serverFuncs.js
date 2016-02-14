@@ -305,7 +305,9 @@ function uploadPhoto() {
 	    	               addUserEnvironment(jqXHR.responseText);
 	    	           		var json = jQuery.parseJSON(jqXHR.responseText);
 	    	           		for (var k in json.Widgets) {
-	    	  				  var w = json.Widgets[k];
+						//		alert("widget is "+ JSON.stringify(json.Widgets[k]));
+								var w = json.Widgets[k];
+								addCategoryUID(w.Kind,w.VisualObjectId)
 	    	  				  	addWidget(w.VisualObjectId, JSON.stringify(w));
 
 	    	           		}
@@ -1144,14 +1146,16 @@ function uploadPhoto() {
   	  	           		var json = jQuery.parseJSON(jqXHR.responseText);
 
 
-						alert(JSON.stringify(json.Categories));
+						//alert(JSON.stringify(json.Categories));
 						db.transaction(
 							function(transaction) {
 								var categories = json.Categories;
 								$.each(categories, function (key, value) {
 									$.each(value, function (key, value) {
+
 										var categoryID = key;
 										$.each(value, function (key, value) {
+
 											var categoryName = key;
 											$.each(value, function (key, value) {
 												addCategoryInTransaction(categoryID, categoryName, transaction);
@@ -1468,7 +1472,7 @@ function requestDiscount(){
 	}
 	catch(e){
 
-		dumpError("requestUserEnvironment",e);
+		dumpError("requestDiscount",e);
 		deferred.resolve();
 	}
 
@@ -1496,8 +1500,8 @@ function saveTransaction(transactionID, js){
 						{
 							request.setRequestHeader("Authorization", "Bearer "+userToken);
 							request.setRequestHeader("Content-Type", "application/json; charset=utf-8");
-							alert("transaction category is: "+js.Category);
-							alert(JSON.stringify(js));
+						//	alert("transaction category is: "+js.Category);
+						//	alert(JSON.stringify(js));
 	//						alert("transaction categoryID is: "+js.CategoryID);
 						},
 
@@ -1512,7 +1516,7 @@ function saveTransaction(transactionID, js){
 								});
 							}
 							else{
-								alert(jqXHR.responseText);
+								//alert(jqXHR.responseText);
 								js.Id = jqXHR.responseText;
 								addTransaction(js).done(function(r){
 									$.mobile.loading("hide");

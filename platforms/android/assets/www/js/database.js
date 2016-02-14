@@ -144,10 +144,10 @@
    		 		+'(id integer primary key,name)');
 
    		 tx.executeSql('CREATE TABLE IF NOT EXISTS Categories'
-                   		 		+' (id integer primary key, idtext,name)');
+                   		 		+' (id integer primary key, uid, idtext,name)');
 
          tx.executeSql('CREATE TABLE IF NOT EXISTS Tags'
-                  +' (id integer primary key,name)');
+                  +' (id integer primary key,uid, name)');
 
          tx.executeSql('CREATE TABLE IF NOT EXISTS SubCategories'
           	+' (id integer primary key,idtext, name,category integer)');
@@ -396,12 +396,14 @@
 			var receiptImageID =  json.ReceiptImageID;
 			var searchText = json.Name+" ";
 
+			if ((json.receiptData!=null)&(json.receiptData!=undefined))
+				if ((json.receiptData.Items!=null)&(json.receiptData.Items!=undefined))
 			for (var i=0; i<json.receiptData.Items.length; i++){
 				var item = json.receiptData.Items[i];
 				searchText = searchText+ " " + item.ItemName;
 			}
 			searchText = searchText+" ";
-			if (json.Tags!=undefined) {
+			if ((json.Tags!=null)&(json.Tags!=undefined)) {
 				for (var i = 0; i < json.Tags.length; i++) {
 					searchText = searchText + " " + fullTagsArray[hashCode(json.Tags[i])];
 				}
@@ -1243,6 +1245,26 @@
 	}
 
 
+
+	function addCategoryUID(id,uid){
+		try{
+			db.transaction(
+					function(transaction) {
+						transaction.executeSql(
+							"UPDATE Categories set uid='" +
+							uid
+							+"' where idtext='"+id+"'"
+						);},
+					function onError(error){
+						console.log("Error trying to addCategoryUID!");
+					},onSuccess);
+		}
+		catch(e){
+			dumpError("addCategoryUID",e);
+		}
+	}
+
+/*
     function addTag(id,name){
     	try{
     	    	 db.transaction(
@@ -1261,14 +1283,15 @@
 				dumpError("addTag",e);
              }
     }
-
+*/
 
 	function addTagInTransaction(id,name, transaction){
 		try{
 			transaction.executeSql(
-				"INSERT OR REPLACE INTO Tags (id, name) " +
+				"INSERT OR REPLACE INTO Tags (id,uid, name) " +
 				" values ('"
-				+hashCode(id)+"',"
+		+hashCode(id)+
+		"','"+id+"',"
 				+"'"+name+"')"
 			);
 		}
@@ -1573,7 +1596,7 @@
 					//	alert("categoryID "+categoryID);
          				var res = "";
          			    var deferred = $.Deferred();
-						var sql = 'SELECT name FROM Categories where id ='+(hashCode(categoryID))+';';
+						var sql = 'SELECT name FROM Categories where idtext ="'+categoryID+'";';
          				db.transaction(
          						function(transaction) {
          							transaction.executeSql(sql, [],
@@ -1877,29 +1900,21 @@ function deleteTransaction(transactionID){
 	return def;
 }
 
-	function getCategoryID(categoryName){
+	function getCategoryUID(categoryID){
 		try{
 			var res = "";
 			var deferred = $.Deferred();
-			alert("categoryName is: " + categoryName);
-		//	var sql = "SELECT * FROM Categories where name='"+categoryName+"';";
-			var sql = "SELECT * FROM Categories;";
-		//	alert("sql is: " + sql);
+		//	alert(" categoryID is "+categoryID);
+			var sql = "SELECT uid FROM Categories where idtext='"+categoryID+"';";
+
 			db.transaction(
 				function(transaction) {
 					transaction.executeSql(sql, [],
 						function(transaction, result) {
 							if (result.rows.length!=0) {
-								res = result.rows.item(0).idtext;
-								for (var i=0; i<result.rows.length; i++){
-									alert("name is : " + result.rows.item(i).name);
-									alert("id is : " + result.rows.item(i).id);
-									alert("idtext is : " + result.rows.item(i).idtext);
-								}
-
+								res = result.rows.item(0).uid;
 							}
-							else
-								alert("getCategoryName returned 0 rows");
+
 							deferred.resolve(res);
 						}, onError);
 				});
@@ -1907,5 +1922,30 @@ function deleteTransaction(transactionID){
 		}
 		catch(e){
 			dumpError("getCategoryID",e);
+		}
+	}
+
+
+	function getTagUID(tagID){
+		try{
+			var res = "";
+			var deferred = $.Deferred();
+			var sql = "SELECT uid FROM Tags where id='"+tagID+"';";
+
+			db.transaction(
+				function(transaction) {
+					transaction.executeSql(sql, [],
+						function(transaction, result) {
+							if (result.rows.length!=0) {
+								res = result.rows.item(0).uid;
+							}
+
+							deferred.resolve(res);
+						}, onError);
+				});
+			return deferred;
+		}
+		catch(e){
+			dumpError("getTagUID",e);
 		}
 	}

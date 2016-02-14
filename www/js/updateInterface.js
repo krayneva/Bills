@@ -286,9 +286,9 @@ function updateTransactionPage(){
 					  html = html.replace(/\{isFavorites}/g,style);
 
 					 	var tagKeys = "";
-
+					  if ((json.receiptData!=null)&(json.receiptData!=undefined))
+						  if ((json.receiptData.Items!=null)&(json.receiptData.Items!=undefined))
 					 	for (var j=0; j<json.receiptData.Items.length; j++){
-
 							tagArray[tagCounter] = json.receiptData.Items[j].Tag;
 							tagCounter=tagCounter+1;
 							var tagValue = fullTagsArray[hashCode(json.receiptData.Items[j].Tag)];
