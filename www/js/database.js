@@ -144,10 +144,10 @@
    		 		+'(id integer primary key,name)');
 
    		 tx.executeSql('CREATE TABLE IF NOT EXISTS Categories'
-                   		 		+' (id integer primary key, idtext,name)');
+                   		 		+' (id integer primary key, uid, idtext,name)');
 
          tx.executeSql('CREATE TABLE IF NOT EXISTS Tags'
-                  +' (id integer primary key,name)');
+                  +' (id integer primary key,uid, name)');
 
          tx.executeSql('CREATE TABLE IF NOT EXISTS SubCategories'
           	+' (id integer primary key,idtext, name,category integer)');
@@ -396,13 +396,17 @@
 			var receiptImageID =  json.ReceiptImageID;
 			var searchText = json.Name+" ";
 
+			if ((json.receiptData!=null)&(json.receiptData!=undefined))
+				if ((json.receiptData.Items!=null)&(json.receiptData.Items!=undefined))
 			for (var i=0; i<json.receiptData.Items.length; i++){
 				var item = json.receiptData.Items[i];
 				searchText = searchText+ " " + item.ItemName;
 			}
 			searchText = searchText+" ";
-			for (var i=0; i<json.Tags.length; i++) {
-				searchText = searchText + " " + fullTagsArray[hashCode(json.Tags[i])];
+			if ((json.Tags!=null)&(json.Tags!=undefined)) {
+				for (var i = 0; i < json.Tags.length; i++) {
+					searchText = searchText + " " + fullTagsArray[hashCode(json.Tags[i])];
+				}
 			}
 			searchText = searchText.replace(/['"]+/mgi, '');
 			searchText = searchText.replace(/'/mgi,"");
@@ -540,7 +544,7 @@
 			p="-1 month";
 		if (period=="year")
 			p="-1 year";
-		alert("period is "+period);
+	//	alert("period is "+period);
 		try{
 			var deferred = $.Deferred();
 			db.transaction(
@@ -777,7 +781,22 @@
 			  dumpError("addSeveralShopLists",e);
 		  }			
     }
-    
+
+
+	function getAccountID(){
+		try{
+			var deferred = $.Deferred();
+			var accountID = "";
+			getUserEnvironment().done(function(res) {
+				accountID = jQuery.parseJSON(res).AccountID;
+				deferred.resolve(accountID);
+				});
+			}
+		catch(e){
+				dumpError("addSeveralShopLists",e);
+			}
+		return deferred;
+	}
     
     function createShopList(name){
     	try{
@@ -1226,6 +1245,26 @@
 	}
 
 
+
+	function addCategoryUID(id,uid){
+		try{
+			db.transaction(
+					function(transaction) {
+						transaction.executeSql(
+							"UPDATE Categories set uid='" +
+							uid
+							+"' where idtext='"+id+"'"
+						);},
+					function onError(error){
+						console.log("Error trying to addCategoryUID!");
+					},onSuccess);
+		}
+		catch(e){
+			dumpError("addCategoryUID",e);
+		}
+	}
+
+/*
     function addTag(id,name){
     	try{
     	    	 db.transaction(
@@ -1244,14 +1283,15 @@
 				dumpError("addTag",e);
              }
     }
-
+*/
 
 	function addTagInTransaction(id,name, transaction){
 		try{
 			transaction.executeSql(
-				"INSERT OR REPLACE INTO Tags (id, name) " +
+				"INSERT OR REPLACE INTO Tags (id,uid, name) " +
 				" values ('"
-				+hashCode(id)+"',"
+		+hashCode(id)+
+		"','"+id+"',"
 				+"'"+name+"')"
 			);
 		}
@@ -1353,6 +1393,24 @@
 			  dumpError("getGoodItems",e);
 		  }			
     }
+
+	function getTags(){
+		try{
+			var deferred = $.Deferred();
+			db.transaction(
+				function(transaction) {
+					transaction.executeSql("SELECT * FROM Tags", [],
+						function(transaction, result) {
+							deferred.resolve(result);
+						}, onError);
+				});
+			return deferred;
+		}
+		catch(e){
+			dumpError("getTags",e);
+		}
+	}
+
     
     
     function getGoodItemsCount(){
@@ -1532,32 +1590,13 @@
 
 	}
 
-	function getTagNameInTransaction(tagID, pos, len, transaction){
-		try{
-			var deferred = $.Deferred();
-			transaction.executeSql('SELECT name FROM Tags where id="'+hashCode(tagID)+'";', [],
-				function(transaction, result) {
-					if (result.rows.length != 0) {
-					//	console.log("tag name is "+result.rows.item(0).name);
-						deferred.resolve(result.rows.item(0).name);
-					}
-					else deferred.resolve("");
-				});
-		}
-		catch(e){
-			dumpError("getTagName",e);
-			deferred.resolve("");
-		}
-		return deferred;
-	}
-
 
          function getCategoryName(categoryID){
                  	try{
 					//	alert("categoryID "+categoryID);
          				var res = "";
          			    var deferred = $.Deferred();
-						var sql = 'SELECT name FROM Categories where id ='+(hashCode(categoryID))+';';
+						var sql = 'SELECT name FROM Categories where idtext ="'+categoryID+'";';
          				db.transaction(
          						function(transaction) {
          							transaction.executeSql(sql, [],
@@ -1652,6 +1691,29 @@
 			dumpError("getCategories",e);
 		}
 	}
+
+
+
+	function getFirstCategory() {
+		try {
+			var res = "";
+			var deferred = $.Deferred();
+			db.transaction(
+				function (transaction) {
+					transaction.executeSql('SELECT idtext FROM Categories limit 1;', [],
+						function (transaction, res) {
+							if (res.rows.length==0) deferred.resolve("");
+						//	alert(res.rows.item(0).idtext);
+							deferred.resolve(res.rows.item(0).idtext);
+						}, onError);
+				});
+			return deferred;
+		}
+		catch (e) {
+			dumpError("getFirstCategory", e);
+		}
+	}
+
 
 	function getFirstSubCategory(categoryID) {
 		try {
@@ -1837,3 +1899,53 @@ function deleteTransaction(transactionID){
 		}
 	return def;
 }
+
+	function getCategoryUID(categoryID){
+		try{
+			var res = "";
+			var deferred = $.Deferred();
+		//	alert(" categoryID is "+categoryID);
+			var sql = "SELECT uid FROM Categories where idtext='"+categoryID+"';";
+
+			db.transaction(
+				function(transaction) {
+					transaction.executeSql(sql, [],
+						function(transaction, result) {
+							if (result.rows.length!=0) {
+								res = result.rows.item(0).uid;
+							}
+
+							deferred.resolve(res);
+						}, onError);
+				});
+			return deferred;
+		}
+		catch(e){
+			dumpError("getCategoryID",e);
+		}
+	}
+
+
+	function getTagUID(tagID){
+		try{
+			var res = "";
+			var deferred = $.Deferred();
+			var sql = "SELECT uid FROM Tags where id='"+tagID+"';";
+
+			db.transaction(
+				function(transaction) {
+					transaction.executeSql(sql, [],
+						function(transaction, result) {
+							if (result.rows.length!=0) {
+								res = result.rows.item(0).uid;
+							}
+
+							deferred.resolve(res);
+						}, onError);
+				});
+			return deferred;
+		}
+		catch(e){
+			dumpError("getTagUID",e);
+		}
+	}

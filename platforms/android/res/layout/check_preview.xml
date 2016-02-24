@@ -4,12 +4,6 @@
               android:layout_height="match_parent"
         >
 
-    <TextView
-            android:id = "@+id/textViewPreview"
-            android:layout_width="wrap_content" android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:text="Оцените качество снимка"
-            />
 
     <LinearLayout
             android:id = "@+id/linearLayoutPreviewButtons"
@@ -22,13 +16,15 @@
             android:gravity="center_horizontal">
 
         <ImageButton android:id="@+id/buttonRecapture"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
-                     android:src="@drawable/button_cancel"/>
+                     android:layout_width="@dimen/buttonSize"
+                     android:layout_height="@dimen/buttonSize"
+                     android:src="@drawable/button_cancel"
+                android:scaleType="fitXY"/>
 
         <ImageButton android:id="@+id/buttonAccept"
-                     android:layout_width="wrap_content"
-                     android:layout_height="wrap_content"
+                     android:layout_width="@dimen/buttonSize"
+                     android:layout_height="@dimen/buttonSize"
+                     android:scaleType="fitXY"
                      android:src="@drawable/button_ok"/>
 
     </LinearLayout>
@@ -42,5 +38,14 @@
 
                android:id = "@+id/previewImage"/>
 
+    <TextView
+            android:id = "@+id/textViewPreview"
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:gravity = "center"
+            android:layout_gravity="center"
+            android:text="Оцените качество снимка"
+
+            />
 
 </RelativeLayout>

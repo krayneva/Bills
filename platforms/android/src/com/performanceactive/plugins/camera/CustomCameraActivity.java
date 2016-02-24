@@ -265,7 +265,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
             imagePreviewLayout.setLayoutParams(layoutParams);
             layout.addView(imagePreviewLayout);
             imagePreviewLayout.setVisibility(View.VISIBLE);
-
+            hideCameraButtons();
             acceptPreview = (ImageButton) imagePreviewLayout.findViewById(R.id.buttonAccept);
             recapturePreview = (ImageButton) imagePreviewLayout.findViewById(R.id.buttonRecapture);
             imagePreview  = (ImageView) findViewById(R.id.previewImage);
@@ -277,6 +277,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
                 @Override
                 public void onClick(View view) {
                     imagePreviewLayout.setVisibility(View.GONE);
+                    showCameraButtons();
                     b.recycle();
                     b = null;
                 }
@@ -286,11 +287,13 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
                 @Override
                 public void onClick(View view) {
                     imagePreviewLayout.setVisibility(View.GONE);
+                    showCameraButtons();
                     imagePreview.setImageBitmap(null);
                     recaptureLast();
                 }
             });
             imagePreviewLayout.setVisibility(View.GONE);
+            showCameraButtons();
         }
     }
 
@@ -417,6 +420,7 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         cameraPreviewView.addView(customCameraPreview);
         if (imagePreviewLayout!=null)
             imagePreviewLayout.setVisibility(View.GONE);
+        showCameraButtons();
     }
 
     private void displayImagePreviewView(){
@@ -742,8 +746,10 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
                   previousImage.setScaleType(ScaleType.FIT_END);
                   previousImage.setImageBitmap(previousBitmap);
                   imagePreview.setImageBitmap(b);
-                  if (showPreview)
-                    imagePreviewLayout.setVisibility(View.VISIBLE);
+                  if (showPreview) {
+                      imagePreviewLayout.setVisibility(View.VISIBLE);
+                      hideCameraButtons();
+                  }
                   //;!!!!!!!!!!!!!!!!!!!!!!!
                   //b.recycle();
                   System.gc();
@@ -771,23 +777,6 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
     	LinearLayout.LayoutParams buttonParams = new LinearLayout.LayoutParams(buttonSize, buttonSize);
     	buttonParams.setMargins(20, 0, 20, 0);
 
-
-        //
-       /* settingsButton = new ImageButton(this);
-        setBitmap(settingsButton, "settings256.png");
-        settingsButton.setBackgroundColor(Color.TRANSPARENT);
-        settingsButton.setScaleType(ScaleType.CENTER_INSIDE);
-
-        settingsButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(CustomCameraActivity.this, CameraSettingsActivity.class);
-
-                startActivityForResult(intent, REQUEST_CODE_SETTINGS_ACTIVITY);
-            }
-        });
-        panelLayout.addView(settingsButton, buttonParams);
-    	*/
     	recaptureButton = new ImageButton(this);
         setBitmap(recaptureButton, "esc256.png");
       	recaptureButton.setBackgroundColor(Color.TRANSPARENT);
@@ -826,14 +815,8 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
         setBitmap(sendButton, "send256.png");
         sendButton.setBackgroundColor(Color.TRANSPARENT);
         sendButton.setScaleType(ScaleType.CENTER_INSIDE);
-    	
-    /*	sendButton.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                setCaptureButtonImageForEvent(event);
-                return false;
-            }
-        });*/
+
+
         sendButton.setOnClickListener(new View.OnClickListener() {
         @Override
          public void onClick(View v) {
@@ -1497,6 +1480,26 @@ public class CustomCameraActivity extends Activity implements OnLongClickListene
             exitButton.setAlpha(1f);
             settingsButton.setAlpha(1f);
         }
+    }
+
+
+    private void showCameraButtons(){
+        captureButton.setVisibility(View.VISIBLE);
+        sendButton.setVisibility(View.VISIBLE);
+        recaptureButton.setVisibility(View.VISIBLE);
+        flashButton.setVisibility(View.VISIBLE);
+        exitButton.setVisibility(View.VISIBLE);
+        settingsButton.setVisibility(View.VISIBLE);
+    }
+
+
+    private void hideCameraButtons(){
+        captureButton.setVisibility(View.GONE);
+        sendButton.setVisibility(View.GONE);
+        recaptureButton.setVisibility(View.GONE);
+        flashButton.setVisibility(View.GONE);
+        exitButton.setVisibility(View.GONE);
+        settingsButton.setVisibility(View.GONE);
     }
 
     private void disableCaptureButton(){

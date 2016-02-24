@@ -8,10 +8,10 @@ var transactionID;
 var transactionJSON ;
 var editedJSON;
 
+var isInCreateMode = false;
+
 function updateCheckPage(){
-
     try{
-
         var receiptID = window.localStorage.getItem(RECEIPT_ID_KEY);
         transactionID  = window.localStorage.getItem(TRANSACTION_ID_KEY);
         $('#sendFeedbackButton').click(function()
@@ -33,21 +33,30 @@ function updateCheckPage(){
             $('#modal').hide();
             $('.my-modal').hide();
         });
-
-        getTransaction(transactionID).done(function(res) {
-            var js = jQuery.parseJSON(res.rows.item(0).transactionJSON);
-            var row = res.rows.item(0);
-
-            if ((row.isFav == 1) || (row.isFav == '1'))
-                js.isFav = true;
-            else
-                js.isFav = false;
-
-            transactionJSON = JSON.parse(JSON.stringify(js));
-            editedJSON = JSON.parse(JSON.stringify(js));;
-            refreshPage(transactionJSON);
-        });
-
+        if ((transactionID!="null")&(transactionID!=null)) {
+            initEditMode();
+            getTransaction(transactionID).done(function (res) {
+                var js = jQuery.parseJSON(res.rows.item(0).transactionJSON);
+              //  alert(res.rows.item(0).transactionJSON);
+                var row = res.rows.item(0);
+                if ((row.isFav == 1) || (row.isFav == '1'))
+                    js.isFav = true;
+                else
+                    js.isFav = false;
+                transactionJSON = JSON.parse(JSON.stringify(js));
+                editedJSON = JSON.parse(JSON.stringify(js));
+                ;
+                refreshPage(transactionJSON);
+            });
+        }
+        else{
+            initCreateMode();
+            getDummyJSON().done(function(res){
+                transactionJSON = res;
+                editedJSON = transactionJSON;
+                refreshPage(transactionJSON);
+            });
+        }
         $(document).ready(function()
         {
             $('#select-native-0-button').prepend('<img src="images/img.jpg" alt="" id = "leftImage">');
@@ -114,16 +123,18 @@ function updateCheckPage(){
 
             $('#select-native-0').change(function() {
 
-                changeCategory($('#select-native-0').val());
+                changeCategory($('#select-native-0').val()).done(function(){
+
                     var category = $('#select-native-0').val();
                     var image = getCategoryImage(category);
-                    $('#leftImage').attr("src",image);
+                    $('#leftImage').attr("src", image);
                     $('#select-native-0').selectmenu("refresh", "true");
-                    getFirstSubCategory(category).done(function (res){
+                    getFirstSubCategory(category).done(function (res) {
                         //refreshSubCategoryCombo(res);
                         changeSubCategory(res);
                         refreshPage(editedJSON);
                     });
+                });
         });
 
         $('.save').click(function()
@@ -215,6 +226,8 @@ function updateCheckPage(){
 
 
 function refreshPage(js){
+  //  alert(JSON.stringify(js));
+   // $("#autocomplete").html('');
     if ((js.Coords!=undefined)&(js.Coords!=null)&(js.Coords!="null")) {
         var lat = js.Coords.Latitude;
         var lon = js.Coords.Longitude;
@@ -252,7 +265,7 @@ function refreshPage(js){
 
         getCategories().done(function(res){
             for (var j=0;j<res.rows.length;j++){
-                if (js.Category==res.rows.item(j).id) continue;
+                if (hashCode(js.Category)==res.rows.item(j).id) continue;
                 var html111 = $('#categoryRowTemplate').html();
                 html111 = html111.replace(/\{catName\}/g,res.rows.item(j).name);
                 html111 = html111.replace(/\{catValue\}/g,res.rows.item(j).idtext);
@@ -281,28 +294,30 @@ function refreshPage(js){
     // tags
 
 
-    $('#tagsList').html('');
-    for (var k=0; k<js.Tags.length; k++){
-        var html3 = $('#tagRowTemplate').html();
-        html3 = html3.replace(/\{tagName\}/g,fullTagsArray[hashCode(js.Tags[k])]);
-        $('#tagsList').append(html3);
+    if ((js.Tags!=undefined)&(js.Tags!=null)) {
+        $('#tagsList').html('');
+      //  alert("tag array len is "+js.Tags.length);
+        for (var k = 0; k < js.Tags.length; k++) {
+            var html3 = $('#tagRowTemplate').html();
+            html3 = html3.replace(/\{tagName\}/g, fullTagsArray[hashCode(js.Tags[k])]);
+            html3 = html3.replace(/\{tagID\}/g, js.Tags[k]);
+            $('#tagsList').append(html3);
+        }
     }
 
 
-
     //checkDetails
-    var tableHTML="";
-    $("#checkDetailstable > tbody").html('');
-    for (var p=0; p< js.receiptData.Items.length; p++){
-        var html5='<tr class="one-detail"><td>{positionName}</td><td><span>{positionCost}</span></td><td>{positionTag}</td></tr>' ;
+    if ((js.receiptData!=null)&(js.receiptData.Items!=undefined)&(js.receiptData.Items!=null)) {
+        var tableHTML = "";
+        $("#checkDetailstable > tbody").html('');
+        for (var p = 0; p < js.receiptData.Items.length; p++) {
+            var html5 = '<tr class="one-detail"><td>{positionName}</td><td><span>{positionCost}</span></td><td>{positionTag}</td></tr>';
 
-        html5 = html5.replace(/\{positionName\}/g,js.receiptData.Items[p].ItemName);
-        html5 = html5.replace(/\{positionCost\}/g,formatPrice(js.receiptData.Items[p].Value));
-        html5 = html5.replace(/\{positionTag\}/g,fullTagsArray[hashCode(js.receiptData.Items[p].Tag)]);
-        $('#checkDetailstable > tbody').append(html5);
-
-
-
+            html5 = html5.replace(/\{positionName\}/g, js.receiptData.Items[p].ItemName);
+            html5 = html5.replace(/\{positionCost\}/g, formatPrice(js.receiptData.Items[p].Value));
+            html5 = html5.replace(/\{positionTag\}/g, fullTagsArray[hashCode(js.receiptData.Items[p].Tag)]);
+            $('#checkDetailstable > tbody').append(html5);
+        }
     }
 
 
@@ -364,9 +379,92 @@ function refreshPage(js){
         }
 
     });
+}
+
+
+function getDummyJSON(){
+    var deferred = $.Deferred();
+
+    getFirstCategory().done(function(res) {
+        transactionJSON = new Object();
+        transactionJSON.isFav = false;
+        transactionJSON.Name = "Наименование транзакции";
+        transactionJSON.Shop = "Наименование магазина";
+        transactionJSON.Amount = 0;
+        transactionJSON.receiptData = new Object();
+        transactionJSON.receiptData.TotalTax=0;
+        transactionJSON.Category = res;
+        var date = new Date();
+        // TODO разобраться с таймзоной
+        var s = date.toISOString().substr(0,date.toISOString().length-1)+"+00:00";
+        transactionJSON.TransactionDate = s;
+        getFirstSubCategory(transactionJSON.Category).done(function(res){
+            transactionJSON.SubCategory = res;
+            getCategoryUID(transactionJSON.Category).done(function(res){
+                transactionJSON.CategoryID = res;
+                getAccountID().done(function(res){
+                    transactionJSON.AccountID = res;
+                    deferred.resolve(transactionJSON);
+                });
+            });
+        });
+    });
+    return deferred;
+}
+
+
+
+function initEditMode(){
+    isInCreateMode = false;
+}
+
+
+function initCreateMode(){
+    isInCreateMode = true;
+
+   showButtonsForCreateMode();
+
+
+    getTags().done(function(res){
+        for (var i=0; i<res.rows.length; i++){
+            var row = res.rows.item(i);
+            $('#autocomplete').append("<li id='autoRow"+i+"'class = 'autoLi' tagid="+row.id+">"+row.name+"</li>");
+        }
+        $( "#autocomplete").hide();
+        $( "#autocomplete" ).on( "filterablebeforefilter", function ( e, data ) {
+            var $ul = $( this ),
+                $input = $( data.input ),
+                value = $input.val();
+            if ( value && value.length > 1 ) {
+                $( "#autocomplete").show();
+            }
+        });
+
+        $('#autocomplete').listview('refresh');
+        $(".autoLi").click(function(){
+            var tagID = this.getAttribute("tagid");
+            $( "#inset-autocomplete-input").val(this.innerHTML);
+            $( "#autocomplete").hide();
+            addTag(tagID);
+            $( "#inset-autocomplete-input").val('');
+            return false;
+        });
+
+    });
+
+       $("#inset-autocomplete-input").bind('focus', function(e){
+            $("#pageCheck").css({'top': -keyboardHeight});
+     });
+
+     $("#inset-autocomplete-input").bind('blur', function(e){
+        $("#pageCheck").css({'top': 0});
+        return false;
+     });
+
 
 
 }
+
 
 function refreshSubCategoryCombo(subcategory){
     var html1 = $('#categoryRowTemplate').html();
@@ -399,7 +497,7 @@ function refreshSubCategoryCombo(subcategory){
 
     $('#select-native-1').change(function() {
        //changeSubCategory(transactionID, $('#select-native-1').val());
-        editedJSON.Subcategory =  $('#select-native-1').val();
+        editedJSON.SubCategory =  $('#select-native-1').val();
         refreshPage(editedJSON);
     });
 }
@@ -447,8 +545,14 @@ function changeTax(tax){
 }
 
 function changeCategory(category){
-    editedJSON.Category = category;
-
+    var deferred = $.Deferred();
+    getCategoryUID(category).done(function(res){
+      //  alert("changed category uid to "+res);
+        editedJSON.CategoryID = res;
+        editedJSON.Category = category;
+        deferred.resolve();
+    });
+    return deferred;
 }
 
 function changeSubCategory(subCategory){
@@ -457,10 +561,32 @@ function changeSubCategory(subCategory){
 
 
 
-function deleteTag(){
-
+function deleteTag(tagID){
+    var deferred = $.Deferred();
+    getTagUID(tagID).done(function(res){
+        var tagUID = res;
+        var index = editedJSON.Tags.indexOf(tagUID);
+        editedJSON.Tags.splice(index, 1);
+        refreshPage(editedJSON);
+        deferred.resolve();
+    });
+    return deferred;
 }
 
+
+function addTag(tagID){
+    var deferred = $.Deferred();
+    getTagUID(tagID).done(function(res){
+       var tagUID = res;
+        if ((editedJSON.Tags==null)|(editedJSON.Tags==undefined)) {
+            editedJSON.Tags = new Array();
+        }
+        editedJSON.Tags.push(tagUID);
+        refreshPage(editedJSON);
+        deferred.resolve();
+    });
+  return deferred;
+}
 
 
 
@@ -474,8 +600,11 @@ function saveChanges(){
         return;
     }
     transactionJSON = JSON.parse(JSON.stringify(editedJSON));
-    saveTransaction(transactionID,transactionJSON);
-
+   // alert(JSON.stringify(editedJSON));
+    if (isInCreateMode)
+        saveTransaction(-1,transactionJSON);
+    else
+        saveTransaction(transactionID,transactionJSON);
     hideSaveButtons();
 }
 
@@ -486,11 +615,29 @@ function discardChanges(){
     hideSaveButtons();
 }
 
-//TODO переделать на toggle!!!
-function showSaveButtons(){
+
+function showButtonsForCreateMode(){
+    $("#autocompletediv").css('display','block');
+    $("#autocomplete").html();
+    $('.discard').css('display','none');
     $('.message').css('display','none');
     $('.save').css('display','block');
-    $('.discard').css('display','block');
+    $('.deleteTransaction').css('display','none');
+    $("#check-photo").css('display','none');
+    $("#check-details").css('display','none');
+    $("#check-map").css('display','none');
+
+}
+
+
+
+//TODO переделать на toggle!!!
+function showSaveButtons() {
+    if (!isInCreateMode) {
+        $('.message').css('display', 'none');
+        $('.save').css('display', 'block');
+        $('.discard').css('display', 'block');
+    }
 }
 
 function hideSaveButtons(){
